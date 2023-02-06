@@ -18,8 +18,8 @@ if __name__ == '__main__':
 
     opts, args = getopt.getopt(sys.argv[1:], "fhn:m:s:o", ["entries=", "mu=", "sigma=", "output="])
     for opt, arg in opts:
-        if opt == '-h':
-            print('random_input_numbers.py -n <nr_of_entries> -m <value_of_mu> -s <value_of_sigma> [-f]')
+        if opt == "-h":
+            print("random_input_numbers.py -n <nr_of_entries> -m <value_of_mu> -s <value_of_sigma> [-f]")
             sys.exit()
         elif opt in ("-n", "--entries"):
             nr_of_entries = int(arg)
@@ -33,13 +33,15 @@ if __name__ == '__main__':
             floating_format = True
 
     print("Generation parameters")
-    print('Entries:', nr_of_entries)
-    print('Mu', mu)
-    print('Sigma', sigma)
-    print('Output file', output_file)
+    print("Entries:", nr_of_entries)
+    print("Mu", mu)
+    print("Sigma", sigma)
+    print("Output file", output_file)
+
+    header = f"{nr_of_entries}"
 
     s = np.random.normal(mu, sigma, nr_of_entries)
     if floating_format:
-        np.savetxt(output_file,s)
+        np.savetxt(output_file, s, header=header, comments="")
     else:
-        np.savetxt(output_file,s, fmt="%+1i")
+        np.savetxt(output_file, s, fmt="%+1i", header=header, comments="")
