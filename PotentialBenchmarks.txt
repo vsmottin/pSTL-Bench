@@ -1,0 +1,30 @@
+=================
+GROUPS:
+=================
+
+# Benchmark B1
+# Nested loops in std::for_each (n -> nlog(n) -> n^2)
+Why https://stackoverflow.com/a/71812379/7835214
+> I prefer TBB for complex and nested parallelism over OpenMP.(OpenMP has a huge over-head for the nested parallelism)
+
+# Benchmark B2
+# Different data types in reduce 
+Why https://stackoverflow.com/questions/4763455/data-type-size-impact-on-performance
+Depending on the size of the datatype we can have more in cache. 
+
+# Benchmark B3
+# Force cache misses by 1) having unpredictable branches 2) std::atomic (accessing shared variable) 3) false sharing (cache line invalidating)
+
+# Benchmark B4 
+# CUTOFFS
+# since cutoffs are quite low we have to have a complex compare algorithm
+# Some functions like merge have cutoffs in stdlibc++ where they use the serial implementation 
+* Merge https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_backend_tbb.h#L1251 (seems to be #define _PSTL_MERGE_CUT_OFF 2000)
+* Stable sort https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_backend_tbb.h#L1118 (seems to be #define _PSTL_STABLE_SORT_CUT_OFF 500)
+
+# Benchmark B5
+# Interessting approaches to simple problems
+* gcc implementation of std::find has comment that maybe there is room for improvements https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_impl.h#L29
+
+# Benchmark B6
+# Inclusive_sum/exclusive . Because it's such an important alogirhtm that is building block for so many parallel Algos. https://escholarship.org/content/qt6j57h5zw/qt6j57h5zw.pdf 
