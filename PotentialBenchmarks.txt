@@ -27,4 +27,5 @@ Depending on the size of the datatype we can have more in cache.
 * gcc implementation of std::find has comment that maybe there is room for improvements https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_impl.h#L29
 
 # Benchmark B6
-# Inclusive_sum/exclusive . Because it's such an important alogirhtm that is building block for so many parallel Algos. https://escholarship.org/content/qt6j57h5zw/qt6j57h5zw.pdf 
+# Inclusive_scan/exclusive . Because it's such an important alogirhtm that is building block for so many parallel Algos. https://escholarship.org/content/qt6j57h5zw/qt6j57h5zw.pdf 
+# what we try to find out, at what size do they start using simd only for c20 (https://en.algorithmica.org/hpc/algorithms/prefix/), par, etc.  
