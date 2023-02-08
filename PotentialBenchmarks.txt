@@ -3,7 +3,7 @@ GROUPS:
 =================
 
 # Benchmark B1
-# Nested loops in std::for_each (n -> nlog(n) -> n^2)
+# Nested (parallel) loops in std::for_each (n -> nlog(n) -> n^2)
 Why https://stackoverflow.com/a/71812379/7835214
 > I prefer TBB for complex and nested parallelism over OpenMP.(OpenMP has a huge over-head for the nested parallelism)
 
@@ -23,9 +23,26 @@ Depending on the size of the datatype we can have more in cache.
 * Stable sort https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_backend_tbb.h#L1118 (seems to be #define _PSTL_STABLE_SORT_CUT_OFF 500)
 
 # Benchmark B5
-# Interessting approaches to simple problems
+# Interessting approaches to simple problems (it is actually linear solvable but maybe they found a nice parallelism trick)
 * gcc implementation of std::find has comment that maybe there is room for improvements https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_impl.h#L29
 
 # Benchmark B6
 # Inclusive_scan/exclusive . Because it's such an important alogirhtm that is building block for so many parallel Algos. https://escholarship.org/content/qt6j57h5zw/qt6j57h5zw.pdf 
-# what we try to find out, at what size do they start using simd only for c20 (https://en.algorithmica.org/hpc/algorithms/prefix/), par, etc.  
+# what we try to find out, at what size do they start using simd (only for c20 because unseq is c20) (https://en.algorithmica.org/hpc/algorithms/prefix/), par, etc.  
+
+# Benchmark B7 
+# Copy_if logic with std::foreach and once with actual std::copy_if
+The goal is to see is there a difference between writing the operation and managing the values by yourself or not. 
+Seems there are differences
+
+# Benchmark B8
+# just call std::reduce with ints and transform_reduce large structs(512 bytes maybe).   Because in reduce the chunking and the scheduling is totally work of the library and not of the standard.
+Can we draw conclusions from the benchmarks of the chunking etc?
+> https://github.com/oneapi-src/oneTBB/blob/0cf592bd62fd4b9673b0f7ea9964c4ec9f80b994/include/oneapi/tbb/parallel_reduce.h#L562
+> https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_backend_tbb.h#L116
+
+> We can't control the chunking size etc because this comes from the stl. https://oneapi-src.github.io/oneTBB/main/tbb_userguide/Controlling_Chunking_os.html
+
+# Benchmark B9
+# std::minmax_element because there is no straight reference standard implementation. For example gcc (stdlibc++) uses under the hood (tbb) reduce.
+> https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/algorithm_impl.h#L3497
