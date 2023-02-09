@@ -1,6 +1,3 @@
 [submodule "ext/google-benchmark"]
 	path = ext/google-benchmark
 	url = git@github.com:google/benchmark.git
-[submodule "ext/tbb"]
-	path = ext/tbb
-	url = git@github.com:oneapi-src/oneTBB.git
