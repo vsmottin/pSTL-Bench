@@ -6,7 +6,7 @@
 template<class ExecutionPolicy>
 void for_each_linear(ExecutionPolicy &policy, const std::vector<int> &input_data) {
 
-    std::for_each(policy, input_data.begin(), input_data.end(), [](const auto &entry) {
+    std::for_each(policy, input_data.begin(), input_data.end(), [](auto &entry) {
         entry = entry + 10;
     });
 
