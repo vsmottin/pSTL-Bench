@@ -14,7 +14,7 @@ add_executable(${PROJECT_NAME}
         src/main.cpp)
 
 
-find_package(TBB REQUIRED) # for gcc only
+#find_package(TBB REQUIRED) # for gcc only
 add_subdirectory(ext/google-benchmark)
 
 target_include_directories(${PROJECT_NAME}
@@ -24,5 +24,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
         PRIVATE benchmark
-        PUBLIC TBB::tbb # for gcc only
+        #PUBLIC TBB::tbb # for gcc only
         )
+
+target_link_options(${PROJECT_NAME} PRIVATE "SHELL:-ltbb")
