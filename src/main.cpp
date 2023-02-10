@@ -1,41 +1,31 @@
 #include <benchmark/benchmark.h>
 #include "benchmarks/b1/b1_for_each_linear.h"
+#include <execution>
+
 
 static void b1_for_each_linear_seq(benchmark::State &state) {
-    // Perform setup here
+
+    std::vector<int> x(state.range(0), 1);
+
     for (auto _: state) {
-        // This code gets timed
-        state.PauseTiming();
-
-        std::vector<int> x(state.range(0), 1);
-
-        state.ResumeTiming();
         b1_for_each_linear(std::execution::seq, x);
     }
 }
 
 static void b1_for_each_linear_par(benchmark::State &state) {
-    // Perform setup here
+
+    std::vector<int> x(state.range(0), 1);
+
     for (auto _: state) {
-        // This code gets timed
-        state.PauseTiming();
-
-        std::vector<int> x(state.range(0), 1);
-
-        state.ResumeTiming();
         b1_for_each_linear(std::execution::par, x);
     }
 }
 
 static void b1_for_each_linear_par_unseq(benchmark::State &state) {
-    // Perform setup here
+
+    std::vector<int> x(state.range(0), 1);
+
     for (auto _: state) {
-        // This code gets timed
-        state.PauseTiming();
-
-        std::vector<int> x(state.range(0), 1);
-
-        state.ResumeTiming();
         b1_for_each_linear(std::execution::par_unseq, x);
     }
 }
