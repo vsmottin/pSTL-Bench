@@ -1,5 +1,5 @@
-#ifndef MASTER_BENCHMARKS_B1_FOR_EACH_LINEAR_H
-#define MASTER_BENCHMARKS_B1_FOR_EACH_LINEAR_H
+#ifndef MASTER_BENCHMARKS_B1_1_FOR_EACH_LINEAR_H
+#define MASTER_BENCHMARKS_B1_1_FOR_EACH_LINEAR_H
 
 
 #include <vector>
@@ -17,4 +17,4 @@ inline void b1_1_for_each_linear(ExecutionPolicy &policy, const std::vector<int>
 
 }
 
-#endif //MASTER_BENCHMARKS_B1_FOR_EACH_LINEAR_H
+#endif //MASTER_BENCHMARKS_B1_1_FOR_EACH_LINEAR_H
