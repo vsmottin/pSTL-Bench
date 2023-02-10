@@ -31,7 +31,7 @@ int main() {
         std::vector<int> x(1000, 1);
         const auto s1 = std::chrono::high_resolution_clock::now();
 
-        b1_for_each_linear(std::execution::par, x);
+        b1_1_for_each_linear(std::execution::par, x);
 
         const auto d1 = std::chrono::duration_cast<TIME_PRECISION>(
                 std::chrono::high_resolution_clock::now() - s1);
