@@ -20,3 +20,9 @@ cmake -DCMAKE_MAKE_PROGRAM=ninja -DCMAKE_CXX_COMPILER=g++ -G Ninja -DCMAKE_CXX_F
 cmake --build cmake-build-debug --target master_benchmarks -j 8
 ```
 
+### FLAGS
+
+The build systems with CMAKE provides a set of flags you can set to customize the build.
+
+* `-CBENCHMARK_PREFIX` allows to set a prefix for every benchmark (e.g. `-CBENCHMARK_PREFIX=nvhpc_multicore` will result
+  in `nvhpc_multicore_B1_NAME`)

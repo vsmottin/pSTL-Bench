@@ -7,6 +7,7 @@
 #include "b1_1_for_each_linear.h"
 #include "b1_2_for_each_quadratic.h"
 #include "b1_3_for_each_exponential.h"
+#include "../benchmark_prefix.h"
 
 //region b1_1_for_each_linear
 
@@ -102,19 +103,18 @@ static void b1_3_for_each_exponential_par_unseq(benchmark::State &state) {
 #define B1_GROUP_BENCHMARKS \
                             \
                             \
-    BENCHMARK(b1_1_for_each_linear_seq)->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK(b1_1_for_each_linear_par)->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK(b1_1_for_each_linear_par_unseq)->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+    BENCHMARK(b1_1_for_each_linear_seq)->Name(BENCHMARK_NAME("b1_1_for_each_linear_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+    BENCHMARK(b1_1_for_each_linear_par)->Name(BENCHMARK_NAME("b1_1_for_each_linear_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+    BENCHMARK(b1_1_for_each_linear_par_unseq)->Name(BENCHMARK_NAME("b1_1_for_each_linear_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
                              \
                              \
-    BENCHMARK(b1_2_for_each_quadratic_seq)->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
-    BENCHMARK(b1_2_for_each_quadratic_par)->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
-    BENCHMARK(b1_2_for_each_quadratic_par_unseq)->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
+    BENCHMARK(b1_2_for_each_quadratic_seq)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
+    BENCHMARK(b1_2_for_each_quadratic_par)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
+    BENCHMARK(b1_2_for_each_quadratic_par_unseq)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
                             \
                             \
-    BENCHMARK(b1_3_for_each_exponential_seq)->RangeMultiplier(2)->Range(1 << 2, 1 << 5); \
-    BENCHMARK(b1_3_for_each_exponential_par)->RangeMultiplier(2)->Range(1 << 2, 1 << 5); \
-    BENCHMARK(b1_3_for_each_exponential_par_unseq)->RangeMultiplier(2)->Range(1 << 2, 1 << 5); \
-
+    BENCHMARK(b1_3_for_each_exponential_seq)->Name(BENCHMARK_NAME("b1_3_for_each_exponential_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 5); \
+    BENCHMARK(b1_3_for_each_exponential_par)->Name(BENCHMARK_NAME("b1_3_for_each_exponential_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 5); \
+    BENCHMARK(b1_3_for_each_exponential_par_unseq)->Name(BENCHMARK_NAME("b1_3_for_each_exponential_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 5);
 
 #endif //MASTER_BENCHMARKS_B1_GROUP_H

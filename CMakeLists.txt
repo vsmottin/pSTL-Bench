@@ -9,6 +9,9 @@ file(GLOB SOURCES
         src/*.cpp
         )
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++20")
+add_compile_definitions(BENCHMARK_PREFIX=${BENCHMARK_PREFIX})
+
 add_executable(${PROJECT_NAME}
         ${SOURCES}
         src/main.cpp)
@@ -30,6 +33,5 @@ if (CMAKE_COMPILER_IS_GNUCXX)
     find_package(TBB REQUIRED) # for gcc only
 endif ()
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++20")
 
 #target_compile_options(${PROJECT_NAME} PRIVATE -O3) # TODO: find way to integrate optimization
