@@ -27,5 +27,5 @@ target_link_libraries(${PROJECT_NAME}
         )
 find_package(TBB REQUIRED) # for gcc only [TODO: find better way to do this]
 
-target_link_options(${PROJECT_NAME} PRIVATE "SHELL:-O3")
+target_compile_options(${PROJECT_NAME} PRIVATE -O3)
 #target_link_options(${PROJECT_NAME} PRIVATE "SHELL:-ltbb")
