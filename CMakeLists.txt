@@ -27,5 +27,6 @@ target_link_libraries(${PROJECT_NAME}
         )
 find_package(TBB REQUIRED) # for gcc only [TODO: find better way to do this]
 
-target_compile_options(${PROJECT_NAME} PRIVATE -O3)
+#target_compile_options(${PROJECT_NAME} PRIVATE -O3) # TODO: find way to integrate optimization
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 #target_link_options(${PROJECT_NAME} PRIVATE "SHELL:-ltbb")
