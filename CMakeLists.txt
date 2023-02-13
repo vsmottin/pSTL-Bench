@@ -21,13 +21,15 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
         PRIVATE benchmark
-        PUBLIC TBB::tbb # for gcc only [TODO: find better way to do this]
         )
-find_package(TBB REQUIRED) # for gcc only [TODO: find better way to do this]
 
+if (CMAKE_COMPILER_IS_GNUCXX)
+    target_link_libraries(${PROJECT_NAME}
+            PUBLIC TBB::tbb # for gcc only
+            )
+    find_package(TBB REQUIRED) # for gcc only
+endif ()
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++20")
 
 #target_compile_options(${PROJECT_NAME} PRIVATE -O3) # TODO: find way to integrate optimization
-
-#target_link_options(${PROJECT_NAME} PRIVATE "SHELL:-ltbb")
