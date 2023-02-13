@@ -24,5 +24,5 @@ cmake --build cmake-build-debug --target master_benchmarks -j 8
 
 The build systems with CMAKE provides a set of flags you can set to customize the build.
 
-* `-CBENCHMARK_PREFIX` allows to set a prefix for every benchmark (e.g. `-CBENCHMARK_PREFIX=nvhpc_multicore` will result
+* `-DBENCHMARK_PREFIX` allows to set a prefix for every benchmark (e.g. `-DBENCHMARK_PREFIX=nvhpc_multicore` will result
   in `nvhpc_multicore_B1_NAME`)
