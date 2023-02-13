@@ -12,6 +12,12 @@ Why https://stackoverflow.com/a/71812379/7835214
 Why https://stackoverflow.com/questions/4763455/data-type-size-impact-on-performance
 Depending on the size of the datatype we can have more in cache. 
 
+As far as I can see the size of data types is architecture and compiler dependent (https://stackoverflow.com/a/2331846/7835214). The only thing mentioned in the c++ standard is that char has to be 1 byte and the ranges other data types have to support (https://www.open-std.org/JTC1/SC22/WG14/www/docs/n1256.pdf  https://stackoverflow.com/questions/589575/what-does-the-c-standard-state-the-size-of-int-long-type-to-be).
+
+NVC++ data type sizes: https://docs.nvidia.com/hpc-sdk/compilers/hpc-compilers-ref-guide/#data-types-c-cpp
+
+
+
 # Benchmark B3
 # Force cache misses by 1) having unpredictable branches 2) std::atomic (accessing shared variable) 3) false sharing (cache line invalidating)
 
