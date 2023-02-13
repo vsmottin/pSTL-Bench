@@ -13,13 +13,11 @@ add_executable(${PROJECT_NAME}
         ${SOURCES}
         src/main.cpp)
 
-
 add_subdirectory(ext/google-benchmark)
 
 target_include_directories(${PROJECT_NAME}
         PRIVATE ext/google-benchmark/include
         )
-
 
 target_link_libraries(${PROJECT_NAME}
         PRIVATE benchmark
@@ -27,6 +25,9 @@ target_link_libraries(${PROJECT_NAME}
         )
 find_package(TBB REQUIRED) # for gcc only [TODO: find better way to do this]
 
+
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++20")
+
 #target_compile_options(${PROJECT_NAME} PRIVATE -O3) # TODO: find way to integrate optimization
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+
 #target_link_options(${PROJECT_NAME} PRIVATE "SHELL:-ltbb")
