@@ -3,11 +3,17 @@
 #define MASTER_BENCHMARKS_B3_GROUP_H
 
 #include <benchmark/benchmark.h>
+#include <cassert>
 #include <execution>
 #include <iostream>
+
+#include "../benchmark_utils.h"
 #include "../benchmark_prefix.h"
 #include "b3_1_expensive_branching.h"
 #include "b3_2_expensive_branching_annotated.h"
+#include "b3_3_expensive_sharing.h"
+#include "b3_4_no_expensive_sharing.h"
+
 
 //region b3_1_expensive_branching
 
@@ -24,6 +30,10 @@ static void b3_1_expensive_branching_fail(benchmark::State &state) {
     }
 }
 
+//endregion b3_1_expensive_branching
+
+//region b3_2_expensive_branching_annotated
+
 template<class Policy>
 static void b3_2_expensive_branching_annotated_success(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
@@ -37,8 +47,48 @@ static void b3_2_expensive_branching_annotated_success(benchmark::State &state) 
     }
 }
 
+//endregion b3_2_expensive_branching_annotated
 
-//endregion b3_1_expensive_branching
+//region b3_3_expensive_sharing
+
+template<class Policy>
+static void b3_3_expensive_sharing_wrapper(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto size = state.range(0);
+    std::vector<int> x(generate_random_dist_vec<int>(size));
+
+    for (auto _: state) {
+        const auto count = b3_3_expensive_sharing(execution_policy, x);
+
+        state.PauseTiming();
+        assert((count == size));
+        state.ResumeTiming();
+    }
+}
+
+//endregion b3_3_expensive_sharing
+
+//region b3_4_no_expensive_sharing
+
+template<class Policy>
+static void b3_4_no_expensive_sharing_wrapper(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto size = state.range(0);
+    std::vector<int> x(generate_random_dist_vec<int>(size));
+
+    for (auto _: state) {
+        const auto count = b3_4_no_expensive_sharing(execution_policy, x);
+
+        state.PauseTiming();
+        assert((count == size));
+        state.ResumeTiming();
+    }
+}
+
+//endregion b3_4_no_expensive_sharing
+
 
 // Register the function as a benchmark
 #define B3_GROUP_BENCHMARKS \
@@ -49,6 +99,16 @@ static void b3_2_expensive_branching_annotated_success(benchmark::State &state) 
                             \
         BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
         BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);
+        BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b3_3_expensive_sharing_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_3_expensive_sharing_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_3_expensive_sharing_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_3_expensive_sharing_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b3_3_expensive_sharing_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_3_expensive_sharing_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);       \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b3_4_no_expensive_sharing_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_4_no_expensive_sharing_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_4_no_expensive_sharing_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_4_no_expensive_sharing_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b3_4_no_expensive_sharing_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_4_no_expensive_sharing_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);
 
 #endif //MASTER_BENCHMARKS_B3_GROUP_H
