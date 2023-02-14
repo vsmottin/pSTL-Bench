@@ -15,7 +15,7 @@ inline void b1_2_for_each_quadratic(ExecutionPolicy &policy, const std::vector<i
 
         // nested parallel loop with same strategy
         std::for_each(policy, input_data.begin(), input_data.end(), [&e1](const auto &e2) {
-            return std::tan(e1) + std::cos(e2);
+            return benchmark::DoNotOptimize(std::tan(e1) + std::cos(e2));
         });
 
     });

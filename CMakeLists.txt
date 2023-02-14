@@ -34,4 +34,4 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 endif ()
 
 
-#target_compile_options(${PROJECT_NAME} PRIVATE -O3) # TODO: find way to integrate optimization
+target_compile_options(${PROJECT_NAME} PRIVATE -O3) # TODO: find way to integrate optimization
