@@ -5,6 +5,7 @@
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <ctime>
 
 #define DEFAULT_MU 100
 #define DEFAULT_SIGMA 10
