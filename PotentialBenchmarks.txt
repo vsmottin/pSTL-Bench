@@ -52,3 +52,11 @@ Can we draw conclusions from the benchmarks of the chunking etc?
 # Benchmark B9
 # std::minmax_element because there is no straight reference standard implementation. For example gcc (stdlibc++) uses under the hood (tbb) reduce.
 > https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/algorithm_impl.h#L3497
+
+# Benchmark B10
+# Does closure type of lambdas change performance when using parallel algos? Is there something we can improve?? The standard allows us to do stuff as long as it does not change the intention. 
+https://stackoverflow.com/a/32898379/7835214
+https://github.com/cplusplus/draft/blob/main/papers/n4431.pdf
+
+# Benchmark B11
+# What algos make use of simd efficiently? Reduce etc
