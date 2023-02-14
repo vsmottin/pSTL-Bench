@@ -24,6 +24,8 @@ NVC++ data type sizes: https://docs.nvidia.com/hpc-sdk/compilers/hpc-compilers-r
 1) http://igoro.com/archive/fast-and-slow-if-statements-branch-prediction-in-modern-processors/ Great pipelining picture
 
 
+2-3) https://www.youtube.com/watch?v=O0HCGOzFLm0&ab_channel=CoffeeBeforeArch
+
 # Benchmark B4 
 # CUTOFFS
 # since cutoffs are quite low we have to have a complex compare algorithm
