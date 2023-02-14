@@ -20,32 +20,24 @@ static void b2_1_basic_reduce_wrapper(benchmark::State &state) {
     }
 }
 
+#define REGISTER_B2_1_BASIC_REDUCE_WRAPPER(datatype)  \
+    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::sequenced_policy, datatype)->Name(BENCHMARK_NAME("b2_1_basic_reduce_" xstr(datatype) "_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);   \
+    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_policy, datatype)->Name(BENCHMARK_NAME("b2_1_basic_reduce_" xstr(datatype) "_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);    \
+    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_unsequenced_policy, datatype)->Name(BENCHMARK_NAME("b2_1_basic_reduce_" xstr(datatype) "_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);    \
+
+
 //endregion b2_1_basic_reduce
 
 // Register the function as a benchmark
 #define B2_GROUP_BENCHMARKS \
                             \
-                            \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::sequenced_policy, char)->Name(BENCHMARK_NAME("b2_1_basic_reduce_char_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::sequenced_policy, int)->Name(BENCHMARK_NAME("b2_1_basic_reduce_int_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::sequenced_policy, long)->Name(BENCHMARK_NAME("b2_1_basic_reduce_long_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::sequenced_policy, unsigned long)->Name(BENCHMARK_NAME("b2_1_basic_reduce_unsigned_long_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::sequenced_policy, float)->Name(BENCHMARK_NAME("b2_1_basic_reduce_float_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);               \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::sequenced_policy, double)->Name(BENCHMARK_NAME("b2_1_basic_reduce_double_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);               \
-                            \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_policy, char)->Name(BENCHMARK_NAME("b2_1_basic_reduce_char_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_policy, int)->Name(BENCHMARK_NAME("b2_1_basic_reduce_int_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_policy, long)->Name(BENCHMARK_NAME("b2_1_basic_reduce_long_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_policy, unsigned long)->Name(BENCHMARK_NAME("b2_1_basic_reduce_unsigned_long_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_policy, float)->Name(BENCHMARK_NAME("b2_1_basic_reduce_float_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);               \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_policy, double)->Name(BENCHMARK_NAME("b2_1_basic_reduce_double_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);                \
-                            \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_unsequenced_policy, char)->Name(BENCHMARK_NAME("b2_1_basic_reduce_char_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_unsequenced_policy, int)->Name(BENCHMARK_NAME("b2_1_basic_reduce_int_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_unsequenced_policy, long)->Name(BENCHMARK_NAME("b2_1_basic_reduce_long_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_unsequenced_policy, unsigned long)->Name(BENCHMARK_NAME("b2_1_basic_reduce_unsigned_long_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_unsequenced_policy, float)->Name(BENCHMARK_NAME("b2_1_basic_reduce_float_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);               \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_unsequenced_policy, double)->Name(BENCHMARK_NAME("b2_1_basic_reduce_double_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);                \
+            REGISTER_B2_1_BASIC_REDUCE_WRAPPER(char)                \
+            REGISTER_B2_1_BASIC_REDUCE_WRAPPER(int)                 \
+            REGISTER_B2_1_BASIC_REDUCE_WRAPPER(long)                \
+            REGISTER_B2_1_BASIC_REDUCE_WRAPPER(unsigned long)       \
+            REGISTER_B2_1_BASIC_REDUCE_WRAPPER(float)               \
+            REGISTER_B2_1_BASIC_REDUCE_WRAPPER(double)              \
+            REGISTER_B2_1_BASIC_REDUCE_WRAPPER(long double)
 
-    
+
 #endif //MASTER_BENCHMARKS_B2_GROUP_H
