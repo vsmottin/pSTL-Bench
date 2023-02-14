@@ -21,6 +21,9 @@ NVC++ data type sizes: https://docs.nvidia.com/hpc-sdk/compilers/hpc-compilers-r
 # Benchmark B3
 # Force cache misses by 1) having unpredictable branches 2) std::atomic (accessing shared variable) 3) false sharing (cache line invalidating)
 
+1) http://igoro.com/archive/fast-and-slow-if-statements-branch-prediction-in-modern-processors/ Great pipelining picture
+
+
 # Benchmark B4 
 # CUTOFFS
 # since cutoffs are quite low we have to have a complex compare algorithm
@@ -40,6 +43,7 @@ NVC++ data type sizes: https://docs.nvidia.com/hpc-sdk/compilers/hpc-compilers-r
 # Copy_if logic with std::foreach and once with actual std::copy_if
 The goal is to see is there a difference between writing the operation and managing the values by yourself or not. 
 Seems there are differences
+PS run it once without reserving and once with reserving
 
 # Benchmark B8
 # just call std::reduce with ints and transform_reduce large structs(512 bytes maybe).   Because in reduce the chunking and the scheduling is totally work of the library and not of the standard.
