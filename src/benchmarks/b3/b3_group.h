@@ -56,6 +56,8 @@ static void b3_3_expensive_sharing_wrapper(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
     const auto size = state.range(0);
+
+    // lower bound of 1 is required so the function call `b3_3_expensive_sharing` will count every element
     std::vector<int> x(generate_uniform_dist_vec<int>(size, 1, 10));
 
     for (auto _: state) {
@@ -76,6 +78,8 @@ static void b3_4_no_expensive_sharing_wrapper(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
     const auto size = state.range(0);
+
+    // lower bound of 1 is required so the function call `b3_4_no_expensive_sharing` will count every element
     std::vector<int> x(generate_uniform_dist_vec<int>(size, 1, 10));
 
     for (auto _: state) {
