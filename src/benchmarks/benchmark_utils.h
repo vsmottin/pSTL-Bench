@@ -12,7 +12,7 @@
 
 template<typename T>
 std::vector<T>
-generate_random_dist_vec(const std::size_t &size,
+generate_normal_dist_vec(const std::size_t &size,
                          const int mu = DEFAULT_MU,
                          const int sigma = DEFAULT_SIGMA
 ) {
