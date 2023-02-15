@@ -14,7 +14,7 @@ inline std::size_t
 b3_4_no_expensive_sharing(ExecutionPolicy &policy, const std::vector<int> &input_data) {
 
     return std::count_if(policy, input_data.begin(), input_data.end(), [](const auto &val) {
-        return true;
+        return val >= 0;
     });
 }
 

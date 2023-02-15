@@ -17,7 +17,7 @@ b3_3_expensive_sharing(ExecutionPolicy &policy, const std::vector<int> &input_da
 
     return std::count_if(policy, input_data.begin(), input_data.end(), [&toggle](const auto &val) {
         toggle = !toggle; // simulates an expensive mutex operation that forces us to wait
-        return true;
+        return val >= 0;
     });
 }
 
