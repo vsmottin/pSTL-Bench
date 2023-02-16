@@ -34,6 +34,18 @@ namespace suite {
 
         return randValues;
     }
-}
 
+    template<typename T>
+    std::vector<T>
+    generate_increment_vec(const std::size_t &size, const int &increment) {
+
+        std::vector<T> randValues(size);
+
+        int n = 0;
+        std::generate(randValues.begin(), randValues.end(), [&n, &increment] { return n += increment; });
+
+        return randValues;
+    }
+
+}
 #endif //MASTER_BENCHMARKS_BENCHMARK_UTILS_H
