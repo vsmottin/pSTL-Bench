@@ -6,15 +6,16 @@
 #include <algorithm>
 #include <new>
 #include <ranges>
+#include "../benchmark_utils.h"
 
-struct alignas(std::hardware_destructive_interference_size) no_false_sharing_struct {
+struct alignas(suite::hardware_destructive_interference_size) no_false_sharing_struct {
     int number;
     int ignored_field;
 };
 
 // statically assert that the struct indeed does fill a whole cache line
 // and will not share it with other
-static_assert((sizeof(no_false_sharing_struct) >= std::hardware_destructive_interference_size));
+static_assert((sizeof(no_false_sharing_struct) >= suite::hardware_destructive_interference_size));
 
 template<class ExecutionPolicy>
 inline std::size_t

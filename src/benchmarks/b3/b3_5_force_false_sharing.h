@@ -13,7 +13,7 @@ struct force_false_sharing_struct {
 };
 
 // statically assert that the struct indeed does not fill a whole cache line
-static_assert((sizeof(force_false_sharing_struct) <= std::hardware_constructive_interference_size));
+static_assert((sizeof(force_false_sharing_struct) <= suite::hardware_constructive_interference_size));
 
 template<class ExecutionPolicy>
 inline std::size_t

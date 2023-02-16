@@ -60,7 +60,7 @@ static void b3_3_expensive_sharing_wrapper(benchmark::State &state) {
     const auto size = state.range(0);
 
     // lower bound of 1 is required so the function call `b3_3_expensive_sharing` will count every element
-    std::vector<int> x(generate_uniform_dist_vec<int>(size, 1, 10));
+    std::vector<int> x(suite::generate_uniform_dist_vec<int>(size, 1, 10));
 
     for (auto _: state) {
         const auto count = b3_3_expensive_sharing(execution_policy, x);
@@ -82,7 +82,7 @@ static void b3_4_no_expensive_sharing_wrapper(benchmark::State &state) {
     const auto size = state.range(0);
 
     // lower bound of 1 is required so the function call `b3_4_no_expensive_sharing` will count every element
-    std::vector<int> x(generate_uniform_dist_vec<int>(size, 1, 10));
+    std::vector<int> x(suite::generate_uniform_dist_vec<int>(size, 1, 10));
 
     for (auto _: state) {
         const auto count = b3_4_no_expensive_sharing(execution_policy, x);
@@ -105,7 +105,7 @@ static void b3_5_force_false_sharing_wrapper(benchmark::State &state) {
     const auto size = state.range(0);
 
     // lower bound of 1 is required so the function call `b3_5_force_false_sharing` will count every element
-    const auto values = generate_uniform_dist_vec<int>(size, 1, 10);
+    const auto values = suite::generate_uniform_dist_vec<int>(size, 1, 10);
 
     std::vector<force_false_sharing_struct> x(size);
     std::generate(x.begin(), x.end(), [n = 0, &values]() { return force_false_sharing_struct{values[n], 0}; });
@@ -130,7 +130,7 @@ static void b3_6_no_false_sharing_wrapper(benchmark::State &state) {
     const auto size = state.range(0);
 
     // lower bound of 1 is required so the function call `b3_6_no_false_sharing` will count every element
-    const auto values = generate_uniform_dist_vec<int>(size, 1, 10);
+    const auto values = suite::generate_uniform_dist_vec<int>(size, 1, 10);
 
     std::vector<no_false_sharing_struct> x(size);
     std::generate(x.begin(), x.end(), [n = 0, &values]() { return no_false_sharing_struct{values[n], 0}; });
