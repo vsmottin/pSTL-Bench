@@ -30,12 +30,23 @@ NVC++ data type sizes: https://docs.nvidia.com/hpc-sdk/compilers/hpc-compilers-r
 # CUTOFFS
 # since cutoffs are quite low we have to have a complex compare algorithm
 # Some functions like merge have cutoffs in stdlibc++ where they use the serial implementation 
-* Merge https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_backend_tbb.h#L1251 (seems to be #define _PSTL_MERGE_CUT_OFF 2000)
-* Stable sort https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_backend_tbb.h#L1118 (seems to be #define _PSTL_STABLE_SORT_CUT_OFF 500)
+* Merge 	https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_backend_tbb.h#L1251 (seems to be #define _PSTL_MERGE_CUT_OFF 2000)
+* Stable sort 	https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_backend_tbb.h#L1118 (seems to be #define _PSTL_STABLE_SORT_CUT_OFF 500)
+
+SET OPERATION
+* set_union 	https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/algorithm_impl.h#L3046 (seems to be constexpr auto __set_algo_cut_off = 1000; )
+* set_diff	https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/algorithm_impl.h#L3202 (seems to be constexpr auto __set_algo_cut_off = 1000; )
+* set_inter	https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/algorithm_impl.h#L3105
+* set_sym_diff	https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/algorithm_impl.h#L3299 
+
 
 # Benchmark B5
 # Interessting approaches to simple problems (it is actually linear solvable but maybe they found a nice parallelism trick)
 * gcc implementation of std::find has comment that maybe there is room for improvements https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_impl.h#L29
+
+* partition There are a lot of possible implementation to partition a vector as showed here https://www.cs.upc.edu/~lfrias/research/parpar/parpar.pdf.  (https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/algorithm_impl.h#L1879)
+
+* unique_copy in gcc seems to use a fancy use of a strict scan https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/algorithm_impl.h#L1350
 
 # Benchmark B6
 # Inclusive_scan/exclusive . Because it's such an important alogirhtm that is building block for so many parallel Algos. https://escholarship.org/content/qt6j57h5zw/qt6j57h5zw.pdf 
