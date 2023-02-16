@@ -19,7 +19,7 @@ template<class ExecutionPolicy>
 inline std::size_t
 b3_5_force_false_sharing(ExecutionPolicy &policy, const std::vector<force_false_sharing_struct> &input_data) {
 
-    const auto &view = std::views::iota(1, static_cast<int>(input_data.size()) + 1);
+    const auto &view = std::views::iota(0, static_cast<int>(input_data.size()));
 
     // we use the range because we do not want to move the input data array around.
     // this call should result in two threads touching the same cache lines (if not properly scheduled)
