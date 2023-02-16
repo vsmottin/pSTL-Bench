@@ -12,11 +12,11 @@
 template<class ExecutionPolicy>
 inline std::size_t
 b3_3_expensive_sharing(ExecutionPolicy &policy, const std::vector<int> &input_data) {
-
-    std::atomic<bool> toggle{false};
+    
+    std::atomic<int> toggle{0};
 
     return std::count_if(policy, input_data.begin(), input_data.end(), [&toggle](const auto &val) {
-        toggle = !toggle; // simulates an expensive mutex operation that forces us to wait
+        toggle++; // simulates an expensive mutex operation that forces us to wait
         return val >= 0;
     });
 }
