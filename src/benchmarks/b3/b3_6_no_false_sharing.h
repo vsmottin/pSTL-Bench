@@ -10,7 +10,7 @@
 
 struct alignas(suite::hardware_destructive_interference_size) no_false_sharing_struct {
     int number;
-    int ignored_field;
+    int second_field;
 };
 
 // statically assert that the struct indeed does fill a whole cache line
@@ -23,9 +23,10 @@ b3_6_no_false_sharing(ExecutionPolicy &policy, const std::vector<no_false_sharin
 
     const auto &view = std::views::iota(1, static_cast<int>(input_data.size()) + 1);
 
-    // we use the range because we do not want to move the input data array arround.
+    // we use the range because we do not want to move the input data array around.
+    // this call should result in two threads not touching the same cache lines (scheduling should not make this worse)
     return std::count_if(policy, view.begin(), view.end(), [&](const auto &index) {
-        return input_data[index].number >= 0;
+        return input_data[index].number + input_data[index].second_field >= 0;
     });
 }
 

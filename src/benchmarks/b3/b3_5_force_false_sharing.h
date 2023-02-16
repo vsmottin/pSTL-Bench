@@ -9,7 +9,7 @@
 
 struct force_false_sharing_struct {
     int number;
-    int ignored_field;
+    int second_field;
 };
 
 // statically assert that the struct indeed does not fill a whole cache line
@@ -21,9 +21,10 @@ b3_5_force_false_sharing(ExecutionPolicy &policy, const std::vector<force_false_
 
     const auto &view = std::views::iota(1, static_cast<int>(input_data.size()) + 1);
 
-    // we use the range because we do not want to move the input data array arround.
+    // we use the range because we do not want to move the input data array around.
+    // this call should result in two threads touching the same cache lines (if not properly scheduled)
     return std::count_if(policy, view.begin(), view.end(), [&](const auto &index) {
-        return input_data[index].number >= 0;
+        return input_data[index].number + input_data[index].second_field >= 0;
     });
 }
 
