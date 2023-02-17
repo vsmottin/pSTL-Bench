@@ -13,6 +13,14 @@
 #include "b4_1_merge_cutoff.h"
 #include "b4_2_stable_sort_cutoff.h"
 
+//TODO: ask for help with stable_sort and merge because of
+// ```
+// b4_1_merge_cutoff_wrapper_par_unseq/524288                     617785 ns       617102 ns         1127
+// terminate called after throwing an instance of 'std::bad_alloc'
+//  what():  std::bad_alloc
+// Aborted
+// ```
+
 //region b4_1_merge_cutoff
 
 template<class Policy>
