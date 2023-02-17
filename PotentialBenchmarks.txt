@@ -33,6 +33,8 @@ NVC++ data type sizes: https://docs.nvidia.com/hpc-sdk/compilers/hpc-compilers-r
 * Merge 	https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_backend_tbb.h#L1251 (seems to be #define _PSTL_MERGE_CUT_OFF 2000)
 * Stable sort 	https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_backend_tbb.h#L1118 (seems to be #define _PSTL_STABLE_SORT_CUT_OFF 500)
 
+(Good source for sorted stuff https://github.com/Morwenn/cpp-sort/wiki/Benchmarks)
+
 SET OPERATION
 * set_union 	https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/algorithm_impl.h#L3046 (seems to be constexpr auto __set_algo_cut_off = 1000; )
 * set_diff	https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/algorithm_impl.h#L3202 (seems to be constexpr auto __set_algo_cut_off = 1000; )
