@@ -43,7 +43,7 @@ static void b4_1_merge_cutoff_wrapper(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
         BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
         BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-
+        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
 
 
 #endif //MASTER_BENCHMARKS_B4_GROUP_H
