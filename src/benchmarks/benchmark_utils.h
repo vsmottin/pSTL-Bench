@@ -35,16 +35,39 @@ namespace suite {
         return randValues;
     }
 
+    /**
+     * Generates a vector of type T that contains size elements where the first element is start_val
+     * and then every next element is decremented by decrement
+     *
+     * @tparam T the type of the vector
+     * @param size the number of elements
+     * @param start_val the start val
+     * @param decrement the value to use to decrement
+     */
     template<typename T>
     std::vector<T>
-    generate_increment_vec(const std::size_t &size, const int &increment) {
+    generate_decrement_vec(const std::size_t &size, const T &start_val, const T &decrement = 1) {
 
         std::vector<T> randValues(size);
 
-        int n = 0;
-        std::generate(randValues.begin(), randValues.end(), [&n, &increment] { return n += increment; });
+        T n = start_val;
+        std::generate(randValues.begin(), randValues.end(), [&n, &decrement] { return n -= decrement; });
 
         return randValues;
+    }
+
+    /**
+     * Generates a vector of type T that contains size elements where the first element is 0
+     * and then every next element is incremented by increment
+     *
+     * @tparam T the type of the vector
+     * @param size the number of elements
+     * @param increment the increment to use
+     */
+    template<typename T>
+    std::vector<T>
+    generate_increment_vec(const std::size_t &size, const T &increment) {
+        return suite::generate_decrement_vec<T>(size, static_cast<T>(0), -increment);
     }
 
 }
