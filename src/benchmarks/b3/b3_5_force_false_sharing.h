@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <new>
 #include <ranges>
+#include "../benchmark_utils.h"
 
 struct force_false_sharing_struct {
     int number;
