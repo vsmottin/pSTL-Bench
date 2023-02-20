@@ -13,6 +13,7 @@
 #include "b4_1_merge_cutoff.h"
 #include "b4_2_stable_sort_cutoff.h"
 #include "b4_3_set_union_cutoff.h"
+#include "b4_4_set_difference_cutoff.h"
 
 //TODO: ask for help with stable_sort and merge because of
 // ```
@@ -169,6 +170,84 @@ static void b4_3_set_union_cutoff_front_overhang(benchmark::State &state) {
 
 //endregion b4_3_set_union_cutoff
 
+//region b4_4_set_difference_cutoff
+
+template<class Policy>
+static void b4_4_set_difference_cutoff_left_empty(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    const auto vec1 = suite::generate_increment_vec(size, 1);
+    const std::vector<int> empty_vec{};
+
+    for (auto _: state) {
+        const auto res = b4_4_set_difference_cutoff(execution_policy, empty_vec, vec1);
+
+        state.PauseTiming();
+        assert(res.size() == 0);
+        state.ResumeTiming();
+    }
+}
+
+template<class Policy>
+static void b4_4_set_difference_cutoff_right_empty(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    const auto vec1 = suite::generate_increment_vec(size, 1);
+    const std::vector<int> empty_vec{};
+
+    for (auto _: state) {
+        const auto res = b4_4_set_difference_cutoff(execution_policy, vec1, empty_vec);
+
+        state.PauseTiming();
+        assert(res[0] <= res[1]);
+        assert(res.size() == vec1.size());
+        state.ResumeTiming();
+    }
+}
+
+template<class Policy>
+static void b4_4_set_difference_cutoff_wholly_greater(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    const auto vec1 = suite::generate_increment_vec(size, 1);
+    const auto vec2 = suite::generate_increment_vec<int>(size, size + 2, 1);
+
+    for (auto _: state) {
+        const auto res = b4_4_set_difference_cutoff(execution_policy, vec1, vec2);
+
+        state.PauseTiming();
+        assert(res[0] <= res[1]);
+        assert(res.size() == vec1.size());
+        state.ResumeTiming();
+    }
+}
+
+template<class Policy>
+static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    const auto vec1 = suite::generate_increment_vec(size, 1);
+    const auto vec2 = suite::generate_increment_vec<int>(size, 1);
+
+    for (auto _: state) {
+        const auto res = b4_4_set_difference_cutoff(execution_policy, vec1, vec2);
+
+        state.PauseTiming();
+        assert(res.size() >= 2 && res[res.size() - 1] == 0);
+        state.ResumeTiming();
+    }
+}
+
+//endregion b4_4_set_difference_cutoff
+
 
 // Register the function as a benchmark
 #define B4_GROUP_BENCHMARKS \
@@ -215,7 +294,34 @@ static void b4_3_set_union_cutoff_front_overhang(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
         BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
         BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);         \
+                            \
+                            \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);       \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+
 
 
 #endif //MASTER_BENCHMARKS_B4_GROUP_H
