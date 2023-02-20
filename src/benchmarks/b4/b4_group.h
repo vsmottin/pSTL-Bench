@@ -178,6 +178,8 @@ static void b4_4_set_difference_cutoff_left_empty(benchmark::State &state) {
 
     const auto &size = state.range(0);
 
+    // since the left vector is empty we know the difference can only be empty
+    // this test simply checks if this simple check is really done or parallel execution just started.
     const auto vec1 = suite::generate_increment_vec(size, 1);
     const std::vector<int> empty_vec{};
 
@@ -196,6 +198,8 @@ static void b4_4_set_difference_cutoff_right_empty(benchmark::State &state) {
 
     const auto &size = state.range(0);
 
+    // since the right vector is empty we know the difference is the left vector
+    // this should result in a copy of the vec1.
     const auto vec1 = suite::generate_increment_vec(size, 1);
     const std::vector<int> empty_vec{};
 
@@ -215,6 +219,8 @@ static void b4_4_set_difference_cutoff_wholly_greater(benchmark::State &state) {
 
     const auto &size = state.range(0);
 
+    // since the right vector is wholly greater than the left we know the difference is the left vector (aka no intersect)
+    // this should result in a copy of the vec1.
     const auto vec1 = suite::generate_increment_vec(size, 1);
     const auto vec2 = suite::generate_increment_vec<int>(size, size + 2, 1);
 
@@ -234,6 +240,7 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
 
     const auto &size = state.range(0);
 
+    // since the vector intersect we acutally have to calculate the difference
     const auto vec1 = suite::generate_increment_vec(size, 1);
     const auto vec2 = suite::generate_increment_vec<int>(size, 1);
 
