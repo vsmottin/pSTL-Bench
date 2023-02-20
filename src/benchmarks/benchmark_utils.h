@@ -57,6 +57,21 @@ namespace suite {
     }
 
     /**
+     * Generates a vector of type T that contains size elements where the first element is start
+     * and then every next element is incremented by increment
+     *
+     * @tparam T the type of the vector
+     * @param start the number to start the range from
+     * @param size the number of elements
+     * @param increment the increment to use
+     */
+    template<typename T>
+    std::vector<T>
+    generate_increment_vec(const std::size_t &size, const T &start, const T &increment) {
+        return suite::generate_decrement_vec<T>(size, start, -increment);
+    }
+
+    /**
      * Generates a vector of type T that contains size elements where the first element is 0
      * and then every next element is incremented by increment
      *
@@ -67,7 +82,7 @@ namespace suite {
     template<typename T>
     std::vector<T>
     generate_increment_vec(const std::size_t &size, const T &increment) {
-        return suite::generate_decrement_vec<T>(size, static_cast<T>(0), -increment);
+        return suite::generate_increment_vec<T>(size, static_cast<T>(0), increment);
     }
 
 }
