@@ -3,11 +3,15 @@
 #define MASTER_BENCHMARKS_BENCHMARK_UTILS_H
 
 #include <vector>
+#include <list>
 #include <random>
 #include <algorithm>
 #include <ctime>
 
 namespace suite {
+
+    typedef std::vector<int> int_vec;
+    typedef std::list<int> int_lst;
 
 // some compilers did not implement the both fields (for example nvc++@22.5) so we just define it ourselfs
 #ifdef __cpp_lib_hardware_interference_size
@@ -36,19 +40,22 @@ namespace suite {
     }
 
     /**
-     * Generates a vector of type T that contains size elements where the first element is start_val
+     * Generates a container of type Container that contains size elements where the first element is start_val
      * and then every next element is decremented by decrement
      *
-     * @tparam T the type of the vector
+     * @tparam T the value type of the container
+     * @tparam Container the container type
      * @param size the number of elements
      * @param start_val the start val
      * @param decrement the value to use to decrement
      */
-    template<typename T>
-    std::vector<T>
-    generate_decrement_vec(const std::size_t &size, const T &start_val, const T &decrement = 1) {
+    template<typename Container,
+            typename T = typename Container::value_type,
+            typename Size_type = typename Container::size_type>
+    Container
+    generate_decrement(const Size_type &size, const T &start_val, const T &decrement = 1) {
 
-        std::vector<T> randValues(size);
+        Container randValues(size);
 
         T n = start_val;
         std::generate(randValues.begin(), randValues.end(), [&n, &decrement] { return n -= decrement; });
@@ -57,18 +64,23 @@ namespace suite {
     }
 
     /**
-     * Generates a vector of type T that contains size elements where the first element is start
+     * Generates a Container of type Container that contains size elements where the first element is start
      * and then every next element is incremented by increment
      *
-     * @tparam T the type of the vector
+     * the vector contains elements [start,start+(size*increment) )
+     *
+     * @tparam T the value type of the container
+     * @tparam Container the container type
      * @param start the number to start the range from
      * @param size the number of elements
      * @param increment the increment to use
      */
-    template<typename T>
-    std::vector<T>
-    generate_increment_vec(const std::size_t &size, const T &start, const T &increment) {
-        return suite::generate_decrement_vec<T>(size, start, -increment);
+    template<typename Container,
+            typename T = typename Container::value_type,
+            typename Size_type = typename Container::size_type>
+    Container
+    generate_increment(const Size_type &size, const T &start, const T &increment) {
+        return suite::generate_decrement<Container>(size, start - 1, -increment);
     }
 
     /**
@@ -79,10 +91,12 @@ namespace suite {
      * @param size the number of elements
      * @param increment the increment to use
      */
-    template<typename T>
-    std::vector<T>
-    generate_increment_vec(const std::size_t &size, const T &increment) {
-        return suite::generate_increment_vec<T>(size, static_cast<T>(0), increment);
+    template<typename Container,
+            typename T = typename Container::value_type,
+            typename Size_type = typename Container::size_type>
+    Container
+    generate_increment(const Size_type &size, const T &increment) {
+        return suite::generate_increment<Container>(size, static_cast<T>(0), increment);
     }
 
 }
