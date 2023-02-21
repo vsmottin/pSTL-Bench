@@ -98,8 +98,7 @@ static void b5_1_find_non_existing_entry(benchmark::State &state) {
 #define B5_GROUP_BENCHMARKS \
                             \
         B5_1_FIND_WRAPPER(std::vector<int>) \
-        B5_1_FIND_WRAPPER(std::deque<int>)  \
-        B5_1_FIND_WRAPPER(std::list<int>)
+        B5_1_FIND_WRAPPER(std::deque<int>)
 
 
 #endif //MASTER_BENCHMARKS_B5_GROUP_H
