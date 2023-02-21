@@ -6,9 +6,11 @@
 #include <chrono>
 #include <execution>
 
-#define PAR std::execution::unseq,
+#define PAR std::execution::par,
 
 int main() {
+
+    //NOTE: std::back_inserter does not work as intended and will lead to race condition in par modes
 
     //std::vector<int> x{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     std::vector<int> x(10000, 4);
