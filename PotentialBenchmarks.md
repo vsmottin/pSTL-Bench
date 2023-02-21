@@ -148,13 +148,22 @@ Interesting approaches to simple problems (it is actually linear solvable but ma
 Because it's such an important alogirhtm that is building block for so many parallel
 Algos. https://escholarship.org/content/qt6j57h5zw/qt6j57h5zw.pdf
 
-## Group 7 - Special Algo vs for_each
+## Group 7 - Special Algo vs custom implementation (e.g for_each)
 
-e.g. Copy_if logic with std::foreach and once with actual std::copy_if
+* Copy_if logic with std::foreach and once with actual std::copy_if
+* inclusive_scan vs ...
+* transfer_reduce vs all_off
+* tranform_reduce vs count_if with structs
+* count sort implementation for_each vs parallel sort
+* count_if vs for_each
+* transform vs for_each
+
 
 The goal is to see is there a difference between writing the operation and managing the values by yourself or not.
 Seems there are differences
 PS run it once without reserving and once with reserving
+
+
 
 ## Group 8 - Reduce and Transform_reduce Chunking
 
