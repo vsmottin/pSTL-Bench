@@ -8,7 +8,9 @@
 #include <ranges>
 #include "../benchmark_utils.h"
 
+//TODO: fix! This will not result in cache line invalidation. We simple read and never write!
 //TODO: check if this really results in no false sharing
+
 
 struct alignas(suite::hardware_destructive_interference_size) no_false_sharing_struct {
     int number;

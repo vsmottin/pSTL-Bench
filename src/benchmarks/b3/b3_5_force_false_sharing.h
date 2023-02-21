@@ -8,6 +8,8 @@
 #include <ranges>
 #include "../benchmark_utils.h"
 
+//TODO: fix! This will not result in cache line invalidation. We simple read and never write!
+
 struct force_false_sharing_struct {
     int number;
     int second_field;
