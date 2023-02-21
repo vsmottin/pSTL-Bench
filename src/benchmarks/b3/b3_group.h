@@ -28,7 +28,11 @@ static void b3_1_expensive_branching_fail(benchmark::State &state) {
 
     std::vector<int> x(state.range(0), 1);
     for (auto _: state) {
-        b3_1_expensive_branching(execution_policy, x, rand_magic_number_gt_1);
+        const auto res = b3_1_expensive_branching(execution_policy, x, rand_magic_number_gt_1);
+
+        state.PauseTiming();
+        assert(res == true); // since we will never hit k* (pi/2) all the vals will get true
+        state.ResumeTiming();
     }
 }
 
@@ -45,7 +49,11 @@ static void b3_2_expensive_branching_annotated_success(benchmark::State &state) 
 
     std::vector<int> x(state.range(0), 1);
     for (auto _: state) {
-        b3_2_expensive_branching_annotated(execution_policy, x, rand_magic_number_gt_1);
+        const auto res = b3_2_expensive_branching_annotated(execution_policy, x, rand_magic_number_gt_1);
+
+        state.PauseTiming();
+        assert(res == true); // since we will never hit k* (pi/2) all the vals will get true
+        state.ResumeTiming();
     }
 }
 
@@ -154,7 +162,7 @@ static void b3_6_no_false_sharing_wrapper(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b3_1_expensive_branching_fail,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_1_expensive_branching_fail_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        //BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
         BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
         BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
                             \
