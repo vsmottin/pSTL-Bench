@@ -16,6 +16,7 @@
 #include "b5_1_find.h"
 #include "b5_2_partition.h"
 #include "b5_3_unique_copy.h"
+#include "b5_4_minmax_element.h"
 
 //region b5_1_find
 
@@ -166,6 +167,49 @@ static void b5_3_unique_copy_odd_wrapper(benchmark::State &state) {
 
 //endregion b5_3_unique_copy
 
+//region b5_4_minmax_element
+
+template<class Policy>
+static void b5_4_minmax_element_all_equal(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    // vector with value 1
+    auto vec1 = suite::generate_increment<suite::int_vec>(size, 1, 0);
+
+    for (auto _: state) {
+        const auto res = b5_4_minmax_element(execution_policy, vec1);
+
+        state.PauseTiming();
+        // min = max = 1 because all elements are 1
+        assert(*(res.first) == 1 && *(res.second) == 1);
+        state.ResumeTiming();
+    }
+}
+
+template<class Policy>
+static void b5_4_minmax_element_increasing(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    // vector with value 1
+    auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+
+    for (auto _: state) {
+        const auto res = b5_4_minmax_element(execution_policy, vec1);
+
+        state.PauseTiming();
+        // min = max = 1 because all elements are 1
+        assert(*(res.first) == 0 && *(res.second) == size - 1);
+        state.ResumeTiming();
+    }
+}
+
+
+//endregion b5_4_minmax_element
+
 
 // Register the function as a benchmark
 #define B5_GROUP_BENCHMARKS \
@@ -190,7 +234,18 @@ static void b5_3_unique_copy_odd_wrapper(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b5_3_unique_copy_odd_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_odd_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
         BENCHMARK_TEMPLATE1(b5_3_unique_copy_odd_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_odd_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
         BENCHMARK_TEMPLATE1(b5_3_unique_copy_odd_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_odd_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
-
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
 
 
 #endif //MASTER_BENCHMARKS_B5_GROUP_H

@@ -80,7 +80,7 @@ namespace suite {
             typename Size_type = typename Container::size_type>
     Container
     generate_increment(const Size_type &size, const T &start, const T &increment) {
-        return suite::generate_decrement<Container>(size, start - 1, -increment);
+        return suite::generate_decrement<Container>(size, start, -increment);
     }
 
     /**
@@ -96,7 +96,7 @@ namespace suite {
             typename Size_type = typename Container::size_type>
     Container
     generate_increment(const Size_type &size, const T &increment) {
-        return suite::generate_increment<Container>(size, static_cast<T>(0), increment);
+        return suite::generate_increment<Container>(size, static_cast<T>(-1), increment);
     }
 
 }
