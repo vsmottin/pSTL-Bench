@@ -15,6 +15,7 @@
 
 #include "b5_1_find.h"
 #include "b5_2_partition.h"
+#include "b5_3_unique_copy.h"
 
 //region b5_1_find
 
@@ -119,18 +120,76 @@ static void b5_2_partition_wrapper(benchmark::State &state) {
 
 //endregion b5_2_partition
 
+//region b5_3_unique_copy
+
+template<class Policy>
+static void b5_3_unique_copy_default_wrapper(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    // vector with value 1 of length size
+    suite::int_vec vec1(size, 1);
+
+    suite::int_vec result(1, 0);
+
+    for (auto _: state) {
+        b5_3_unique_copy_default(execution_policy, vec1, result);
+
+        state.PauseTiming();
+        // simple check so the val will not be optimized aways
+        assert(result.size() == 1 && result[0] == 1);
+        state.ResumeTiming();
+    }
+}
+
+template<class Policy>
+static void b5_3_unique_copy_odd_wrapper(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    // vector with values [0,size)
+    auto vec1 = suite::generate_increment<suite::int_vec>(size, 1, 1);
+
+    std::vector result(size, 0);
+
+    for (auto _: state) {
+        b5_3_unique_copy_odd(execution_policy, vec1, result);
+
+        state.PauseTiming();
+        // simple check so the val will not be optimized away
+        assert(result[0] == 1);
+        state.ResumeTiming();
+    }
+}
+
+//endregion b5_3_unique_copy
+
 
 // Register the function as a benchmark
 #define B5_GROUP_BENCHMARKS \
                             \
-        /*B5_1_FIND_WRAPPER(std::vector<int>) \
+        B5_1_FIND_WRAPPER(std::vector<int>) \
         B5_1_FIND_WRAPPER(std::deque<int>)  \
-                            */\
+                            \
                             \
         BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_2_partition_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
         BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_2_partition_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
         BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_2_partition_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_2_partition_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_2_partition_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_odd_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_odd_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_odd_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_odd_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_odd_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_odd_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_odd_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_odd_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
 
 
 
