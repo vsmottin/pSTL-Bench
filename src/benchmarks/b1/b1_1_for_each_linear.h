@@ -5,6 +5,7 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <benchmark/benchmark.h>
 
 template<class ExecutionPolicy>
 inline void b1_1_for_each_linear(ExecutionPolicy &policy, const std::vector<int> &input_data) {

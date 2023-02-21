@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <ranges>
 #include <iostream>
+#include <benchmark/benchmark.h>
 
 //TODO: does it make sense to have such a benchmark??
 template<class ExecutionPolicy>
@@ -19,6 +20,8 @@ struct FIB {
         if (index <= 0) {
             return;
         }
+
+        benchmark::DoNotOptimize(std::tan(index) + std::cos(index));
 
         std::vector<int> next{index - 1, index - 2};
         std::for_each(m_policy, next.begin(), next.end(), FIB{m_policy});

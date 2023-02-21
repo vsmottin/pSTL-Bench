@@ -4,10 +4,13 @@
 #include <execution>
 #include <ranges>
 #include <benchmark/benchmark.h>
+
+#include "../benchmark_prefix.h"
+
 #include "b1_1_for_each_linear.h"
 #include "b1_2_for_each_quadratic.h"
 #include "b1_3_for_each_exponential.h"
-#include "../benchmark_prefix.h"
+
 
 //region b1_1_for_each_linear
 
@@ -27,16 +30,23 @@ static void b1_1_for_each_linear_wrapper(benchmark::State &state) {
 
 //region b1_2_for_each_quadratic
 
-template<class Policy>
+template<class OuterPolicy, class InnerPolicy>
 static void b1_2_for_each_quadratic_wrapper(benchmark::State &state) {
-    constexpr auto execution_policy = Policy{};
+    constexpr auto outer_execution_policy = OuterPolicy{};
+    constexpr auto inner_execution_policy = InnerPolicy{};
 
     std::vector<int> x(state.range(0), 1);
 
     for (auto _: state) {
-        b1_2_for_each_quadratic(execution_policy, x);
+        b1_2_for_each_quadratic(outer_execution_policy, inner_execution_policy, x);
     }
 }
+
+#define B1_2_FOR_EACH_QUADRATIC_WRAPPER(outer) \
+    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_wrapper,outer,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_outer_" xstr(outer) "_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
+    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_wrapper,outer,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_outer_" xstr(outer) "_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
+    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_wrapper,outer,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_outer_" xstr(outer) "_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 15);
+
 
 //endregion b1_2_for_each_quadratic
 
@@ -64,9 +74,9 @@ static void b1_3_for_each_exponential_wrapper(benchmark::State &state) {
     BENCHMARK_TEMPLATE1(b1_1_for_each_linear_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b1_1_for_each_linear_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
                              \
                              \
-    BENCHMARK_TEMPLATE1(b1_2_for_each_quadratic_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
-    BENCHMARK_TEMPLATE1(b1_2_for_each_quadratic_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
-    BENCHMARK_TEMPLATE1(b1_2_for_each_quadratic_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
+    B1_2_FOR_EACH_QUADRATIC_WRAPPER(std::execution::sequenced_policy); \
+    B1_2_FOR_EACH_QUADRATIC_WRAPPER(std::execution::parallel_policy); \
+    B1_2_FOR_EACH_QUADRATIC_WRAPPER(std::execution::parallel_unsequenced_policy); \
                             \
                             \
     BENCHMARK_TEMPLATE1(b1_3_for_each_exponential_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_3_for_each_exponential_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 5); \
