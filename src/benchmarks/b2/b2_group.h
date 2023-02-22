@@ -16,7 +16,7 @@ static void b2_1_basic_reduce_wrapper(benchmark::State &state) {
 
     std::vector<TYPE> x(state.range(0), static_cast<TYPE>(1.5));
     for (auto _: state) {
-        b2_1_basic_reduce(execution_policy, x);
+        B2::b2_1_basic_reduce(execution_policy, x);
     }
 }
 
