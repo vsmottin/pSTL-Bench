@@ -5,15 +5,19 @@
 #include <algorithm>
 #include <vector>
 
-template<class ExecutionPolicy>
-inline std::vector<int>
-b4_4_set_difference_cutoff(ExecutionPolicy &&policy, const std::vector<int> &v1, const std::vector<int> &v2) {
+namespace B4 {
 
-    std::vector<int> result(v1.size(), 0);
+    template<class ExecutionPolicy>
+    inline std::vector<int>
+    b4_4_set_difference_cutoff(ExecutionPolicy &&policy, const std::vector<int> &v1, const std::vector<int> &v2) {
 
-    std::set_difference(policy, v1.begin(), v1.end(), v2.begin(), v2.end(), result.begin());
+        std::vector<int> result(v1.size(), 0);
 
-    return result;
+        std::set_difference(policy, v1.begin(), v1.end(), v2.begin(), v2.end(), result.begin());
+
+        return result;
+    }
+
 }
 
 

@@ -39,7 +39,7 @@ static void b4_1_merge_cutoff_wrapper(benchmark::State &state) {
     const auto vec_5_inc = suite::generate_increment<suite::int_vec>(size, 5);
 
     for (auto _: state) {
-        const auto res = b4_1_merge_cutoff(execution_policy, vec_2_inc, vec_5_inc);
+        const auto res = B4::b4_1_merge_cutoff(execution_policy, vec_2_inc, vec_5_inc);
 
         state.PauseTiming();
         assert(res.size() == 2 * size);
@@ -61,7 +61,7 @@ static void b4_2_stable_sort_cutoff_already_sorted_wrapper(benchmark::State &sta
     auto already_sorted_vec = suite::generate_increment<suite::int_vec>(size, 1);
 
     for (auto _: state) {
-        b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
+        B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
 
         state.PauseTiming();
         assert(already_sorted_vec[0] <= already_sorted_vec[1]);
@@ -78,7 +78,7 @@ static void b4_2_stable_sort_cutoff_not_sorted_wrapper(benchmark::State &state) 
     auto already_sorted_vec = suite::generate_uniform_dist_vec<int>(size, 50, 100);
 
     for (auto _: state) {
-        b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
+        B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
 
         state.PauseTiming();
         assert(already_sorted_vec[0] <= already_sorted_vec[1]);
@@ -95,7 +95,7 @@ static void b4_2_stable_sort_cutoff_decrement_sorted_wrapper(benchmark::State &s
     auto already_sorted_vec = suite::generate_decrement<suite::int_vec, int>(size, size + 1, 1);
 
     for (auto _: state) {
-        b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
+        B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
 
         state.PauseTiming();
         assert(already_sorted_vec[0] <= already_sorted_vec[1]);
@@ -118,7 +118,7 @@ static void b4_3_set_union_cutoff_one_empty(benchmark::State &state) {
     const std::vector<int> empty_vec;
 
     for (auto _: state) {
-        const auto res = b4_3_set_union_cutoff(execution_policy, already_sorted_vec, empty_vec);
+        const auto res = B4::b4_3_set_union_cutoff(execution_policy, already_sorted_vec, empty_vec);
 
         state.PauseTiming();
         assert(res[0] <= res[1]);
@@ -138,9 +138,9 @@ static void b4_3_set_union_cutoff_one_wholly_greater(benchmark::State &state) {
     const auto already_sorted_vec_size_to_2size = suite::generate_increment<suite::int_vec, int>(size, size, 1);
 
     for (auto _: state) {
-        const auto res = b4_3_set_union_cutoff(execution_policy,
-                                               already_sorted_vec_0_to_size,
-                                               already_sorted_vec_size_to_2size);
+        const auto res = B4::b4_3_set_union_cutoff(execution_policy,
+                                                   already_sorted_vec_0_to_size,
+                                                   already_sorted_vec_size_to_2size);
 
         state.PauseTiming();
         assert(res[0] <= res[1]);
@@ -159,7 +159,7 @@ static void b4_3_set_union_cutoff_front_overhang(benchmark::State &state) {
     const auto vec2 = suite::generate_increment<suite::int_vec, int>(size, size / 2, 1);
 
     for (auto _: state) {
-        const auto res = b4_3_set_union_cutoff(execution_policy, vec1, vec2);
+        const auto res = B4::b4_3_set_union_cutoff(execution_policy, vec1, vec2);
 
         state.PauseTiming();
         assert(res[0] <= res[1]);
@@ -184,7 +184,7 @@ static void b4_4_set_difference_cutoff_left_empty(benchmark::State &state) {
     const std::vector<int> empty_vec{};
 
     for (auto _: state) {
-        const auto res = b4_4_set_difference_cutoff(execution_policy, empty_vec, vec1);
+        const auto res = B4::b4_4_set_difference_cutoff(execution_policy, empty_vec, vec1);
 
         state.PauseTiming();
         assert(res.size() == 0);
@@ -204,7 +204,7 @@ static void b4_4_set_difference_cutoff_right_empty(benchmark::State &state) {
     const std::vector<int> empty_vec{};
 
     for (auto _: state) {
-        const auto res = b4_4_set_difference_cutoff(execution_policy, vec1, empty_vec);
+        const auto res = B4::b4_4_set_difference_cutoff(execution_policy, vec1, empty_vec);
 
         state.PauseTiming();
         assert(res[0] <= res[1]);
@@ -225,7 +225,7 @@ static void b4_4_set_difference_cutoff_wholly_greater(benchmark::State &state) {
     const auto vec2 = suite::generate_increment<suite::int_vec, int>(size, size + 2, 1);
 
     for (auto _: state) {
-        const auto res = b4_4_set_difference_cutoff(execution_policy, vec1, vec2);
+        const auto res = B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2);
 
         state.PauseTiming();
         assert(res[0] <= res[1]);
@@ -245,7 +245,7 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
     const auto vec2 = suite::generate_increment<suite::int_vec, int>(size, 1);
 
     for (auto _: state) {
-        const auto res = b4_4_set_difference_cutoff(execution_policy, vec1, vec2);
+        const auto res = B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2);
 
         state.PauseTiming();
         assert(res.size() >= 2 && res[res.size() - 1] == 0);
