@@ -30,7 +30,7 @@ static void b5_1_find_first_entry(benchmark::State &state) {
     const Container vec1 = suite::generate_increment<Container>(size, 1);
 
     for (auto _: state) {
-        auto find_location = b5_1_find(execution_policy, vec1, 0);
+        auto find_location = B5::b5_1_find(execution_policy, vec1, 0);
 
         state.PauseTiming();
         // make sure the val is really found
@@ -49,7 +49,7 @@ static void b5_1_find_last_entry(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<Container>(size, 1);
 
     for (auto _: state) {
-        auto find_location = b5_1_find(execution_policy, vec1, size - 1);
+        auto find_location = B5::b5_1_find(execution_policy, vec1, size - 1);
 
         state.PauseTiming();
         // make sure the val is really found
@@ -68,7 +68,7 @@ static void b5_1_find_non_existing_entry(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<Container>(size, 1);
 
     for (auto _: state) {
-        auto find_location = b5_1_find(execution_policy, vec1, -10);
+        auto find_location = B5::b5_1_find(execution_policy, vec1, -10);
 
         state.PauseTiming();
         // make sure the val is really found
@@ -110,7 +110,7 @@ static void b5_2_partition_wrapper(benchmark::State &state) {
     auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
 
     for (auto _: state) {
-        auto find_location = b5_2_partition(execution_policy, vec1);
+        auto find_location = B5::b5_2_partition(execution_policy, vec1);
 
         state.PauseTiming();
         // simple check so the val will not be optimized aways
@@ -135,7 +135,7 @@ static void b5_3_unique_copy_default_wrapper(benchmark::State &state) {
     suite::int_vec result(1, 0);
 
     for (auto _: state) {
-        b5_3_unique_copy_default(execution_policy, vec1, result);
+        B5::b5_3_unique_copy_default(execution_policy, vec1, result);
 
         state.PauseTiming();
         // simple check so the val will not be optimized aways
@@ -156,7 +156,7 @@ static void b5_3_unique_copy_odd_wrapper(benchmark::State &state) {
     std::vector result(size, 0);
 
     for (auto _: state) {
-        b5_3_unique_copy_odd(execution_policy, vec1, result);
+        B5::b5_3_unique_copy_odd(execution_policy, vec1, result);
 
         state.PauseTiming();
         // simple check so the val will not be optimized away
@@ -179,7 +179,7 @@ static void b5_4_minmax_element_all_equal(benchmark::State &state) {
     auto vec1 = suite::generate_increment<suite::int_vec>(size, 1, 0);
 
     for (auto _: state) {
-        const auto res = b5_4_minmax_element(execution_policy, vec1);
+        const auto res = B5::b5_4_minmax_element(execution_policy, vec1);
 
         state.PauseTiming();
         // min = max = 1 because all elements are 1
@@ -198,7 +198,7 @@ static void b5_4_minmax_element_increasing(benchmark::State &state) {
     auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
 
     for (auto _: state) {
-        const auto res = b5_4_minmax_element(execution_policy, vec1);
+        const auto res = B5::b5_4_minmax_element(execution_policy, vec1);
 
         state.PauseTiming();
         // min = max = 1 because all elements are 1
