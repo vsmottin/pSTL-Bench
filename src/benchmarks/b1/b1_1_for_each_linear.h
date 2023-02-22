@@ -7,14 +7,18 @@
 #include <algorithm>
 #include <benchmark/benchmark.h>
 
-template<class ExecutionPolicy>
-inline void b1_1_for_each_linear(ExecutionPolicy &policy, const std::vector<int> &input_data) {
+namespace B1 {
 
-    // quite straight forward std::for_each. The body of the lambda has no intention behind it, the goal was just
-    // to have a big enough computation that takes some amount of time.
-    std::for_each(policy, input_data.begin(), input_data.end(), [](const auto &entry) {
-        return benchmark::DoNotOptimize(std::min(std::sin(entry), std::tan(entry)));
-    });
+    template<class ExecutionPolicy>
+    inline void b1_1_for_each_linear(ExecutionPolicy &policy, const std::vector<int> &input_data) {
+
+        // quite straight forward std::for_each. The body of the lambda has no intention behind it, the goal was just
+        // to have a big enough computation that takes some amount of time.
+        std::for_each(policy, input_data.begin(), input_data.end(), [](const auto &entry) {
+            return benchmark::DoNotOptimize(std::min(std::sin(entry), std::tan(entry)));
+        });
+
+    }
 
 }
 

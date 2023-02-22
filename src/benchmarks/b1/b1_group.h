@@ -11,7 +11,6 @@
 #include "b1_2_for_each_quadratic.h"
 #include "b1_3_for_each_exponential.h"
 
-
 //region b1_1_for_each_linear
 
 template<class Policy>
@@ -21,7 +20,7 @@ static void b1_1_for_each_linear_wrapper(benchmark::State &state) {
     std::vector<int> x(state.range(0), 1);
 
     for (auto _: state) {
-        b1_1_for_each_linear(execution_policy, x);
+        B1::b1_1_for_each_linear(execution_policy, x);
     }
 }
 
@@ -38,7 +37,7 @@ static void b1_2_for_each_quadratic_wrapper(benchmark::State &state) {
     std::vector<int> x(state.range(0), 1);
 
     for (auto _: state) {
-        b1_2_for_each_quadratic(outer_execution_policy, inner_execution_policy, x);
+        B1::b1_2_for_each_quadratic(outer_execution_policy, inner_execution_policy, x);
     }
 }
 
@@ -59,11 +58,12 @@ static void b1_3_for_each_exponential_wrapper(benchmark::State &state) {
     const auto &data = std::ranges::iota_view(1, static_cast<int>(state.range(0)));
 
     for (auto _: state) {
-        b1_3_for_each_exponential(execution_policy, data);
+        B1::b1_3_for_each_exponential(execution_policy, data);
     }
 }
 
 //endregion b1_3_for_each_exponential
+
 
 // Register the function as a benchmark
 #define B1_GROUP_BENCHMARKS \
@@ -82,5 +82,6 @@ static void b1_3_for_each_exponential_wrapper(benchmark::State &state) {
     BENCHMARK_TEMPLATE1(b1_3_for_each_exponential_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_3_for_each_exponential_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 5); \
     BENCHMARK_TEMPLATE1(b1_3_for_each_exponential_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_3_for_each_exponential_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 5); \
     BENCHMARK_TEMPLATE1(b1_3_for_each_exponential_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b1_3_for_each_exponential_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 5);
+
 
 #endif //MASTER_BENCHMARKS_B1_GROUP_H
