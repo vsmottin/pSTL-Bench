@@ -148,6 +148,9 @@ Interesting approaches to simple problems (it is actually linear solvable but ma
 Because it's such an important alogirhtm that is building block for so many parallel
 Algos. https://escholarship.org/content/qt6j57h5zw/qt6j57h5zw.pdf
 
+There are a lot of different possible cuda implementations 
+https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-parallel-prefix-sum-scan-cuda
+
 ## Group 7 - Special Algo vs custom implementation (e.g for_each)
 
 * Copy_if logic with std::foreach and once with actual std::copy_if
@@ -157,6 +160,7 @@ Algos. https://escholarship.org/content/qt6j57h5zw/qt6j57h5zw.pdf
 * count sort implementation for_each vs parallel sort
 * count_if vs for_each
 * transform vs for_each
+* serial transform + reduce vs transform_reduce (idea to show you should not have "serial stops")
 
 
 The goal is to see is there a difference between writing the operation and managing the values by yourself or not.
@@ -188,6 +192,7 @@ https://github.com/cplusplus/draft/blob/main/papers/n4431.pdf
 ## Group 10 - Effective use of SIMD
 
 * What algos make use of simd efficiently? Reduce (with no params, with SAXPY logic), fill etc
+* unfortunately you need to give the compiler some hints so he does it (https://www.youtube.com/watch?v=Vck6kzWjY88&ab_channel=CppCon)
 * for inclusive_scan what we try to find out, at what size do they start using simd (only for c20 because unseq is
   c20) (https://en.algorithmica.org/hpc/algorithms/prefix/), par, etc.
 
@@ -195,7 +200,7 @@ https://github.com/cplusplus/draft/blob/main/papers/n4431.pdf
 
 There is a huge difference between using std::ranges::views::iota and actual container when passing to std::count_if. I
 implemented B3_6 and B3_5 first with iota view and it did not use any parallel stuff. Also include this range class
-everyone pretty much uses in their papers.
+everyone pretty much uses in their papers. Also boost::counting_iterator<>()
 
 ```c++
 const auto &view = std::views::iota(0, static_cast<int>(input_data.size()));
@@ -216,3 +221,5 @@ return std::count_if(policy, input_data.begin(), input_data.end(), [&](const aut
 ```
 
 And suddenly parallel concepts where used.
+
+Alternatively make dot product with views::iota and once with transform_reduce (https://www.youtube.com/watch?v=Vck6kzWjY88&ab_channel=CppCon)
