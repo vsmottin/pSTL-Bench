@@ -26,7 +26,7 @@ static void b6_1_inclusive_scan_wrapper(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
 
     for (auto _: state) {
-        const auto res = b6_1_inclusive_scan(execution_policy, vec1);
+        const auto res = B6::b6_1_inclusive_scan(execution_policy, vec1);
 
         state.PauseTiming();
         assert(vec1[0] == res[0]);
@@ -49,7 +49,7 @@ static void b6_2_exclusive_scan_wrapper(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
 
     for (auto _: state) {
-        const auto res = b6_2_exclusive_scan(execution_policy, vec1);
+        const auto res = B6::b6_2_exclusive_scan(execution_policy, vec1);
 
         state.PauseTiming();
         assert((res[0] == 0));

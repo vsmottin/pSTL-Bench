@@ -6,15 +6,19 @@
 #include <vector>
 #include <utility>
 
-template<class ExecutionPolicy>
-inline std::vector<int>
-b6_2_exclusive_scan(ExecutionPolicy &&policy, const std::vector<int> &container) {
+namespace B6 {
 
-    std::vector<int> result(container.size());
+    template<class ExecutionPolicy>
+    inline std::vector<int>
+    b6_2_exclusive_scan(ExecutionPolicy &&policy, const std::vector<int> &container) {
 
-    std::exclusive_scan(policy, container.begin(), container.end(), result.begin(), 0);
+        std::vector<int> result(container.size());
 
-    return result;
+        std::exclusive_scan(policy, container.begin(), container.end(), result.begin(), 0);
+
+        return result;
+    }
+
 }
 
 #endif //MASTER_BENCHMARKS_B6_2_EXCLUSIVE_SCAN_H

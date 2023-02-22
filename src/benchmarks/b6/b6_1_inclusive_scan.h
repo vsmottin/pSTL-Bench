@@ -6,15 +6,19 @@
 #include <vector>
 #include <utility>
 
-template<class ExecutionPolicy>
-inline std::vector<int>
-b6_1_inclusive_scan(ExecutionPolicy &&policy, const std::vector<int> &container) {
+namespace B6 {
 
-    std::vector<int> result(container.size());
+    template<class ExecutionPolicy>
+    inline std::vector<int>
+    b6_1_inclusive_scan(ExecutionPolicy &&policy, const std::vector<int> &container) {
 
-    std::inclusive_scan(policy, container.begin(), container.end(), result.begin());
+        std::vector<int> result(container.size());
 
-    return result;
+        std::inclusive_scan(policy, container.begin(), container.end(), result.begin());
+
+        return result;
+    }
+
 }
 
 #endif //MASTER_BENCHMARKS_B6_1_INCLUSIVE_SCAN_H
