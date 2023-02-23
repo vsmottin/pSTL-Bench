@@ -6,6 +6,7 @@
 #include <benchmark/benchmark.h>
 
 #include "../benchmark_prefix.h"
+#include "../benchmark_utils.h"
 
 #include "b1_1_for_each_linear.h"
 #include "b1_2_for_each_quadratic.h"
@@ -34,10 +35,11 @@ static void b1_2_for_each_quadratic_wrapper(benchmark::State &state) {
     constexpr auto outer_execution_policy = OuterPolicy{};
     constexpr auto inner_execution_policy = InnerPolicy{};
 
-    std::vector<int> x(state.range(0), 1);
+    const auto size = state.range(0);
+    const auto input_data = suite::generate_increment<suite::int_vec>(size, 1, 0);
 
     for (auto _: state) {
-        B1::b1_2_for_each_quadratic(outer_execution_policy, inner_execution_policy, x);
+        B1::b1_2_for_each_quadratic(outer_execution_policy, inner_execution_policy, input_data);
     }
 }
 
