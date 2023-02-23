@@ -6,12 +6,14 @@
 #include <vector>
 #include <execution>
 #include <cassert>
+#include <iostream>
 
 #include "../benchmark_prefix.h"
 #include "../benchmark_utils.h"
 
 #include "b7_1_copy_vs_for_each.h"
 #include "b7_2_all_off_vs_transform_reduce.h"
+#include "b7_3_count_if_vs_transform_reduce.h"
 
 //region b7_copy_vs_for_each
 
@@ -269,6 +271,166 @@ static void b7_custom_all_of_with_transform_reduce_auto_false(benchmark::State &
 //endregion b7_2_all_off_vs_transform_reduce
 
 
+//region b7_3_count_if_vs_transform_reduce
+
+//region b7_3_count_if
+
+template<class Policy>
+static void b7_3_count_if_all_hit(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    // vector with values [0,size)
+    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+
+    for (auto _: state) {
+        const auto res = B7::b7_3_count_if(execution_policy, vec1,
+                                           [](const int &val) { return val >= -1; });
+
+        state.PauseTiming();
+        assert((res == size));
+        state.ResumeTiming();
+    }
+}
+
+template<class Policy>
+static void b7_3_count_if_half_hit(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+    const auto half_size = int(size / 2);
+
+    // vector with values [0,size)
+    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+
+    for (auto _: state) {
+        const auto res = B7::b7_3_count_if(execution_policy, vec1,
+                                           [half_size](const int &val) { return val >= half_size; });
+
+        state.PauseTiming();
+        assert((res >= half_size));
+        state.ResumeTiming();
+    }
+}
+
+template<class Policy>
+static void b7_3_count_if_orders_struct(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    //region generate order data
+    constexpr auto default_quantity = 5;
+    constexpr auto cutoff = 40;
+
+    // we calculate the number of elements that satisfy condition (val.price * val.quantity >= cutoff)
+    const auto expected_result = std::max(size - (cutoff / default_quantity), static_cast<decltype(size)>(0));
+
+    std::vector<B7::Orders> input_data(size);
+
+    auto n = 0;
+    const auto values = suite::generate_increment<suite::int_vec>(size, 1);
+
+    std::generate(input_data.begin(), input_data.end(),
+                  [&]() { return B7::Orders{values[n++], default_quantity}; });
+    //endregion generate order data
+
+    for (auto _: state) {
+        const auto res = B7::b7_3_count_if(execution_policy, input_data,
+                                           [](const B7::Orders &val) { return val.price * val.quantity >= cutoff; });
+
+        state.PauseTiming();
+        assert((res == expected_result));
+        state.ResumeTiming();
+    }
+}
+
+//region b7_3_count_if
+
+
+//region b7_3_custom_count_if_with_transform_reduce
+
+template<class Policy>
+static void b7_3_custom_count_if_with_transform_reduce_all_hit(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    // vector with values [0,size)
+    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+
+    for (auto _: state) {
+        const auto res = B7::b7_3_custom_count_if_with_transform_reduce(execution_policy, vec1,
+                                                                        [](const int &val) { return val >= -1; });
+
+        state.PauseTiming();
+        assert((res == size));
+        state.ResumeTiming();
+    }
+}
+
+template<class Policy>
+static void b7_3_custom_count_if_with_transform_reduce_half_hit(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+    const auto half_size = int(size / 2);
+
+    // vector with values [0,size)
+    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+
+    for (auto _: state) {
+        const auto res = B7::b7_3_custom_count_if_with_transform_reduce(execution_policy, vec1,
+                                                                        [half_size](const int &val) {
+                                                                            return val >= half_size;
+                                                                        });
+
+        state.PauseTiming();
+        assert((res >= half_size));
+        state.ResumeTiming();
+    }
+}
+
+template<class Policy>
+static void b7_3_custom_count_if_with_transform_reduce_orders_struct(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    //region generate order data
+    constexpr auto default_quantity = 5;
+    constexpr auto cutoff = 40;
+
+    // we calculate the number of elements that satisfy condition (val.price * val.quantity >= cutoff)
+    const auto expected_result = std::max(size - (cutoff / default_quantity), static_cast<decltype(size)>(0));
+
+    std::vector<B7::Orders> input_data(size);
+
+    auto n = 0;
+    const auto values = suite::generate_increment<suite::int_vec>(size, 1);
+
+    std::generate(input_data.begin(), input_data.end(),
+                  [&]() { return B7::Orders{values[n++], default_quantity}; });
+    //endregion generate order data
+
+    for (auto _: state) {
+        const auto res = B7::b7_3_custom_count_if_with_transform_reduce(execution_policy, input_data,
+                                                                        [](const B7::Orders &val) {
+                                                                            return val.price * val.quantity >= cutoff;
+                                                                        });
+
+        state.PauseTiming();
+        assert((res == expected_result));
+        state.ResumeTiming();
+    }
+}
+
+//region b7_3_custom_count_if_with_transform_reduce
+
+
+//endregion b7_3_count_if_vs_transform_reduce
+
 
 #define B7_GROUP_BENCHMARKS \
                             \
@@ -288,7 +450,44 @@ static void b7_custom_all_of_with_transform_reduce_auto_false(benchmark::State &
         B7_2_ALL_OF_BENCHMARKS                                                                                                                              \
                             \
                             \
-        B7_2_ALL_OFF_LOGIC_WITH_TRANSFORM_REDUCE_BENCHMARKS
+        B7_2_ALL_OFF_LOGIC_WITH_TRANSFORM_REDUCE_BENCHMARKS \
+                            \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
 
 
 #endif //MASTER_BENCHMARKS_B7_GROUP_H
