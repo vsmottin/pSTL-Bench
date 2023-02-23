@@ -153,7 +153,7 @@ https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-p
 
 ## Group 7 - Special Algo vs custom implementation (e.g for_each)
 
-* Copy_if logic with std::foreach and once with actual std::copy_if
+* Copy logic with std::foreach and once with actual std::copy
 * inclusive_scan vs ...
 * transfer_reduce vs all_off
 * tranform_reduce vs count_if with structs
@@ -196,7 +196,7 @@ https://github.com/cplusplus/draft/blob/main/papers/n4431.pdf
 * for inclusive_scan what we try to find out, at what size do they start using simd (only for c20 because unseq is
   c20) (https://en.algorithmica.org/hpc/algorithms/prefix/), par, etc.
 
-## Group 11
+## Group 11 - Different kind of views
 
 There is a huge difference between using std::ranges::views::iota and actual container when passing to std::count_if. I
 implemented B3_6 and B3_5 first with iota view and it did not use any parallel stuff. Also include this range class
@@ -223,3 +223,7 @@ return std::count_if(policy, input_data.begin(), input_data.end(), [&](const aut
 And suddenly parallel concepts where used.
 
 Alternatively make dot product with views::iota and once with transform_reduce (https://www.youtube.com/watch?v=Vck6kzWjY88&ab_channel=CppCon)
+
+## Group 12
+
+Using modern c20 features in the workload code (aka in the lambda) and then write the same logic with "old" c17 code.
