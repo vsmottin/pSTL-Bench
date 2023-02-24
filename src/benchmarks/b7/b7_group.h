@@ -15,6 +15,7 @@
 #include "b7_2_all_off_vs_transform_reduce.h"
 #include "b7_3_count_if_vs_transform_reduce_vs_for_each.h"
 #include "b7_4_stencil_transform_vs_for_each.h"
+#include "b7_5_scalar_transform_vs_for_each.h"
 
 //region b7_copy_vs_for_each
 
@@ -557,7 +558,50 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
     }
 }
 
-//endregion b7_4_stencil_transform_vs_for_each
+//endregion b7_4_stencil_transform_vs_for_eac
+
+template<class Policy>
+static void b7_4_scalar_transform_number(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    // vector with values [0,size)
+    const auto vec1 = suite::generate_uniform_dist_vec<int>(size, 1, 100);
+    auto res = std::vector<int>(size);
+
+    for (auto _: state) {
+        B7::b7_4_scalar_transform_number(execution_policy, vec1, res);
+
+        state.PauseTiming();
+        assert((res[0] >= 0));
+        state.ResumeTiming();
+    }
+}
+
+template<class Policy>
+static void b7_4_scalar_for_each(benchmark::State &state) {
+    constexpr auto execution_policy = Policy{};
+
+    const auto &size = state.range(0);
+
+    // vector with values [0,size)
+    const auto vec1 = suite::generate_uniform_dist_vec<int>(size, 1, 100);
+    auto res = std::vector<int>(size);
+
+    //const auto &view = std::views::iota(0, static_cast<int>(vec1.size()));
+    const auto &view = suite::generate_increment<suite::int_vec>(size, 1);
+
+    for (auto _: state) {
+        B7::b7_4_scalar_for_each(execution_policy, vec1, view, res);
+
+        state.PauseTiming();
+        assert((res[0] >= 0));
+        state.ResumeTiming();
+    }
+}
+
+//endregion b7_5_scalar_transform_vs_for_each
 
 #define B7_GROUP_BENCHMARKS \
                             \
@@ -645,6 +689,19 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
         BENCHMARK_TEMPLATE1(b7_4_stencil_for_each_to_neightbours_stdev,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_stencil_for_each_to_neightbours_stdev_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
         BENCHMARK_TEMPLATE1(b7_4_stencil_for_each_to_neightbours_stdev,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_for_each_to_neightbours_stdev_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
         BENCHMARK_TEMPLATE1(b7_4_stencil_for_each_to_neightbours_stdev,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_for_each_to_neightbours_stdev_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
 
 
 #endif //MASTER_BENCHMARKS_B7_GROUP_H
