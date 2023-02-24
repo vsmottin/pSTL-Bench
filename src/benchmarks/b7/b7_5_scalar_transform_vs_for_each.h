@@ -2,12 +2,8 @@
 #ifndef MASTER_BENCHMARKS_B7_5_SCALAR_TRANSFORM_VS_FOR_EACH_H
 #define MASTER_BENCHMARKS_B7_5_SCALAR_TRANSFORM_VS_FOR_EACH_H
 
-
 #include <algorithm>
-#include <functional>
-#include <string>
-#include <ranges>
-#include <cmath>
+#include <vector>
 
 namespace B7 {
 

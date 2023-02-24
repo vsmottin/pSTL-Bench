@@ -560,6 +560,8 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
 
 //endregion b7_4_stencil_transform_vs_for_eac
 
+//region b7_5_scalar_transform_vs_for_each
+
 template<class Policy>
 static void b7_4_scalar_transform_number(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
