@@ -170,21 +170,7 @@ The goal is to see is there a difference between writing the operation and manag
 Seems there are differences
 PS run it once without reserving and once with reserving
 
-
-
-## Group 8 - Reduce and Transform_reduce Chunking
-
-just call std::reduce with ints and transform_reduce large structs(512 bytes maybe). Because in reduce the chunking and
-the scheduling is totally work of the library and not of the standard.
-
-Can we draw conclusions from the benchmarks of the chunking etc?
-> https://github.com/oneapi-src/oneTBB/blob/0cf592bd62fd4b9673b0f7ea9964c4ec9f80b994/include/oneapi/tbb/parallel_reduce.h#L562
-> https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/pstl/parallel_backend_tbb.h#L116
-
-> We can't control the chunking size etc because this comes from the
-> stl. https://oneapi-src.github.io/oneTBB/main/tbb_userguide/Controlling_Chunking_os.html
-
-## Group 9 - Lambda Clousure Performance
+## Group 8 - Lambda Clousure Performance
 
 Does closure type of lambdas change performance when using parallel algos? Is there something we can improve?? The
 standard allows us to do stuff as long as it does not change the intention.
@@ -192,14 +178,14 @@ standard allows us to do stuff as long as it does not change the intention.
 https://stackoverflow.com/a/32898379/7835214
 https://github.com/cplusplus/draft/blob/main/papers/n4431.pdf
 
-## Group 10 - Effective use of SIMD
+## Group 9 - Effective use of SIMD
 
 * What algos make use of simd efficiently? Reduce (with no params, with SAXPY logic), fill etc
 * unfortunately you need to give the compiler some hints so he does it (https://www.youtube.com/watch?v=Vck6kzWjY88&ab_channel=CppCon)
 * for inclusive_scan what we try to find out, at what size do they start using simd (only for c20 because unseq is
   c20) (https://en.algorithmica.org/hpc/algorithms/prefix/), par, etc.
 
-## Group 11 - Different kind of views
+## Group 10 - Different kind of views
 
 There is a huge difference between using std::ranges::views::iota and actual container when passing to std::count_if. I
 implemented B3_6 and B3_5 first with iota view and it did not use any parallel stuff. Also include this range class
@@ -228,6 +214,6 @@ And suddenly parallel concepts where used.
 
 Alternatively make dot product with views::iota and once with transform_reduce (https://www.youtube.com/watch?v=Vck6kzWjY88&ab_channel=CppCon)
 
-## Group 12
+## Group 11
 
 Using modern c20 features in the workload code (aka in the lambda) and then write the same logic with "old" c17 code.
