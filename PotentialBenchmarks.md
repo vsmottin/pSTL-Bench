@@ -154,13 +154,16 @@ https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-p
 ## Group 7 - Special Algo vs custom implementation (e.g for_each)
 
 * Copy logic with std::foreach and once with actual std::copy
-* inclusive_scan vs ...
 * transfer_reduce vs all_off
 * tranform_reduce vs count_if with structs
-* count sort implementation for_each vs parallel sort
 * count_if vs for_each
-* transform vs for_each
-* serial transform + reduce vs transform_reduce (idea to show you should not have "serial stops")
+* transform vs for_each (various kind of bodies) 
+* serial transform + reduce vs transform_reduce (idea to show you should not have "serial stops") 
+
+
+Not possible:
+* count sort implementation for_each vs parallel sort //sadly not really possible without using a hard cut on performance because using atomics
+* inclusive_scan vs ...
 
 
 The goal is to see is there a difference between writing the operation and managing the values by yourself or not.
@@ -201,6 +204,7 @@ https://github.com/cplusplus/draft/blob/main/papers/n4431.pdf
 There is a huge difference between using std::ranges::views::iota and actual container when passing to std::count_if. I
 implemented B3_6 and B3_5 first with iota view and it did not use any parallel stuff. Also include this range class
 everyone pretty much uses in their papers. Also boost::counting_iterator<>()
+Also old cpp std::iota
 
 ```c++
 const auto &view = std::views::iota(0, static_cast<int>(input_data.size()));
