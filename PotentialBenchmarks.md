@@ -178,14 +178,7 @@ standard allows us to do stuff as long as it does not change the intention.
 https://stackoverflow.com/a/32898379/7835214
 https://github.com/cplusplus/draft/blob/main/papers/n4431.pdf
 
-## Group 9 - Effective use of SIMD
-
-* What algos make use of simd efficiently? Reduce (with no params, with SAXPY logic), fill etc
-* unfortunately you need to give the compiler some hints so he does it (https://www.youtube.com/watch?v=Vck6kzWjY88&ab_channel=CppCon)
-* for inclusive_scan what we try to find out, at what size do they start using simd (only for c20 because unseq is
-  c20) (https://en.algorithmica.org/hpc/algorithms/prefix/), par, etc.
-
-## Group 10 - Different kind of views
+## Group 9 - Different kind of views
 
 There is a huge difference between using std::ranges::views::iota and actual container when passing to std::count_if. I
 implemented B3_6 and B3_5 first with iota view and it did not use any parallel stuff. Also include this range class
@@ -213,6 +206,14 @@ return std::count_if(policy, input_data.begin(), input_data.end(), [&](const aut
 And suddenly parallel concepts where used.
 
 Alternatively make dot product with views::iota and once with transform_reduce (https://www.youtube.com/watch?v=Vck6kzWjY88&ab_channel=CppCon)
+
+## Group 10 - Effective use of SIMD
+
+* What algos make use of simd efficiently? Reduce (with no params, with SAXPY logic), fill etc
+* unfortunately you need to give the compiler some hints so he does it (https://www.youtube.com/watch?v=Vck6kzWjY88&ab_channel=CppCon)
+* for inclusive_scan what we try to find out, at what size do they start using simd (only for c20 because unseq is
+  c20) (https://en.algorithmica.org/hpc/algorithms/prefix/), par, etc.
+
 
 ## Group 11
 
