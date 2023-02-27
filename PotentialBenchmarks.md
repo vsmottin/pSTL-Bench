@@ -181,8 +181,9 @@ https://github.com/cplusplus/draft/blob/main/papers/n4431.pdf
 ## Group 9 - Different kind of views
 
 There is a huge difference between using std::ranges::views::iota and actual container when passing to std::count_if. I
-implemented B3_6 and B3_5 first with iota view and it did not use any parallel stuff. Also include this range class
-everyone pretty much uses in their papers. Also boost::counting_iterator<>()
+implemented B3_6 and B3_5 first with iota view and it did not use any parallel stuff. 
+Also include this range class everyone pretty much uses in their papers. 
+Also boost::counting_iterator<>()
 Also old cpp std::iota
 
 ```c++
@@ -206,6 +207,9 @@ return std::count_if(policy, input_data.begin(), input_data.end(), [&](const aut
 And suddenly parallel concepts where used.
 
 Alternatively make dot product with views::iota and once with transform_reduce (https://www.youtube.com/watch?v=Vck6kzWjY88&ab_channel=CppCon)
+
+Reason why views::iota does not work: https://stackoverflow.com/questions/51185974/using-rangesviewiota-in-parallel-algorithms
+https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2408r4.html#require-concept
 
 ## Group 10 - Effective use of SIMD
 
