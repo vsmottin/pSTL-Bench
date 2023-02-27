@@ -2,6 +2,7 @@
 #ifndef MASTER_BENCHMARKS_B8_GROUP_H
 #define MASTER_BENCHMARKS_B8_GROUP_H
 
+#include <benchmark/benchmark.h>
 #include <vector>
 #include <execution>
 #include <iostream>
