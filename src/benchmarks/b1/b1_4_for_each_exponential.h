@@ -1,5 +1,5 @@
-#ifndef MASTER_BENCHMARKS_B1_3_FOR_EACH_EXPONENTIAL_H
-#define MASTER_BENCHMARKS_B1_3_FOR_EACH_EXPONENTIAL_H
+#ifndef MASTER_BENCHMARKS_B1_4_FOR_EACH_EXPONENTIAL_H
+#define MASTER_BENCHMARKS_B1_4_FOR_EACH_EXPONENTIAL_H
 
 #include <vector>
 #include <cmath>
@@ -31,12 +31,12 @@ namespace B1 {
     };
 
     template<class ExecutionPolicy, typename T>
-    inline void b1_3_for_each_exponential(ExecutionPolicy &policy, const T &input_data) {
+    inline void b1_4_for_each_exponential(ExecutionPolicy &policy, const T &input_data) {
 
         std::for_each(policy, input_data.begin(), input_data.end(), FIB{policy});
 
     }
-    
+
 }
 
-#endif //MASTER_BENCHMARKS_B1_3_FOR_EACH_EXPONENTIAL_H
+#endif //MASTER_BENCHMARKS_B1_4_FOR_EACH_EXPONENTIAL_H
