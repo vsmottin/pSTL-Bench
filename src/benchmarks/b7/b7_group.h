@@ -616,7 +616,6 @@ static void b7_6_serial_transform_reduce(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    // lower bound of 1 is required so the function call `b3_5_force_false_sharing` will count every element
     const auto values = suite::generate_uniform_dist_vec<int>(size, 1, 10);
 
     std::vector<B7::Pixel> input_data(size);
@@ -640,7 +639,6 @@ static void b7_6_transform_reduce(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    // lower bound of 1 is required so the function call `b3_5_force_false_sharing` will count every element
     const auto values = suite::generate_uniform_dist_vec<int>(size, 1, 10);
 
     std::vector<B7::Pixel> input_data(size);
