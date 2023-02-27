@@ -1,0 +1,10 @@
+
+#ifndef MASTER_BENCHMARKS_B8_GROUP_H
+#define MASTER_BENCHMARKS_B8_GROUP_H
+
+
+#define B8_GROUP_BENCHMARKS \
+                            \
+
+
+#endif //MASTER_BENCHMARKS_B8_GROUP_H
