@@ -20,6 +20,7 @@ add_subdirectory(ext/google-benchmark)
 
 target_include_directories(${PROJECT_NAME}
         PRIVATE ext/google-benchmark/include
+        PRIVATE ext/boost
         )
 
 target_link_libraries(${PROJECT_NAME}
