@@ -6,59 +6,88 @@
 #include <algorithm>
 
 namespace B9 {
-
-    //TODO: investigate why this does not run!
+    
     namespace CustomIterator {
 
-        // copied from https://github.com/UoB-HPC/BabelStream/blob/main/src/std-indices/STDIndicesStream.h
+        // copied from https://github.com/UoB-HPC/cloverleaf_stdpar/blob/5f17b03982f059765684b568cc93a95591c84905/src/utils.hpp
+        // similar can be found in https://github.com/UoB-HPC/BabelStream/blob/main/src/std-indices/STDIndicesStream.h
         // used in paper such as "Evaluating ISO C++ Parallel Algorithms on Heterogeneous HPC Systems"
         template<typename N>
-        class ranged {
-            N from, to;
+        class range {
         public:
-            ranged(N from, N to) : from(from), to(to) {}
-
             class iterator {
-                N num;
+                friend class range;
+
             public:
-                using difference_type = N;
+
+                using difference_type = typename std::make_signed_t<N>;
                 using value_type = N;
                 using pointer = const N *;
-                using reference = const N &;
+                using reference = N;
                 using iterator_category = std::random_access_iterator_tag;
 
-                explicit iterator(N _num = 0) : num(_num) {}
+                // XXX This is not part of the iterator spec, it gets picked up by oneDPL if enabled.
+                // Without this, the DPL SYCL backend collects the iterator data on the host and copies to the device.
+                // This type is unused for any other STL impl.
+                using is_passed_directly = std::true_type;
+
+                reference operator*() const { return i_; }
 
                 iterator &operator++() {
-                    num++;
+                    ++i_;
                     return *this;
                 }
 
                 iterator operator++(int) {
-                    iterator retval = *this;
-                    ++(*this);
-                    return retval;
+                    iterator copy(*this);
+                    ++i_;
+                    return copy;
                 }
 
-                iterator operator+(const value_type v) const { return iterator(num + v); }
+                iterator &operator--() {
+                    --i_;
+                    return *this;
+                }
 
-                bool operator==(iterator other) const { return num == other.num; }
+                iterator operator--(int) {
+                    iterator copy(*this);
+                    --i_;
+                    return copy;
+                }
 
-                bool operator!=(iterator other) const { return *this != other; }
+                iterator &operator+=(N by) {
+                    i_ += by;
+                    return *this;
+                }
 
-                bool operator<(iterator other) const { return num < other.num; }
+                value_type operator[](const difference_type &i) const { return i_ + i; }
 
-                reference operator*() const { return num; }
+                difference_type operator-(const iterator &it) const { return i_ - it.i_; }
 
-                difference_type operator-(const iterator &it) const { return num - it.num; }
+                iterator operator+(const value_type v) const { return iterator(i_ + v); }
 
-                value_type operator[](const difference_type &i) const { return num + i; }
+                bool operator==(const iterator &other) const { return i_ == other.i_; }
 
+                bool operator!=(const iterator &other) const { return i_ != other.i_; }
+
+                bool operator<(const iterator &other) const { return i_ < other.i_; }
+
+            protected:
+                explicit iterator(N start) : i_(start) {}
+
+            private:
+                N i_;
             };
 
-            iterator begin() { return iterator(from); }
+            iterator begin() const { return begin_; }
 
-            iterator end() { return iterator(to >= from ? to + 1 : to - 1); }
+            iterator end() const { return end_; }
+
+            range(N begin, N end) : begin_(begin), end_(end) {}
+
+        private:
+            iterator begin_;
+            iterator end_;
         };
 
     }
@@ -69,7 +98,7 @@ namespace B9 {
                                    const std::vector<int> &input_data,
                                    std::vector<int> &res) {
 
-        auto view = B9::CustomIterator::ranged<int>(0, input_data.size());
+        auto view = B9::CustomIterator::range<int>(0, input_data.size());
 
         std::transform(policy, view.begin(), view.end(), res.begin(), [&](const auto &index) {
             return input_data[index] + 10;
