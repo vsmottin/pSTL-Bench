@@ -10,18 +10,11 @@
 
 #include "../benchmark_prefix.h"
 #include "../benchmark_utils.h"
+
 #include "b4_1_merge_cutoff.h"
 #include "b4_2_stable_sort_cutoff.h"
 #include "b4_3_set_union_cutoff.h"
 #include "b4_4_set_difference_cutoff.h"
-
-//TODO: ask for help with stable_sort and merge because of
-// ```
-// b4_1_merge_cutoff_wrapper_par_unseq/524288                     617785 ns       617102 ns         1127
-// terminate called after throwing an instance of 'std::bad_alloc'
-//  what():  std::bad_alloc
-// Aborted
-// ```
 
 //region b4_1_merge_cutoff
 
@@ -260,74 +253,74 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
 #define B4_GROUP_BENCHMARKS \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_already_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_already_sorted_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_already_sorted_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_already_sorted_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_already_sorted_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_already_sorted_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_already_sorted_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_already_sorted_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_already_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_already_sorted_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_already_sorted_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_already_sorted_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_already_sorted_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_already_sorted_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_already_sorted_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_already_sorted_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_decrement_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_decrement_sorted_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_decrement_sorted_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_decrement_sorted_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_decrement_sorted_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_decrement_sorted_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_decrement_sorted_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_decrement_sorted_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_decrement_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_decrement_sorted_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_decrement_sorted_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_decrement_sorted_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_decrement_sorted_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_decrement_sorted_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_decrement_sorted_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_decrement_sorted_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_not_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_not_sorted_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_not_sorted_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_not_sorted_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_not_sorted_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_not_sorted_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_not_sorted_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_not_sorted_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-                            \
-                            \
-                            \
-                            \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_empty_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_empty,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_empty_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_empty,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_empty_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_empty,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_empty_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);              \
-                            \
-                            \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_wholly_greater,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_wholly_greater_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_wholly_greater,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_wholly_greater_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_wholly_greater,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_wholly_greater_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_wholly_greater,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_wholly_greater_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
-                            \
-                            \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);         \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_not_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_not_sorted_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_not_sorted_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_not_sorted_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_not_sorted_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_not_sorted_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_not_sorted_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_not_sorted_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
                             \
                             \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);       \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_empty_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_empty,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_empty_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_empty,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_empty_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_empty,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_empty_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);              \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_wholly_greater,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_wholly_greater_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_wholly_greater,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_wholly_greater_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_wholly_greater,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_wholly_greater_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_wholly_greater,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_wholly_greater_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);         \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);       \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
 
 
 

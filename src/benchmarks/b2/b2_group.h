@@ -5,8 +5,11 @@
 #include <benchmark/benchmark.h>
 #include <execution>
 #include <iostream>
-#include "b2_1_basic_reduce.h"
+
 #include "../benchmark_prefix.h"
+#include "../benchmark_utils.h"
+
+#include "b2_1_basic_reduce.h"
 
 //region b2_1_basic_reduce
 
@@ -21,9 +24,9 @@ static void b2_1_basic_reduce_wrapper(benchmark::State &state) {
 }
 
 #define REGISTER_B2_1_BASIC_REDUCE_WRAPPER(datatype)  \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::sequenced_policy, datatype)->Name(BENCHMARK_NAME("b2_1_basic_reduce_" xstr(datatype) "_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);   \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_policy, datatype)->Name(BENCHMARK_NAME("b2_1_basic_reduce_" xstr(datatype) "_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);    \
-    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_unsequenced_policy, datatype)->Name(BENCHMARK_NAME("b2_1_basic_reduce_" xstr(datatype) "_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);    \
+    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::sequenced_policy, datatype)->Name(BENCHMARK_NAME("b2_1_basic_reduce_" xstr(datatype) "_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20);   \
+    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_policy, datatype)->Name(BENCHMARK_NAME("b2_1_basic_reduce_" xstr(datatype) "_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20);    \
+    BENCHMARK_TEMPLATE2(b2_1_basic_reduce_wrapper, std::execution::parallel_unsequenced_policy, datatype)->Name(BENCHMARK_NAME("b2_1_basic_reduce_" xstr(datatype) "_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20);    \
 
 
 //endregion b2_1_basic_reduce

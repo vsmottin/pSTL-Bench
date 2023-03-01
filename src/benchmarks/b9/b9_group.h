@@ -42,10 +42,10 @@ static void b9_1_transform_baseline_wrapper(benchmark::State &state) {
 
 #define B9_1_TRANSFORM_BASELINE_WRAPPER \
                                         \
-        BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
 
 
 //endregion b9_1_transform_baseline
@@ -75,10 +75,10 @@ static void b9_2_transform_old_iota_wrapper(benchmark::State &state) {
 
 #define B9_2_TRANSFORM_OLD_IOTA_WRAPPER \
                                         \
-        BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
 
 
 //endregion b9_2_transform_old_iota
@@ -108,10 +108,10 @@ static void b9_3_transform_views_iota_wrapper(benchmark::State &state) {
 
 #define B9_3_TRANSFORM_VIEWS_IOTA_WRAPPER \
                                         \
-        BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
 
 
 //endregion b9_3_transform_views_iota
@@ -141,10 +141,10 @@ static void b9_4_transform_views_iota_common_wrapper(benchmark::State &state) {
 
 #define B9_4_TRANSFORM_VIEWS_IOTA_COMMON_WRAPPER \
                                         \
-        BENCHMARK_TEMPLATE1(b9_4_transform_views_iota_common_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_4_transform_views_iota_common_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_4_transform_views_iota_common_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_4_transform_views_iota_common_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b9_4_transform_views_iota_common_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_4_transform_views_iota_common_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_4_transform_views_iota_common_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_4_transform_views_iota_common_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b9_4_transform_views_iota_common_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_4_transform_views_iota_common_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_4_transform_views_iota_common_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_4_transform_views_iota_common_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b9_4_transform_views_iota_common_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_4_transform_views_iota_common_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_4_transform_views_iota_common_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_4_transform_views_iota_common_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
 
 
 //endregion b9_4_transform_views_iota_common
@@ -174,10 +174,10 @@ static void b9_5_transform_custom_iterator_wrapper(benchmark::State &state) {
 
 #define B9_5_TRANSFORM_CUSTOM_ITERATOR_WRAPPER \
                                         \
-        BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
 
 
 //endregion b9_5_transform_custom_iterator
@@ -207,10 +207,10 @@ static void b9_6_transform_boost_wrapper(benchmark::State &state) {
 
 #define B9_6_TRANSFORM_BOOST_WRAPPER \
                                         \
-        BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
 
 
 //endregion b9_6_transform_boost

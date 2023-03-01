@@ -8,12 +8,17 @@
 #include <algorithm>
 #include <ctime>
 
+#define CUSTOM_STATISTICS \
+    ComputeStatistics("max", [](const std::vector<double>& v) -> double {return *(std::max_element(std::begin(v), std::end(v)));})-> \
+    ComputeStatistics("min", [](const std::vector<double>& v) -> double {return *(std::min_element(std::begin(v), std::end(v)));})
+
+
 namespace suite {
 
     typedef std::vector<int> int_vec;
     typedef std::list<int> int_lst;
 
-// some compilers did not implement the both fields (for example nvc++@22.5) so we just define it ourselfs
+// some compilers did not implement the both fields (for example nvc++@22.5) so we just define it ourselves
 #ifdef __cpp_lib_hardware_interference_size
     constexpr std::size_t hardware_constructive_interference_size = std::hardware_constructive_interference_size;
     constexpr std::size_t hardware_destructive_interference_size = std::hardware_destructive_interference_size;

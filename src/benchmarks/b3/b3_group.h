@@ -9,6 +9,7 @@
 
 #include "../benchmark_utils.h"
 #include "../benchmark_prefix.h"
+
 #include "b3_1_expensive_branching.h"
 #include "b3_2_expensive_branching_annotated.h"
 #include "b3_3_expensive_sharing.h"
@@ -157,34 +158,34 @@ static void b3_6_no_false_sharing_wrapper(benchmark::State &state) {
 
 // Register the function as a benchmark
 #define B3_GROUP_BENCHMARKS \
-        BENCHMARK_TEMPLATE1(b3_1_expensive_branching_fail,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_1_expensive_branching_fail_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b3_1_expensive_branching_fail,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_1_expensive_branching_fail_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b3_1_expensive_branching_fail,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_1_expensive_branching_fail_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_1_expensive_branching_fail,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_1_expensive_branching_fail_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_1_expensive_branching_fail,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_1_expensive_branching_fail_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b3_1_expensive_branching_fail,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_1_expensive_branching_fail_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b3_2_expensive_branching_annotated_success,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_2_expensive_branching_annotated_success_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b3_3_expensive_sharing_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_3_expensive_sharing_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b3_3_expensive_sharing_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_3_expensive_sharing_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b3_3_expensive_sharing_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_3_expensive_sharing_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);       \
+        BENCHMARK_TEMPLATE1(b3_3_expensive_sharing_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_3_expensive_sharing_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_3_expensive_sharing_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_3_expensive_sharing_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b3_3_expensive_sharing_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_3_expensive_sharing_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20);       \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b3_4_no_expensive_sharing_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_4_no_expensive_sharing_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b3_4_no_expensive_sharing_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_4_no_expensive_sharing_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b3_4_no_expensive_sharing_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_4_no_expensive_sharing_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_4_no_expensive_sharing_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_4_no_expensive_sharing_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_4_no_expensive_sharing_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_4_no_expensive_sharing_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b3_4_no_expensive_sharing_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_4_no_expensive_sharing_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b3_5_force_false_sharing_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_5_force_false_sharing_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b3_5_force_false_sharing_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_5_force_false_sharing_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b3_5_force_false_sharing_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_5_force_false_sharing_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_5_force_false_sharing_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_5_force_false_sharing_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_5_force_false_sharing_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_5_force_false_sharing_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b3_5_force_false_sharing_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_5_force_false_sharing_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b3_6_no_false_sharing_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_6_no_false_sharing_seq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b3_6_no_false_sharing_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_6_no_false_sharing_par"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b3_6_no_false_sharing_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_6_no_false_sharing_par_unseq"))->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_6_no_false_sharing_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b3_6_no_false_sharing_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b3_6_no_false_sharing_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b3_6_no_false_sharing_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b3_6_no_false_sharing_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b3_6_no_false_sharing_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
 
 
 

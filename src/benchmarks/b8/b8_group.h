@@ -107,29 +107,29 @@ static void b8_2_copy_capture_object_var(benchmark::State &state) {
 #define B8_GROUP_BENCHMARKS \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b8_1_reference_capture_simple_var,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b8_1_reference_capture_simple_var_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b8_1_reference_capture_simple_var,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b8_1_reference_capture_simple_var_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b8_1_reference_capture_simple_var,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b8_1_reference_capture_simple_var_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b8_1_reference_capture_simple_var,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b8_1_reference_capture_simple_var_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b8_1_reference_capture_simple_var,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b8_1_reference_capture_simple_var_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b8_1_reference_capture_simple_var,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b8_1_reference_capture_simple_var_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b8_1_reference_capture_simple_var,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b8_1_reference_capture_simple_var_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b8_1_reference_capture_simple_var,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b8_1_reference_capture_simple_var_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b8_1_copy_capture_simple_var,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b8_1_copy_capture_simple_var_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b8_1_copy_capture_simple_var,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b8_1_copy_capture_simple_var_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b8_1_copy_capture_simple_var,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b8_1_copy_capture_simple_var_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b8_1_copy_capture_simple_var,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b8_1_copy_capture_simple_var_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b8_1_copy_capture_simple_var,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b8_1_copy_capture_simple_var_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b8_1_copy_capture_simple_var,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b8_1_copy_capture_simple_var_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b8_1_copy_capture_simple_var,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b8_1_copy_capture_simple_var_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b8_1_copy_capture_simple_var,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b8_1_copy_capture_simple_var_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b8_2_reference_capture_object_var,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b8_2_reference_capture_object_var_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b8_2_reference_capture_object_var,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b8_2_reference_capture_object_var_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b8_2_reference_capture_object_var,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b8_2_reference_capture_object_var_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b8_2_reference_capture_object_var,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b8_2_reference_capture_object_var_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b8_2_reference_capture_object_var,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b8_2_reference_capture_object_var_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b8_2_reference_capture_object_var,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b8_2_reference_capture_object_var_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b8_2_reference_capture_object_var,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b8_2_reference_capture_object_var_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b8_2_reference_capture_object_var,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b8_2_reference_capture_object_var_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b8_2_copy_capture_object_var,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b8_2_copy_capture_object_var_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b8_2_copy_capture_object_var,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b8_2_copy_capture_object_var_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b8_2_copy_capture_object_var,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b8_2_copy_capture_object_var_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b8_2_copy_capture_object_var,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b8_2_copy_capture_object_var_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b8_2_copy_capture_object_var,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b8_2_copy_capture_object_var_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b8_2_copy_capture_object_var,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b8_2_copy_capture_object_var_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b8_2_copy_capture_object_var,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b8_2_copy_capture_object_var_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b8_2_copy_capture_object_var,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b8_2_copy_capture_object_var_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
 
 
 

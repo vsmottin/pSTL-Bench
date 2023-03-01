@@ -140,28 +140,28 @@ static void b7_2_all_of_auto_false(benchmark::State &state) {
 }
 
 #define B7_2_ALL_OF_BENCHMARKS \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_all_true,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_all_true_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_all_true,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_all_of_all_true_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_all_true,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_all_true_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_all_true,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_all_true_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_2_all_of_all_true,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_all_true_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_all_true,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_all_of_all_true_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_all_true,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_all_true_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_all_true,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_all_true_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                                \
                                \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_first_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_first_false_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_first_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_all_of_first_false_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_first_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_first_false_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_first_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_first_false_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_first_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_first_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_first_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_all_of_first_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_first_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_first_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_first_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_first_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
                                \
                                \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_last_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_last_false_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_last_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_all_of_last_false_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_last_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_last_false_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_last_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_last_false_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_last_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_last_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_last_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_all_of_last_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_last_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_last_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_last_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_last_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
                                \
                                \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_auto_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_auto_false_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_auto_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_all_of_auto_false_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_auto_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_auto_false_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_2_all_of_auto_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_auto_false_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_auto_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_auto_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_auto_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_all_of_auto_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_auto_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_auto_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_all_of_auto_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_all_of_auto_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
 
 //endregion b7_2_all_of
 
@@ -245,28 +245,28 @@ static void b7_custom_all_of_with_transform_reduce_auto_false(benchmark::State &
 }
 
 #define B7_2_ALL_OFF_LOGIC_WITH_TRANSFORM_REDUCE_BENCHMARKS \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                                \
                                \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
                                \
                                \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
                                \
                                \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
 
 
 //endregion b7_custom_all_of_with_transform_reduce
@@ -660,16 +660,16 @@ static void b7_6_transform_reduce(benchmark::State &state) {
 
 #define B7_GROUP_BENCHMARKS \
                             \
-        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_copy_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_copy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
                             \
@@ -680,96 +680,96 @@ static void b7_6_transform_reduce(benchmark::State &state) {
                             \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_all_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_all_hit_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_half_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_half_hit_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_count_if_orders_struct,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_count_if_orders_struct_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_all_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_all_hit_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_half_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_half_hit_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_transform_reduce_orders_struct,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_transform_reduce_orders_struct_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_all_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_all_hit_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_all_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_all_hit_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_all_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_all_hit_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_all_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_all_hit_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_all_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_all_hit_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_all_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_all_hit_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_all_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_all_hit_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_all_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_all_hit_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_half_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_half_hit_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_half_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_half_hit_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_half_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_half_hit_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_half_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_half_hit_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_half_hit,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_half_hit_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_half_hit,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_half_hit_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_half_hit,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_half_hit_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_half_hit,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_half_hit_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_orders_struct,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_orders_struct_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_orders_struct,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_orders_struct_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_orders_struct,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_orders_struct_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_orders_struct,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_orders_struct_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_orders_struct,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_orders_struct_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_orders_struct,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_orders_struct_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_orders_struct,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_orders_struct_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_3_custom_count_if_with_for_each_orders_struct,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_3_custom_count_if_with_for_each_orders_struct_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_4_stencil_transform_number_to_neightbours_stdev,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_transform_number_to_neightbours_stdev_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_stencil_transform_number_to_neightbours_stdev,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_stencil_transform_number_to_neightbours_stdev_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_4_stencil_transform_number_to_neightbours_stdev,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_transform_number_to_neightbours_stdev_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_stencil_transform_number_to_neightbours_stdev,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_transform_number_to_neightbours_stdev_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_4_stencil_transform_number_to_neightbours_stdev,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_transform_number_to_neightbours_stdev_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_stencil_transform_number_to_neightbours_stdev,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_stencil_transform_number_to_neightbours_stdev_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_4_stencil_transform_number_to_neightbours_stdev,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_transform_number_to_neightbours_stdev_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_stencil_transform_number_to_neightbours_stdev,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_transform_number_to_neightbours_stdev_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_4_stencil_for_each_to_neightbours_stdev,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_for_each_to_neightbours_stdev_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_stencil_for_each_to_neightbours_stdev,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_stencil_for_each_to_neightbours_stdev_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_4_stencil_for_each_to_neightbours_stdev,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_for_each_to_neightbours_stdev_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_stencil_for_each_to_neightbours_stdev,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_for_each_to_neightbours_stdev_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
-                            \
-                            \
-                            \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
-                            \
-                            \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_4_stencil_for_each_to_neightbours_stdev,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_for_each_to_neightbours_stdev_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_stencil_for_each_to_neightbours_stdev,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_stencil_for_each_to_neightbours_stdev_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_4_stencil_for_each_to_neightbours_stdev,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_for_each_to_neightbours_stdev_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_stencil_for_each_to_neightbours_stdev,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_for_each_to_neightbours_stdev_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_6_serial_transform_reduce,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_6_serial_transform_reduce_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_6_serial_transform_reduce,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_6_serial_transform_reduce_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_6_serial_transform_reduce,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_6_serial_transform_reduce_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_6_serial_transform_reduce,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_6_serial_transform_reduce_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_seq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_par"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_par_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_unseq"))->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b7_6_serial_transform_reduce,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_6_serial_transform_reduce_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_6_serial_transform_reduce,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_6_serial_transform_reduce_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_6_serial_transform_reduce,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_6_serial_transform_reduce_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_6_serial_transform_reduce,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_6_serial_transform_reduce_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
 
 
 #endif //MASTER_BENCHMARKS_B7_GROUP_H
