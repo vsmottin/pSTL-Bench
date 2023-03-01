@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import List
 
-from Models import Compiler, Config, Benchmark, BenchmarkType, get_binary_for_compiler
+from models import Compiler, Config, Benchmark, BenchmarkType, get_binary_for_compiler
 from execptions import DataCollectorException
 
 logger = logging.getLogger("data_collector")

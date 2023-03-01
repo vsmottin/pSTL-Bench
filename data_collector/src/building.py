@@ -2,7 +2,7 @@ import logging
 import subprocess
 from typing import List
 
-from Models import Compiler, Config, get_build_artifact_folder_for_compiler
+from models import Compiler, Config, get_build_artifact_folder_for_compiler
 
 logger = logging.getLogger("data_collector")
 

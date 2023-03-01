@@ -3,8 +3,8 @@ import sys
 import logging
 from typing import List, Tuple
 
-from Models import Config
-from Building import build_artifacts
+from models import Config
+from building import build_artifacts
 from execptions import DataCollectorException
 from executors import get_executor_for_type
 
