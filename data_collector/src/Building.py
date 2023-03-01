@@ -48,7 +48,7 @@ def build_binary(compiler) -> None:
                          '--target', BINARY_TARGET,
                          '-j', '8'
                          ]
-    print(" ".join(binary_build_args))
+    
     start_subprocess_and_log(binary_build_args, prefix=f"{compiler.name}-binary_build",
                              error_msg=f"Could not build binary for: {compiler.name}")
     logger.info("Successfully completed binary build")
