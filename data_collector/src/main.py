@@ -4,7 +4,9 @@ import logging
 from typing import List, Tuple
 
 from Models import Config
-from src.Building import build_artifacts
+from Building import build_artifacts
+from execptions import DataCollectorException
+from executors import get_executor_for_type
 
 logging.basicConfig(level=logging.NOTSET)
 
@@ -38,6 +40,7 @@ def main(argv):
 
     logger.info(f'Configuration file using: {configuration_file}')
 
+    # load the configuration
     configuration = Config.load_from_file(configuration_file)
 
     # removing compilers that should not be executed
@@ -48,6 +51,22 @@ def main(argv):
     for compiler in configuration.compiler:
         build_artifacts(compiler, configuration.cmake_location)
 
+    # run the benchmarks for all the selected compilers
+    for compiler in configuration.compiler:
+        logger.info(f"Running the benchmarks for compiler: {compiler.name}")
+
+        for benchmark in configuration.benchmarks:
+            executor = get_executor_for_type(benchmark)
+            executor.execute(benchmark, compiler, configuration)
+
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    try:
+        main(sys.argv[1:])
+    except DataCollectorException as ex:
+        error_msg = "Aborted due to an error"
+        if ex.msg != '':
+            error_msg += f": {ex.msg}"
+
+        logger.error(error_msg)
+        exit(1)

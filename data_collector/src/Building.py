@@ -2,7 +2,7 @@ import logging
 import subprocess
 from typing import List
 
-from src.Models import Compiler
+from Models import Compiler
 
 logger = logging.getLogger("data_collector")
 
@@ -48,7 +48,7 @@ def build_binary(compiler) -> None:
                          '--target', BINARY_TARGET,
                          '-j', '8'
                          ]
-    
+
     start_subprocess_and_log(binary_build_args, prefix=f"{compiler.name}-binary_build",
                              error_msg=f"Could not build binary for: {compiler.name}")
     logger.info("Successfully completed binary build")

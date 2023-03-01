@@ -1,8 +1,14 @@
 import json
-from dataclasses import dataclass, field
-from typing import List
+from dataclasses import dataclass
+from enum import Enum
+from typing import List, Any, Dict, Optional
 
 from dataclass_wizard import fromdict
+
+
+class BenchmarkType(Enum):
+    DEFAULT = "DEFAULT"
+    NUMACTL = 'NUMACTL'
 
 
 @dataclass
@@ -11,7 +17,16 @@ class Compiler:
     CXX_COMPILER: str
     CXX_FLAGS: str
     build_location: str
-    description: str
+    description: Optional[str]
+
+
+@dataclass
+class Benchmark:
+    name: str
+    description: Optional[str]
+    type: BenchmarkType
+    regex_filter: str
+    params: Optional[Dict[Any, Any]] = None
 
 
 @dataclass
@@ -20,6 +35,7 @@ class Config:
     benchmark_repetitions: str
     cmake_location: str
     compiler: List['Compiler']
+    benchmarks: List['Benchmark']
 
     @staticmethod
     def load_from_file(configuration_file: str):

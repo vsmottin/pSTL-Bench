@@ -17,5 +17,22 @@
       "build_location": "cmake-build-debug-nvc_multicore",
       "description": "Running the benchmarks with nvc++ with multicore"
     }
+  ],
+  "benchmarks": [
+    {
+      "name": "B1_Group_Default",
+      "description": "Running the B1 group benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "B1_"
+    },
+    {
+      "name": "B1_Group_SameSock",
+      "description": "Running the B1 group benchmarks without any constraints",
+      "type": "NUMACTL",
+      "params": {
+        "cpu-binding": "1,2,3,4"
+      },
+      "regex_filter": "B1_"
+    }
   ]
 }
