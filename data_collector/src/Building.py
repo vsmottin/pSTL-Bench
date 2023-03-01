@@ -2,12 +2,9 @@ import logging
 import subprocess
 from typing import List
 
-from Models import Compiler
+from Models import Compiler, Config, get_build_artifact_folder_for_compiler
 
 logger = logging.getLogger("data_collector")
-
-ARTIFACTS_FOLDER = 'build-artifacts'
-BINARY_TARGET = 'master_benchmarks'
 
 
 def log_subprocess_output(pipe, prefix='') -> None:
@@ -28,24 +25,25 @@ def start_subprocess_and_log(args: List[str], prefix: str = "",
         exit(1)
 
 
-def build_artifacts(compiler: Compiler, cmake_location: str) -> None:
+def build_artifacts(compiler: Compiler, configuration: Config) -> None:
     logger.info(f"Building artifacts for compiler: {compiler.name}")
 
-    generate_ninja_cmake(cmake_location, compiler)
+    generate_ninja_cmake(compiler, configuration)
 
-    build_binary(compiler)
+    build_binary(compiler, configuration)
 
 
-def build_binary(compiler) -> None:
+def build_binary(compiler: Compiler, configuration: Config) -> None:
     """
     Generate the binary using all the cmake configs
+    :param configuration:
     :param compiler:
     :return:
     """
     logger.info("Starting binary build")
     binary_build_args = ['cmake',
-                         '--build', f'./{ARTIFACTS_FOLDER}/{compiler.build_location}',
-                         '--target', BINARY_TARGET,
+                         '--build', get_build_artifact_folder_for_compiler(compiler, configuration),
+                         '--target', configuration.binary_target,
                          '-j', '8'
                          ]
 
@@ -54,10 +52,10 @@ def build_binary(compiler) -> None:
     logger.info("Successfully completed binary build")
 
 
-def generate_ninja_cmake(cmake_location, compiler) -> None:
+def generate_ninja_cmake(compiler: Compiler, configuration: Config) -> None:
     """
     Runs the command to convert the cmake file into a ninja build process
-    :param cmake_location:
+    :param configuration:
     :param compiler:
     :return:
     """
@@ -66,10 +64,11 @@ def generate_ninja_cmake(cmake_location, compiler) -> None:
                               '-DCMAKE_MAKE_PROGRAM=ninja',
                               f'-DCMAKE_CXX_COMPILER={compiler.CXX_COMPILER}',
                               '-G', 'Ninja',
+                              '-DCMAKE_BUILD_TYPE=Release',
                               f'-DBENCHMARK_PREFIX={compiler.name}',
                               # f'-DCMAKE_CXX_FLAGS="{compiler.CXX_FLAGS}"',
-                              '-S', cmake_location,
-                              '-B', f'./{ARTIFACTS_FOLDER}/{compiler.build_location}'
+                              '-S', configuration.cmake_location,
+                              '-B', get_build_artifact_folder_for_compiler(compiler, configuration)
                               ]
     start_subprocess_and_log(cmake_ninja_build_args, prefix=f"{compiler.name}-cmake-ninja",
                              error_msg=f"Could not build: {compiler.name}")

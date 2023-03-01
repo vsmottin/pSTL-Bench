@@ -49,7 +49,7 @@ def main(argv):
 
     # running building
     for compiler in configuration.compiler:
-        build_artifacts(compiler, configuration.cmake_location)
+        build_artifacts(compiler, configuration)
 
     # run the benchmarks for all the selected compilers
     for compiler in configuration.compiler:

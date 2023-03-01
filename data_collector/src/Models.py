@@ -1,4 +1,5 @@
 import json
+import os
 from dataclasses import dataclass
 from enum import Enum
 from typing import List, Any, Dict, Optional
@@ -33,7 +34,9 @@ class Benchmark:
 class Config:
     output_dir: str
     benchmark_repetitions: str
+    build_artifacts_dir: str
     cmake_location: str
+    binary_target: str
     compiler: List['Compiler']
     benchmarks: List['Benchmark']
 
@@ -43,3 +46,23 @@ class Config:
         json_content = json.load(file)
 
         return fromdict(Config, json_content)
+
+
+def get_build_artifact_folder_for_compiler(compiler: Compiler, config: Config) -> str:
+    """
+    Gets the build artifact location for a compiler under the given configuration
+    :param compiler:
+    :param config:
+    :return:
+    """
+    return os.path.join(config.build_artifacts_dir, compiler.build_location)
+
+
+def get_binary_for_compiler(compiler: Compiler, config: Config) -> str:
+    """
+    Gets the build artifact location for a compiler under the given configuration
+    :param compiler:
+    :param config:
+    :return:
+    """
+    return os.path.join(get_build_artifact_folder_for_compiler(compiler, config), config.binary_target)
