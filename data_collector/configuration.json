@@ -1,0 +1,21 @@
+{
+  "output_dir": "./output",
+  "benchmark_repetitions": 3,
+  "cmake_location": "..",
+  "compiler": [
+    {
+      "name": "GCC_TBB",
+      "CXX_COMPILER": "g++",
+      "CXX_FLAGS": "",
+      "build_location": "cmake-build-debug-gcc",
+      "description": "Running the benchmarks with gcc and tbb"
+    },
+    {
+      "name": "NVC++_Multicore",
+      "CXX_COMPILER": "nvc++",
+      "CXX_FLAGS": "-stdpar=multicore",
+      "build_location": "cmake-build-debug-nvc_multicore",
+      "description": "Running the benchmarks with nvc++ with multicore"
+    }
+  ]
+}
