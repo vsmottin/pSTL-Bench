@@ -68,7 +68,7 @@ def generate_ninja_cmake(compiler: Compiler, configuration: Config) -> None:
                               '-DCMAKE_MAKE_PROGRAM=ninja',
                               f'-DCMAKE_CXX_COMPILER={compiler.CXX_COMPILER}',
                               '-G', 'Ninja',
-                              '-DCMAKE_BUILD_TYPE=Release',
+                              # '-DCMAKE_BUILD_TYPE=Release', #TODO: currently release version fails because on nvc++ of google benchmark
                               f'-DBENCHMARK_PREFIX={compiler.name}',
                               f'-DCMAKE_CXX_FLAGS="{compiler.CXX_FLAGS}"',
                               '-S', configuration.cmake_location,
@@ -79,5 +79,5 @@ def generate_ninja_cmake(compiler: Compiler, configuration: Config) -> None:
 
     start_subprocess_and_log(cmake_ninja_build_args, prefix=f"{compiler.name}-cmake-ninja",
                              error_msg=f"Could not build: {compiler.name}")
-    
+
     logger.info("Successfully completed cmake ninja build")
