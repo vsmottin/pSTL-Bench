@@ -8,7 +8,7 @@
     {
       "name": "GCC_TBB",
       "CXX_COMPILER": "g++",
-      "CXX_FLAGS": "",
+      "CXX_FLAGS": "-L/home/thesis/krupitza/scratch_files/oneapi-tbb-2021.7.0/lib/intel64/gcc4.8/ -ltbb -pthread -fopenmp -O3",
       "build_location": "cmake-build-debug-gcc",
       "description": "Running the benchmarks with gcc and tbb"
     },
