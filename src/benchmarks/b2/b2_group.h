@@ -23,7 +23,7 @@ static void b2_1_basic_reduce_wrapper(benchmark::State &state) {
         const auto res = B2::b2_1_basic_reduce(execution_policy, x);
 
         state.PauseTiming();
-        assert((res >= 0));
+        assert((res >= 1)); // >= 1 because in case of unsigned (>= 0) may be removed because obviously true
         state.ResumeTiming();
     }
 }
