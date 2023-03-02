@@ -8,7 +8,7 @@
 #define EXPAND(VAL)     DO_EXPAND(VAL)
 
 // IS PREFIX SET AND NOT EMPTY
-#if defined(BENCHMARK_PREFIX) && (EXPAND(BENCHMARK_PREFIX) != 1)
+#if (defined(BENCHMARK_PREFIX) && (EXPAND(BENCHMARK_PREFIX) != 1))
 #define PREFIX_DELIMITER _
 #else // its empty or not set
 #define BENCHMARK_PREFIX
