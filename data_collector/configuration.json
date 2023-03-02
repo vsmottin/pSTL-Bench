@@ -13,7 +13,7 @@
       "description": "Running the benchmarks with gcc and tbb"
     },
     {
-      "name": "NVC++_Multicore",
+      "name": "NVHPC_Multicore",
       "CXX_COMPILER": "nvc++",
       "CXX_FLAGS": "-stdpar=multicore",
       "build_location": "cmake-build-debug-nvc_multicore",
