@@ -19,12 +19,12 @@ add_executable(${PROJECT_NAME}
 add_subdirectory(ext/google-benchmark)
 
 target_include_directories(${PROJECT_NAME}
-        PRIVATE ext/google-benchmark/include
+        PUBLIC SYSTEM ext/google-benchmark/include
         PRIVATE ext/boost_1_81
         )
 
 target_link_libraries(${PROJECT_NAME}
-        PRIVATE benchmark
+        PUBLIC benchmark
         )
 
 if (CMAKE_COMPILER_IS_GNUCXX)
