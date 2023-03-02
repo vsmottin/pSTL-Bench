@@ -37,6 +37,7 @@ def read_arguments(argv) -> Tuple[str, List[str]]:
 
 def main(argv):
     configuration_file, selected_compilers = read_arguments(argv)
+    no_compiler_found_message = "No compilers defined in configuration.json"
 
     logger.info(f'Configuration file using: {configuration_file}')
 
@@ -45,7 +46,12 @@ def main(argv):
 
     # removing compilers that should not be executed
     if selected_compilers != ['*']:
+        no_compiler_found_message = f"No compilers names match the selection: {selected_compilers}"
         configuration.compiler = [x for x in configuration.compiler if x.name in selected_compilers]
+
+    if len(configuration.compiler) == 0:
+        logger.info(no_compiler_found_message)
+        exit(0)
 
     # running building
     for compiler in configuration.compiler:
