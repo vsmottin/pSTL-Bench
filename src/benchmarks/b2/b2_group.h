@@ -44,8 +44,7 @@ static void b2_1_basic_reduce_wrapper(benchmark::State &state) {
             REGISTER_B2_1_BASIC_REDUCE_WRAPPER(long)                \
             REGISTER_B2_1_BASIC_REDUCE_WRAPPER(unsigned long)       \
             REGISTER_B2_1_BASIC_REDUCE_WRAPPER(float)               \
-            REGISTER_B2_1_BASIC_REDUCE_WRAPPER(double)              \
-            REGISTER_B2_1_BASIC_REDUCE_WRAPPER(long double)
+            REGISTER_B2_1_BASIC_REDUCE_WRAPPER(double)
 
 
 #endif //MASTER_BENCHMARKS_B2_GROUP_H
