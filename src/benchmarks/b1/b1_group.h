@@ -57,6 +57,7 @@ template<class Policy>
 static void b1_3_for_each_quadratic_single_loop_wrapper(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
+    //TODO: CHECK WHY THIS NOT WORK HUGE SIZE IS FAST AMALL SIZE IS SLOW
     const auto size = state.range(0);
     const auto input_data = suite::generate_increment<suite::int_vec>(size, 1, 0);
 
@@ -97,10 +98,10 @@ static void b1_4_for_each_exponential_wrapper(benchmark::State &state) {
     B1_2_FOR_EACH_QUADRATIC_WRAPPER(std::execution::parallel_unsequenced_policy); \
                             \
                             \
-    BENCHMARK_TEMPLATE1(b1_3_for_each_quadratic_single_loop_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_3_for_each_quadratic_single_loop_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
+    /*BENCHMARK_TEMPLATE1(b1_3_for_each_quadratic_single_loop_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_3_for_each_quadratic_single_loop_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
     BENCHMARK_TEMPLATE1(b1_3_for_each_quadratic_single_loop_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_3_for_each_quadratic_single_loop_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
     BENCHMARK_TEMPLATE1(b1_3_for_each_quadratic_single_loop_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b1_3_for_each_quadratic_single_loop_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 20); \
-                            \
+    */                        \
                             \
     BENCHMARK_TEMPLATE1(b1_4_for_each_exponential_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_4_for_each_exponential_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 5); \
     BENCHMARK_TEMPLATE1(b1_4_for_each_exponential_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_4_for_each_exponential_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 5); \
