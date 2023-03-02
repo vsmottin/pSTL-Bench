@@ -22,76 +22,1756 @@
   ],
   "benchmarks": [
     {
-      "name": "B1_Group_Default",
-      "description": "Running the B1 group benchmarks without any constraints",
+      "name": "b1_1_for_each_linear_seq_Default",
+      "description": "Running the b1_1_for_each_linear_seq benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b1_"
+      "regex_filter": "b1_1_for_each_linear_seq"
     },
     {
-      "name": "B2_Group_Default",
-      "description": "Running the B2 group benchmarks without any constraints",
+      "name": "b1_1_for_each_linear_par_Default",
+      "description": "Running the b1_1_for_each_linear_par benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b2_"
+      "regex_filter": "b1_1_for_each_linear_par"
     },
     {
-      "name": "B3_Group_Default",
-      "description": "Running the B3 group benchmarks without any constraints",
+      "name": "b1_1_for_each_linear_par_unseq_Default",
+      "description": "Running the b1_1_for_each_linear_par_unseq benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b3_"
+      "regex_filter": "b1_1_for_each_linear_par_unseq"
     },
     {
-      "name": "B4_1_Default",
-      "description": "Running the B4_1 benchmarks without any constraints",
+      "name": "b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_seq_Default",
+      "description": "Running the b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_seq benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b4_1"
+      "regex_filter": "b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_seq"
     },
     {
-      "name": "B4_2_Default",
-      "description": "Running the B4_2 benchmarks without any constraints",
+      "name": "b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par_Default",
+      "description": "Running the b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b4_2"
+      "regex_filter": "b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par"
     },
     {
-      "name": "B4_3_Default",
-      "description": "Running the B4_3 benchmarks without any constraints",
+      "name": "b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par_unseq_Default",
+      "description": "Running the b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par_unseq benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b4_3"
+      "regex_filter": "b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par_unseq"
     },
     {
-      "name": "B4_4_Default",
-      "description": "Running the B4_4 benchmarks without any constraints",
+      "name": "b1_2_for_each_quadratic_outer_std::execution::parallel_policy_seq_Default",
+      "description": "Running the b1_2_for_each_quadratic_outer_std::execution::parallel_policy_seq benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b4_4"
+      "regex_filter": "b1_2_for_each_quadratic_outer_std::execution::parallel_policy_seq"
     },
     {
-      "name": "B5_Group_Default",
-      "description": "Running the B5 group benchmarks without any constraints",
+      "name": "b1_2_for_each_quadratic_outer_std::execution::parallel_policy_par_Default",
+      "description": "Running the b1_2_for_each_quadratic_outer_std::execution::parallel_policy_par benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b5_"
+      "regex_filter": "b1_2_for_each_quadratic_outer_std::execution::parallel_policy_par"
     },
     {
-      "name": "B6_Group_Default",
-      "description": "Running the B6 group benchmarks without any constraints",
+      "name": "b1_2_for_each_quadratic_outer_std::execution::parallel_policy_par_unseq_Default",
+      "description": "Running the b1_2_for_each_quadratic_outer_std::execution::parallel_policy_par_unseq benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b6_"
+      "regex_filter": "b1_2_for_each_quadratic_outer_std::execution::parallel_policy_par_unseq"
     },
     {
-      "name": "B7_Group_Default",
-      "description": "Running the B7 group benchmarks without any constraints",
+      "name": "b1_2_for_each_quadratic_outer_std::execution::parallel_unsequenced_policy_seq_Default",
+      "description": "Running the b1_2_for_each_quadratic_outer_std::execution::parallel_unsequenced_policy_seq benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b7_"
+      "regex_filter": "b1_2_for_each_quadratic_outer_std::execution::parallel_unsequenced_policy_seq"
     },
     {
-      "name": "B8_Group_Default",
-      "description": "Running the B8 group benchmarks without any constraints",
+      "name": "b1_2_for_each_quadratic_outer_std::execution::parallel_unsequenced_policy_par_Default",
+      "description": "Running the b1_2_for_each_quadratic_outer_std::execution::parallel_unsequenced_policy_par benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b8_"
+      "regex_filter": "b1_2_for_each_quadratic_outer_std::execution::parallel_unsequenced_policy_par"
     },
     {
-      "name": "B9_Group_Default",
-      "description": "Running the B9 group benchmarks without any constraints",
+      "name": "b1_2_for_each_quadratic_outer_std::execution::parallel_unsequenced_policy_par_unseq_Default",
+      "description": "Running the b1_2_for_each_quadratic_outer_std::execution::parallel_unsequenced_policy_par_unseq benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b9_"
+      "regex_filter": "b1_2_for_each_quadratic_outer_std::execution::parallel_unsequenced_policy_par_unseq"
+    },
+    {
+      "name": "b1_3_for_each_quadratic_single_loop_seq_Default",
+      "description": "Running the b1_3_for_each_quadratic_single_loop_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b1_3_for_each_quadratic_single_loop_seq"
+    },
+    {
+      "name": "b1_3_for_each_quadratic_single_loop_par_Default",
+      "description": "Running the b1_3_for_each_quadratic_single_loop_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b1_3_for_each_quadratic_single_loop_par"
+    },
+    {
+      "name": "b1_3_for_each_quadratic_single_loop_par_unseq_Default",
+      "description": "Running the b1_3_for_each_quadratic_single_loop_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b1_3_for_each_quadratic_single_loop_par_unseq"
+    },
+    {
+      "name": "b1_4_for_each_exponential_seq_Default",
+      "description": "Running the b1_4_for_each_exponential_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b1_4_for_each_exponential_seq"
+    },
+    {
+      "name": "b1_4_for_each_exponential_par_Default",
+      "description": "Running the b1_4_for_each_exponential_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b1_4_for_each_exponential_par"
+    },
+    {
+      "name": "b1_4_for_each_exponential_par_unseq_Default",
+      "description": "Running the b1_4_for_each_exponential_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b1_4_for_each_exponential_par_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_char_seq_Default",
+      "description": "Running the b2_1_basic_reduce_char_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_char_seq"
+    },
+    {
+      "name": "b2_1_basic_reduce_char_par_Default",
+      "description": "Running the b2_1_basic_reduce_char_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_char_par"
+    },
+    {
+      "name": "b2_1_basic_reduce_char_par_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_char_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_char_par_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_char_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_char_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_char_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_int_seq_Default",
+      "description": "Running the b2_1_basic_reduce_int_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_int_seq"
+    },
+    {
+      "name": "b2_1_basic_reduce_int_par_Default",
+      "description": "Running the b2_1_basic_reduce_int_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_int_par"
+    },
+    {
+      "name": "b2_1_basic_reduce_int_par_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_int_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_int_par_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_int_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_int_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_int_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_long_seq_Default",
+      "description": "Running the b2_1_basic_reduce_long_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_long_seq"
+    },
+    {
+      "name": "b2_1_basic_reduce_long_par_Default",
+      "description": "Running the b2_1_basic_reduce_long_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_long_par"
+    },
+    {
+      "name": "b2_1_basic_reduce_long_par_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_long_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_long_par_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_long_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_long_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_long_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_unsigned long_seq_Default",
+      "description": "Running the b2_1_basic_reduce_unsigned long_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_unsigned long_seq"
+    },
+    {
+      "name": "b2_1_basic_reduce_unsigned long_par_Default",
+      "description": "Running the b2_1_basic_reduce_unsigned long_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_unsigned long_par"
+    },
+    {
+      "name": "b2_1_basic_reduce_unsigned long_par_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_unsigned long_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_unsigned long_par_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_unsigned long_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_unsigned long_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_unsigned long_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_float_seq_Default",
+      "description": "Running the b2_1_basic_reduce_float_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_float_seq"
+    },
+    {
+      "name": "b2_1_basic_reduce_float_par_Default",
+      "description": "Running the b2_1_basic_reduce_float_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_float_par"
+    },
+    {
+      "name": "b2_1_basic_reduce_float_par_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_float_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_float_par_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_float_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_float_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_float_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_double_seq_Default",
+      "description": "Running the b2_1_basic_reduce_double_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_double_seq"
+    },
+    {
+      "name": "b2_1_basic_reduce_double_par_Default",
+      "description": "Running the b2_1_basic_reduce_double_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_double_par"
+    },
+    {
+      "name": "b2_1_basic_reduce_double_par_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_double_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_double_par_unseq"
+    },
+    {
+      "name": "b2_1_basic_reduce_double_unseq_Default",
+      "description": "Running the b2_1_basic_reduce_double_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_1_basic_reduce_double_unseq"
+    },
+    {
+      "name": "b3_1_expensive_branching_fail_seq_Default",
+      "description": "Running the b3_1_expensive_branching_fail_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_1_expensive_branching_fail_seq"
+    },
+    {
+      "name": "b3_1_expensive_branching_fail_par_Default",
+      "description": "Running the b3_1_expensive_branching_fail_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_1_expensive_branching_fail_par"
+    },
+    {
+      "name": "b3_1_expensive_branching_fail_par_unseq_Default",
+      "description": "Running the b3_1_expensive_branching_fail_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_1_expensive_branching_fail_par_unseq"
+    },
+    {
+      "name": "b3_2_expensive_branching_annotated_success_seq_Default",
+      "description": "Running the b3_2_expensive_branching_annotated_success_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_2_expensive_branching_annotated_success_seq"
+    },
+    {
+      "name": "b3_2_expensive_branching_annotated_success_par_Default",
+      "description": "Running the b3_2_expensive_branching_annotated_success_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_2_expensive_branching_annotated_success_par"
+    },
+    {
+      "name": "b3_2_expensive_branching_annotated_success_par_unseq_Default",
+      "description": "Running the b3_2_expensive_branching_annotated_success_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_2_expensive_branching_annotated_success_par_unseq"
+    },
+    {
+      "name": "b3_3_expensive_sharing_seq_Default",
+      "description": "Running the b3_3_expensive_sharing_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_3_expensive_sharing_seq"
+    },
+    {
+      "name": "b3_3_expensive_sharing_par_Default",
+      "description": "Running the b3_3_expensive_sharing_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_3_expensive_sharing_par"
+    },
+    {
+      "name": "b3_3_expensive_sharing_par_unseq_Default",
+      "description": "Running the b3_3_expensive_sharing_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_3_expensive_sharing_par_unseq"
+    },
+    {
+      "name": "b3_4_no_expensive_sharing_seq_Default",
+      "description": "Running the b3_4_no_expensive_sharing_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_4_no_expensive_sharing_seq"
+    },
+    {
+      "name": "b3_4_no_expensive_sharing_par_Default",
+      "description": "Running the b3_4_no_expensive_sharing_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_4_no_expensive_sharing_par"
+    },
+    {
+      "name": "b3_4_no_expensive_sharing_par_unseq_Default",
+      "description": "Running the b3_4_no_expensive_sharing_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_4_no_expensive_sharing_par_unseq"
+    },
+    {
+      "name": "b3_5_force_false_sharing_seq_Default",
+      "description": "Running the b3_5_force_false_sharing_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_5_force_false_sharing_seq"
+    },
+    {
+      "name": "b3_5_force_false_sharing_par_Default",
+      "description": "Running the b3_5_force_false_sharing_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_5_force_false_sharing_par"
+    },
+    {
+      "name": "b3_5_force_false_sharing_par_unseq_Default",
+      "description": "Running the b3_5_force_false_sharing_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_5_force_false_sharing_par_unseq"
+    },
+    {
+      "name": "b3_6_no_false_sharing_seq_Default",
+      "description": "Running the b3_6_no_false_sharing_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_6_no_false_sharing_seq"
+    },
+    {
+      "name": "b3_6_no_false_sharing_par_Default",
+      "description": "Running the b3_6_no_false_sharing_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_6_no_false_sharing_par"
+    },
+    {
+      "name": "b3_6_no_false_sharing_par_unseq_Default",
+      "description": "Running the b3_6_no_false_sharing_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_6_no_false_sharing_par_unseq"
+    },
+    {
+      "name": "b4_1_merge_cutoff_wrapper_seq_Default",
+      "description": "Running the b4_1_merge_cutoff_wrapper_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_1_merge_cutoff_wrapper_seq"
+    },
+    {
+      "name": "b4_1_merge_cutoff_wrapper_par_Default",
+      "description": "Running the b4_1_merge_cutoff_wrapper_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_1_merge_cutoff_wrapper_par"
+    },
+    {
+      "name": "b4_1_merge_cutoff_wrapper_par_unseq_Default",
+      "description": "Running the b4_1_merge_cutoff_wrapper_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_1_merge_cutoff_wrapper_par_unseq"
+    },
+    {
+      "name": "b4_1_merge_cutoff_wrapper_unseq_Default",
+      "description": "Running the b4_1_merge_cutoff_wrapper_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_1_merge_cutoff_wrapper_unseq"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_already_sorted_seq_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_already_sorted_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_already_sorted_seq"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_already_sorted_par_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_already_sorted_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_already_sorted_par"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_already_sorted_par_unseq_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_already_sorted_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_already_sorted_par_unseq"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_already_sorted_unseq_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_already_sorted_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_already_sorted_unseq"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_decrement_sorted_seq_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_decrement_sorted_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_decrement_sorted_seq"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_decrement_sorted_par_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_decrement_sorted_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_decrement_sorted_par"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_decrement_sorted_par_unseq_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_decrement_sorted_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_decrement_sorted_par_unseq"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_decrement_sorted_unseq_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_decrement_sorted_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_decrement_sorted_unseq"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_not_sorted_seq_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_not_sorted_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_not_sorted_seq"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_not_sorted_par_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_not_sorted_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_not_sorted_par"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_not_sorted_par_unseq_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_not_sorted_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_not_sorted_par_unseq"
+    },
+    {
+      "name": "b4_2_stable_sort_cutoff_not_sorted_unseq_Default",
+      "description": "Running the b4_2_stable_sort_cutoff_not_sorted_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2_stable_sort_cutoff_not_sorted_unseq"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_one_empty_seq_Default",
+      "description": "Running the b4_3_set_union_cutoff_one_empty_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_one_empty_seq"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_one_empty_par_Default",
+      "description": "Running the b4_3_set_union_cutoff_one_empty_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_one_empty_par"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_one_empty_par_unseq_Default",
+      "description": "Running the b4_3_set_union_cutoff_one_empty_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_one_empty_par_unseq"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_one_empty_unseq_Default",
+      "description": "Running the b4_3_set_union_cutoff_one_empty_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_one_empty_unseq"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_one_wholly_greater_seq_Default",
+      "description": "Running the b4_3_set_union_cutoff_one_wholly_greater_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_one_wholly_greater_seq"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_one_wholly_greater_par_Default",
+      "description": "Running the b4_3_set_union_cutoff_one_wholly_greater_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_one_wholly_greater_par"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_one_wholly_greater_par_unseq_Default",
+      "description": "Running the b4_3_set_union_cutoff_one_wholly_greater_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_one_wholly_greater_par_unseq"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_one_wholly_greater_unseq_Default",
+      "description": "Running the b4_3_set_union_cutoff_one_wholly_greater_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_one_wholly_greater_unseq"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_front_overhang_seq_Default",
+      "description": "Running the b4_3_set_union_cutoff_front_overhang_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_front_overhang_seq"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_front_overhang_par_Default",
+      "description": "Running the b4_3_set_union_cutoff_front_overhang_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_front_overhang_par"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_front_overhang_par_unseq_Default",
+      "description": "Running the b4_3_set_union_cutoff_front_overhang_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_front_overhang_par_unseq"
+    },
+    {
+      "name": "b4_3_set_union_cutoff_front_overhang_unseq_Default",
+      "description": "Running the b4_3_set_union_cutoff_front_overhang_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3_set_union_cutoff_front_overhang_unseq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_left_empty_seq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_left_empty_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_left_empty_seq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_left_empty_par_Default",
+      "description": "Running the b4_4_set_difference_cutoff_left_empty_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_left_empty_par"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_left_empty_par_unseq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_left_empty_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_left_empty_par_unseq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_left_empty_unseq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_left_empty_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_left_empty_unseq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_right_empty_seq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_right_empty_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_right_empty_seq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_right_empty_par_Default",
+      "description": "Running the b4_4_set_difference_cutoff_right_empty_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_right_empty_par"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_right_empty_par_unseq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_right_empty_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_right_empty_par_unseq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_right_empty_unseq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_right_empty_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_right_empty_unseq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_wholly_greater_seq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_wholly_greater_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_wholly_greater_seq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_wholly_greater_par_Default",
+      "description": "Running the b4_4_set_difference_cutoff_wholly_greater_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_wholly_greater_par"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_wholly_greater_par_unseq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_wholly_greater_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_wholly_greater_par_unseq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_wholly_greater_unseq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_wholly_greater_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_wholly_greater_unseq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_intersected_seq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_intersected_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_intersected_seq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_intersected_par_Default",
+      "description": "Running the b4_4_set_difference_cutoff_intersected_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_intersected_par"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_intersected_par_unseq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_intersected_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_intersected_par_unseq"
+    },
+    {
+      "name": "b4_4_set_difference_cutoff_intersected_unseq_Default",
+      "description": "Running the b4_4_set_difference_cutoff_intersected_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4_set_difference_cutoff_intersected_unseq"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_first_entry_seq_Default",
+      "description": "Running the b5_1_find_std::vector<int>_first_entry_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_first_entry_seq"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_first_entry_par_Default",
+      "description": "Running the b5_1_find_std::vector<int>_first_entry_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_first_entry_par"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_first_entry_par_unseq_Default",
+      "description": "Running the b5_1_find_std::vector<int>_first_entry_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_first_entry_par_unseq"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_first_entry_unseq_Default",
+      "description": "Running the b5_1_find_std::vector<int>_first_entry_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_first_entry_unseq"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_last_entry_seq_Default",
+      "description": "Running the b5_1_find_std::vector<int>_last_entry_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_last_entry_seq"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_last_entry_par_Default",
+      "description": "Running the b5_1_find_std::vector<int>_last_entry_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_last_entry_par"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_last_entry_par_unseq_Default",
+      "description": "Running the b5_1_find_std::vector<int>_last_entry_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_last_entry_par_unseq"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_last_entry_unseq_Default",
+      "description": "Running the b5_1_find_std::vector<int>_last_entry_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_last_entry_unseq"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_non_existing_entry_seq_Default",
+      "description": "Running the b5_1_find_std::vector<int>_non_existing_entry_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_non_existing_entry_seq"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_non_existing_entry_par_Default",
+      "description": "Running the b5_1_find_std::vector<int>_non_existing_entry_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_non_existing_entry_par"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_non_existing_entry_par_unseq_Default",
+      "description": "Running the b5_1_find_std::vector<int>_non_existing_entry_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_non_existing_entry_par_unseq"
+    },
+    {
+      "name": "b5_1_find_std::vector<int>_non_existing_entry_unseq_Default",
+      "description": "Running the b5_1_find_std::vector<int>_non_existing_entry_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::vector<int>_non_existing_entry_unseq"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_first_entry_seq_Default",
+      "description": "Running the b5_1_find_std::deque<int>_first_entry_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_first_entry_seq"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_first_entry_par_Default",
+      "description": "Running the b5_1_find_std::deque<int>_first_entry_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_first_entry_par"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_first_entry_par_unseq_Default",
+      "description": "Running the b5_1_find_std::deque<int>_first_entry_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_first_entry_par_unseq"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_first_entry_unseq_Default",
+      "description": "Running the b5_1_find_std::deque<int>_first_entry_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_first_entry_unseq"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_last_entry_seq_Default",
+      "description": "Running the b5_1_find_std::deque<int>_last_entry_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_last_entry_seq"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_last_entry_par_Default",
+      "description": "Running the b5_1_find_std::deque<int>_last_entry_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_last_entry_par"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_last_entry_par_unseq_Default",
+      "description": "Running the b5_1_find_std::deque<int>_last_entry_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_last_entry_par_unseq"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_last_entry_unseq_Default",
+      "description": "Running the b5_1_find_std::deque<int>_last_entry_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_last_entry_unseq"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_non_existing_entry_seq_Default",
+      "description": "Running the b5_1_find_std::deque<int>_non_existing_entry_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_non_existing_entry_seq"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_non_existing_entry_par_Default",
+      "description": "Running the b5_1_find_std::deque<int>_non_existing_entry_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_non_existing_entry_par"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_non_existing_entry_par_unseq_Default",
+      "description": "Running the b5_1_find_std::deque<int>_non_existing_entry_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_non_existing_entry_par_unseq"
+    },
+    {
+      "name": "b5_1_find_std::deque<int>_non_existing_entry_unseq_Default",
+      "description": "Running the b5_1_find_std::deque<int>_non_existing_entry_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_1_find_std::deque<int>_non_existing_entry_unseq"
+    },
+    {
+      "name": "b5_2_partition_seq_Default",
+      "description": "Running the b5_2_partition_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_2_partition_seq"
+    },
+    {
+      "name": "b5_2_partition_par_Default",
+      "description": "Running the b5_2_partition_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_2_partition_par"
+    },
+    {
+      "name": "b5_2_partition_par_unseq_Default",
+      "description": "Running the b5_2_partition_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_2_partition_par_unseq"
+    },
+    {
+      "name": "b5_2_partition_unseq_Default",
+      "description": "Running the b5_2_partition_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_2_partition_unseq"
+    },
+    {
+      "name": "b5_3_unique_copy_odd_seq_Default",
+      "description": "Running the b5_3_unique_copy_odd_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_3_unique_copy_odd_seq"
+    },
+    {
+      "name": "b5_3_unique_copy_odd_par_Default",
+      "description": "Running the b5_3_unique_copy_odd_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_3_unique_copy_odd_par"
+    },
+    {
+      "name": "b5_3_unique_copy_odd_par_unseq_Default",
+      "description": "Running the b5_3_unique_copy_odd_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_3_unique_copy_odd_par_unseq"
+    },
+    {
+      "name": "b5_3_unique_copy_odd_unseq_Default",
+      "description": "Running the b5_3_unique_copy_odd_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_3_unique_copy_odd_unseq"
+    },
+    {
+      "name": "b5_4_minmax_element_all_equal_seq_Default",
+      "description": "Running the b5_4_minmax_element_all_equal_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_4_minmax_element_all_equal_seq"
+    },
+    {
+      "name": "b5_4_minmax_element_all_equal_par_Default",
+      "description": "Running the b5_4_minmax_element_all_equal_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_4_minmax_element_all_equal_par"
+    },
+    {
+      "name": "b5_4_minmax_element_all_equal_par_unseq_Default",
+      "description": "Running the b5_4_minmax_element_all_equal_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_4_minmax_element_all_equal_par_unseq"
+    },
+    {
+      "name": "b5_4_minmax_element_all_equal_unseq_Default",
+      "description": "Running the b5_4_minmax_element_all_equal_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_4_minmax_element_all_equal_unseq"
+    },
+    {
+      "name": "b5_4_minmax_element_increasing_seq_Default",
+      "description": "Running the b5_4_minmax_element_increasing_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_4_minmax_element_increasing_seq"
+    },
+    {
+      "name": "b5_4_minmax_element_increasing_par_Default",
+      "description": "Running the b5_4_minmax_element_increasing_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_4_minmax_element_increasing_par"
+    },
+    {
+      "name": "b5_4_minmax_element_increasing_par_unseq_Default",
+      "description": "Running the b5_4_minmax_element_increasing_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_4_minmax_element_increasing_par_unseq"
+    },
+    {
+      "name": "b5_4_minmax_element_increasing_unseq_Default",
+      "description": "Running the b5_4_minmax_element_increasing_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_4_minmax_element_increasing_unseq"
+    },
+    {
+      "name": "b6_1_inclusive_scan_seq_Default",
+      "description": "Running the b6_1_inclusive_scan_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b6_1_inclusive_scan_seq"
+    },
+    {
+      "name": "b6_1_inclusive_scan_par_Default",
+      "description": "Running the b6_1_inclusive_scan_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b6_1_inclusive_scan_par"
+    },
+    {
+      "name": "b6_1_inclusive_scan_par_unseq_Default",
+      "description": "Running the b6_1_inclusive_scan_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b6_1_inclusive_scan_par_unseq"
+    },
+    {
+      "name": "b6_1_inclusive_scan_unseq_Default",
+      "description": "Running the b6_1_inclusive_scan_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b6_1_inclusive_scan_unseq"
+    },
+    {
+      "name": "b6_2_exclusive_scan_seq_Default",
+      "description": "Running the b6_2_exclusive_scan_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b6_2_exclusive_scan_seq"
+    },
+    {
+      "name": "b6_2_exclusive_scan_par_Default",
+      "description": "Running the b6_2_exclusive_scan_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b6_2_exclusive_scan_par"
+    },
+    {
+      "name": "b6_2_exclusive_scan_par_unseq_Default",
+      "description": "Running the b6_2_exclusive_scan_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b6_2_exclusive_scan_par_unseq"
+    },
+    {
+      "name": "b6_2_exclusive_scan_unseq_Default",
+      "description": "Running the b6_2_exclusive_scan_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b6_2_exclusive_scan_unseq"
+    },
+    {
+      "name": "b7_1_copy_seq_Default",
+      "description": "Running the b7_1_copy_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_1_copy_seq"
+    },
+    {
+      "name": "b7_1_copy_par_Default",
+      "description": "Running the b7_1_copy_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_1_copy_par"
+    },
+    {
+      "name": "b7_1_copy_par_unseq_Default",
+      "description": "Running the b7_1_copy_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_1_copy_par_unseq"
+    },
+    {
+      "name": "b7_1_copy_unseq_Default",
+      "description": "Running the b7_1_copy_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_1_copy_unseq"
+    },
+    {
+      "name": "b7_custom_copy_with_foreach_seq_Default",
+      "description": "Running the b7_custom_copy_with_foreach_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_copy_with_foreach_seq"
+    },
+    {
+      "name": "b7_custom_copy_with_foreach_par_Default",
+      "description": "Running the b7_custom_copy_with_foreach_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_copy_with_foreach_par"
+    },
+    {
+      "name": "b7_custom_copy_with_foreach_par_unseq_Default",
+      "description": "Running the b7_custom_copy_with_foreach_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_copy_with_foreach_par_unseq"
+    },
+    {
+      "name": "b7_custom_copy_with_foreach_unseq_Default",
+      "description": "Running the b7_custom_copy_with_foreach_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_copy_with_foreach_unseq"
+    },
+    {
+      "name": "b7_2_all_of_all_true_seq_Default",
+      "description": "Running the b7_2_all_of_all_true_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_all_true_seq"
+    },
+    {
+      "name": "b7_2_all_of_all_true_par_Default",
+      "description": "Running the b7_2_all_of_all_true_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_all_true_par"
+    },
+    {
+      "name": "b7_2_all_of_all_true_par_unseq_Default",
+      "description": "Running the b7_2_all_of_all_true_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_all_true_par_unseq"
+    },
+    {
+      "name": "b7_2_all_of_all_true_unseq_Default",
+      "description": "Running the b7_2_all_of_all_true_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_all_true_unseq"
+    },
+    {
+      "name": "b7_2_all_of_first_false_seq_Default",
+      "description": "Running the b7_2_all_of_first_false_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_first_false_seq"
+    },
+    {
+      "name": "b7_2_all_of_first_false_par_Default",
+      "description": "Running the b7_2_all_of_first_false_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_first_false_par"
+    },
+    {
+      "name": "b7_2_all_of_first_false_par_unseq_Default",
+      "description": "Running the b7_2_all_of_first_false_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_first_false_par_unseq"
+    },
+    {
+      "name": "b7_2_all_of_first_false_unseq_Default",
+      "description": "Running the b7_2_all_of_first_false_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_first_false_unseq"
+    },
+    {
+      "name": "b7_2_all_of_last_false_seq_Default",
+      "description": "Running the b7_2_all_of_last_false_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_last_false_seq"
+    },
+    {
+      "name": "b7_2_all_of_last_false_par_Default",
+      "description": "Running the b7_2_all_of_last_false_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_last_false_par"
+    },
+    {
+      "name": "b7_2_all_of_last_false_par_unseq_Default",
+      "description": "Running the b7_2_all_of_last_false_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_last_false_par_unseq"
+    },
+    {
+      "name": "b7_2_all_of_last_false_unseq_Default",
+      "description": "Running the b7_2_all_of_last_false_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_last_false_unseq"
+    },
+    {
+      "name": "b7_2_all_of_auto_false_seq_Default",
+      "description": "Running the b7_2_all_of_auto_false_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_auto_false_seq"
+    },
+    {
+      "name": "b7_2_all_of_auto_false_par_Default",
+      "description": "Running the b7_2_all_of_auto_false_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_auto_false_par"
+    },
+    {
+      "name": "b7_2_all_of_auto_false_par_unseq_Default",
+      "description": "Running the b7_2_all_of_auto_false_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_auto_false_par_unseq"
+    },
+    {
+      "name": "b7_2_all_of_auto_false_unseq_Default",
+      "description": "Running the b7_2_all_of_auto_false_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_2_all_of_auto_false_unseq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_all_true_seq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_all_true_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_all_true_seq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_all_true_par_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_all_true_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_all_true_par"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_all_true_par_unseq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_all_true_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_all_true_par_unseq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_all_true_unseq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_all_true_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_all_true_unseq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_first_false_seq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_first_false_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_first_false_seq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_first_false_par_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_first_false_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_first_false_par"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_first_false_par_unseq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_first_false_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_first_false_par_unseq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_first_false_unseq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_first_false_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_first_false_unseq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_last_false_seq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_last_false_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_last_false_seq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_last_false_par_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_last_false_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_last_false_par"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_last_false_par_unseq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_last_false_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_last_false_par_unseq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_last_false_unseq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_last_false_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_last_false_unseq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_auto_false_seq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_auto_false_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_auto_false_seq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_auto_false_par_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_auto_false_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_auto_false_par"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_auto_false_par_unseq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_auto_false_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_auto_false_par_unseq"
+    },
+    {
+      "name": "b7_custom_all_of_with_transform_reduce_auto_false_unseq_Default",
+      "description": "Running the b7_custom_all_of_with_transform_reduce_auto_false_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_custom_all_of_with_transform_reduce_auto_false_unseq"
+    },
+    {
+      "name": "b7_3_count_if_all_hit_seq_Default",
+      "description": "Running the b7_3_count_if_all_hit_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_all_hit_seq"
+    },
+    {
+      "name": "b7_3_count_if_all_hit_par_Default",
+      "description": "Running the b7_3_count_if_all_hit_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_all_hit_par"
+    },
+    {
+      "name": "b7_3_count_if_all_hit_par_unseq_Default",
+      "description": "Running the b7_3_count_if_all_hit_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_all_hit_par_unseq"
+    },
+    {
+      "name": "b7_3_count_if_all_hit_unseq_Default",
+      "description": "Running the b7_3_count_if_all_hit_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_all_hit_unseq"
+    },
+    {
+      "name": "b7_3_count_if_half_hit_seq_Default",
+      "description": "Running the b7_3_count_if_half_hit_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_half_hit_seq"
+    },
+    {
+      "name": "b7_3_count_if_half_hit_par_Default",
+      "description": "Running the b7_3_count_if_half_hit_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_half_hit_par"
+    },
+    {
+      "name": "b7_3_count_if_half_hit_par_unseq_Default",
+      "description": "Running the b7_3_count_if_half_hit_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_half_hit_par_unseq"
+    },
+    {
+      "name": "b7_3_count_if_half_hit_unseq_Default",
+      "description": "Running the b7_3_count_if_half_hit_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_half_hit_unseq"
+    },
+    {
+      "name": "b7_3_count_if_orders_struct_seq_Default",
+      "description": "Running the b7_3_count_if_orders_struct_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_orders_struct_seq"
+    },
+    {
+      "name": "b7_3_count_if_orders_struct_par_Default",
+      "description": "Running the b7_3_count_if_orders_struct_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_orders_struct_par"
+    },
+    {
+      "name": "b7_3_count_if_orders_struct_par_unseq_Default",
+      "description": "Running the b7_3_count_if_orders_struct_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_orders_struct_par_unseq"
+    },
+    {
+      "name": "b7_3_count_if_orders_struct_unseq_Default",
+      "description": "Running the b7_3_count_if_orders_struct_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_count_if_orders_struct_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_all_hit_seq_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_all_hit_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_all_hit_seq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_all_hit_par_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_all_hit_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_all_hit_par"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_all_hit_par_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_all_hit_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_all_hit_par_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_all_hit_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_all_hit_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_all_hit_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_half_hit_seq_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_half_hit_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_half_hit_seq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_half_hit_par_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_half_hit_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_half_hit_par"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_half_hit_par_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_half_hit_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_half_hit_par_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_half_hit_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_half_hit_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_half_hit_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_orders_struct_seq_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_orders_struct_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_orders_struct_seq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_orders_struct_par_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_orders_struct_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_orders_struct_par"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_orders_struct_par_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_orders_struct_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_orders_struct_par_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_transform_reduce_orders_struct_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_transform_reduce_orders_struct_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_transform_reduce_orders_struct_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_all_hit_seq_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_all_hit_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_all_hit_seq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_all_hit_par_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_all_hit_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_all_hit_par"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_all_hit_par_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_all_hit_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_all_hit_par_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_all_hit_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_all_hit_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_all_hit_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_half_hit_seq_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_half_hit_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_half_hit_seq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_half_hit_par_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_half_hit_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_half_hit_par"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_half_hit_par_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_half_hit_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_half_hit_par_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_half_hit_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_half_hit_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_half_hit_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_orders_struct_seq_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_orders_struct_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_orders_struct_seq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_orders_struct_par_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_orders_struct_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_orders_struct_par"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_orders_struct_par_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_orders_struct_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_orders_struct_par_unseq"
+    },
+    {
+      "name": "b7_3_custom_count_if_with_for_each_orders_struct_unseq_Default",
+      "description": "Running the b7_3_custom_count_if_with_for_each_orders_struct_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_3_custom_count_if_with_for_each_orders_struct_unseq"
+    },
+    {
+      "name": "b7_4_stencil_transform_number_to_neightbours_stdev_seq_Default",
+      "description": "Running the b7_4_stencil_transform_number_to_neightbours_stdev_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_stencil_transform_number_to_neightbours_stdev_seq"
+    },
+    {
+      "name": "b7_4_stencil_transform_number_to_neightbours_stdev_par_Default",
+      "description": "Running the b7_4_stencil_transform_number_to_neightbours_stdev_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_stencil_transform_number_to_neightbours_stdev_par"
+    },
+    {
+      "name": "b7_4_stencil_transform_number_to_neightbours_stdev_par_unseq_Default",
+      "description": "Running the b7_4_stencil_transform_number_to_neightbours_stdev_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_stencil_transform_number_to_neightbours_stdev_par_unseq"
+    },
+    {
+      "name": "b7_4_stencil_transform_number_to_neightbours_stdev_unseq_Default",
+      "description": "Running the b7_4_stencil_transform_number_to_neightbours_stdev_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_stencil_transform_number_to_neightbours_stdev_unseq"
+    },
+    {
+      "name": "b7_4_stencil_for_each_to_neightbours_stdev_seq_Default",
+      "description": "Running the b7_4_stencil_for_each_to_neightbours_stdev_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_stencil_for_each_to_neightbours_stdev_seq"
+    },
+    {
+      "name": "b7_4_stencil_for_each_to_neightbours_stdev_par_Default",
+      "description": "Running the b7_4_stencil_for_each_to_neightbours_stdev_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_stencil_for_each_to_neightbours_stdev_par"
+    },
+    {
+      "name": "b7_4_stencil_for_each_to_neightbours_stdev_par_unseq_Default",
+      "description": "Running the b7_4_stencil_for_each_to_neightbours_stdev_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_stencil_for_each_to_neightbours_stdev_par_unseq"
+    },
+    {
+      "name": "b7_4_stencil_for_each_to_neightbours_stdev_unseq_Default",
+      "description": "Running the b7_4_stencil_for_each_to_neightbours_stdev_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_stencil_for_each_to_neightbours_stdev_unseq"
+    },
+    {
+      "name": "b7_4_scalar_transform_number_seq_Default",
+      "description": "Running the b7_4_scalar_transform_number_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_scalar_transform_number_seq"
+    },
+    {
+      "name": "b7_4_scalar_transform_number_par_Default",
+      "description": "Running the b7_4_scalar_transform_number_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_scalar_transform_number_par"
+    },
+    {
+      "name": "b7_4_scalar_transform_number_par_unseq_Default",
+      "description": "Running the b7_4_scalar_transform_number_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_scalar_transform_number_par_unseq"
+    },
+    {
+      "name": "b7_4_scalar_transform_number_unseq_Default",
+      "description": "Running the b7_4_scalar_transform_number_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_scalar_transform_number_unseq"
+    },
+    {
+      "name": "b7_4_scalar_for_each_seq_Default",
+      "description": "Running the b7_4_scalar_for_each_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_scalar_for_each_seq"
+    },
+    {
+      "name": "b7_4_scalar_for_each_par_Default",
+      "description": "Running the b7_4_scalar_for_each_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_scalar_for_each_par"
+    },
+    {
+      "name": "b7_4_scalar_for_each_par_unseq_Default",
+      "description": "Running the b7_4_scalar_for_each_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_scalar_for_each_par_unseq"
+    },
+    {
+      "name": "b7_4_scalar_for_each_unseq_Default",
+      "description": "Running the b7_4_scalar_for_each_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_scalar_for_each_unseq"
+    },
+    {
+      "name": "b7_6_serial_transform_reduce_seq_Default",
+      "description": "Running the b7_6_serial_transform_reduce_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_6_serial_transform_reduce_seq"
+    },
+    {
+      "name": "b7_6_serial_transform_reduce_par_Default",
+      "description": "Running the b7_6_serial_transform_reduce_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_6_serial_transform_reduce_par"
+    },
+    {
+      "name": "b7_6_serial_transform_reduce_par_unseq_Default",
+      "description": "Running the b7_6_serial_transform_reduce_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_6_serial_transform_reduce_par_unseq"
+    },
+    {
+      "name": "b7_6_serial_transform_reduce_unseq_Default",
+      "description": "Running the b7_6_serial_transform_reduce_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_6_serial_transform_reduce_unseq"
+    },
+    {
+      "name": "b7_6_transform_reduce_seq_Default",
+      "description": "Running the b7_6_transform_reduce_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_6_transform_reduce_seq"
+    },
+    {
+      "name": "b7_6_transform_reduce_par_Default",
+      "description": "Running the b7_6_transform_reduce_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_6_transform_reduce_par"
+    },
+    {
+      "name": "b7_6_transform_reduce_par_unseq_Default",
+      "description": "Running the b7_6_transform_reduce_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_6_transform_reduce_par_unseq"
+    },
+    {
+      "name": "b7_6_transform_reduce_unseq_Default",
+      "description": "Running the b7_6_transform_reduce_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_6_transform_reduce_unseq"
+    },
+    {
+      "name": "b8_1_reference_capture_simple_var_seq_Default",
+      "description": "Running the b8_1_reference_capture_simple_var_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_1_reference_capture_simple_var_seq"
+    },
+    {
+      "name": "b8_1_reference_capture_simple_var_par_Default",
+      "description": "Running the b8_1_reference_capture_simple_var_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_1_reference_capture_simple_var_par"
+    },
+    {
+      "name": "b8_1_reference_capture_simple_var_par_unseq_Default",
+      "description": "Running the b8_1_reference_capture_simple_var_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_1_reference_capture_simple_var_par_unseq"
+    },
+    {
+      "name": "b8_1_reference_capture_simple_var_unseq_Default",
+      "description": "Running the b8_1_reference_capture_simple_var_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_1_reference_capture_simple_var_unseq"
+    },
+    {
+      "name": "b8_1_copy_capture_simple_var_seq_Default",
+      "description": "Running the b8_1_copy_capture_simple_var_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_1_copy_capture_simple_var_seq"
+    },
+    {
+      "name": "b8_1_copy_capture_simple_var_par_Default",
+      "description": "Running the b8_1_copy_capture_simple_var_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_1_copy_capture_simple_var_par"
+    },
+    {
+      "name": "b8_1_copy_capture_simple_var_par_unseq_Default",
+      "description": "Running the b8_1_copy_capture_simple_var_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_1_copy_capture_simple_var_par_unseq"
+    },
+    {
+      "name": "b8_1_copy_capture_simple_var_unseq_Default",
+      "description": "Running the b8_1_copy_capture_simple_var_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_1_copy_capture_simple_var_unseq"
+    },
+    {
+      "name": "b8_2_reference_capture_object_var_seq_Default",
+      "description": "Running the b8_2_reference_capture_object_var_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_2_reference_capture_object_var_seq"
+    },
+    {
+      "name": "b8_2_reference_capture_object_var_par_Default",
+      "description": "Running the b8_2_reference_capture_object_var_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_2_reference_capture_object_var_par"
+    },
+    {
+      "name": "b8_2_reference_capture_object_var_par_unseq_Default",
+      "description": "Running the b8_2_reference_capture_object_var_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_2_reference_capture_object_var_par_unseq"
+    },
+    {
+      "name": "b8_2_reference_capture_object_var_unseq_Default",
+      "description": "Running the b8_2_reference_capture_object_var_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_2_reference_capture_object_var_unseq"
+    },
+    {
+      "name": "b8_2_copy_capture_object_var_seq_Default",
+      "description": "Running the b8_2_copy_capture_object_var_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_2_copy_capture_object_var_seq"
+    },
+    {
+      "name": "b8_2_copy_capture_object_var_par_Default",
+      "description": "Running the b8_2_copy_capture_object_var_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_2_copy_capture_object_var_par"
+    },
+    {
+      "name": "b8_2_copy_capture_object_var_par_unseq_Default",
+      "description": "Running the b8_2_copy_capture_object_var_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_2_copy_capture_object_var_par_unseq"
+    },
+    {
+      "name": "b8_2_copy_capture_object_var_unseq_Default",
+      "description": "Running the b8_2_copy_capture_object_var_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_2_copy_capture_object_var_unseq"
+    },
+    {
+      "name": "b9_1_transform_baseline_seq_Default",
+      "description": "Running the b9_1_transform_baseline_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_1_transform_baseline_seq"
+    },
+    {
+      "name": "b9_1_transform_baseline_par_Default",
+      "description": "Running the b9_1_transform_baseline_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_1_transform_baseline_par"
+    },
+    {
+      "name": "b9_1_transform_baseline_par_unseq_Default",
+      "description": "Running the b9_1_transform_baseline_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_1_transform_baseline_par_unseq"
+    },
+    {
+      "name": "b9_1_transform_baseline_unseq_Default",
+      "description": "Running the b9_1_transform_baseline_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_1_transform_baseline_unseq"
+    },
+    {
+      "name": "b9_2_transform_old_iota_seq_Default",
+      "description": "Running the b9_2_transform_old_iota_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_2_transform_old_iota_seq"
+    },
+    {
+      "name": "b9_2_transform_old_iota_par_Default",
+      "description": "Running the b9_2_transform_old_iota_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_2_transform_old_iota_par"
+    },
+    {
+      "name": "b9_2_transform_old_iota_par_unseq_Default",
+      "description": "Running the b9_2_transform_old_iota_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_2_transform_old_iota_par_unseq"
+    },
+    {
+      "name": "b9_2_transform_old_iota_unseq_Default",
+      "description": "Running the b9_2_transform_old_iota_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_2_transform_old_iota_unseq"
+    },
+    {
+      "name": "b9_3_transform_views_iota_seq_Default",
+      "description": "Running the b9_3_transform_views_iota_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_3_transform_views_iota_seq"
+    },
+    {
+      "name": "b9_3_transform_views_iota_par_Default",
+      "description": "Running the b9_3_transform_views_iota_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_3_transform_views_iota_par"
+    },
+    {
+      "name": "b9_3_transform_views_iota_par_unseq_Default",
+      "description": "Running the b9_3_transform_views_iota_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_3_transform_views_iota_par_unseq"
+    },
+    {
+      "name": "b9_3_transform_views_iota_unseq_Default",
+      "description": "Running the b9_3_transform_views_iota_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_3_transform_views_iota_unseq"
+    },
+    {
+      "name": "b9_4_transform_views_iota_common_seq_Default",
+      "description": "Running the b9_4_transform_views_iota_common_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_4_transform_views_iota_common_seq"
+    },
+    {
+      "name": "b9_4_transform_views_iota_common_par_Default",
+      "description": "Running the b9_4_transform_views_iota_common_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_4_transform_views_iota_common_par"
+    },
+    {
+      "name": "b9_4_transform_views_iota_common_par_unseq_Default",
+      "description": "Running the b9_4_transform_views_iota_common_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_4_transform_views_iota_common_par_unseq"
+    },
+    {
+      "name": "b9_4_transform_views_iota_common_unseq_Default",
+      "description": "Running the b9_4_transform_views_iota_common_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_4_transform_views_iota_common_unseq"
+    },
+    {
+      "name": "b9_5_transform_custom_iterator_seq_Default",
+      "description": "Running the b9_5_transform_custom_iterator_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_5_transform_custom_iterator_seq"
+    },
+    {
+      "name": "b9_5_transform_custom_iterator_par_Default",
+      "description": "Running the b9_5_transform_custom_iterator_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_5_transform_custom_iterator_par"
+    },
+    {
+      "name": "b9_5_transform_custom_iterator_par_unseq_Default",
+      "description": "Running the b9_5_transform_custom_iterator_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_5_transform_custom_iterator_par_unseq"
+    },
+    {
+      "name": "b9_5_transform_custom_iterator_unseq_Default",
+      "description": "Running the b9_5_transform_custom_iterator_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_5_transform_custom_iterator_unseq"
+    },
+    {
+      "name": "b9_6_transform_boost_seq_Default",
+      "description": "Running the b9_6_transform_boost_seq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_6_transform_boost_seq"
+    },
+    {
+      "name": "b9_6_transform_boost_par_Default",
+      "description": "Running the b9_6_transform_boost_par benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_6_transform_boost_par"
+    },
+    {
+      "name": "b9_6_transform_boost_par_unseq_Default",
+      "description": "Running the b9_6_transform_boost_par_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_6_transform_boost_par_unseq"
+    },
+    {
+      "name": "b9_6_transform_boost_unseq_Default",
+      "description": "Running the b9_6_transform_boost_unseq benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_6_transform_boost_unseq"
     }
   ]
 }
