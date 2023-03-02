@@ -1,6 +1,6 @@
 {
   "output_dir": "./output",
-  "benchmark_repetitions": 3,
+  "benchmark_repetitions": 2,
   "cmake_location": "..",
   "build_artifacts_dir": "./build-artifacts",
   "binary_target": "master_benchmarks",
@@ -25,16 +25,73 @@
       "name": "B1_Group_Default",
       "description": "Running the B1 group benchmarks without any constraints",
       "type": "DEFAULT",
-      "regex_filter": "b1_1_for_each_linear_par/32"
+      "regex_filter": "b1_"
     },
     {
-      "name": "B1_Group_SameSock",
-      "description": "Running the B1 group benchmarks without any constraints",
-      "type": "NUMACTL",
-      "params": {
-        "cpu_binding": "1,2,3,4"
-      },
-      "regex_filter": "b1_"
+      "name": "B2_Group_Default",
+      "description": "Running the B2 group benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b2_"
+    },
+    {
+      "name": "B3_Group_Default",
+      "description": "Running the B3 group benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b3_"
+    },
+    {
+      "name": "B4_1_Default",
+      "description": "Running the B4_1 benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_1"
+    },
+    {
+      "name": "B4_2_Default",
+      "description": "Running the B4_2 benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_2"
+    },
+    {
+      "name": "B4_3_Default",
+      "description": "Running the B4_3 benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_3"
+    },
+    {
+      "name": "B4_4_Default",
+      "description": "Running the B4_4 benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_4"
+    },
+    {
+      "name": "B5_Group_Default",
+      "description": "Running the B5 group benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b5_"
+    },
+    {
+      "name": "B6_Group_Default",
+      "description": "Running the B6 group benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b6_"
+    },
+    {
+      "name": "B7_Group_Default",
+      "description": "Running the B7 group benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_"
+    },
+    {
+      "name": "B8_Group_Default",
+      "description": "Running the B8 group benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b8_"
+    },
+    {
+      "name": "B9_Group_Default",
+      "description": "Running the B9 group benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b9_"
     }
   ]
 }

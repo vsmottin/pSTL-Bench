@@ -1,0 +1,40 @@
+{
+  "output_dir": "./output",
+  "benchmark_repetitions": 3,
+  "cmake_location": "..",
+  "build_artifacts_dir": "./build-artifacts",
+  "binary_target": "master_benchmarks",
+  "compiler": [
+    {
+      "name": "GCC_TBB",
+      "CXX_COMPILER": "g++",
+      "CXX_FLAGS": "",
+      "build_location": "cmake-build-debug-gcc",
+      "description": "Running the benchmarks with gcc and tbb"
+    },
+    {
+      "name": "NVHPC_Multicore",
+      "CXX_COMPILER": "nvc++",
+      "CXX_FLAGS": "-stdpar=multicore",
+      "build_location": "cmake-build-debug-nvc_multicore",
+      "description": "Running the benchmarks with nvc++ with multicore"
+    }
+  ],
+  "benchmarks": [
+    {
+      "name": "B1_Group_Default",
+      "description": "Running the B1 group benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b1_1_for_each_linear_par/32"
+    },
+    {
+      "name": "B1_Group_SameSock",
+      "description": "Running the B1 group benchmarks without any constraints",
+      "type": "NUMACTL",
+      "params": {
+        "cpu_binding": "1,2,3,4"
+      },
+      "regex_filter": "b1_"
+    }
+  ]
+}
