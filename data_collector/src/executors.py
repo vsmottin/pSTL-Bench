@@ -108,7 +108,7 @@ def get_executor_for_type(benchmark: Benchmark) -> Executor:
 
     if benchmark.type.value is BenchmarkType.DEFAULT.value:
         return DefaultExecutor()
-    elif benchmark.type.value is BenchmarkType.DEFAULT.value:
+    elif benchmark.type.value is BenchmarkType.NUMACTL.value:
         return NUMACTLExecutor()
     else:
         raise DataCollectorException(f"No executor found for type {benchmark.type.name}")
