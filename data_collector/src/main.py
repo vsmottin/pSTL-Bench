@@ -58,10 +58,9 @@ def main(argv):
         build_artifacts(compiler, configuration)
 
     # run the benchmarks for all the selected compilers
-    for compiler in configuration.compiler:
-        logger.info(f"Running the benchmarks for compiler: {compiler.name}")
-
-        for benchmark in configuration.benchmarks:
+    for benchmark in configuration.benchmarks:
+        for compiler in configuration.compiler:
+            logger.info(f"Running the benchmark [{benchmark.name}] for compiler {compiler.name}")
             executor = get_executor_for_type(benchmark)
             executor.execute(benchmark, compiler, configuration)
 
