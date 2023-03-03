@@ -12,7 +12,7 @@ for line in lines:
         "name": f"{line}_Default",
         "description": f"Running the {line} benchmarks without any constraints",
         "type": "DEFAULT",
-        "regex_filter": line
+        "regex_filter": f"{line}/"
     })
 
 print(json.dumps(output))
