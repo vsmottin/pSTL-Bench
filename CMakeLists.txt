@@ -12,6 +12,9 @@ file(GLOB SOURCES
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++20")
 add_compile_definitions(BENCHMARK_PREFIX=${BENCHMARK_PREFIX})
 
+# make sure google benchmark builds no mather
+set(BENCHMARK_ENABLE_WERROR OFF)
+
 add_executable(${PROJECT_NAME}
         ${SOURCES}
         src/main.cpp)
@@ -34,5 +37,7 @@ if (CMAKE_COMPILER_IS_GNUCXX)
     find_package(TBB REQUIRED) # for gcc only
 endif ()
 
+# we need cassert even in release builds to make sure certain vars are not optimised aways
+string(REPLACE "-DNDEBUG" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 
 target_compile_options(${PROJECT_NAME} PRIVATE -O3) # TODO: find way to integrate optimization
