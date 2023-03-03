@@ -13,7 +13,7 @@ logger = logging.getLogger("data_collector")
 
 
 def generate_output_file(benchmark: Benchmark, compiler: Compiler, config: Config, prefix="") -> str:
-    return os.path.join(config.output_dir, benchmark.type.name, f'{prefix}{compiler.name}_{benchmark.name}.csv')
+    return os.path.join(config.output_dir, compiler.name, benchmark.type.name, f'{prefix}{benchmark.name}.csv')
 
 
 def generate_benchmark_binary_call(benchmark: Benchmark, compiler: Compiler, config: Config, output_file: str) -> List[
