@@ -31,7 +31,7 @@ B9_GROUP_BENCHMARKS
 int main(int argc, char **argv) {
 
 #ifdef __GNUG__
-    init_tbb_thread_control();
+    auto tbbThreadControl = init_tbb_thread_control();
 #endif
 
     char arg0_default[] = "benchmark";
@@ -44,5 +44,10 @@ int main(int argc, char **argv) {
     if (benchmark::ReportUnrecognizedArguments(argc, argv)) return 1;
     benchmark::RunSpecifiedBenchmarks();
     benchmark::Shutdown();
+
+#ifdef __GNUG__
+    tbbThreadControl.release();
+#endif
+
     return 0;
 }
