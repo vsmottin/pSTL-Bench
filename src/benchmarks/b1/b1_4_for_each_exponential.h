@@ -8,7 +8,6 @@
 #include <iostream>
 #include <benchmark/benchmark.h>
 
-//TODO: does it make sense to have such a benchmark??
 namespace B1 {
 
     template<class ExecutionPolicy>
