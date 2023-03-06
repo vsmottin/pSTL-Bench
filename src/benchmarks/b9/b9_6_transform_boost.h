@@ -8,6 +8,7 @@
 
 namespace B9 {
 
+    //TODO: think about keeping boost or at least make it configurable
     template<class ExecutionPolicy>
     inline void
     b9_6_transform_boost(ExecutionPolicy &&policy,
