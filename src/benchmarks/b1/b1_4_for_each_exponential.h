@@ -23,7 +23,8 @@ namespace B1 {
                 return;
             }
 
-            benchmark::DoNotOptimize(std::tan(index) + std::cos(index));
+            double value = std::tan(index) + std::cos(index);
+            benchmark::DoNotOptimize(value);
 
             std::vector<int> next{index - 1, index - 2};
             std::for_each(m_policy, next.begin(), next.end(), FIB{m_policy});

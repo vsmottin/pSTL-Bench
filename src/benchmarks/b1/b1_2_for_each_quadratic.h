@@ -8,10 +8,7 @@
 
 
 namespace B1 {
-
-    //TODO: double
-
-
+    
     template<class OuterExecutionPolicy, class InnerExecutionPolicy>
     inline void
     b1_2_for_each_quadratic(OuterExecutionPolicy &&outerExecutionPolicy,
@@ -24,7 +21,8 @@ namespace B1 {
 
             // nested parallel loop with same strategy
             std::for_each(innerExecutionPolicy, input_data.begin(), input_data.end(), [&e1](const auto &e2) {
-                return benchmark::DoNotOptimize(std::tan(e1) + std::cos(e2));
+                auto value = std::tan(e1) + std::cos(e2);
+                benchmark::DoNotOptimize(value);
             });
 
         });
