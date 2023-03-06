@@ -1,3 +1,11 @@
+#ifdef __GNUG__
+// we have the case that we use gcc. this means tbb will be used for parallel stl
+// potential thread limits have to be configured
+
+#include "tbb_thread_control.h"
+
+#endif
+
 #include <benchmark/benchmark.h>
 #include "benchmarks/b1/b1_group.h"
 #include "benchmarks/b2/b2_group.h"
@@ -20,4 +28,21 @@ B8_GROUP_BENCHMARKS
 B9_GROUP_BENCHMARKS
 
 // Run the benchmark
-BENCHMARK_MAIN();
+int main(int argc, char **argv) {
+
+#ifdef __GNUG__
+    init_tbb_thread_control();
+#endif
+
+    char arg0_default[] = "benchmark";
+    char *args_default = arg0_default;
+    if (!argv) {
+        argc = 1;
+        argv = &args_default;
+    }
+    benchmark::Initialize(&argc, argv);
+    if (benchmark::ReportUnrecognizedArguments(argc, argv)) return 1;
+    benchmark::RunSpecifiedBenchmarks();
+    benchmark::Shutdown();
+    return 0;
+}
