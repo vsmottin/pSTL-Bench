@@ -12,6 +12,9 @@ file(GLOB SOURCES
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++20")
 add_compile_definitions(BENCHMARK_PREFIX=${BENCHMARK_PREFIX})
 
+# enable google benchmark performance counters
+set(BENCHMARK_ENABLE_LIBPFM ON)
+
 # make sure google benchmark builds no mather
 set(BENCHMARK_ENABLE_WERROR OFF)
 
