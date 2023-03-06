@@ -12,6 +12,7 @@
 #include "b1_2_for_each_quadratic.h"
 #include "b1_4_for_each_exponential.h"
 #include "b1_1_for_each_linear_mandelbrot.h"
+#include "b1_2_for_each_quadratic_mandelbrot.h"
 
 //region b1_1_for_each_linear
 
@@ -72,6 +73,31 @@ static void b1_2_for_each_quadratic_wrapper(benchmark::State &state) {
 
 //endregion b1_2_for_each_quadratic
 
+
+//region b1_2_for_each_quadratic_mandelbrot
+
+template<class OuterPolicy, class InnerPolicy>
+static void b1_2_for_each_quadratic_mandelbrot_wrapper(benchmark::State &state) {
+    constexpr auto outer_execution_policy = OuterPolicy{};
+    constexpr auto inner_execution_policy = InnerPolicy{};
+
+    const auto size = state.range(0);
+    const auto input_data = suite::generate_increment<suite::int_vec>(size, 1, 0);
+
+    for (auto _: state) {
+        B1::b1_2_for_each_quadratic_mandelbrot(outer_execution_policy, inner_execution_policy, input_data);
+    }
+}
+
+#define B1_2_FOR_EACH_QUADRATIC_MANDELBROT_WRAPPER(outer) \
+    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_mandelbrot_wrapper,outer,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_mandelbrot_outer_" xstr(outer) "_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
+    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_mandelbrot_wrapper,outer,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_mandelbrot_outer_" xstr(outer) "_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 15); \
+    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_mandelbrot_wrapper,outer,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_mandelbrot_outer_" xstr(outer) "_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 15);
+
+
+//endregion b1_2_for_each_quadratic_mandelbrot
+
+
 //region b1_4_for_each_exponential
 
 template<class Policy>
@@ -105,6 +131,10 @@ static void b1_4_for_each_exponential_wrapper(benchmark::State &state) {
     B1_2_FOR_EACH_QUADRATIC_WRAPPER(std::execution::sequenced_policy); \
     B1_2_FOR_EACH_QUADRATIC_WRAPPER(std::execution::parallel_policy); \
     B1_2_FOR_EACH_QUADRATIC_WRAPPER(std::execution::parallel_unsequenced_policy); \
+                            \
+                            \
+                            \
+    B1_2_FOR_EACH_QUADRATIC_MANDELBROT_WRAPPER(std::execution::parallel_policy) \
                             \
                             \
                             \
