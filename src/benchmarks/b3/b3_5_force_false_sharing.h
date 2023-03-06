@@ -8,7 +8,6 @@
 #include <ranges>
 #include "../benchmark_utils.h"
 
-//TODO: fix! This will not result in cache line invalidation. We simple read and never write!
 
 namespace B3 {
 
@@ -19,6 +18,7 @@ namespace B3 {
 
     // statically assert that the struct indeed does not fill a whole cache line
     static_assert((sizeof(force_false_sharing_struct) <= suite::hardware_constructive_interference_size));
+
 
     template<class ExecutionPolicy>
     inline std::size_t
