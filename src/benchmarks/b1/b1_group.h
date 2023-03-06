@@ -18,7 +18,7 @@ template<class Policy>
 static void b1_1_for_each_linear_wrapper(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
-    std::vector<int> x(state.range(0), 1);
+    std::vector<double> x(state.range(0), 1);
 
     for (auto _: state) {
         B1::b1_1_for_each_linear(execution_policy, x);
@@ -35,7 +35,7 @@ static void b1_2_for_each_quadratic_wrapper(benchmark::State &state) {
     constexpr auto inner_execution_policy = InnerPolicy{};
 
     const auto size = state.range(0);
-    const auto input_data = suite::generate_increment<suite::int_vec>(size, 1, 0);
+    const auto input_data = suite::generate_increment<std::vector<double>>(size, 1, 0);
 
     for (auto _: state) {
         B1::b1_2_for_each_quadratic(outer_execution_policy, inner_execution_policy, input_data);
