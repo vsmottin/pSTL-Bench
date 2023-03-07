@@ -135,7 +135,53 @@
 The quadratic implementation sadly does not work since NVC(GPU) does not support nested parallelism. But for linear I
 have to check.
 
+**Hypothesis is true when:**
+
+* There is a significant different in strong scaling / runtime between compilers for each
+  type of nested parallelism.
+
 ## References
 
 * [1] S. J. Pennycook, J. D. Sewall, and V. W. Lee. “A Metric for Performance Portability”. In: CoRR abs/1611.07409 (
   2016). 
+
+
+## Template for Hypos
+
+> HYPO
+
+**Why important:**
+
+* 
+
+**How to test it:**
+
+1. *CAT A*
+    1. 
+
+2. *CAT B*
+    1. 
+
+**Metrics Involved:**
+
+* 
+
+**What benchmarks cover it:**
+
+1.
+
+**Compilers/Backends**
+
+* 
+
+**GPU COMPATIBILITY:**
+
+*
+
+**Hypothesis is true when:**
+
+* 
+
+**Performance Portability Calculation:**
+
+* 
