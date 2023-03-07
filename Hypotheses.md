@@ -66,7 +66,7 @@
   the max amount of cores. (aka running with 1M entries at max core) (insipred by [1])
 
   |          | achieved | perfect | efficiency  | 
-        |----------|----------|---------|-------------|
+                |----------|----------|---------|-------------|
   | GCC(TBB) | 12       | 16      | 12/16=0.75  |
   | NVC(OMP) | 16       | 16      | 16/16=1     |
   | NVC(GPU) | 0        | 0       | 0           |
@@ -81,8 +81,64 @@
 
 ## H2
 
-> When using nested parallelism
+> The order of the parallelism (outer seq, inner par vs outer par, inner seq) has a significant impact on performance.
 
+**Why important:**
+
+* C++ provides a variety of execution policies to use. Choosing the "right order" in nested parallelism may change
+  performance.
+* Obviously, this will be true but how significant the impact is might vary per backend.
+
+**How to test it:**
+
+1. *Time*
+    1. Compare the runtime of `b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par` with the runtime
+       of `b1_2_for_each_quadratic_outer_std::execution::parallel_policy_seq` for each compiler and for every input size
+
+2. *Strong Scaling*
+    1. Compare strong scaling of `b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par` with the runtime
+       of `b1_2_for_each_quadratic_outer_std::execution::parallel_policy_seq` for each compiler and fixed input size (
+       32.768)
+
+**Metrics Involved:**
+
+* Time
+* Strong scaling
+
+**What benchmarks cover it:**
+
+1. `b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par`: outer loop sequential inner loop parallel
+2. `b1_2_for_each_quadratic_outer_std::execution::parallel_policy_seq`: outer loop parallel inner loop sequential
+
+**Compilers/Backends**
+
+* GCC(TBB)
+* NVC(OMP)
+
+**GPU COMPATIBILITY:**
+
+* NO
+
+**Hypothesis is true when:**
+
+* There is a significant difference between the runtime of (par, seq) and (seq, par). HINT: already tested and depends
+  on compiler
+
+**Performance Portability Calculation:**
+
+* Since we know that (par, seq) will be better than (seq,par) we can check the stddev of the performance improvement from (seq,
+  par) to (par,seq) for every compiler. For example:
+
+  |          | (seq,par) | (par,seq) | faster |
+  |----------|-----------|--------|------------|
+  | GCC(TBB) | 10s       | 5s        | 2x     |
+  | NVC(OMP) | 12s       | 8s        | 1.5x   |
+  | NVC(GPU) | 0         | 0         | 0      |
+  | Intel    | 9         | 1         | 9x     |
+
+    stddev(2,1.5,9) = 3.4 inidcating that the difference is quite significant when changing compilers.
+    stddev(2,1.5) = 0.25 inidcating that the difference is not significant when changing compilers.
+    
 ## H3
 
 > Certain parallel backend perform/scale better on nested parallelism for heterogeneous workloads
@@ -140,11 +196,15 @@ have to check.
 * There is a significant different in strong scaling / runtime between compilers for each
   type of nested parallelism.
 
+**Performance Portability Calculation:**
+
+* None
+
+
 ## References
 
 * [1] S. J. Pennycook, J. D. Sewall, and V. W. Lee. “A Metric for Performance Portability”. In: CoRR abs/1611.07409 (
-  2016). 
-
+  2016).
 
 ## Template for Hypos
 
@@ -152,19 +212,19 @@ have to check.
 
 **Why important:**
 
-* 
+*
 
 **How to test it:**
 
 1. *CAT A*
-    1. 
+    1.
 
 2. *CAT B*
-    1. 
+    1.
 
 **Metrics Involved:**
 
-* 
+*
 
 **What benchmarks cover it:**
 
@@ -172,7 +232,7 @@ have to check.
 
 **Compilers/Backends**
 
-* 
+*
 
 **GPU COMPATIBILITY:**
 
@@ -180,7 +240,7 @@ have to check.
 
 **Hypothesis is true when:**
 
-* 
+*
 
 **Performance Portability Calculation:**
 
