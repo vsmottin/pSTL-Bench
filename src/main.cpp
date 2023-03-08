@@ -1,4 +1,4 @@
-#ifdef __GNUG__
+#ifdef USE_TBB
 // we have the case that we use gcc. this means tbb will be used for parallel stl
 // potential thread limits have to be configured
 
@@ -30,7 +30,7 @@ B9_GROUP_BENCHMARKS
 // Run the benchmark
 int main(int argc, char **argv) {
 
-#ifdef __GNUG__
+#ifdef USE_TBB
     auto tbbThreadControl = init_tbb_thread_control();
 #endif
 
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     benchmark::RunSpecifiedBenchmarks();
     benchmark::Shutdown();
 
-#ifdef __GNUG__
+#ifdef USE_TBB
     tbbThreadControl.release();
 #endif
 

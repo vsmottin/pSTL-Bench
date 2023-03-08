@@ -12,6 +12,10 @@ file(GLOB SOURCES
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++20")
 add_compile_definitions(BENCHMARK_PREFIX=${BENCHMARK_PREFIX})
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    add_compile_definitions(USE_TBB)
+endif()
+
 # enable google benchmark performance counters
 set(BENCHMARK_ENABLE_LIBPFM ON)
 
