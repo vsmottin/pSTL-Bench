@@ -66,7 +66,7 @@
   the max amount of cores. (aka running with 1M entries at max core) (insipred by [1])
 
   |          | achieved | perfect | efficiency  | 
-                                    |----------|----------|---------|-------------|
+                                                              |----------|----------|---------|-------------|
   | GCC(TBB) | 12       | 16      | 12/16=0.75  |
   | NVC(OMP) | 16       | 16      | 16/16=1     |
   | NVC(GPU) | 0        | 0       | 0           |
@@ -130,7 +130,7 @@
   from (seq, par) to (par,seq) for every compiler. For example:
 
   |          | (seq,par) | (par,seq) | faster |
-                      |----------|-----------|--------|------------|
+                                                |----------|-----------|--------|------------|
   | GCC(TBB) | 10s       | 5s        | 2x     |
   | NVC(OMP) | 12s       | 8s        | 1.5x   |
   | NVC(GPU) | 0         | 0         | 0      |
@@ -297,7 +297,106 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-            |----------|---------|----------------|-------------|
+                                      |----------|---------|----------------|-------------|
+  | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
+  | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
+  | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
+  | Intel    | 800      | 1000    | 800/1000=0.80  |
+
+  Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = `4/((1/0,1)+ (1/0,5) + (1/0,66) + (1/0,8))` =
+  27%
+
+
+* Later we can compare the performance portability calculated above from machine to machine (aka nebula vs tesla vs
+  vsc)
+
+## H5
+
+> Parallel stl backends use special parallelism techniques for linear algorithms, which have no clear reference
+> implementation, leading to significant differences in terms of performance and their strong scaling properties.
+
+**Why important:**
+
+* Various linear algorithms in CPP have no clear reference implementation for parallel. Meaning as long as they follow
+  the interface and return the correct results, they can do any special tricks to speed up or optimize the solution.
+* Linear algorithms can be paralleled using chunking (if the original operation allows it) or other interesting tricks.
+
+**How to test it:**
+
+1. *Time*
+    1. Compare the runtime of `b5_1_find_std::vector<int>_first_entry_par` for every input size for every compiler
+    2. Compare the runtime of `b5_1_find_std::vector<int>_last_entry_par` for every input size for every compiler
+    3. Compare the runtime of `b5_1_find_std::vector<int>_non_existing_entry_par` for every input size for every
+       compiler
+    4. Compare the runtime of `b5_2_partition_par` for every input size for every compiler
+    5. Compare the runtime of `b5_3_unique_copy_default_par` for every input size for every compiler
+    6. Compare the runtime of `b5_3_unique_copy_odd_par` for every input size for every compiler
+    7. Compare the runtime of `b5_4_minmax_element_all_equal_par` for every input size for every compiler
+    8. Compare the runtime of `b5_4_minmax_element_increasing_par` for every input size for every compiler
+
+2. *Mbytes/sec*
+    1. Compare the Mbytes/sec of `b5_1_find_std::vector<int>_first_entry_par` for every input size for every compiler
+    2. Compare the Mbytes/sec of `b5_1_find_std::vector<int>_last_entry_par` for every input size for every compiler
+    3. Compare the Mbytes/sec of `b5_1_find_std::vector<int>_non_existing_entry_par` for every input size for every
+       compiler
+    4. Compare the Mbytes/sec of `b5_2_partition_par` for every input size for every compiler
+    5. Compare the Mbytes/sec of `b5_3_unique_copy_default_par` for every input size for every compiler
+    6. Compare the Mbytes/sec of `b5_3_unique_copy_odd_par` for every input size for every compiler
+    7. Compare the Mbytes/sec of `b5_4_minmax_element_all_equal_par` for every input size for every compiler
+    8. Compare the Mbytes/sec of `b5_4_minmax_element_increasing_par` for every input size for every compiler
+
+3. *Strong Scaling*
+    1. Compare the strong scaling of `b5_1_find_std::vector<int>_first_entry_par` for fixed size 1M for every compiler
+    2. Compare the strong scaling of `b5_1_find_std::vector<int>_last_entry_par` for fixed size 1M for every compiler
+    3. Compare the strong scaling of `b5_1_find_std::vector<int>_non_existing_entry_par` for fixed size 1M size for
+       every
+       compiler
+    4. Compare the strong scaling of `b5_2_partition_par` for fixed size 1M for every compiler
+    5. Compare the strong scaling of `b5_3_unique_copy_default_par` for fixed size 1M for every compiler
+    6. Compare the strong scaling of `b5_3_unique_copy_odd_par` for fixed size 1M for every compiler
+    7. Compare the strong scaling of `b5_4_minmax_element_all_equal_par` for fixed size 1M for every compiler
+    8. Compare the strong scaling of `b5_4_minmax_element_increasing_par` for fixed size 1M for every compiler
+
+**Metrics Involved:**
+
+* Time
+* Mbytes/sec
+* Strong Scaling
+
+**What benchmarks cover it:**
+
+1. `b5_1_find_std::vector<int>_first_entry_par`
+2. `b5_1_find_std::vector<int>_last_entry_par`
+3. `b5_1_find_std::vector<int>_non_existing_entry_par`
+4. `b5_2_partition_par`
+5. `b5_3_unique_copy_default_par`
+6. `b5_3_unique_copy_odd_par`
+7. `b5_4_minmax_element_all_equal_par`
+8. `b5_4_minmax_element_increasing_par`
+
+**Compilers/Backends**
+
+* GCC(TBB)
+* NVC(OMP)
+* NVC(GPU)
+
+**GPU COMPATIBILITY:**
+
+* Yes this will be GPU compatible. As a side product of testing this hypothesis we not only show how good GPUs perform
+  better, but we can determine at what size does it make sense to switch over from CPU to GPU (aka finding the
+  sweets-pot)
+
+**Hypothesis is true when:**
+
+* When we see a significant difference in runtime from compiler to compiler.
+
+**Performance Portability Calculation:**
+
+* for this group we can "calculate" a performance probability by looking at the actual MBytes/sec vs the peak) (insipred
+  by [2])
+
+  |          | achieved | perfect | efficiency     | 
+      |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
