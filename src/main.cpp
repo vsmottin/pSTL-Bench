@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
     benchmark::Shutdown();
 
 #ifdef USE_TBB
-    tbbThreadControl.release();
+    tbbThreadControl = nullptr;
 #endif
 
     return 0;
