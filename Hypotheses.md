@@ -67,7 +67,7 @@
   the max amount of cores. (aka running with 1M entries at max core) (insipred by [1])
 
   |          | achieved | perfect | efficiency  | 
-                                                                      |----------|----------|---------|-------------|
+                                                                                          |----------|----------|---------|-------------|
   | GCC(TBB) | 12       | 16      | 12/16=0.75  |
   | NVC(OMP) | 16       | 16      | 16/16=1     |
   | NVC(GPU) | 0        | 0       | 0           |
@@ -132,7 +132,7 @@
   from (seq, par) to (par,seq) for every compiler. For example:
 
   |          | (seq,par) | (par,seq) | faster |
-                                                        |----------|-----------|--------|------------|
+                                                                            |----------|-----------|--------|------------|
   | GCC(TBB) | 10s       | 5s        | 2x     |
   | NVC(OMP) | 12s       | 8s        | 1.5x   |
   | NVC(GPU) | 0         | 0         | 0      |
@@ -300,7 +300,7 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-                                              |----------|---------|----------------|-------------|
+                                                                  |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
@@ -399,7 +399,77 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-              |----------|---------|----------------|-------------|
+                                  |----------|---------|----------------|-------------|
+  | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
+  | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
+  | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
+  | Intel    | 800      | 1000    | 800/1000=0.80  |
+
+  Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = `4/((1/0,1)+ (1/0,5) + (1/0,66) + (1/0,8))` =
+  27%
+
+
+* Later we can compare the performance portability calculated above from machine to machine (aka nebula vs tesla vs
+  vsc)
+
+## H6
+
+> Parallel STL backends leverage specialized parallelism techniques for inclusive and exclusive scans, resulting in
+> significant variations in performance and strong scaling properties.
+
+**Why important:**
+
+* Inclusive and Exclusive scans are building blocks for many parallel algorithms, hence it is important to analyse their
+  characteristics.
+
+**How to test it:**
+
+1. *Time*
+    1. Compare the runtime of `b6_1_inclusive_scan_par` for every input and for every compiler.
+    2. Compare the runtime of `b6_2_exclusive_scan_par` for every input and for every compiler.
+
+2. *MBytes/sec*
+    1. Compare the MBytes/sec of `b6_1_inclusive_scan_par` for every input and for every compiler.
+    2. Compare the MBytes/sec of `b6_2_exclusive_scan_par` for every input and for every compiler.
+
+3. *Strong Scaling*
+    1. Compare the strong scaling of `b6_1_inclusive_scan_par` for fixed input 1M for every compiler.
+    2. Compare the strong scaling of `b6_2_exclusive_scan_par` for fixed input 1M for every compiler.
+
+**Metrics Involved:**
+
+* Time
+* MBytes/sec
+* Strong Scaling
+
+**What benchmarks cover it:**
+
+1. `b6_1_inclusive_scan_par`: straight forward inclusive scan
+2. `b6_1_exclusive_scan_par`: straight forward exclusive scan
+
+**Compilers/Backends**
+
+* GCC(TBB)
+* NVC(OMP)
+* NVC(GPU)
+
+**GPU COMPATIBILITY:**
+
+* Yes this will be GPU compatible. As a side product of testing this hypothesis we not only show how good GPUs perform
+  better, but we can determine at what size does it make sense to switch over from CPU to GPU (aka finding the
+  sweets-pot)
+
+**Hypothesis is true when:**
+
+* we can see a signifcant perofrmance differnce between various backends
+
+**Performance Portability Calculation:**
+
+* for this group we can "calculate" a performance probability by looking at the actual MBytes/sec vs the peak) (insipred
+  by [2])
+
+  |          | achieved | perfect | efficiency     | 
+                                    |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
