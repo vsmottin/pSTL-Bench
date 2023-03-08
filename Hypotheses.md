@@ -67,7 +67,7 @@
   the max amount of cores. (aka running with 1M entries at max core) (insipred by [1])
 
   |          | achieved | perfect | efficiency  | 
-  |----------|----------|---------|-------------|
+        |----------|----------|---------|-------------|
   | GCC(TBB) | 12       | 16      | 12/16=0.75  |
   | NVC(OMP) | 16       | 16      | 16/16=1     |
   | NVC(GPU) | 0        | 0       | 0           |
@@ -132,7 +132,7 @@
   from (seq, par) to (par,seq) for every compiler. For example:
 
   |          | (seq,par) | (par,seq) | faster |
-  |----------|-----------|--------|------------|
+        |----------|-----------|--------|------------|
   | GCC(TBB) | 10s       | 5s        | 2x     |
   | NVC(OMP) | 12s       | 8s        | 1.5x   |
   | NVC(GPU) | 0         | 0         | 0      |
@@ -300,7 +300,7 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-  |----------|---------|----------------|-------------|
+        |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
@@ -399,7 +399,7 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-  |----------|---------|----------------|-------------|
+        |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
@@ -469,7 +469,7 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-  |----------|---------|----------------|-------------|
+        |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
@@ -677,7 +677,7 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-    |----------|---------|----------------|-------------|
+          |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
@@ -757,7 +757,7 @@ have to check.
   the max amount of cores. (aka running with 1M entries at max core) (insipred by [1])
 
   |          | achieved | perfect | efficiency  | 
-  |----------|----------|---------|-------------|
+      |----------|----------|---------|-------------|
   | GCC(TBB) | 12       | 16      | 12/16=0.75  |
   | NVC(OMP) | 16       | 16      | 16/16=1     |
   | NVC(GPU) | 0        | 0       | 0           |
@@ -766,6 +766,104 @@ have to check.
   Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = 0
 
   Performance Portability for `{GCC(TBB), NVC(OMP), Intel}` = `3/((1/0,75)+ (1/1) + (1/0,875))` = 86.3%
+
+* Later we can compare the performance portability calculated above from machine to machine (aka nebula vs tesla vs
+  vsc)
+
+## H9
+
+> The performance implications of utilizing scatter mapping as opposed to compact mapping can vary depending on the
+> compiler and backend being used.
+
+**Why important:**
+
+* Accessing memory from remote locations can have a significant impact on performance.
+
+**How to test it:**
+
+1. *Time*
+    1. Copy
+        1. Compare the runtime of `b7_1_copy_par` and `b7_1_custom_copy_with_foreach_par` with on same numa node for
+           fixed size 1M on every compiler
+        2. Compare the runtime of `b7_1_copy_par` and `b7_1_custom_copy_with_foreach_par` with on different numa node
+           for fixed size 1M on every compiler
+    2. Inclusive / Exclusive Scan
+        1. Compare the runtime of `b6_1_inclusive_scan_par` with on same numa node for fixed size 1M on every compiler
+        2. Compare the runtime of `b6_1_inclusive_scan_par` with on different numa node for fixed size 1M on every
+           compiler
+        3. Compare the runtime of `b6_2_exclusive_scan_par` with on same numa node for fixed size 1M on every compiler
+        4. Compare the runtime of `b6_2_exclusive_scan_par` with on different numa node for fixed size 1M on every
+           compiler
+    3. Transform
+        1. Compare the runtime of `b7_5_scalar_transform_number_par` and `b7_5_scalar_for_each_par` with on same numa
+           node for fixed size 1M on every compiler
+        2. Compare the runtime of `b7_5_scalar_transform_number_par` and `b7_5_scalar_for_each_par` with on different
+           numa node for fixed size 1M on every compiler
+
+
+2. *MBytes/sec*
+    1. Copy
+        1. Compare the MBytes/sec of `b7_1_copy_par` and `b7_1_custom_copy_with_foreach_par` with on same numa node for
+           fixed size 1M on every compiler
+        2. Compare the MBytes/sec of `b7_1_copy_par` and `b7_1_custom_copy_with_foreach_par` with on different numa node
+           for fixed size 1M on every compiler
+    2. Inclusive / Exclusive Scan
+        1. Compare the MBytes/sec of `b6_1_inclusive_scan_par` with on same numa node for fixed size 1M on every
+           compiler
+        2. Compare the MBytes/sec of `b6_1_inclusive_scan_par` with on different numa node for fixed size 1M on every
+           compiler
+        3. Compare the MBytes/sec of `b6_2_exclusive_scan_par` with on same numa node for fixed size 1M on every
+           compiler
+        4. Compare the MBytes/sec of `b6_2_exclusive_scan_par` with on different numa node for fixed size 1M on every
+           compiler
+    3. Transform
+        1. Compare the MBytes/sec of `b7_5_scalar_transform_number_par` and `b7_5_scalar_for_each_par` with on same numa
+           node for fixed size 1M on every compiler
+        2. Compare the MBytes/sec of `b7_5_scalar_transform_number_par` and `b7_5_scalar_for_each_par` with on different
+           numa node for fixed size 1M on every compiler
+
+**Metrics Involved:**
+
+* Time
+* MBytes/sec
+
+**What benchmarks cover it:**
+
+1. `b7_1_copy_par`: copies values from one vector to another vector with std::copy
+2. `b7_1_custom_copy_with_foreach_par`: copies values from one vector to another vector with std::for_each
+3. `b6_1_inclusive_scan_par`: straight forward inclusive scan
+4. `b6_2_exclusive_scan_par`: straight forward inclusive scan
+5. `b7_5_scalar_transform_number_par`: std::transform with a scalar operation
+6. `b7_5_scalar_for_each_par`: std::for_each with a scalar operation
+
+**Compilers/Backends**
+
+* GCC(TBB)
+* NVC(OMP)
+
+**GPU COMPATIBILITY:**
+
+* Here we will not consider it
+
+**Hypothesis is true when:**
+
+* there are significant differences
+
+**Performance Portability Calculation:**
+
+* for this group we can "calculate" a performance probability by looking at the actual MBytes/sec vs the peak) (insipred
+  by [2])
+
+  |          | achieved | perfect | efficiency     | 
+            |----------|---------|----------------|-------------|
+  | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
+  | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
+  | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
+  | Intel    | 800      | 1000    | 800/1000=0.80  |
+
+  Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = `4/((1/0,1)+ (1/0,5) + (1/0,66) + (1/0,8))` =
+  27%
+
 
 * Later we can compare the performance portability calculated above from machine to machine (aka nebula vs tesla vs
   vsc)
