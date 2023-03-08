@@ -2,7 +2,8 @@
 
 ## H1
 
-> Certain parallel backend perform/scale better on nested parallelism for homogeneous workloads
+> Some parallel backends exhibit better performance and scalability when handling nested parallelism for homogeneous
+> workloads
 
 **Why important:**
 
@@ -66,7 +67,7 @@
   the max amount of cores. (aka running with 1M entries at max core) (insipred by [1])
 
   |          | achieved | perfect | efficiency  | 
-                                                              |----------|----------|---------|-------------|
+                                                                      |----------|----------|---------|-------------|
   | GCC(TBB) | 12       | 16      | 12/16=0.75  |
   | NVC(OMP) | 16       | 16      | 16/16=1     |
   | NVC(GPU) | 0        | 0       | 0           |
@@ -81,7 +82,8 @@
 
 ## H2
 
-> The order of the parallelism (outer seq, inner par vs outer par, inner seq) has a significant impact on performance.
+> The performance is significantly impacted by the order in which parallelism is applied, whether it is outer loop
+> sequential and inner loop parallel, or outer loop parallel and inner loop sequential.
 
 **Why important:**
 
@@ -130,7 +132,7 @@
   from (seq, par) to (par,seq) for every compiler. For example:
 
   |          | (seq,par) | (par,seq) | faster |
-                                                |----------|-----------|--------|------------|
+                                                        |----------|-----------|--------|------------|
   | GCC(TBB) | 10s       | 5s        | 2x     |
   | NVC(OMP) | 12s       | 8s        | 1.5x   |
   | NVC(GPU) | 0         | 0         | 0      |
@@ -141,7 +143,8 @@
 
 ## H3
 
-> Certain parallel backend perform/scale better on nested parallelism for heterogeneous workloads
+> Some parallel backends exhibit better performance and scalability when handling nested parallelism for heterogeneous
+> workloads
 
 **Why important:**
 
@@ -297,7 +300,7 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-                                      |----------|---------|----------------|-------------|
+                                              |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
@@ -396,7 +399,7 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-      |----------|---------|----------------|-------------|
+              |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
