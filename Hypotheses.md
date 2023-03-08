@@ -66,7 +66,7 @@
   the max amount of cores. (aka running with 1M entries at max core) (insipred by [1])
 
   |          | achieved | perfect | efficiency  | 
-                                |----------|----------|---------|-------------|
+                                    |----------|----------|---------|-------------|
   | GCC(TBB) | 12       | 16      | 12/16=0.75  |
   | NVC(OMP) | 16       | 16      | 16/16=1     |
   | NVC(GPU) | 0        | 0       | 0           |
@@ -76,7 +76,7 @@
 
   Performance Portability for `{GCC(TBB), NVC(OMP), Intel}` = `3/((1/0,75)+ (1/1) + (1/0,875))` = 86.3%
 
-* Later we can compare the performance compatibilty calculated above from machine to machine (aka nebula vs tesla vs
+* Later we can compare the performance portability calculated above from machine to machine (aka nebula vs tesla vs
   vsc)
 
 ## H2
@@ -127,11 +127,10 @@
 **Performance Portability Calculation:**
 
 * Since we know that (par, seq) will be better than (seq,par) we can check the stddev of the performance improvement
-  from (seq,
-  par) to (par,seq) for every compiler. For example:
+  from (seq, par) to (par,seq) for every compiler. For example:
 
   |          | (seq,par) | (par,seq) | faster |
-                  |----------|-----------|--------|------------|
+                      |----------|-----------|--------|------------|
   | GCC(TBB) | 10s       | 5s        | 2x     |
   | NVC(OMP) | 12s       | 8s        | 1.5x   |
   | NVC(GPU) | 0         | 0         | 0      |
@@ -237,7 +236,8 @@ have to check.
     7. Compare the Mbytes/sec of `b4_3_set_union_cutoff_front_overhang_par` for every input size for every compiler
     8. Compare the Mbytes/sec of `b4_4_set_difference_cutoff_left_empty_par` for every input size for every compiler
     9. Compare the Mbytes/sec of `b4_4_set_difference_cutoff_right_empty_par` for every input size for every compiler
-    10. Compare the Mbytes/sec of `b4_4_set_difference_cutoff_wholly_greater_par` for every input size for every compiler
+    10. Compare the Mbytes/sec of `b4_4_set_difference_cutoff_wholly_greater_par` for every input size for every
+        compiler
     11. Compare the Mbytes/sec of `b4_4_set_difference_cutoff_intersected_par` for every input size for every compiler
 
 3. *Strong Scaling*
@@ -297,7 +297,7 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-        |----------|---------|----------------|-------------|
+            |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
@@ -307,7 +307,7 @@ have to check.
   27%
 
 
-* Later we can compare the performance compatibilty calculated above from machine to machine (aka nebula vs tesla vs
+* Later we can compare the performance portability calculated above from machine to machine (aka nebula vs tesla vs
   vsc)
 
 ## References
