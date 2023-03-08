@@ -169,7 +169,7 @@ static void b7_2_all_of_auto_false(benchmark::State &state) {
 
 
 template<class Policy>
-static void b7_custom_all_of_with_transform_reduce_all_true(benchmark::State &state) {
+static void b7_2_custom_all_of_with_transform_reduce_all_true(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
     const auto &size = state.range(0);
@@ -178,8 +178,8 @@ static void b7_custom_all_of_with_transform_reduce_all_true(benchmark::State &st
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_custom_all_of_with_transform_reduce(execution_policy, vec1,
-                                                                    [](const int &val) { return val >= 0; });
+        const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
+                                                                      [](const int &val) { return val >= 0; });
 
         state.PauseTiming();
         assert((res == true));
@@ -188,7 +188,7 @@ static void b7_custom_all_of_with_transform_reduce_all_true(benchmark::State &st
 }
 
 template<class Policy>
-static void b7_custom_all_of_with_transform_reduce_first_false(benchmark::State &state) {
+static void b7_2_custom_all_of_with_transform_reduce_first_false(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
     const auto &size = state.range(0);
@@ -197,8 +197,8 @@ static void b7_custom_all_of_with_transform_reduce_first_false(benchmark::State 
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_custom_all_of_with_transform_reduce(execution_policy, vec1,
-                                                                    [](const int &val) { return val > 10000; });
+        const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
+                                                                      [](const int &val) { return val > 10000; });
 
         state.PauseTiming();
         assert((res == false));
@@ -207,7 +207,7 @@ static void b7_custom_all_of_with_transform_reduce_first_false(benchmark::State 
 }
 
 template<class Policy>
-static void b7_custom_all_of_with_transform_reduce_last_false(benchmark::State &state) {
+static void b7_2_custom_all_of_with_transform_reduce_last_false(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
     const auto &size = state.range(0);
@@ -216,8 +216,10 @@ static void b7_custom_all_of_with_transform_reduce_last_false(benchmark::State &
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_custom_all_of_with_transform_reduce(execution_policy, vec1,
-                                                                    [size](const int &val) { return val < size - 1; });
+        const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
+                                                                      [size](const int &val) {
+                                                                          return val < size - 1;
+                                                                      });
 
         state.PauseTiming();
         assert((res == false));
@@ -226,7 +228,7 @@ static void b7_custom_all_of_with_transform_reduce_last_false(benchmark::State &
 }
 
 template<class Policy>
-static void b7_custom_all_of_with_transform_reduce_auto_false(benchmark::State &state) {
+static void b7_2_custom_all_of_with_transform_reduce_auto_false(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
     const auto &size = state.range(0);
@@ -235,8 +237,8 @@ static void b7_custom_all_of_with_transform_reduce_auto_false(benchmark::State &
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_custom_all_of_with_transform_reduce(execution_policy, vec1,
-                                                                    [](const int &val) { return false; });
+        const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
+                                                                      [](const int &val) { return false; });
 
         state.PauseTiming();
         assert((res == false));
@@ -245,28 +247,28 @@ static void b7_custom_all_of_with_transform_reduce_auto_false(benchmark::State &
 }
 
 #define B7_2_ALL_OFF_LOGIC_WITH_TRANSFORM_REDUCE_BENCHMARKS \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_all_true,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_all_true_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_all_true,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_all_true_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_all_true,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_all_true_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_all_true,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_all_true_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_all_true,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_all_true_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                                \
                                \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_first_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_first_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_first_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_first_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_first_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_first_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_first_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_first_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_first_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_first_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
                                \
                                \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_last_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_last_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_last_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_last_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_last_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_last_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_last_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_last_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_last_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_last_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
                                \
                                \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_all_of_with_transform_reduce_auto_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_all_of_with_transform_reduce_auto_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_auto_false,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_auto_false_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_auto_false,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_auto_false_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_auto_false,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_auto_false_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_2_custom_all_of_with_transform_reduce_auto_false,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_2_custom_all_of_with_transform_reduce_auto_false_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
 
 
 //endregion b7_custom_all_of_with_transform_reduce

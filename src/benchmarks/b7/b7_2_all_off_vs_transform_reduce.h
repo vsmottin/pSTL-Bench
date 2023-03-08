@@ -23,7 +23,7 @@ namespace B7 {
             typename Pred = typename std::function<bool>(std::vector<int>::const_reference)
     >
     inline bool
-    b7_custom_all_of_with_transform_reduce(ExecutionPolicy &&policy, const std::vector<int> &container, Pred &&pred) {
+    b7_2_custom_all_of_with_transform_reduce(ExecutionPolicy &&policy, const std::vector<int> &container, Pred &&pred) {
 
         return std::transform_reduce(policy, container.begin(), container.end(), true, std::logical_and(), pred);
     }
