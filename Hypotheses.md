@@ -67,7 +67,7 @@
   the max amount of cores. (aka running with 1M entries at max core) (insipred by [1])
 
   |          | achieved | perfect | efficiency  | 
-                                                                                          |----------|----------|---------|-------------|
+                                                                                                    |----------|----------|---------|-------------|
   | GCC(TBB) | 12       | 16      | 12/16=0.75  |
   | NVC(OMP) | 16       | 16      | 16/16=1     |
   | NVC(GPU) | 0        | 0       | 0           |
@@ -132,7 +132,7 @@
   from (seq, par) to (par,seq) for every compiler. For example:
 
   |          | (seq,par) | (par,seq) | faster |
-                                                                            |----------|-----------|--------|------------|
+                                                                                      |----------|-----------|--------|------------|
   | GCC(TBB) | 10s       | 5s        | 2x     |
   | NVC(OMP) | 12s       | 8s        | 1.5x   |
   | NVC(GPU) | 0         | 0         | 0      |
@@ -300,7 +300,7 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-                                                                  |----------|---------|----------------|-------------|
+                                                                            |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
@@ -399,7 +399,7 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-                                  |----------|---------|----------------|-------------|
+                                            |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
@@ -469,7 +469,215 @@ have to check.
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-                                    |----------|---------|----------------|-------------|
+                                              |----------|---------|----------------|-------------|
+  | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
+  | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
+  | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
+  | Intel    | 800      | 1000    | 800/1000=0.80  |
+
+  Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = `4/((1/0,1)+ (1/0,5) + (1/0,66) + (1/0,8))` =
+  27%
+
+
+* Later we can compare the performance portability calculated above from machine to machine (aka nebula vs tesla vs
+  vsc)
+
+## H7
+
+> Employing specific parallel algorithms tends to yield superior performance/strong scaling compared to utilizing custom
+> implementations that rely on various other parallel algorithm functions.
+
+**Why important:**
+
+* There exist parallel algorithms that can be reduced to others, implying that it is possible to achieve the same
+  semantics by implementing the same logic using two different parallel algorithm functions.
+* If the semantics are the same but one is superior, it makes sense to use the better one.
+
+**How to test it:**
+
+1. *TIME*
+    1. Copy vs for_each
+        1. Compare the runtime of `b7_1_copy_par` to `b7_1_custom_copy_with_foreach_par` for every input and for every
+           compiler
+
+    2. All_Of vs tranform_reduce
+        1. Compare the runtime of `b7_2_all_of_all_true_par` to `b7_2_custom_all_of_with_transform_reduce_all_true_par`
+           for every input and for every compiler
+        2. Compare the runtime of `b7_2_all_of_first_false_par`
+           to `b7_2_custom_all_of_with_transform_reduce_first_false_par` for every input and for every compiler
+        3. Compare the runtime of `b7_2_all_of_last_false_par`
+           to `b7_2_custom_all_of_with_transform_reduce_last_false_par` for every input and for every compiler
+        4. Compare the runtime of `b7_2_all_of_auto_false_par`
+           to `b7_2_custom_all_of_with_transform_reduce_auto_false_par` for every input and for every compiler
+
+    3. Count_if vs transform_reduce vs for_each
+        1. Compare the runtime of `b7_3_count_if_all_hit_par`
+           to `b7_3_custom_count_if_with_transform_reduce_all_hit_par`
+           and `b7_3_custom_count_if_with_for_each_all_hit_par` for every input and for every compiler.
+        2. Compare the runtime of `b7_3_count_if_half_hit_par`
+           to `b7_3_custom_count_if_with_transform_reduce_half_hit_par`
+           and `b7_3_custom_count_if_with_for_each_half_hit_par` for every input and for every compiler.
+        3. Compare the runtime of `b7_3_count_if_orders_struct_par`
+           to `b7_3_custom_count_if_with_transform_reduce_orders_struct_par`
+           and `b7_3_custom_count_if_with_for_each_orders_struct_par` for every input and for every compiler.
+
+    4. Stencil transform vs for_each
+        1. Compare the runtime of `b7_4_stencil_transform_number_to_neightbours_stdev_par`
+           to `b7_4_stencil_for_each_to_neightbours_stdev_par` for every input and for every compiler
+
+    5. Scalar transform vs for_each
+        1. Compare the runtime of `b7_5_scalar_transform_number_par` to `b7_5_scalar_for_each_par` for every input and
+           for every compiler
+
+    6. Serial transform and reducs vs transform_reduce
+        1. Compare the runtime of `b7_6_serial_transform_reduce_par` to `b7_6_transform_reduce_par` for every input and
+           for every compiler
+
+
+2. *MBytes/sec*
+    1. Copy vs for_each
+        1. Compare the Mbytes/sec of `b7_1_copy_par` to `b7_1_custom_copy_with_foreach_par` for every input and for
+           every compiler
+
+    2. All_Of vs tranform_reduce
+        1. Compare the Mbytes/sec of `b7_2_all_of_all_true_par`
+           to `b7_2_custom_all_of_with_transform_reduce_all_true_par` for every input and for every compiler
+        2. Compare the Mbytes/sec of `b7_2_all_of_first_false_par`
+           to `b7_2_custom_all_of_with_transform_reduce_first_false_par` for every input and for every compiler
+        3. Compare the Mbytes/sec of `b7_2_all_of_last_false_par`
+           to `b7_2_custom_all_of_with_transform_reduce_last_false_par` for every input and for every compiler
+        4. Compare the Mbytes/sec of `b7_2_all_of_auto_false_par`
+           to `b7_2_custom_all_of_with_transform_reduce_auto_false_par` for every input and for every compiler
+
+    3. Count_if vs transform_reduce vs for_each
+        1. Compare the Mbytes/sec of `b7_3_count_if_all_hit_par`
+           to `b7_3_custom_count_if_with_transform_reduce_all_hit_par`
+           and `b7_3_custom_count_if_with_for_each_all_hit_par` for every input and for every compiler.
+        2. Compare the Mbytes/sec of `b7_3_count_if_half_hit_par`
+           to `b7_3_custom_count_if_with_transform_reduce_half_hit_par`
+           and `b7_3_custom_count_if_with_for_each_half_hit_par` for every input and for every compiler.
+        3. Compare the Mbytes/sec of `b7_3_count_if_orders_struct_par`
+           to `b7_3_custom_count_if_with_transform_reduce_orders_struct_par`
+           and `b7_3_custom_count_if_with_for_each_orders_struct_par` for every input and for every compiler.
+
+    4. Stencil transform vs for_each
+        1. Compare the Mbytes/sec of `b7_4_stencil_transform_number_to_neightbours_stdev_par`
+           to `b7_4_stencil_for_each_to_neightbours_stdev_par` for every input and for every compiler
+
+    5. Scalar transform vs for_each
+        1. Compare the Mbytes/sec of `b7_5_scalar_transform_number_par` to `b7_5_scalar_for_each_par` for every input
+           and for every compiler
+
+    6. Serial transform and reducs vs transform_reduce
+        1. Compare the Mbytes/sec of `b7_6_serial_transform_reduce_par` to `b7_6_transform_reduce_par` for every input
+           and for every compiler
+
+
+3. *Strong Scaling*
+    1. Copy vs for_each
+        1. Compare the strong scaling of `b7_1_copy_par` to `b7_1_custom_copy_with_foreach_par` for fixed input 1M and
+           for every compiler
+
+    2. All_Of vs tranform_reduce
+        1. Compare the strong scaling of `b7_2_all_of_all_true_par`
+           to `b7_2_custom_all_of_with_transform_reduce_all_true_par` for fixed input 1M and for every compiler
+        2. Compare the strong scaling of `b7_2_all_of_first_false_par`
+           to `b7_2_custom_all_of_with_transform_reduce_first_false_par` for fixed input 1M and for every compiler
+        3. Compare the strong scaling of `b7_2_all_of_last_false_par`
+           to `b7_2_custom_all_of_with_transform_reduce_last_false_par` for fixed input 1M and for every compiler
+        4. Compare the strong scaling of `b7_2_all_of_auto_false_par`
+           to `b7_2_custom_all_of_with_transform_reduce_auto_false_par` for fixed input 1M and for every compiler
+
+    3. Count_if vs transform_reduce vs for_each
+        1. Compare the strong scaling of `b7_3_count_if_all_hit_par`
+           to `b7_3_custom_count_if_with_transform_reduce_all_hit_par`
+           and `b7_3_custom_count_if_with_for_each_all_hit_par` for fixed input 1M and for every compiler.
+        2. Compare the strong scaling of `b7_3_count_if_half_hit_par`
+           to `b7_3_custom_count_if_with_transform_reduce_half_hit_par`
+           and `b7_3_custom_count_if_with_for_each_half_hit_par` for fixed input 1M and for every compiler.
+        3. Compare the strong scaling of `b7_3_count_if_orders_struct_par`
+           to `b7_3_custom_count_if_with_transform_reduce_orders_struct_par`
+           and `b7_3_custom_count_if_with_for_each_orders_struct_par` for fixed input 1M and for every compiler.
+
+    4. Stencil transform vs for_each
+        1. Compare the strong scaling of `b7_4_stencil_transform_number_to_neightbours_stdev_par`
+           to `b7_4_stencil_for_each_to_neightbours_stdev_par` for fixed input 1M and for every compiler
+
+    5. Scalar transform vs for_each
+        1. Compare the strong scaling of `b7_5_scalar_transform_number_par` to `b7_5_scalar_for_each_par` for fixed
+           input 1M and for every compiler
+
+    6. Serial transform and reducs vs transform_reduce
+        1. Compare the strong scaling of `b7_6_serial_transform_reduce_par` to `b7_6_transform_reduce_par` for fixed
+           input 1M and for every compiler
+
+**Metrics Involved:**
+
+* Time
+* MBytes/sec
+* Strong Scaling
+
+**What benchmarks cover it:**
+
+1. `b7_1_copy_par`: copies values from one vector to another vector with std::copy
+2. `b7_1_custom_copy_with_foreach_par`: copies values from one vector to another vector with std::for_each
+3. `b7_2_all_of_all_true_par`:  std::all_of where the predicate is true for every element
+4. `b7_2_custom_all_of_with_transform_reduce_all_true_par`: transform_reduce simulating std::all_of where the predicate
+   is true for every element
+5. `b7_2_all_of_first_false_par`:  std::all_of where the predicate is false for the first element
+6. `b7_2_custom_all_of_with_transform_reduce_first_false_par`: transform_reduce simulating std::all_of where the
+   predicate is false for the first element
+7. `b7_2_all_of_last_false_par`:   std::all_of where the predicate is false for the last element
+8. `b7_2_custom_all_of_with_transform_reduce_last_false_par`:  transform_reduce simulating std::all_of where the
+   predicate is false for the last element
+9. `b7_2_all_of_auto_false_par`:    std::all_of where the predicate is false for every element
+10. `b7_2_custom_all_of_with_transform_reduce_auto_false_par`:   transform_reduce simulating std::all_of where the
+    predicate is false for every element
+11. `b7_3_count_if_all_hit_par`: std::count_if where the predicate is true for all
+12. `b7_3_custom_count_if_with_transform_reduce_all_hit_par`: transform_reduce logic simulating std::count_if where the
+    predicate is true for all
+13. `b7_3_custom_count_if_with_for_each_all_hit_par`: for_each logic simulating std::count_if where the predicate is
+    true for all
+14. `b7_3_count_if_half_hit_par`: std::count_if where for only half of the entries the predicate is true
+15. `b7_3_custom_count_if_with_transform_reduce_half_hit_par`: transform_reduce logic simulating std::count_if where for
+    only half of the entries the predicate is true
+16. `b7_3_custom_count_if_with_for_each_half_hit_par`: for_each logic simulating std::count_if where for only half of
+    the entries the predicate is true
+17. `b7_3_count_if_orders_struct_par`: std::count_if where only a subset of the structs inside the vector eval to true
+    for the predicate
+18. `b7_3_custom_count_if_with_transform_reduce_orders_struct_par`: transform_reduce logic simulating std::count_if
+    where only a subset of the structs inside the vector eval to true for the predicate
+19. `b7_3_custom_count_if_with_for_each_orders_struct_par`: for_each logic simulating std::count_if where only a subset
+    of the structs inside the vector eval to true for the predicate
+20. `b7_4_stencil_transform_number_to_neightbours_stdev_par`: stencil std::transform operation calculating the stddev of
+    3 neighbouring cells.
+21. `b7_4_stencil_for_each_to_neightbours_stdev_par`: stencil std::for_each operation calculating the stddev of 3
+    neighbouring cells.
+22. `b7_5_scalar_transform_number_par`: std::transform with a scalar operation
+23. `b7_5_scalar_for_each_par`: std::for_each with a scalar operation
+24. `b7_6_serial_transform_reduce_par`: first creating a std::transform followed by a std::reduce
+25. `b7_6_transform_reduce_par`: single call to std::transform_reduce
+
+**Compilers/Backends**
+
+* GCC(TBB)
+* NVC(OMP)
+
+**GPU COMPATIBILITY:**
+
+* Sadly not all of them work with GPU but I will present in my paper alternative how they could made runable.
+
+**Hypothesis is true when:**
+
+* There is a difference from specific algo to custom implemetation
+
+**Performance Portability Calculation:**
+
+* for this group we can "calculate" a performance probability by looking at the actual MBytes/sec vs the peak) (insipred
+  by [2])
+
+  |          | achieved | perfect | efficiency     | 
+                                                |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
   | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
