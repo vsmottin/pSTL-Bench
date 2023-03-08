@@ -30,7 +30,7 @@ namespace B7 {
      */
     template<class ExecutionPolicy>
     inline void
-    b7_custom_copy_with_foreach(ExecutionPolicy &&policy, const std::vector<int> &container, std::vector<int> &result) {
+    b7_1_custom_copy_with_foreach(ExecutionPolicy &&policy, const std::vector<int> &container, std::vector<int> &result) {
 
         const auto &view = std::views::iota(0, static_cast<int>(container.size()));
 

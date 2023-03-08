@@ -41,7 +41,7 @@ static void b7_1_copy(benchmark::State &state) {
 }
 
 template<class Policy>
-static void b7_custom_copy_with_foreach(benchmark::State &state) {
+static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
     const auto &size = state.range(0);
@@ -52,7 +52,7 @@ static void b7_custom_copy_with_foreach(benchmark::State &state) {
 
 
     for (auto _: state) {
-        B7::b7_custom_copy_with_foreach(execution_policy, vec1, res);
+        B7::b7_1_custom_copy_with_foreach(execution_policy, vec1, res);
 
         state.PauseTiming();
         assert(std::equal(vec1.begin(), vec1.end(), res.begin()));
@@ -564,7 +564,7 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
 //region b7_5_scalar_transform_vs_for_each
 
 template<class Policy>
-static void b7_4_scalar_transform_number(benchmark::State &state) {
+static void b7_5_scalar_transform_number(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
     const auto &size = state.range(0);
@@ -574,7 +574,7 @@ static void b7_4_scalar_transform_number(benchmark::State &state) {
     auto res = std::vector<int>(size);
 
     for (auto _: state) {
-        B7::b7_4_scalar_transform_number(execution_policy, vec1, res);
+        B7::b7_5_scalar_transform_number(execution_policy, vec1, res);
 
         state.PauseTiming();
         assert((res[0] >= 0));
@@ -583,7 +583,7 @@ static void b7_4_scalar_transform_number(benchmark::State &state) {
 }
 
 template<class Policy>
-static void b7_4_scalar_for_each(benchmark::State &state) {
+static void b7_5_scalar_for_each(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
     const auto &size = state.range(0);
@@ -596,7 +596,7 @@ static void b7_4_scalar_for_each(benchmark::State &state) {
     const auto &view = suite::generate_increment<suite::int_vec>(size, 1);
 
     for (auto _: state) {
-        B7::b7_4_scalar_for_each(execution_policy, vec1, view, res);
+        B7::b7_5_scalar_for_each(execution_policy, vec1, view, res);
 
         state.PauseTiming();
         assert((res[0] >= 0));
@@ -666,10 +666,10 @@ static void b7_6_transform_reduce(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_custom_copy_with_foreach,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_custom_copy_with_foreach_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
                             \
@@ -747,16 +747,16 @@ static void b7_6_transform_reduce(benchmark::State &state) {
                             \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_transform_number,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_transform_number_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_5_scalar_transform_number,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_5_scalar_transform_number_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_5_scalar_transform_number,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_5_scalar_transform_number_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_5_scalar_transform_number,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_5_scalar_transform_number_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_5_scalar_transform_number,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_5_scalar_transform_number_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b7_4_scalar_for_each,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_4_scalar_for_each_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b7_5_scalar_for_each,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_5_scalar_for_each_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_5_scalar_for_each,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_5_scalar_for_each_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
+        BENCHMARK_TEMPLATE1(b7_5_scalar_for_each,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b7_5_scalar_for_each_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE1(b7_5_scalar_for_each,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b7_5_scalar_for_each_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
                             \
                             \
                             \

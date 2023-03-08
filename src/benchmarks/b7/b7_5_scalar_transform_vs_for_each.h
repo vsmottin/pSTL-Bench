@@ -9,7 +9,7 @@ namespace B7 {
 
     template<class ExecutionPolicy>
     inline void
-    b7_4_scalar_transform_number(ExecutionPolicy &&policy,
+    b7_5_scalar_transform_number(ExecutionPolicy &&policy,
                                  const std::vector<int> &input_data,
                                  std::vector<int> &result) {
 
@@ -20,7 +20,7 @@ namespace B7 {
 
     template<class ExecutionPolicy, typename View>
     inline void
-    b7_4_scalar_for_each(ExecutionPolicy &&policy,
+    b7_5_scalar_for_each(ExecutionPolicy &&policy,
                          const std::vector<int> &input_data,
                          const View &view,
                          std::vector<int> &result) {
