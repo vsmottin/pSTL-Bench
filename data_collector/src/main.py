@@ -54,8 +54,8 @@ def main(argv):
         exit(0)
 
     # running building
-    # for compiler in configuration.compiler:
-    #     build_artifacts(compiler, configuration)
+    for compiler in configuration.compiler:
+        build_artifacts(compiler, configuration)
 
     # run the benchmarks for all the selected compilers
     for benchmark in configuration.benchmarks:
