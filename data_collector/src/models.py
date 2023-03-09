@@ -8,6 +8,7 @@ from dataclass_wizard import fromdict
 
 
 class BenchmarkType(Enum):
+    THREADS = "THREADS"
     DEFAULT = "DEFAULT"
     NUMACTL = 'NUMACTL'
 
@@ -37,8 +38,9 @@ class Config:
     build_artifacts_dir: str
     cmake_location: str
     binary_target: str
-    compiler: List['Compiler']
-    benchmarks: List['Benchmark']
+    batch_file_location: str
+    compiler: List[Compiler]
+    benchmarks: List[Benchmark]
 
     @staticmethod
     def load_from_file(configuration_file: str):

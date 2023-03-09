@@ -516,3 +516,6 @@ pip-selfcheck.json
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,pycharm+iml,pycharm+all,python,macos,vim,emacs,virtualenv
 
 ./build-artifacts/
+./job_files/**
+/job_files/
+/build-artifacts/
