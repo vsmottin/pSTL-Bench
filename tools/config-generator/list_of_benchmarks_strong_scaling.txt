@@ -53,7 +53,7 @@ b5_4_minmax_element_increasing_par/1048576
 # H6
 
 b6_1_inclusive_scan_par/1048576
-b6_1_exclusive_scan_par/1048576
+b6_2_exclusive_scan_par/1048576
 
 # H7
 

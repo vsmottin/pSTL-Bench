@@ -79,8 +79,8 @@ b5_4_minmax_element_increasing_seq/
 b6_1_inclusive_scan_seq/
 b6_1_inclusive_scan_par/
 
-b6_1_exclusive_scan_seq/
-b6_1_exclusive_scan_par/
+b6_2_exclusive_scan_seq/
+b6_2_exclusive_scan_par/
 
 # H7
 
