@@ -32,6 +32,12 @@ class Benchmark:
 
 
 @dataclass
+class SbatchConfig:
+    partition: str
+    time: str
+
+
+@dataclass
 class Config:
     output_dir: str
     benchmark_repetitions: str
@@ -39,6 +45,7 @@ class Config:
     cmake_location: str
     binary_target: str
     batch_file_location: str
+    sbatch: SbatchConfig
     compiler: List[Compiler]
     benchmarks: List[Benchmark]
 

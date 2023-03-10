@@ -5,6 +5,10 @@
   "build_artifacts_dir": "/home/thesis/krupitza/scratch_files/master_benchmarks/data_collector/build-artifacts",
   "binary_target": "master_benchmarks",
   "batch_file_location": "/home/thesis/krupitza/scratch_files/master_benchmarks/data_collector/job_files",
+  "sbatch": {
+    "partition": "q_thesis",
+    "time": "15:00"
+  },
   "compiler": [
     {
       "name": "GCC_TBB",

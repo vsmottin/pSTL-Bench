@@ -11,8 +11,6 @@ from execptions import DataCollectorException
 
 logger = logging.getLogger("data_collector")
 
-MAX_TIME = "20:00"
-
 
 def generate_output_file(benchmark: Benchmark, compiler: Compiler, config: Config, prefix="") -> str:
     return os.path.join(config.output_dir, compiler.name, benchmark.type.name, f'{prefix}{benchmark.name}.csv')
@@ -128,10 +126,10 @@ class DefaultExecutor(Executor):
         binary_call = generate_benchmark_binary_call(benchmark, compiler, config)
 
         file_contents = f"""#! /bin/bash
-#SBATCH -p q_thesis
+#SBATCH -p {config.sbatch.partition}
 #SBATCH -N 1
 #SBATCH --cpu-freq=High
-#SBATCH --time={MAX_TIME}
+#SBATCH --time={config.sbatch.time}
 #SBATCH -o {output_filename}
 #SBATCH -e {batch_error_filename}
 
@@ -162,10 +160,10 @@ class THREADSExecutor(Executor):
         binary_call = generate_benchmark_binary_call(benchmark, compiler, config)
 
         file_contents = f"""#! /bin/bash
-#SBATCH -p q_thesis
+#SBATCH -p {config.sbatch.partition}
 #SBATCH -N 1
 #SBATCH --cpu-freq=High
-#SBATCH --time={MAX_TIME}
+#SBATCH --time={config.sbatch.time}
 #SBATCH -o {batch_output_filename}
 #SBATCH -e {batch_error_filename}
         
@@ -201,10 +199,10 @@ class NUMACTLExecutor(Executor):
         binary_call = generate_benchmark_binary_call(benchmark, compiler, config)
 
         file_contents = f"""#! /bin/bash
-#SBATCH -p q_thesis
+#SBATCH -p {config.sbatch.partition}
 #SBATCH -N 1
 #SBATCH --cpu-freq=High
-#SBATCH --time={MAX_TIME}
+#SBATCH --time={config.sbatch.time}
 #SBATCH -o {output_filename}
 #SBATCH -e {batch_error_filename}
 
