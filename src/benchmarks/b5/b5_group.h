@@ -144,27 +144,6 @@ static void b5_3_unique_copy_default_wrapper(benchmark::State &state) {
     }
 }
 
-template<class Policy>
-static void b5_3_unique_copy_odd_wrapper(benchmark::State &state) {
-    constexpr auto execution_policy = Policy{};
-
-    const auto &size = state.range(0);
-
-    // vector with values [0,size)
-    auto vec1 = suite::generate_increment<suite::int_vec>(size, 1, 1);
-
-    std::vector result(size, 0);
-
-    for (auto _: state) {
-        B5::b5_3_unique_copy_odd(execution_policy, vec1, result);
-
-        state.PauseTiming();
-        // simple check so the val will not be optimized away
-        assert(result[0] == 1);
-        state.ResumeTiming();
-    }
-}
-
 //endregion b5_3_unique_copy
 
 //region b5_4_minmax_element
@@ -228,12 +207,6 @@ static void b5_4_minmax_element_increasing(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
         BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
         BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
-                            \
-                            \
-        BENCHMARK_TEMPLATE1(b5_3_unique_copy_odd_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_odd_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b5_3_unique_copy_odd_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_odd_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b5_3_unique_copy_odd_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_odd_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b5_3_unique_copy_odd_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_odd_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
                             \
                             \
         BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \

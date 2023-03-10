@@ -333,9 +333,8 @@ have to check.
        compiler
     4. Compare the runtime of `b5_2_partition_par` for every input size for every compiler
     5. Compare the runtime of `b5_3_unique_copy_default_par` for every input size for every compiler
-    6. Compare the runtime of `b5_3_unique_copy_odd_par` for every input size for every compiler
-    7. Compare the runtime of `b5_4_minmax_element_all_equal_par` for every input size for every compiler
-    8. Compare the runtime of `b5_4_minmax_element_increasing_par` for every input size for every compiler
+    6. Compare the runtime of `b5_4_minmax_element_all_equal_par` for every input size for every compiler
+    7. Compare the runtime of `b5_4_minmax_element_increasing_par` for every input size for every compiler
 
 2. *Mbytes/sec*
     1. Compare the Mbytes/sec of `b5_1_find_std::vector<int>_first_entry_par` for every input size for every compiler
@@ -344,9 +343,8 @@ have to check.
        compiler
     4. Compare the Mbytes/sec of `b5_2_partition_par` for every input size for every compiler
     5. Compare the Mbytes/sec of `b5_3_unique_copy_default_par` for every input size for every compiler
-    6. Compare the Mbytes/sec of `b5_3_unique_copy_odd_par` for every input size for every compiler
-    7. Compare the Mbytes/sec of `b5_4_minmax_element_all_equal_par` for every input size for every compiler
-    8. Compare the Mbytes/sec of `b5_4_minmax_element_increasing_par` for every input size for every compiler
+    6. Compare the Mbytes/sec of `b5_4_minmax_element_all_equal_par` for every input size for every compiler
+    7. Compare the Mbytes/sec of `b5_4_minmax_element_increasing_par` for every input size for every compiler
 
 3. *Strong Scaling*
     1. Compare the strong scaling of `b5_1_find_std::vector<int>_first_entry_par` for fixed size 1M for every compiler
@@ -356,9 +354,8 @@ have to check.
        compiler
     4. Compare the strong scaling of `b5_2_partition_par` for fixed size 1M for every compiler
     5. Compare the strong scaling of `b5_3_unique_copy_default_par` for fixed size 1M for every compiler
-    6. Compare the strong scaling of `b5_3_unique_copy_odd_par` for fixed size 1M for every compiler
-    7. Compare the strong scaling of `b5_4_minmax_element_all_equal_par` for fixed size 1M for every compiler
-    8. Compare the strong scaling of `b5_4_minmax_element_increasing_par` for fixed size 1M for every compiler
+    6. Compare the strong scaling of `b5_4_minmax_element_all_equal_par` for fixed size 1M for every compiler
+    7. Compare the strong scaling of `b5_4_minmax_element_increasing_par` for fixed size 1M for every compiler
 
 **Metrics Involved:**
 
@@ -373,9 +370,8 @@ have to check.
 3. `b5_1_find_std::vector<int>_non_existing_entry_par`
 4. `b5_2_partition_par`
 5. `b5_3_unique_copy_default_par`
-6. `b5_3_unique_copy_odd_par`
-7. `b5_4_minmax_element_all_equal_par`
-8. `b5_4_minmax_element_increasing_par`
+6. `b5_4_minmax_element_all_equal_par`
+7. `b5_4_minmax_element_increasing_par`
 
 **Compilers/Backends**
 

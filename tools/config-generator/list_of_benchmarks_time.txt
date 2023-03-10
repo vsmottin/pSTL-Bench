@@ -60,7 +60,6 @@ b5_1_find_std::vector<int>_last_entry_par/
 b5_1_find_std::vector<int>_non_existing_entry_par/
 b5_2_partition_par/
 b5_3_unique_copy_default_par/
-b5_3_unique_copy_odd_par/
 b5_4_minmax_element_all_equal_par/
 b5_4_minmax_element_increasing_par/
 
@@ -69,7 +68,6 @@ b5_1_find_std::vector<int>_last_entry_seq/
 b5_1_find_std::vector<int>_non_existing_entry_seq/
 b5_2_partition_seq/
 b5_3_unique_copy_default_seq/
-b5_3_unique_copy_odd_seq/
 b5_4_minmax_element_all_equal_seq/
 b5_4_minmax_element_increasing_seq/
 
