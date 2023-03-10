@@ -14,11 +14,12 @@ logger = logging.getLogger("data_collector")
 logger.setLevel(logging.WARNING)
 
 
-def read_arguments(argv) -> Tuple[str, List[str]]:
+def read_arguments(argv) -> Tuple[str, List[str], bool]:
     configuration_file = ''
     selected_compilers = ['*']
+    skipp_building = False
 
-    opts, args = getopt.getopt(argv, "hc:vf", ["configuration=", "verbose", "compiler="])
+    opts, args = getopt.getopt(argv, "hc:vf", ["configuration=", "verbose", "compiler=", "no-build"])
     for opt, arg in opts:
         if opt == '-h':
             print('main.py -i <inputfile> -o <outputfile>')
@@ -29,14 +30,16 @@ def read_arguments(argv) -> Tuple[str, List[str]]:
             logger.setLevel(logging.DEBUG)
         elif opt in ("-f", "--compiler"):
             selected_compilers = arg.split(',')
+        elif opt in "--no-build":
+            skipp_building = True
         else:
             print("Wrong parameter! Could not find:", opt)
             sys.exit()
-    return configuration_file, selected_compilers
+    return configuration_file, selected_compilers, skipp_building
 
 
 def main(argv):
-    configuration_file, selected_compilers = read_arguments(argv)
+    configuration_file, selected_compilers, skipp_building = read_arguments(argv)
     no_compiler_found_message = "No compilers defined in configuration.json"
 
     logger.info(f'Configuration file using: {configuration_file}')
@@ -54,8 +57,11 @@ def main(argv):
         exit(0)
 
     # running building
-    for compiler in configuration.compiler:
-        build_artifacts(compiler, configuration)
+    if not skipp_building:
+        for compiler in configuration.compiler:
+            build_artifacts(compiler, configuration)
+    else:
+        logger.info("Skipping building of the binaries for compilers!")
 
     # run the benchmarks for all the selected compilers
     for benchmark in configuration.benchmarks:
