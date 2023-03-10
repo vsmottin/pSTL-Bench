@@ -3,6 +3,7 @@ from pathlib import Path
 import getopt
 import sys
 import subprocess
+from typing import List, Tuple
 
 
 def get_params_from_argv(argv) -> Tuple[str, bool]:
