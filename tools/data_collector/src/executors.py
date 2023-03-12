@@ -26,8 +26,7 @@ def generate_benchmark_binary_call(benchmark: Benchmark, compiler: Compiler, con
         get_binary_for_compiler(compiler, config),
         f'--benchmark_filter="{benchmark.regex_filter}"',
         f'--benchmark_repetitions={config.benchmark_repetitions}',
-        '--benchmark_out_format="csv"',
-        # f'--benchmark_out={output_file}'
+        '--benchmark_format="csv"',
     ])
 
 
@@ -134,7 +133,7 @@ class DefaultExecutor(Executor):
 #SBATCH -e {batch_error_filename}
 
 {binary_call}
-        """
+"""
 
         return file_contents
 
@@ -166,12 +165,11 @@ class THREADSExecutor(Executor):
 #SBATCH --time={config.sbatch.time}
 #SBATCH -o {batch_output_filename}
 #SBATCH -e {batch_error_filename}
-        
+
 export OMP_NUM_THREADS={number_of_threads}
 
-    
 {binary_call}
-                """
+"""
 
         return file_contents
 
