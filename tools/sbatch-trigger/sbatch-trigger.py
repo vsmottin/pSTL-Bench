@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     for filename in files_to_trigger:
         args = ["sbatch", filename]
-        process = subprocess.Popen(args, stdout=subprocess.STDOUT, stderr=subprocess.STDOUT)
+        process = subprocess.Popen(args)
 
         exitcode = process.wait()  # 0 means success
 
