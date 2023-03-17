@@ -18,15 +18,6 @@ namespace suite {
     typedef std::vector<int> int_vec;
     typedef std::list<int> int_lst;
 
-// some compilers did not implement the both fields (for example nvc++@22.5) so we just define it ourselves
-#ifdef __cpp_lib_hardware_interference_size
-    constexpr std::size_t hardware_constructive_interference_size = std::hardware_constructive_interference_size;
-    constexpr std::size_t hardware_destructive_interference_size = std::hardware_destructive_interference_size;
-#else
-    constexpr std::size_t hardware_constructive_interference_size = 64;
-    constexpr std::size_t hardware_destructive_interference_size = 64;
-#endif
-
 
     template<typename T>
     std::vector<T>
