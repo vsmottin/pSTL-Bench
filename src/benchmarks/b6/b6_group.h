@@ -65,14 +65,10 @@ static void b6_2_exclusive_scan_wrapper(benchmark::State &state) {
                             \
         BENCHMARK_TEMPLATE1(b6_1_inclusive_scan_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b6_1_inclusive_scan_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b6_1_inclusive_scan_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b6_1_inclusive_scan_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
-        BENCHMARK_TEMPLATE1(b6_1_inclusive_scan_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b6_1_inclusive_scan_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
-        BENCHMARK_TEMPLATE1(b6_1_inclusive_scan_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b6_1_inclusive_scan_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);\
                             \
                             \
         BENCHMARK_TEMPLATE1(b6_2_exclusive_scan_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b6_2_exclusive_scan_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b6_2_exclusive_scan_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b6_2_exclusive_scan_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
-        BENCHMARK_TEMPLATE1(b6_2_exclusive_scan_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b6_2_exclusive_scan_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
-        BENCHMARK_TEMPLATE1(b6_2_exclusive_scan_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b6_2_exclusive_scan_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);          \
 
 
 #endif //MASTER_BENCHMARKS_B6_GROUP_H

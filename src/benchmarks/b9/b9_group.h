@@ -43,8 +43,6 @@ static void b9_1_transform_baseline_wrapper(benchmark::State &state) {
                                         \
         BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
-        BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
-        BENCHMARK_TEMPLATE1(b9_1_transform_baseline_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_1_transform_baseline_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);\
 
 
 //endregion b9_1_transform_baseline
@@ -76,8 +74,6 @@ static void b9_2_transform_old_iota_wrapper(benchmark::State &state) {
                                         \
         BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
-        BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
-        BENCHMARK_TEMPLATE1(b9_2_transform_old_iota_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_2_transform_old_iota_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);\
 
 
 //endregion b9_2_transform_old_iota
@@ -109,8 +105,6 @@ static void b9_3_transform_views_iota_wrapper(benchmark::State &state) {
                                         \
         BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
-        BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
-        BENCHMARK_TEMPLATE1(b9_3_transform_views_iota_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_3_transform_views_iota_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);\
 
 
 //endregion b9_3_transform_views_iota
@@ -142,8 +136,6 @@ static void b9_5_transform_custom_iterator_wrapper(benchmark::State &state) {
                                         \
         BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
-        BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
-        BENCHMARK_TEMPLATE1(b9_5_transform_custom_iterator_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_5_transform_custom_iterator_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);\
 
 
 //endregion b9_5_transform_custom_iterator
@@ -175,8 +167,6 @@ static void b9_6_transform_boost_wrapper(benchmark::State &state) {
                                         \
         BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
-        BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
-        BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);\
 
 
 //endregion b9_6_transform_boost
