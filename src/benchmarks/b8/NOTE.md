@@ -1,1 +1,0 @@
-This group will be omitted. This is highly compiler dependent which is not the goal of this suite.  
