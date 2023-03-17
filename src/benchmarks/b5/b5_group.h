@@ -29,6 +29,8 @@ static void b5_1_find_first_entry(benchmark::State &state) {
     // vector with values [0,size)
     const Container vec1 = suite::generate_increment<Container>(size, 1);
 
+    // start conunter
+
     for (auto _: state) {
         auto find_location = B5::b5_1_find(execution_policy, vec1, 0);
 
@@ -37,6 +39,8 @@ static void b5_1_find_first_entry(benchmark::State &state) {
         assert(find_location != vec1.end());
         state.ResumeTiming();
     }
+
+    // end conunter
 }
 
 template<class Policy, class Container>
@@ -79,22 +83,22 @@ static void b5_1_find_non_existing_entry(benchmark::State &state) {
 
 #define B5_1_FIND_WRAPPER(datatype) \
                                     \
-        BENCHMARK_TEMPLATE2(b5_1_find_first_entry,std::execution::sequenced_policy, datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_first_entry_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE2(b5_1_find_first_entry,std::execution::parallel_policy, datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_first_entry_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE2(b5_1_find_first_entry,std::execution::parallel_unsequenced_policy, datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_first_entry_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE2(b5_1_find_first_entry,std::execution::unsequenced_policy, datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_first_entry_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE2(b5_1_find_first_entry,std::execution::sequenced_policy, datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_first_entry_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE2(b5_1_find_first_entry,std::execution::parallel_policy, datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_first_entry_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
+        BENCHMARK_TEMPLATE2(b5_1_find_first_entry,std::execution::parallel_unsequenced_policy, datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_first_entry_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE2(b5_1_find_first_entry,std::execution::unsequenced_policy, datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_first_entry_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);\
                             \
                             \
-        BENCHMARK_TEMPLATE2(b5_1_find_last_entry,std::execution::sequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_last_entry_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE2(b5_1_find_last_entry,std::execution::parallel_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_last_entry_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE2(b5_1_find_last_entry,std::execution::parallel_unsequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_last_entry_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE2(b5_1_find_last_entry,std::execution::unsequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_last_entry_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE2(b5_1_find_last_entry,std::execution::sequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_last_entry_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE2(b5_1_find_last_entry,std::execution::parallel_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_last_entry_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
+        BENCHMARK_TEMPLATE2(b5_1_find_last_entry,std::execution::parallel_unsequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_last_entry_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE2(b5_1_find_last_entry,std::execution::unsequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_last_entry_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);\
                             \
                             \
-        BENCHMARK_TEMPLATE2(b5_1_find_non_existing_entry,std::execution::sequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_non_existing_entry_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE2(b5_1_find_non_existing_entry,std::execution::parallel_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_non_existing_entry_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE2(b5_1_find_non_existing_entry,std::execution::parallel_unsequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_non_existing_entry_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE2(b5_1_find_non_existing_entry,std::execution::unsequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_non_existing_entry_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
+        BENCHMARK_TEMPLATE2(b5_1_find_non_existing_entry,std::execution::sequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_non_existing_entry_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE2(b5_1_find_non_existing_entry,std::execution::parallel_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_non_existing_entry_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
+        BENCHMARK_TEMPLATE2(b5_1_find_non_existing_entry,std::execution::parallel_unsequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_non_existing_entry_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE2(b5_1_find_non_existing_entry,std::execution::unsequenced_policy,datatype)->Name(BENCHMARK_NAME("b5_1_find_" xstr(datatype) "_non_existing_entry_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
 
 //endregion b5_1_find
 
@@ -197,28 +201,28 @@ static void b5_4_minmax_element_increasing(benchmark::State &state) {
         B5_1_FIND_WRAPPER(std::deque<int>)  \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_2_partition_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_2_partition_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_2_partition_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_2_partition_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_2_partition_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_2_partition_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
+        BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_2_partition_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b5_2_partition_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_2_partition_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b5_3_unique_copy_default_wrapper,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_3_unique_copy_default_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);\
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_all_equal,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_all_equal_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);\
                             \
                             \
-        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);     \
-        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20); \
-        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 20);          \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::parallel_unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_par_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::unsequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_unseq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);          \
 
 
 #endif //MASTER_BENCHMARKS_B5_GROUP_H

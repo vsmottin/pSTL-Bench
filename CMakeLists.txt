@@ -16,6 +16,14 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     add_compile_definitions(USE_TBB)
 endif()
 
+
+# input size
+if(NOT DEFINED ${MAX_INPUT_SIZE})
+    set(MAX_INPUT_SIZE 67108864) # default is 2^26
+endif()
+
+add_compile_definitions(MAX_INPUT_SIZE=${MAX_INPUT_SIZE})
+
 # enable google benchmark performance counters
 set(BENCHMARK_ENABLE_LIBPFM ON)
 
