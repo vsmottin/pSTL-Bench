@@ -121,8 +121,8 @@ static void b1_4_for_each_exponential_wrapper(benchmark::State &state) {
                             \
     BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_wrapper,std::execution::sequenced_policy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_outer_std::execution::parallel_policy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1<<15, 1<<15); \
     BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_wrapper,std::execution::parallel_policy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_outer_std::execution::parallel_policy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1<<15); \
-    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_wrapper,std::execution::sequenced_policy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1<<15); \
-                            \
+    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_wrapper,std::execution::sequenced_policy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1<<15);\
+    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_wrapper,std::execution::parallel_policy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_outer_std::execution::parallel_policy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1<<15); \
                             \
                             \
     B1_2_FOR_EACH_QUADRATIC_MANDELBROT_WRAPPER(std::execution::parallel_policy) \
