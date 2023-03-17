@@ -23,7 +23,9 @@ b1_2_for_each_quadratic_outer_std::execution::parallel_policy_seq/
 
 b1_1_for_each_linear_mandelbrot_seq/
 b1_1_for_each_linear_mandelbrot_par/
-b1_2_for_each_quadratic_mandelbrot_outer_std::execution::parallel_policy_seq/
+
+# seq_seq is our basecase for mandelbrot
+b1_2_for_each_quadratic_mandelbrot_outer_std::execution::sequenced_policy_seq/
 b1_2_for_each_quadratic_mandelbrot_outer_std::execution::parallel_policy_par/
 
 # H4
