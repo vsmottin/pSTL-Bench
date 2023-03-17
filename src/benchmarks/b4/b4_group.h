@@ -253,51 +253,51 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
 #define B4_GROUP_BENCHMARKS \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_already_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_already_sorted_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_already_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_already_sorted_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_already_sorted_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_already_sorted_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_decrement_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_decrement_sorted_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_decrement_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_decrement_sorted_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_decrement_sorted_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_decrement_sorted_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_not_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_not_sorted_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_not_sorted_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_not_sorted_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_2_stable_sort_cutoff_not_sorted_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_2_stable_sort_cutoff_not_sorted_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
                             \
                             \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_empty_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_empty_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_empty,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_empty_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_wholly_greater,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_wholly_greater_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_wholly_greater,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_wholly_greater_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_one_wholly_greater,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_one_wholly_greater_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_3_set_union_cutoff_front_overhang,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_3_set_union_cutoff_front_overhang_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
                             \
                             \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_left_empty,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_left_empty_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_right_empty,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_right_empty_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_wholly_greater,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_wholly_greater_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
                             \
                             \
-        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
 
 
