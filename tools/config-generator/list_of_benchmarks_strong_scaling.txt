@@ -6,7 +6,7 @@ b1_1_for_each_linear_par/67108864
 
 # H1 Time 2.
 
-b1_2_for_each_quadratic_outer_std::execution::parallel_policy_par/67108864
+b1_2_for_each_quadratic_outer_std::execution::parallel_policy_par/32768
 
 # H1 Time 3.
 
@@ -15,14 +15,14 @@ b1_4_for_each_exponential_par/32
 # H2
 
 # H2 Time 1
-b1_2_for_each_quadratic_outer_std::execution::parallel_policy_seq/67108864
-b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par/67108864
+b1_2_for_each_quadratic_outer_std::execution::parallel_policy_seq/32768
+b1_2_for_each_quadratic_outer_std::execution::sequenced_policy_par/32768
 
 # H3
 
 b1_1_for_each_linear_mandelbrot_par/67108864
 
-b1_2_for_each_quadratic_mandelbrot_outer_std::execution::parallel_policy_par/67108864
+b1_2_for_each_quadratic_mandelbrot_outer_std::execution::parallel_policy_par/32768
 
 # H4
 b4_1_merge_cutoff_wrapper_par/67108864
