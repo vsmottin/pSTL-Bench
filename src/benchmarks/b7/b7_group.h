@@ -38,6 +38,12 @@ static void b7_1_copy(benchmark::State &state) {
         assert(std::equal(vec1.begin(), vec1.end(), res.begin()));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(res.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -58,6 +64,12 @@ static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
         assert(std::equal(vec1.begin(), vec1.end(), res.begin()));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(res.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b7_copy_vs_for_each
@@ -83,6 +95,12 @@ static void b7_2_all_of_all_true(benchmark::State &state) {
         assert((res == true));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -101,6 +119,12 @@ static void b7_2_all_of_first_false(benchmark::State &state) {
         assert((res == false));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -119,6 +143,12 @@ static void b7_2_all_of_last_false(benchmark::State &state) {
         assert((res == false));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -137,6 +167,12 @@ static void b7_2_all_of_auto_false(benchmark::State &state) {
         assert((res == false));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 #define B7_2_ALL_OF_BENCHMARKS \
@@ -177,6 +213,12 @@ static void b7_2_custom_all_of_with_transform_reduce_all_true(benchmark::State &
         assert((res == true));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -196,6 +238,12 @@ static void b7_2_custom_all_of_with_transform_reduce_first_false(benchmark::Stat
         assert((res == false));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -217,6 +265,12 @@ static void b7_2_custom_all_of_with_transform_reduce_last_false(benchmark::State
         assert((res == false));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -236,6 +290,12 @@ static void b7_2_custom_all_of_with_transform_reduce_auto_false(benchmark::State
         assert((res == false));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 #define B7_2_ALL_OFF_LOGIC_WITH_TRANSFORM_REDUCE_BENCHMARKS \
@@ -281,6 +341,12 @@ static void b7_3_count_if_all_hit(benchmark::State &state) {
         assert((res == size));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -301,6 +367,12 @@ static void b7_3_count_if_half_hit(benchmark::State &state) {
         assert((res >= half_size));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -333,6 +405,12 @@ static void b7_3_count_if_orders_struct(benchmark::State &state) {
         assert((res == expected_result));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(B7::Orders) *
+                                         (int64_t(input_data.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b7_3_count_if
@@ -357,6 +435,12 @@ static void b7_3_custom_count_if_with_transform_reduce_all_hit(benchmark::State 
         assert((res == size));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -379,6 +463,12 @@ static void b7_3_custom_count_if_with_transform_reduce_half_hit(benchmark::State
         assert((res >= half_size));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -413,6 +503,12 @@ static void b7_3_custom_count_if_with_transform_reduce_orders_struct(benchmark::
         assert((res == expected_result));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(B7::Orders) *
+                                         (int64_t(input_data.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b7_3_custom_count_if_with_transform_reduce
@@ -437,6 +533,12 @@ static void b7_3_custom_count_if_with_for_each_all_hit(benchmark::State &state) 
         assert((res == size));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -459,6 +561,12 @@ static void b7_3_custom_count_if_with_for_each_half_hit(benchmark::State &state)
         assert((res >= half_size));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -493,6 +601,12 @@ static void b7_3_custom_count_if_with_for_each_orders_struct(benchmark::State &s
         assert((res == expected_result));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(B7::Orders) *
+                                         (int64_t(input_data.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b7_3_custom_count_if_with_for_each
@@ -521,6 +635,12 @@ static void b7_4_stencil_transform_number_to_neightbours_stdev(benchmark::State 
         assert((res[0] >= 0));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (3 * int64_t(vec1.size()) + int64_t(res.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -543,6 +663,12 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
         assert((res[0] >= 0));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (3 * int64_t(vec1.size()) + int64_t(res.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b7_4_stencil_transform_vs_for_eac
@@ -566,6 +692,12 @@ static void b7_5_scalar_transform_number(benchmark::State &state) {
         assert((res[0] >= 0));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(res.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -588,6 +720,12 @@ static void b7_5_scalar_for_each(benchmark::State &state) {
         assert((res[0] >= 0));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(res.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b7_5_scalar_transform_vs_for_each
@@ -616,6 +754,12 @@ static void b7_6_serial_transform_reduce(benchmark::State &state) {
         assert((res >= 0));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(B7::Pixel) *
+                                         (2 * int64_t(input_data.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -639,6 +783,12 @@ static void b7_6_transform_reduce(benchmark::State &state) {
         assert((res >= 0));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(B7::Orders) *
+                                         (int64_t(input_data.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b7_6_serial_transform_reduce_vs_transform_reduce
