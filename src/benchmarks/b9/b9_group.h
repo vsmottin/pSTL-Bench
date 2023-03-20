@@ -37,6 +37,12 @@ static void b9_1_transform_baseline_wrapper(benchmark::State &state) {
         assert((res[last_element] == input_data[last_element] + 10));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (2 * int64_t(input_data.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 #define B9_1_TRANSFORM_BASELINE_WRAPPER \
@@ -68,6 +74,12 @@ static void b9_2_transform_old_iota_wrapper(benchmark::State &state) {
         assert((res[last_element] == input_data[last_element] + 10));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (2 * int64_t(input_data.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 #define B9_2_TRANSFORM_OLD_IOTA_WRAPPER \
@@ -99,6 +111,12 @@ static void b9_3_transform_views_iota_wrapper(benchmark::State &state) {
         assert((res[last_element] == input_data[last_element] + 10));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (2 * int64_t(input_data.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 #define B9_3_TRANSFORM_VIEWS_IOTA_WRAPPER \
@@ -130,6 +148,12 @@ static void b9_5_transform_custom_iterator_wrapper(benchmark::State &state) {
         assert((res[last_element] == input_data[last_element] + 10));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (2 * int64_t(input_data.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 #define B9_5_TRANSFORM_CUSTOM_ITERATOR_WRAPPER \
@@ -161,6 +185,12 @@ static void b9_6_transform_boost_wrapper(benchmark::State &state) {
         assert((res[last_element] == input_data[last_element] + 10));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (2 * int64_t(input_data.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 #define B9_6_TRANSFORM_BOOST_WRAPPER \
