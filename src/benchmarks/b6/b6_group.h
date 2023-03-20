@@ -32,6 +32,12 @@ static void b6_1_inclusive_scan_wrapper(benchmark::State &state) {
         assert(vec1[0] == res[0]);
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b6_1_inclusive_scan
@@ -56,6 +62,12 @@ static void b6_2_exclusive_scan_wrapper(benchmark::State &state) {
         assert((res[1] == vec1[0]));
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b6_1_inclusive_scan
