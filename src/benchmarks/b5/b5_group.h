@@ -29,7 +29,6 @@ static void b5_1_find_first_entry(benchmark::State &state) {
     // vector with values [0,size)
     const Container vec1 = suite::generate_increment<Container>(size, 1);
 
-    // start conunter
 
     for (auto _: state) {
         auto find_location = B5::b5_1_find(execution_policy, vec1, 0);
@@ -40,7 +39,11 @@ static void b5_1_find_first_entry(benchmark::State &state) {
         state.ResumeTiming();
     }
 
-    // end conunter
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy, class Container>
@@ -60,6 +63,12 @@ static void b5_1_find_last_entry(benchmark::State &state) {
         assert(find_location != vec1.end());
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy, class Container>
@@ -79,6 +88,12 @@ static void b5_1_find_non_existing_entry(benchmark::State &state) {
         assert(find_location == vec1.end());
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 #define B5_1_FIND_WRAPPER(datatype) \
@@ -115,6 +130,12 @@ static void b5_2_partition_wrapper(benchmark::State &state) {
         assert(std::distance(find_location, vec1.cend()) >= 0);
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b5_2_partition
@@ -140,6 +161,12 @@ static void b5_3_unique_copy_default_wrapper(benchmark::State &state) {
         assert(result.size() == 1 && result[0] == 1);
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(result.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b5_3_unique_copy
@@ -163,6 +190,12 @@ static void b5_4_minmax_element_all_equal(benchmark::State &state) {
         assert(*(res.first) == 1 && *(res.second) == 1);
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -182,6 +215,12 @@ static void b5_4_minmax_element_increasing(benchmark::State &state) {
         assert(*(res.first) == 0 && *(res.second) == size - 1);
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 
