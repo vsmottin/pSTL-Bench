@@ -38,6 +38,12 @@ static void b4_1_merge_cutoff_wrapper(benchmark::State &state) {
         assert(res.size() == 2 * size);
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec_2_inc.size()) + int64_t(vec_5_inc.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b4_1_merge_cutoff
@@ -60,6 +66,12 @@ static void b4_2_stable_sort_cutoff_already_sorted_wrapper(benchmark::State &sta
         assert(already_sorted_vec[0] <= already_sorted_vec[1]);
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(already_sorted_vec.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -68,15 +80,21 @@ static void b4_2_stable_sort_cutoff_not_sorted_wrapper(benchmark::State &state) 
 
     const auto &size = state.range(0);
 
-    auto already_sorted_vec = suite::generate_uniform_dist_vec<int>(size, 50, 100);
+    auto not_sorted_vec = suite::generate_uniform_dist_vec<int>(size, 50, 100);
 
     for (auto _: state) {
-        B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
+        B4::b4_2_stable_sort_cutoff(execution_policy, not_sorted_vec);
 
         state.PauseTiming();
-        assert(already_sorted_vec[0] <= already_sorted_vec[1]);
+        assert(not_sorted_vec[0] <= not_sorted_vec[1]);
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(not_sorted_vec.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -94,6 +112,12 @@ static void b4_2_stable_sort_cutoff_decrement_sorted_wrapper(benchmark::State &s
         assert(already_sorted_vec[0] <= already_sorted_vec[1]);
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(already_sorted_vec.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b4_2_stable_sort_cutoff
@@ -118,6 +142,12 @@ static void b4_3_set_union_cutoff_one_empty(benchmark::State &state) {
         assert(res.size() <= already_sorted_vec.size() + empty_vec.size());
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(already_sorted_vec.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -140,6 +170,13 @@ static void b4_3_set_union_cutoff_one_wholly_greater(benchmark::State &state) {
         assert(res.size() <= already_sorted_vec_size_to_2size.size() + already_sorted_vec_0_to_size.size());
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(already_sorted_vec_0_to_size.size()) +
+                                          int64_t(already_sorted_vec_size_to_2size.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -159,6 +196,13 @@ static void b4_3_set_union_cutoff_front_overhang(benchmark::State &state) {
         assert(res.size() <= vec2.size() + vec1.size());
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) +
+                                          int64_t(vec2.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b4_3_set_union_cutoff
@@ -183,6 +227,12 @@ static void b4_4_set_difference_cutoff_left_empty(benchmark::State &state) {
         assert(res.size() == 0);
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -204,6 +254,12 @@ static void b4_4_set_difference_cutoff_right_empty(benchmark::State &state) {
         assert(res.size() == vec1.size());
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -225,6 +281,12 @@ static void b4_4_set_difference_cutoff_wholly_greater(benchmark::State &state) {
         assert(res.size() == vec1.size());
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(vec2.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 template<class Policy>
@@ -244,6 +306,12 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
         assert(res.size() >= 2 && res[res.size() - 1] == 0);
         state.ResumeTiming();
     }
+
+    // https://ccfd.github.io/courses/hpc_lab01.html
+    const int64_t actual_size_in_bytes = sizeof(int) *
+                                         (int64_t(vec1.size()) + int64_t(vec2.size()));
+
+    state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
 //endregion b4_4_set_difference_cutoff
