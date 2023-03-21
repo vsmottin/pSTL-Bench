@@ -299,14 +299,13 @@ have to check.
 * for this group we can "calculate" a performance probability by looking at the actual MBytes/sec vs the peak) (insipred
   by [2])
 
-  |          | achieved | perfect | efficiency     | 
-        |----------|---------|----------------|-------------|
-  | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
-  | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
-  | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
-  | Intel    | 800      | 1000    | 800/1000=0.80  |
+  |          | achieved | best     | efficiency    | 
+  |----------|----------|---------------|----------------|
+  | GCC(TBB) | 100      | 1000     | 100/1000=0.10 |
+  | NVC(OMP) | 1000     | 1000     | 1000/1000=1   |
+  | Intel    | 800      | 1000     | 800/1000=0.80 |
 
-  Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = `4/((1/0,1)+ (1/0,5) + (1/0,66) + (1/0,8))` =
+  Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = `3/((1/0,1) +  (1/1) + (1/0,8))` =
   27%
 
 
@@ -380,14 +379,13 @@ have to check.
 
 **Performance Portability Calculation:**
 
-* for this group we can "calculate" a performance probability by looking at the actual MBytes/sec vs the peak) (insipred
+* for this group we can "calculate" a performance probability by looking at the actual vs best time) (insipred
   by [2])
 
   |          | achieved | perfect | efficiency     | 
         |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
-  | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
   | Intel    | 800      | 1000    | 800/1000=0.80  |
 
   Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = `4/((1/0,1)+ (1/0,5) + (1/0,66) + (1/0,8))` =
@@ -445,14 +443,13 @@ have to check.
 
 **Performance Portability Calculation:**
 
-* for this group we can "calculate" a performance probability by looking at the actual MBytes/sec vs the peak) (insipred
+* for this group we can "calculate" a performance probability by looking at the actual vs best time) (insipred
   by [2])
 
   |          | achieved | perfect | efficiency     | 
-        |----------|---------|----------------|-------------|
+          |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
-  | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
   | Intel    | 800      | 1000    | 800/1000=0.80  |
 
   Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = `4/((1/0,1)+ (1/0,5) + (1/0,66) + (1/0,8))` =
@@ -653,14 +650,13 @@ have to check.
 
 **Performance Portability Calculation:**
 
-* for this group we can "calculate" a performance probability by looking at the actual MBytes/sec vs the peak) (insipred
+* for this group we can "calculate" a performance probability by looking at the actual vs best time) (insipred
   by [2])
 
   |          | achieved | perfect | efficiency     | 
           |----------|---------|----------------|-------------|
   | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
   | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
-  | NVC(GPU) | 1000     | 1500    | 1000/1500=0.66 |
   | Intel    | 800      | 1000    | 800/1000=0.80  |
 
   Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = `4/((1/0,1)+ (1/0,5) + (1/0,66) + (1/0,8))` =
@@ -732,7 +728,6 @@ have to check.
       |----------|----------|---------|-------------|
   | GCC(TBB) | 12       | 16      | 12/16=0.75  |
   | NVC(OMP) | 16       | 16      | 16/16=1     |
-  | NVC(GPU) | 0        | 0       | 0           |
   | Intel    | 14       | 16      | 14/16=0.875 |
 
   Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = 0
@@ -823,7 +818,7 @@ have to check.
 
 **Performance Portability Calculation:**
 
-* for this group we can "calculate" a performance probability by looking at the actual MBytes/sec vs the peak) (insipred
+* for this group we can "calculate" a performance probability by looking at the actual MBytes/sec vs best) (insipred
   by [2])
 
   |          | achieved | perfect | efficiency     | 
