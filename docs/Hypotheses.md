@@ -423,7 +423,7 @@ have to check.
 **What benchmarks cover it:**
 
 1. `b6_1_inclusive_scan_par`: straight forward inclusive scan
-2. `b6_1_exclusive_scan_par`: straight forward exclusive scan
+2. `b6_2_exclusive_scan_par`: straight forward exclusive scan
 
 **Compilers/Backends**
 
