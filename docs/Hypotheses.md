@@ -292,7 +292,7 @@ have to check.
 
 **Hypothesis is true when:**
 
-* There is a significant bump in time or instructions per second.
+* There is a significant bump in time (and mbytes per second).
 
 **Performance Portability Calculation:**
 
