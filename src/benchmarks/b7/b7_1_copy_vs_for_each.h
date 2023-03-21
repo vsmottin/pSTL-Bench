@@ -32,6 +32,7 @@ namespace B7 {
     inline void
     b7_1_custom_copy_with_foreach(ExecutionPolicy &&policy, const std::vector<int> &container, std::vector<int> &result) {
 
+        //TODO: to not use std::views::iota and use external counter.
         const auto &view = std::views::iota(0, static_cast<int>(container.size()));
 
         std::for_each(policy, view.begin(), view.end(), [&](const auto &index) {
