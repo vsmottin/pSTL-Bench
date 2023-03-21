@@ -336,17 +336,7 @@ have to check.
     6. Compare the runtime of `b5_4_minmax_element_all_equal_par` for every input size for every compiler
     7. Compare the runtime of `b5_4_minmax_element_increasing_par` for every input size for every compiler
 
-2. *Mbytes/sec*
-    1. Compare the Mbytes/sec of `b5_1_find_std::vector<int>_first_entry_par` for every input size for every compiler
-    2. Compare the Mbytes/sec of `b5_1_find_std::vector<int>_last_entry_par` for every input size for every compiler
-    3. Compare the Mbytes/sec of `b5_1_find_std::vector<int>_non_existing_entry_par` for every input size for every
-       compiler
-    4. Compare the Mbytes/sec of `b5_2_partition_par` for every input size for every compiler
-    5. Compare the Mbytes/sec of `b5_3_unique_copy_default_par` for every input size for every compiler
-    6. Compare the Mbytes/sec of `b5_4_minmax_element_all_equal_par` for every input size for every compiler
-    7. Compare the Mbytes/sec of `b5_4_minmax_element_increasing_par` for every input size for every compiler
-
-3. *Strong Scaling*
+2. *Strong Scaling*
     1. Compare the strong scaling of `b5_1_find_std::vector<int>_first_entry_par` for fixed size 1M for every compiler
     2. Compare the strong scaling of `b5_1_find_std::vector<int>_last_entry_par` for fixed size 1M for every compiler
     3. Compare the strong scaling of `b5_1_find_std::vector<int>_non_existing_entry_par` for fixed size 1M size for
@@ -360,7 +350,6 @@ have to check.
 **Metrics Involved:**
 
 * Time
-* Mbytes/sec
 * Strong Scaling
 
 **What benchmarks cover it:**
@@ -424,18 +413,13 @@ have to check.
     1. Compare the runtime of `b6_1_inclusive_scan_par` for every input and for every compiler.
     2. Compare the runtime of `b6_2_exclusive_scan_par` for every input and for every compiler.
 
-2. *MBytes/sec*
-    1. Compare the MBytes/sec of `b6_1_inclusive_scan_par` for every input and for every compiler.
-    2. Compare the MBytes/sec of `b6_2_exclusive_scan_par` for every input and for every compiler.
-
-3. *Strong Scaling*
+2. *Strong Scaling*
     1. Compare the strong scaling of `b6_1_inclusive_scan_par` for fixed input 1M for every compiler.
     2. Compare the strong scaling of `b6_2_exclusive_scan_par` for fixed input 1M for every compiler.
 
 **Metrics Involved:**
 
 * Time
-* MBytes/sec
 * Strong Scaling
 
 **What benchmarks cover it:**
@@ -496,7 +480,7 @@ have to check.
         1. Compare the runtime of `b7_1_copy_par` to `b7_1_custom_copy_with_foreach_par` for every input and for every
            compiler
 
-    2. All_Of vs tranform_reduce
+    2. All_Of vs transform_reduce
         1. Compare the runtime of `b7_2_all_of_all_true_par` to `b7_2_custom_all_of_with_transform_reduce_all_true_par`
            for every input and for every compiler
         2. Compare the runtime of `b7_2_all_of_first_false_par`
@@ -525,7 +509,7 @@ have to check.
         1. Compare the runtime of `b7_5_scalar_transform_number_par` to `b7_5_scalar_for_each_par` for every input and
            for every compiler
 
-    6. Serial transform and reducs vs transform_reduce
+    6. Serial transform and reduce vs transform_reduce
         1. Compare the runtime of `b7_6_serial_transform_reduce_par` to `b7_6_transform_reduce_par` for every input and
            for every compiler
 
@@ -535,7 +519,7 @@ have to check.
         1. Compare the Mbytes/sec of `b7_1_copy_par` to `b7_1_custom_copy_with_foreach_par` for every input and for
            every compiler
 
-    2. All_Of vs tranform_reduce
+    2. All_Of vs transform_reduce
         1. Compare the Mbytes/sec of `b7_2_all_of_all_true_par`
            to `b7_2_custom_all_of_with_transform_reduce_all_true_par` for every input and for every compiler
         2. Compare the Mbytes/sec of `b7_2_all_of_first_false_par`
@@ -564,7 +548,7 @@ have to check.
         1. Compare the Mbytes/sec of `b7_5_scalar_transform_number_par` to `b7_5_scalar_for_each_par` for every input
            and for every compiler
 
-    6. Serial transform and reducs vs transform_reduce
+    6. Serial transform and reduce vs transform_reduce
         1. Compare the Mbytes/sec of `b7_6_serial_transform_reduce_par` to `b7_6_transform_reduce_par` for every input
            and for every compiler
 
@@ -574,7 +558,7 @@ have to check.
         1. Compare the strong scaling of `b7_1_copy_par` to `b7_1_custom_copy_with_foreach_par` for fixed input 1M and
            for every compiler
 
-    2. All_Of vs tranform_reduce
+    2. All_Of vs transform_reduce
         1. Compare the strong scaling of `b7_2_all_of_all_true_par`
            to `b7_2_custom_all_of_with_transform_reduce_all_true_par` for fixed input 1M and for every compiler
         2. Compare the strong scaling of `b7_2_all_of_first_false_par`
@@ -603,7 +587,7 @@ have to check.
         1. Compare the strong scaling of `b7_5_scalar_transform_number_par` to `b7_5_scalar_for_each_par` for fixed
            input 1M and for every compiler
 
-    6. Serial transform and reducs vs transform_reduce
+    6. Serial transform and reduce vs transform_reduce
         1. Compare the strong scaling of `b7_6_serial_transform_reduce_par` to `b7_6_transform_reduce_par` for fixed
            input 1M and for every compiler
 
@@ -705,14 +689,7 @@ have to check.
     4. Compare the runtime of `b9_5_transform_custom_iterator_par` for every input size and every compiler.
     5. Compare the runtime of `b9_6_transform_boost_par` for every input size and every compiler.
 
-2. *MBytes/sec*
-    1. Compare the MBytes/sec of `b9_1_transform_baseline_par` for every input size and every compiler.
-    2. Compare the MBytes/sec of `b9_2_transform_old_iota_par` for every input size and every compiler.
-    3. Compare the MBytes/sec of `b9_3_transform_views_iota_par` for every input size and every compiler.
-    4. Compare the MBytes/sec of `b9_5_transform_custom_iterator_par` for every input size and every compiler.
-    5. Compare the MBytes/sec of `b9_6_transform_boost_par` for every input size and every compiler.
-
-3. *Strong Scaling*
+2. *Strong Scaling*
     1. Compare the strong scaling of `b9_1_transform_baseline_par` for fixed input size 1M and every compiler.
     2. Compare the strong scaling of `b9_2_transform_old_iota_par` for fixed input size 1M and every compiler.
     3. Compare the strong scaling of `b9_3_transform_views_iota_par` for fixed input size 1M and every compiler.
@@ -722,7 +699,6 @@ have to check.
 **Metrics Involved:**
 
 * Time
-* MBytes/sec
 * Strong Scaling
 
 **What benchmarks cover it:**
@@ -871,43 +847,3 @@ have to check.
 * [2] T. Deakin, J. Price, M. Martineau, and S. McIntosh-Smith. GPUSTREAM v2.0: Benchmarking the Achievable Memory
   Bandwidth of Many-Core Processors Across Diverse Parallel Programming Models. Lecture Notes in Computer Science.
   Springer, 5 2016. 1, 4, 5
-
-## Template for Hypos
-
-> HYPO
-
-**Why important:**
-
-*
-
-**How to test it:**
-
-1. *CAT A*
-    1.
-
-2. *CAT B*
-    1.
-
-**Metrics Involved:**
-
-*
-
-**What benchmarks cover it:**
-
-1.
-
-**Compilers/Backends**
-
-*
-
-**GPU COMPATIBILITY:**
-
-*
-
-**Hypothesis is true when:**
-
-*
-
-**Performance Portability Calculation:**
-
-* 
