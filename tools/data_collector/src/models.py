@@ -11,6 +11,7 @@ class BenchmarkType(Enum):
     THREADS = "THREADS"
     DEFAULT = "DEFAULT"
     NUMACTL = 'NUMACTL'
+    INSTRUCTIONS = 'INSTRUCTIONS'
 
 
 @dataclass

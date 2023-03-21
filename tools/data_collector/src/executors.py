@@ -210,6 +210,38 @@ numactl --physcpubind={numactl_cpu_binding} {binary_call}
         return file_contents
 
 
+"""
+Executor that also collects number of instructions 
+"""
+
+
+class InstructionExecutor(Executor):
+
+    def get_batch_output_filename(self, benchmark: Benchmark, compiler: Compiler, config: Config) -> str:
+        return generate_output_file(benchmark, compiler, config)
+
+    def get_batch_error_filename(self, benchmark: Benchmark, compiler: Compiler, config: Config) -> str:
+        return generate_error_file(benchmark, compiler, config)
+
+    def generate_batch_file_content(self, benchmark: Benchmark, compiler: Compiler, config: Config,
+                                    batch_output_filename: str, batch_error_filename: str) -> str:
+        binary_call = generate_benchmark_binary_call(benchmark, compiler, config)
+        binary_call += ' --benchmark_perf_counters="INSTRUCTIONS"'  # adding the instructions performance counter
+
+        file_contents = f"""#! /bin/bash
+#SBATCH -p {config.sbatch.partition}
+#SBATCH -N 1
+#SBATCH --cpu-freq=High
+#SBATCH --time={config.sbatch.time}
+#SBATCH -o {batch_output_filename}
+#SBATCH -e {batch_error_filename}
+
+{binary_call}
+        """
+
+        return file_contents
+
+
 def get_executor_for_type(benchmark: Benchmark) -> Executor:
     logger.info(f"Retrieving executor for benchmark ({benchmark.name}) of type: {benchmark.type.name}")
 
@@ -219,5 +251,7 @@ def get_executor_for_type(benchmark: Benchmark) -> Executor:
         return NUMACTLExecutor()
     elif benchmark.type.value is BenchmarkType.THREADS.value:
         return THREADSExecutor()
+    elif benchmark.type.value is BenchmarkType.INSTRUCTIONS.value:
+        return InstructionExecutor()
     else:
         raise DataCollectorException(f"No executor found for type {benchmark.type.name}")

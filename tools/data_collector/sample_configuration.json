@@ -1,9 +1,14 @@
 {
-  "output_dir": "./output",
-  "benchmark_repetitions": 3,
+  "output_dir": "../output",
+  "benchmark_repetitions": 2,
   "cmake_location": "..",
   "build_artifacts_dir": "./build-artifacts",
   "binary_target": "master_benchmarks",
+  "batch_file_location": "../job_files",
+  "sbatch": {
+    "partition": "q_thesis",
+    "time": "15:00"
+  },
   "compiler": [
     {
       "name": "GCC_TBB",
@@ -34,6 +39,12 @@
       "params": {
         "cpu_binding": "1,2,3,4"
       },
+      "regex_filter": "b1_"
+    },
+    {
+      "name": "B1_Group_Instructions",
+      "description": "Running the B1 group benchmarks and collect number of instructions data",
+      "type": "INSTRUCTIONS",
       "regex_filter": "b1_"
     }
   ]
