@@ -720,19 +720,14 @@ have to check.
 
 **Performance Portability Calculation:**
 
-* for this group we can "calculate" a performance probability by looking at the strong scaling speedup every compiler
-  has when using
-  the max amount of cores. (aka running with 1M entries at max core) (insipred by [1])
+* for this group we can "calculate" a performance probability by looking at the actual vs best time) (insipred
+  by [2])
 
-  |          | achieved | perfect | efficiency  | 
-      |----------|----------|---------|-------------|
-  | GCC(TBB) | 12       | 16      | 12/16=0.75  |
-  | NVC(OMP) | 16       | 16      | 16/16=1     |
-  | Intel    | 14       | 16      | 14/16=0.875 |
-
-  Performance Portability for `{GCC(TBB), NVC(OMP), NVC(GPU), Intel}` = 0
-
-  Performance Portability for `{GCC(TBB), NVC(OMP), Intel}` = `3/((1/0,75)+ (1/1) + (1/0,875))` = 86.3%
+  |          | achieved | perfect | efficiency     |  
+  |----------|---------|----------------|-------------|
+  | GCC(TBB) | 100      | 1000    | 100/1000=0.10  |
+  | NVC(OMP) | 500      | 1000    | 500/1000=0.50  |
+  | Intel    | 800      | 1000    | 800/1000=0.80  |
 
 * Later we can compare the performance portability calculated above from machine to machine (aka nebula vs tesla vs
   vsc)
