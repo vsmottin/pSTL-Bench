@@ -2,13 +2,14 @@
 #ifndef MASTER_BENCHMARKS_B9_6_TRANSFORM_BOOST_H
 #define MASTER_BENCHMARKS_B9_6_TRANSFORM_BOOST_H
 
+#ifndef SKIP_BOOST
+
 #include <boost/iterator/counting_iterator.hpp>
 #include <vector>
 #include <algorithm>
 
 namespace B9 {
 
-    //TODO: think about keeping boost or at least make it configurable
     template<class ExecutionPolicy>
     inline void
     b9_6_transform_boost(ExecutionPolicy &&policy,
@@ -25,5 +26,7 @@ namespace B9 {
     }
 
 }
+
+#endif
 
 #endif //MASTER_BENCHMARKS_B9_6_TRANSFORM_BOOST_H

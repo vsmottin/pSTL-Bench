@@ -23,7 +23,7 @@ B9_GROUP_BENCHMARKS
 
 // Run the benchmark
 int main(int argc, char **argv) {
-
+std::cout << "BOOST SKIP: " << SKIP_BOOST << std::endl;
 #ifdef USE_TBB
     auto tbbThreadControl = init_tbb_thread_control();
 #endif

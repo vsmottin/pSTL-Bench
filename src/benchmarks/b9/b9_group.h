@@ -166,6 +166,8 @@ static void b9_5_transform_custom_iterator_wrapper(benchmark::State &state) {
 
 //region b9_6_transform_boost
 
+#ifndef SKIP_BOOST
+
 template<class Policy>
 static void b9_6_transform_boost_wrapper(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
@@ -198,6 +200,11 @@ static void b9_6_transform_boost_wrapper(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b9_6_transform_boost_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b9_6_transform_boost_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
 
+#else
+
+#define B9_6_TRANSFORM_BOOST_WRAPPER
+
+#endif
 
 //endregion b9_6_transform_boost
 
