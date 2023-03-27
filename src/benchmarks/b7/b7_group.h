@@ -56,9 +56,10 @@ static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
     std::vector res(size, -1);
 
+    const auto &view = suite::generate_increment<suite::int_vec>(size, 1);
 
     for (auto _: state) {
-        B7::b7_1_custom_copy_with_foreach(execution_policy, vec1, res);
+        B7::b7_1_custom_copy_with_foreach(execution_policy, vec1, view, res);
 
         state.PauseTiming();
         assert(std::equal(vec1.begin(), vec1.end(), res.begin()));
