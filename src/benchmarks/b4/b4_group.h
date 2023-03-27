@@ -31,11 +31,14 @@ static void b4_1_merge_cutoff_wrapper(benchmark::State &state) {
     const auto vec_2_inc = suite::generate_increment<suite::int_vec>(size, 2);
     const auto vec_5_inc = suite::generate_increment<suite::int_vec>(size, 5);
 
+    std::vector<int> result(vec_2_inc.size() + vec_5_inc.size());
+
     for (auto _: state) {
-        const auto res = B4::b4_1_merge_cutoff(execution_policy, vec_2_inc, vec_5_inc);
+        B4::b4_1_merge_cutoff(execution_policy, vec_2_inc, vec_5_inc, result);
 
         state.PauseTiming();
-        assert(res.size() == 2 * size);
+        assert(result[result.size() - 1] >= size - 1);
+        assert(result.size() == 2 * size);
         state.ResumeTiming();
     }
 
