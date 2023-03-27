@@ -230,11 +230,14 @@ static void b4_4_set_difference_cutoff_left_empty(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
     const std::vector<int> empty_vec{};
 
+    constexpr auto unrealistic_number = -9999;
+    std::vector<int> res(vec1.size(), unrealistic_number);
+
     for (auto _: state) {
-        const auto res = B4::b4_4_set_difference_cutoff(execution_policy, empty_vec, vec1);
+        B4::b4_4_set_difference_cutoff(execution_policy, empty_vec, vec1, res);
 
         state.PauseTiming();
-        assert(res.size() == 0);
+        assert(res[0] == unrealistic_number);
         state.ResumeTiming();
     }
 
@@ -256,8 +259,10 @@ static void b4_4_set_difference_cutoff_right_empty(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
     const std::vector<int> empty_vec{};
 
+    std::vector<int> res(vec1.size());
+
     for (auto _: state) {
-        const auto res = B4::b4_4_set_difference_cutoff(execution_policy, vec1, empty_vec);
+        B4::b4_4_set_difference_cutoff(execution_policy, vec1, empty_vec, res);
 
         state.PauseTiming();
         assert(res[0] <= res[1]);
@@ -283,8 +288,10 @@ static void b4_4_set_difference_cutoff_wholly_greater(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
     const auto vec2 = suite::generate_increment<suite::int_vec, int>(size, size + 2, 1);
 
+    std::vector<int> res(vec1.size());
+
     for (auto _: state) {
-        const auto res = B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2);
+        B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2, res);
 
         state.PauseTiming();
         assert(res[0] <= res[1]);
@@ -309,8 +316,10 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
     const auto vec2 = suite::generate_increment<suite::int_vec, int>(size, 1);
 
+    std::vector<int> res(vec1.size());
+
     for (auto _: state) {
-        const auto res = B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2);
+        B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2, res);
 
         state.PauseTiming();
         assert(res.size() >= 2 && res[res.size() - 1] == 0);
