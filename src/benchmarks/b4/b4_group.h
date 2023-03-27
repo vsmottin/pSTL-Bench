@@ -137,8 +137,10 @@ static void b4_3_set_union_cutoff_one_empty(benchmark::State &state) {
     const auto already_sorted_vec = suite::generate_increment<suite::int_vec>(size, 1);
     const std::vector<int> empty_vec;
 
+    std::vector<int> res(already_sorted_vec.size());
+
     for (auto _: state) {
-        const auto res = B4::b4_3_set_union_cutoff(execution_policy, already_sorted_vec, empty_vec);
+        B4::b4_3_set_union_cutoff(execution_policy, already_sorted_vec, empty_vec, res);
 
         state.PauseTiming();
         assert(res[0] <= res[1]);
@@ -163,10 +165,13 @@ static void b4_3_set_union_cutoff_one_wholly_greater(benchmark::State &state) {
     const auto already_sorted_vec_0_to_size = suite::generate_increment<suite::int_vec>(size, 1);
     const auto already_sorted_vec_size_to_2size = suite::generate_increment<suite::int_vec, int>(size, size, 1);
 
+    std::vector<int> res(already_sorted_vec_0_to_size.size() + already_sorted_vec_size_to_2size.size());
+
     for (auto _: state) {
-        const auto res = B4::b4_3_set_union_cutoff(execution_policy,
-                                                   already_sorted_vec_0_to_size,
-                                                   already_sorted_vec_size_to_2size);
+        B4::b4_3_set_union_cutoff(execution_policy,
+                                  already_sorted_vec_0_to_size,
+                                  already_sorted_vec_size_to_2size,
+                                  res);
 
         state.PauseTiming();
         assert(res[0] <= res[1]);
@@ -191,8 +196,10 @@ static void b4_3_set_union_cutoff_front_overhang(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
     const auto vec2 = suite::generate_increment<suite::int_vec, int>(size, size / 2, 1);
 
+    std::vector<int> res(vec1.size() + vec2.size());
+
     for (auto _: state) {
-        const auto res = B4::b4_3_set_union_cutoff(execution_policy, vec1, vec2);
+        B4::b4_3_set_union_cutoff(execution_policy, vec1, vec2, res);
 
         state.PauseTiming();
         assert(res[0] <= res[1]);

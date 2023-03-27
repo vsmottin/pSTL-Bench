@@ -8,15 +8,12 @@
 namespace B4 {
 
     template<class ExecutionPolicy>
-    inline std::vector<int>
-    b4_3_set_union_cutoff(ExecutionPolicy &&policy, const std::vector<int> &v1, const std::vector<int> &v2) {
-
-        //TODO: move result vector out of benchmark region
-        std::vector<int> result(v1.size() + v2.size());
-
+    inline void
+    b4_3_set_union_cutoff(ExecutionPolicy &&policy,
+                          const std::vector<int> &v1,
+                          const std::vector<int> &v2,
+                          std::vector<int> &result) {
         std::set_union(policy, v1.begin(), v1.end(), v2.begin(), v2.end(), result.begin());
-
-        return result;
     }
 
 }
