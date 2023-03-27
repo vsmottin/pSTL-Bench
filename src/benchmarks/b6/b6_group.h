@@ -25,8 +25,10 @@ static void b6_1_inclusive_scan_wrapper(benchmark::State &state) {
     // vector with values [0,size)
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
 
+    std::vector<int> res(vec1.size());
+
     for (auto _: state) {
-        const auto res = B6::b6_1_inclusive_scan(execution_policy, vec1);
+        B6::b6_1_inclusive_scan(execution_policy, vec1, res);
 
         state.PauseTiming();
         assert(vec1[0] == res[0]);
@@ -54,8 +56,10 @@ static void b6_2_exclusive_scan_wrapper(benchmark::State &state) {
     // vector with values [0,size)
     const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
 
+    std::vector<int> res(vec1.size());
+
     for (auto _: state) {
-        const auto res = B6::b6_2_exclusive_scan(execution_policy, vec1);
+        B6::b6_2_exclusive_scan(execution_policy, vec1, res);
 
         state.PauseTiming();
         assert((res[0] == 0));
@@ -70,7 +74,7 @@ static void b6_2_exclusive_scan_wrapper(benchmark::State &state) {
     state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
 
-//endregion b6_1_inclusive_scan
+//endregion b6_2_exclusive_scan
 
 
 #define B6_GROUP_BENCHMARKS \

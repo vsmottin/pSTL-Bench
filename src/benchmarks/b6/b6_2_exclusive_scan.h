@@ -9,15 +9,9 @@
 namespace B6 {
 
     template<class ExecutionPolicy>
-    inline std::vector<int>
-    b6_2_exclusive_scan(ExecutionPolicy &&policy, const std::vector<int> &container) {
-
-        //TODO: move result vector out of benchmark region
-        std::vector<int> result(container.size());
-
+    inline void
+    b6_2_exclusive_scan(ExecutionPolicy &&policy, const std::vector<int> &container, std::vector<int> &result) {
         std::exclusive_scan(policy, container.begin(), container.end(), result.begin(), 0);
-
-        return result;
     }
 
 }
