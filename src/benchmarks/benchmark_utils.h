@@ -16,19 +16,25 @@
 namespace suite {
 
     typedef std::vector<int> int_vec;
-    typedef std::list<int> int_lst;
 
+    template<typename ExecutionPolicy,
+            typename Container = suite::int_vec,
+            typename Value_Type = typename Container::value_type>
+    void fill_init(ExecutionPolicy policy, Container &container, const Value_Type value) {
+        std::fill(policy, container.begin(), container.end(), value);
+    }
 
-    template<typename T>
+    template<typename ExecutionPolicy, typename T>
     std::vector<T>
-    generate_uniform_dist_vec(const std::size_t &size, const int &lower_bound, const int &upper_bound) {
+    generate_uniform_dist_vec(ExecutionPolicy execution_policy, const std::size_t &size, const int &lower_bound,
+                              const int &upper_bound) {
 
         std::mt19937 mt_engine(std::time(nullptr));
         std::uniform_real_distribution<> dist(lower_bound, upper_bound);
 
         std::vector<T> randValues(size);
 
-        std::generate(randValues.begin(), randValues.end(), [&]() {
+        std::generate(execution_policy, randValues.begin(), randValues.end(), [&]() {
             return (T) dist(mt_engine);
         });
 
@@ -39,22 +45,30 @@ namespace suite {
      * Generates a container of type Container that contains size elements where the first element is start_val
      * and then every next element is decremented by decrement
      *
+     * @tparam ExecutionPolicy the executionpolicy to use for the creation
      * @tparam T the value type of the container
      * @tparam Container the container type
      * @param size the number of elements
      * @param start_val the start val
      * @param decrement the value to use to decrement
      */
-    template<typename Container,
+    template<typename ExecutionPolicy,
+            typename Container = suite::int_vec,
             typename T = typename Container::value_type,
             typename Size_type = typename Container::size_type>
     Container
-    generate_decrement(const Size_type &size, const T &start_val, const T &decrement = 1) {
+    generate_decrement(const ExecutionPolicy execution_policy,
+                       const Size_type &size,
+                       const T &start_val,
+                       const T &decrement = 1) {
 
         Container randValues(size);
 
-        T n = start_val;
-        std::generate(randValues.begin(), randValues.end(), [&n, &decrement] { return n -= decrement; });
+        std::atomic<T> n = start_val;
+        std::generate(execution_policy,
+                      randValues.begin(), randValues.end(),
+                      [&n, &decrement] { return n -= decrement; }
+        );
 
         return randValues;
     }
@@ -71,12 +85,16 @@ namespace suite {
      * @param size the number of elements
      * @param increment the increment to use
      */
-    template<typename Container,
+    template<typename ExecutionPolicy,
+            typename Container = suite::int_vec,
             typename T = typename Container::value_type,
             typename Size_type = typename Container::size_type>
     Container
-    generate_increment(const Size_type &size, const T &start, const T &increment) {
-        return suite::generate_decrement<Container>(size, start, -increment);
+    generate_increment(const ExecutionPolicy execution_policy,
+                       const Size_type &size,
+                       const T &start,
+                       const T &increment) {
+        return suite::generate_decrement<ExecutionPolicy, Container>(execution_policy, size, start, -increment);
     }
 
     /**
@@ -87,12 +105,17 @@ namespace suite {
      * @param size the number of elements
      * @param increment the increment to use
      */
-    template<typename Container,
+    template<typename ExecutionPolicy,
+            typename Container = suite::int_vec,
             typename T = typename Container::value_type,
             typename Size_type = typename Container::size_type>
     Container
-    generate_increment(const Size_type &size, const T &increment) {
-        return suite::generate_increment<Container>(size, static_cast<T>(-1), increment);
+    generate_increment(const ExecutionPolicy execution_policy,
+                       const Size_type &size,
+                       const T &increment
+    ) {
+        return suite::generate_increment<ExecutionPolicy, Container>(execution_policy, size, static_cast<T>(-1),
+                                                                     increment);
     }
 
 }

@@ -27,7 +27,8 @@ static void b7_1_copy(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
+
     std::vector res(size, -1);
 
 
@@ -53,10 +54,10 @@ static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
     std::vector res(size, -1);
 
-    const auto &view = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto &view = suite::generate_increment<Policy>(execution_policy, size, 1);
 
     for (auto _: state) {
         B7::b7_1_custom_copy_with_foreach(execution_policy, vec1, view, res);
@@ -75,7 +76,7 @@ static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
 
 //endregion b7_copy_vs_for_each
 
-
+/*
 //region b7_2_all_off_vs_transform_reduce
 
 //region b7_2_all_of
@@ -793,7 +794,7 @@ static void b7_6_transform_reduce(benchmark::State &state) {
 }
 
 //endregion b7_6_serial_transform_reduce_vs_transform_reduce
-
+*/
 
 #define B7_GROUP_BENCHMARKS \
                             \
@@ -803,7 +804,7 @@ static void b7_6_transform_reduce(benchmark::State &state) {
                             \
         BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
-                            \
+        /*                    \
                             \
                             \
         B7_2_ALL_OF_BENCHMARKS                                                                                                                              \
@@ -874,5 +875,5 @@ static void b7_6_transform_reduce(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
 
-
+*/
 #endif //MASTER_BENCHMARKS_B7_GROUP_H
