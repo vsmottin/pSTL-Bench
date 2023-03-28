@@ -27,9 +27,10 @@ static void b7_1_copy(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     suite::int_vec res(size);
+    suite::fill_init<Policy>(res, -1);
 
 
     for (auto _: state) {
@@ -54,10 +55,12 @@ static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
-    suite::int_vec res(size);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
-    const auto &view = suite::generate_increment<Policy>(execution_policy, size, 1);
+    suite::int_vec res(size);
+    suite::fill_init<Policy>(res, -1);
+
+    const auto &view = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         B7::b7_1_custom_copy_with_foreach(execution_policy, vec1, view, res);
@@ -76,7 +79,7 @@ static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
 
 //endregion b7_copy_vs_for_each
 
-/*
+
 //region b7_2_all_off_vs_transform_reduce
 
 //region b7_2_all_of
@@ -88,7 +91,7 @@ static void b7_2_all_of_all_true(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_2_all_of(execution_policy, vec1, [](const int &val) { return val >= 0; });
@@ -112,7 +115,7 @@ static void b7_2_all_of_first_false(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_2_all_of(execution_policy, vec1, [](const int &val) { return val > 10000; });
@@ -136,7 +139,7 @@ static void b7_2_all_of_last_false(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_2_all_of(execution_policy, vec1, [size](const int &val) { return val < size - 1; });
@@ -160,7 +163,7 @@ static void b7_2_all_of_auto_false(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_2_all_of(execution_policy, vec1, [](const int &val) { return false; });
@@ -205,7 +208,7 @@ static void b7_2_custom_all_of_with_transform_reduce_all_true(benchmark::State &
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
@@ -230,7 +233,7 @@ static void b7_2_custom_all_of_with_transform_reduce_first_false(benchmark::Stat
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
@@ -255,7 +258,7 @@ static void b7_2_custom_all_of_with_transform_reduce_last_false(benchmark::State
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
@@ -282,7 +285,7 @@ static void b7_2_custom_all_of_with_transform_reduce_auto_false(benchmark::State
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
@@ -333,7 +336,7 @@ static void b7_3_count_if_all_hit(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_3_count_if(execution_policy, vec1,
@@ -359,7 +362,7 @@ static void b7_3_count_if_half_hit(benchmark::State &state) {
     const auto half_size = int(size / 2);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_3_count_if(execution_policy, vec1,
@@ -392,10 +395,10 @@ static void b7_3_count_if_orders_struct(benchmark::State &state) {
 
     std::vector<B7::Orders> input_data(size);
 
-    auto n = 0;
-    const auto values = suite::generate_increment<suite::int_vec>(size, 1);
+    std::atomic<std::size_t> n{0};
+    const auto values = suite::generate_increment(execution_policy, size, 1);
 
-    std::generate(input_data.begin(), input_data.end(),
+    std::generate(execution_policy, input_data.begin(), input_data.end(),
                   [&]() { return B7::Orders{values[n++], default_quantity}; });
     //endregion generate order data
 
@@ -427,7 +430,7 @@ static void b7_3_custom_count_if_with_transform_reduce_all_hit(benchmark::State 
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_3_custom_count_if_with_transform_reduce(execution_policy, vec1,
@@ -453,7 +456,7 @@ static void b7_3_custom_count_if_with_transform_reduce_half_hit(benchmark::State
     const auto half_size = int(size / 2);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_3_custom_count_if_with_transform_reduce(execution_policy, vec1,
@@ -488,10 +491,10 @@ static void b7_3_custom_count_if_with_transform_reduce_orders_struct(benchmark::
 
     std::vector<B7::Orders> input_data(size);
 
-    auto n = 0;
-    const auto values = suite::generate_increment<suite::int_vec>(size, 1);
+    std::atomic<int> n{0};
+    const auto values = suite::generate_increment(execution_policy, size, 1);
 
-    std::generate(input_data.begin(), input_data.end(),
+    std::generate(execution_policy, input_data.begin(), input_data.end(),
                   [&]() { return B7::Orders{values[n++], default_quantity}; });
     //endregion generate order data
 
@@ -525,7 +528,7 @@ static void b7_3_custom_count_if_with_for_each_all_hit(benchmark::State &state) 
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_3_custom_count_if_with_for_each(execution_policy, vec1,
@@ -551,7 +554,7 @@ static void b7_3_custom_count_if_with_for_each_half_hit(benchmark::State &state)
     const auto half_size = int(size / 2);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B7::b7_3_custom_count_if_with_for_each(execution_policy, vec1,
@@ -586,10 +589,10 @@ static void b7_3_custom_count_if_with_for_each_orders_struct(benchmark::State &s
 
     std::vector<B7::Orders> input_data(size);
 
-    auto n = 0;
-    const auto values = suite::generate_increment<suite::int_vec>(size, 1);
+    std::atomic<int> n{0};
+    const auto values = suite::generate_increment(execution_policy, size, 1);
 
-    std::generate(input_data.begin(), input_data.end(),
+    std::generate(execution_policy, input_data.begin(), input_data.end(),
                   [&]() { return B7::Orders{values[n++], default_quantity}; });
     //endregion generate order data
 
@@ -624,11 +627,13 @@ static void b7_4_stencil_transform_number_to_neightbours_stdev(benchmark::State 
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_uniform_dist_vec<int>(size, 1, 100);
-    auto res = std::vector<double>(size - 1);
+    const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
 
-    //const auto &view = std::views::iota(0, static_cast<int>(vec1.size()));
-    const auto &view = suite::generate_increment<suite::int_vec>(size, 1);
+    std::vector<double> res(size - 1);
+    suite::fill_init<Policy>(res, -1.0);
+
+
+    const auto &view = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         B7::b7_4_stencil_transform_number_to_neightbours_stdev(execution_policy, vec1, view, res);
@@ -652,11 +657,13 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_uniform_dist_vec<int>(size, 1, 100);
-    auto res = std::vector<double>(size - 1);
+    const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
+    std::vector<double> res(size - 1);
+
+    suite::fill_init<Policy>(res, -1.0);
 
     //const auto &view = std::views::iota(0, static_cast<int>(vec1.size()));
-    const auto &view = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto &view = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         B7::b7_4_stencil_for_each_to_neightbours_stdev(execution_policy, vec1, view, res);
@@ -684,8 +691,10 @@ static void b7_5_scalar_transform_number(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_uniform_dist_vec<int>(size, 1, 100);
-    auto res = std::vector<int>(size);
+    const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
+    std::vector<int> res(size);
+
+    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
         B7::b7_5_scalar_transform_number(execution_policy, vec1, res);
@@ -709,11 +718,12 @@ static void b7_5_scalar_for_each(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_uniform_dist_vec<int>(size, 1, 100);
-    auto res = std::vector<int>(size);
+    const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
 
-    //const auto &view = std::views::iota(0, static_cast<int>(vec1.size()));
-    const auto &view = suite::generate_increment<suite::int_vec>(size, 1);
+    std::vector<int> res(size);
+    suite::fill_init<Policy>(res, -1);
+
+    const auto &view = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         B7::b7_5_scalar_for_each(execution_policy, vec1, view, res);
@@ -742,10 +752,10 @@ static void b7_6_serial_transform_reduce(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto values = suite::generate_uniform_dist_vec<int>(size, 1, 10);
+    const auto values = suite::generate_uniform_dist_vec<Policy>(size, 1, 10);
 
     std::vector<B7::Pixel> input_data(size);
-    std::generate(input_data.begin(), input_data.end(),
+    std::generate(execution_policy, input_data.begin(), input_data.end(),
                   [n = 0, &values]() { return B7::Pixel{values[n], values[n], values[n]}; });
 
 
@@ -771,10 +781,10 @@ static void b7_6_transform_reduce(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto values = suite::generate_uniform_dist_vec<int>(size, 1, 10);
+    const auto values = suite::generate_uniform_dist_vec<Policy>(size, 1, 10);
 
     std::vector<B7::Pixel> input_data(size);
-    std::generate(input_data.begin(), input_data.end(),
+    std::generate(execution_policy, input_data.begin(), input_data.end(),
                   [n = 0, &values]() { return B7::Pixel{values[n], values[n], values[n]}; });
 
 
@@ -794,7 +804,7 @@ static void b7_6_transform_reduce(benchmark::State &state) {
 }
 
 //endregion b7_6_serial_transform_reduce_vs_transform_reduce
-*/
+
 
 #define B7_GROUP_BENCHMARKS \
                             \
@@ -804,7 +814,7 @@ static void b7_6_transform_reduce(benchmark::State &state) {
                             \
         BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
-        /*                    \
+                            \
                             \
                             \
         B7_2_ALL_OF_BENCHMARKS                                                                                                                              \
@@ -875,5 +885,5 @@ static void b7_6_transform_reduce(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
 
-*/
+
 #endif //MASTER_BENCHMARKS_B7_GROUP_H
