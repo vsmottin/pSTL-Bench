@@ -28,10 +28,11 @@ static void b4_1_merge_cutoff_wrapper(benchmark::State &state) {
     // we need two sorted vectors to use std::merge
     // vec_2_inc and vec_5_inc are indeed sorted
 
-    const auto vec_2_inc = suite::generate_increment<suite::int_vec>(size, 2);
-    const auto vec_5_inc = suite::generate_increment<suite::int_vec>(size, 5);
+    const auto vec_2_inc = suite::generate_increment<Policy>(execution_policy, size, 2);
+    const auto vec_5_inc = suite::generate_increment<Policy>(execution_policy, size, 5);
 
     std::vector<int> result(vec_2_inc.size() + vec_5_inc.size());
+    suite::fill_init<Policy>(result, -1);
 
     for (auto _: state) {
         B4::b4_1_merge_cutoff(execution_policy, vec_2_inc, vec_5_inc, result);
@@ -60,7 +61,7 @@ static void b4_2_stable_sort_cutoff_already_sorted_wrapper(benchmark::State &sta
 
     const auto &size = state.range(0);
 
-    auto already_sorted_vec = suite::generate_increment<suite::int_vec>(size, 1);
+    auto already_sorted_vec = suite::generate_increment<Policy>(execution_policy, size, 1);
 
     for (auto _: state) {
         B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
@@ -83,7 +84,7 @@ static void b4_2_stable_sort_cutoff_not_sorted_wrapper(benchmark::State &state) 
 
     const auto &size = state.range(0);
 
-    auto not_sorted_vec = suite::generate_uniform_dist_vec<int>(size, 50, 100);
+    auto not_sorted_vec = suite::generate_uniform_dist_vec<Policy>(size, 50, 100);
 
     for (auto _: state) {
         B4::b4_2_stable_sort_cutoff(execution_policy, not_sorted_vec);
@@ -104,9 +105,9 @@ template<class Policy>
 static void b4_2_stable_sort_cutoff_decrement_sorted_wrapper(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
-    const auto &size = state.range(0);
+    const auto &size = static_cast<int>(state.range(0));
 
-    auto already_sorted_vec = suite::generate_decrement<suite::int_vec, int>(size, size + 1, 1);
+    auto already_sorted_vec = suite::generate_decrement<Policy>(execution_policy, size, size + 1, 1);
 
     for (auto _: state) {
         B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
@@ -134,10 +135,11 @@ static void b4_3_set_union_cutoff_one_empty(benchmark::State &state) {
 
     const auto &size = state.range(0);
 
-    const auto already_sorted_vec = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto already_sorted_vec = suite::generate_increment<Policy>(execution_policy, size, 1);
     const std::vector<int> empty_vec;
 
     std::vector<int> res(already_sorted_vec.size());
+    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
         B4::b4_3_set_union_cutoff(execution_policy, already_sorted_vec, empty_vec, res);
@@ -159,13 +161,15 @@ template<class Policy>
 static void b4_3_set_union_cutoff_one_wholly_greater(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
-    const auto &size = state.range(0);
+    const auto &size = static_cast<int>(state.range(0));
 
     // every element inside already_sorted_vec_0_to_size is smaller than every element in already_sorted_vec_size_to_2size
-    const auto already_sorted_vec_0_to_size = suite::generate_increment<suite::int_vec>(size, 1);
-    const auto already_sorted_vec_size_to_2size = suite::generate_increment<suite::int_vec, int>(size, size, 1);
+    const auto already_sorted_vec_0_to_size = suite::generate_increment<Policy>(execution_policy, size, 1);
+    const auto already_sorted_vec_size_to_2size = suite::generate_increment<Policy>(execution_policy, size, size, 1);
 
     std::vector<int> res(already_sorted_vec_0_to_size.size() + already_sorted_vec_size_to_2size.size());
+    suite::fill_init<Policy>(res, -1);
+
 
     for (auto _: state) {
         B4::b4_3_set_union_cutoff(execution_policy,
@@ -191,12 +195,13 @@ template<class Policy>
 static void b4_3_set_union_cutoff_front_overhang(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
-    const auto &size = state.range(0);
+    const auto &size = static_cast<int>(state.range(0));
 
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
-    const auto vec2 = suite::generate_increment<suite::int_vec, int>(size, size / 2, 1);
+    const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
+    const auto vec2 = suite::generate_increment<Policy>(execution_policy, size, size / 2, 1);
 
     std::vector<int> res(vec1.size() + vec2.size());
+    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
         B4::b4_3_set_union_cutoff(execution_policy, vec1, vec2, res);
@@ -227,11 +232,12 @@ static void b4_4_set_difference_cutoff_left_empty(benchmark::State &state) {
 
     // since the left vector is empty we know the difference can only be empty
     // this test simply checks if this simple check is really done or parallel execution just started.
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
     const std::vector<int> empty_vec{};
 
     constexpr auto unrealistic_number = -9999;
-    std::vector<int> res(vec1.size(), unrealistic_number);
+    std::vector<int> res(vec1.size());
+    suite::fill_init<Policy>(res, unrealistic_number);
 
     for (auto _: state) {
         B4::b4_4_set_difference_cutoff(execution_policy, empty_vec, vec1, res);
@@ -256,10 +262,11 @@ static void b4_4_set_difference_cutoff_right_empty(benchmark::State &state) {
 
     // since the right vector is empty we know the difference is the left vector
     // this should result in a copy of the vec1.
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
-    const std::vector<int> empty_vec{};
+    const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
+    constexpr std::vector<int> empty_vec{};
 
     std::vector<int> res(vec1.size());
+    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
         B4::b4_4_set_difference_cutoff(execution_policy, vec1, empty_vec, res);
@@ -281,14 +288,15 @@ template<class Policy>
 static void b4_4_set_difference_cutoff_wholly_greater(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
-    const auto &size = state.range(0);
+    const auto &size = static_cast<int>(state.range(0));
 
     // since the right vector is wholly greater than the left we know the difference is the left vector (aka no intersect)
     // this should result in a copy of the vec1.
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
-    const auto vec2 = suite::generate_increment<suite::int_vec, int>(size, size + 2, 1);
+    const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
+    const auto vec2 = suite::generate_increment<Policy>(execution_policy, size, size + 2, 1);
 
     std::vector<int> res(vec1.size());
+    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
         B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2, res);
@@ -313,10 +321,11 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // since the vector intersect we acutally have to calculate the difference
-    const auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
-    const auto vec2 = suite::generate_increment<suite::int_vec, int>(size, 1);
+    const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
+    const auto vec2 = suite::generate_increment<Policy>(execution_policy, size, 1);
 
     std::vector<int> res(vec1.size());
+    suite::fill_init<Policy>(res, 0);
 
     for (auto _: state) {
         B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2, res);

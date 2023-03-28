@@ -7,6 +7,8 @@
 #include <random>
 #include <algorithm>
 #include <ctime>
+#include <atomic>
+#include <execution>
 
 #define CUSTOM_STATISTICS \
     ComputeStatistics("max", [](const std::vector<double>& v) -> double {return *(std::max_element(std::begin(v), std::end(v)));})-> \
@@ -20,14 +22,16 @@ namespace suite {
     template<typename ExecutionPolicy,
             typename Container = suite::int_vec,
             typename Value_Type = typename Container::value_type>
-    void fill_init(ExecutionPolicy policy, Container &container, const Value_Type value) {
-        std::fill(policy, container.begin(), container.end(), value);
+    void fill_init(Container &container, const Value_Type value) {
+        constexpr auto execution_policy = ExecutionPolicy{};
+        std::fill(execution_policy, container.begin(), container.end(), value);
     }
 
     template<typename ExecutionPolicy, typename T>
     std::vector<T>
-    generate_uniform_dist_vec(ExecutionPolicy execution_policy, const std::size_t &size, const int &lower_bound,
-                              const int &upper_bound) {
+    generate_uniform_dist_vec(const std::size_t &size, const T &lower_bound,
+                              const T &upper_bound) {
+        constexpr auto execution_policy = ExecutionPolicy{};
 
         std::mt19937 mt_engine(std::time(nullptr));
         std::uniform_real_distribution<> dist(lower_bound, upper_bound);
@@ -114,8 +118,11 @@ namespace suite {
                        const Size_type &size,
                        const T &increment
     ) {
-        return suite::generate_increment<ExecutionPolicy, Container>(execution_policy, size, static_cast<T>(-1),
-                                                                     increment);
+        return suite::generate_increment<ExecutionPolicy, Container>(execution_policy,
+                                                                     size,
+                                                                     static_cast<T>(-1),
+                                                                     increment
+        );
     }
 
 }
