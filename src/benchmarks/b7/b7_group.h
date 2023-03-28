@@ -29,7 +29,7 @@ static void b7_1_copy(benchmark::State &state) {
     // vector with values [0,size)
     const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
 
-    std::vector res(size, -1);
+    suite::int_vec res(size);
 
 
     for (auto _: state) {
@@ -55,7 +55,7 @@ static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
 
     // vector with values [0,size)
     const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
-    std::vector res(size, -1);
+    suite::int_vec res(size);
 
     const auto &view = suite::generate_increment<Policy>(execution_policy, size, 1);
 
