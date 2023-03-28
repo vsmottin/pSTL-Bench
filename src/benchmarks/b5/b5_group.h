@@ -27,7 +27,7 @@ static void b5_1_find_first_entry(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const Container vec1 = suite::generate_increment<Container>(size, 1);
+    const Container vec1 = suite::generate_increment<Policy, Container>(execution_policy, size, 1);
 
 
     for (auto _: state) {
@@ -53,7 +53,7 @@ static void b5_1_find_last_entry(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<Container>(size, 1);
+    const auto vec1 = suite::generate_increment<Policy, Container>(execution_policy, size, 1);
 
     for (auto _: state) {
         auto find_location = B5::b5_1_find(execution_policy, vec1, size - 1);
@@ -78,7 +78,7 @@ static void b5_1_find_non_existing_entry(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto vec1 = suite::generate_increment<Container>(size, 1);
+    const auto vec1 = suite::generate_increment<Policy, Container>(execution_policy, size, 1);
 
     for (auto _: state) {
         auto find_location = B5::b5_1_find(execution_policy, vec1, -10);
@@ -120,7 +120,7 @@ static void b5_2_partition_wrapper(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         auto find_location = B5::b5_2_partition(execution_policy, vec1);
@@ -149,9 +149,11 @@ static void b5_3_unique_copy_default_wrapper(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with value 1 of length size
-    suite::int_vec vec1(size, 1);
+    suite::int_vec vec1(size);
+    suite::fill_init<Policy>(vec1, 1);
 
-    suite::int_vec result(1, 0);
+    suite::int_vec result(1);
+    suite::fill_init<Policy>(result, 0);
 
     for (auto _: state) {
         B5::b5_3_unique_copy_default(execution_policy, vec1, result);
@@ -180,7 +182,7 @@ static void b5_4_minmax_element_all_equal(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with value 1
-    auto vec1 = suite::generate_increment<suite::int_vec>(size, 1, 0);
+    auto vec1 = suite::generate_increment(execution_policy, size, 1, 0);
 
     for (auto _: state) {
         const auto res = B5::b5_4_minmax_element(execution_policy, vec1);
@@ -205,7 +207,7 @@ static void b5_4_minmax_element_increasing(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with value 1
-    auto vec1 = suite::generate_increment<suite::int_vec>(size, 1);
+    auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         const auto res = B5::b5_4_minmax_element(execution_policy, vec1);
