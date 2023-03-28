@@ -263,7 +263,7 @@ static void b4_4_set_difference_cutoff_right_empty(benchmark::State &state) {
     // since the right vector is empty we know the difference is the left vector
     // this should result in a copy of the vec1.
     const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
-    constexpr std::vector<int> empty_vec{};
+    std::vector<int> empty_vec{};
 
     std::vector<int> res(vec1.size());
     suite::fill_init<Policy>(res, -1);
