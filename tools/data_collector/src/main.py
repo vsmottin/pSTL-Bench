@@ -14,12 +14,13 @@ logger = logging.getLogger("data_collector")
 logger.setLevel(logging.WARNING)
 
 
-def read_arguments(argv) -> Tuple[str, List[str], bool]:
+def read_arguments(argv) -> Tuple[str, List[str], bool, bool]:
     configuration_file = ''
     selected_compilers = ['*']
     skipp_building = False
+    skipp_job_files = False
 
-    opts, args = getopt.getopt(argv, "hc:vf", ["configuration=", "verbose", "compiler=", "no-build"])
+    opts, args = getopt.getopt(argv, "hc:vf", ["configuration=", "verbose", "compiler=", "no-build", "no-job"])
     for opt, arg in opts:
         if opt == '-h':
             print('main.py -i <inputfile> -o <outputfile>')
@@ -32,14 +33,16 @@ def read_arguments(argv) -> Tuple[str, List[str], bool]:
             selected_compilers = arg.split(',')
         elif opt in "--no-build":
             skipp_building = True
+        elif opt in "--no-job":
+            skipp_job_files = True
         else:
             print("Wrong parameter! Could not find:", opt)
             sys.exit()
-    return configuration_file, selected_compilers, skipp_building
+    return configuration_file, selected_compilers, skipp_building, skipp_job_files
 
 
 def main(argv):
-    configuration_file, selected_compilers, skipp_building = read_arguments(argv)
+    configuration_file, selected_compilers, skipp_building, skipp_job_files = read_arguments(argv)
     no_compiler_found_message = "No compilers defined in configuration.json"
 
     logger.info(f'Configuration file using: {configuration_file}')
@@ -63,12 +66,15 @@ def main(argv):
     else:
         logger.info("Skipping building of the binaries for compilers!")
 
-    # run the benchmarks for all the selected compilers
-    for benchmark in configuration.benchmarks:
-        for compiler in configuration.compiler:
-            logger.info(f"Running the benchmark [{benchmark.name}] for compiler {compiler.name}")
-            executor = get_executor_for_type(benchmark)
-            executor.execute(benchmark, compiler, configuration)
+    # create the benchmarks job for all the selected compilers
+    if not skipp_job_files:
+        for benchmark in configuration.benchmarks:
+            for compiler in configuration.compiler:
+                logger.info(f"Running the benchmark [{benchmark.name}] for compiler {compiler.name}")
+                executor = get_executor_for_type(benchmark)
+                executor.execute(benchmark, compiler, configuration)
+    else:
+        logger.info("Skipping creation of the job files for compilers!")
 
 
 if __name__ == "__main__":
