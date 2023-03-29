@@ -77,7 +77,9 @@ namespace suite {
                       }
         );
 
-        std::sort(execution_policy, generatedVec.begin(), generatedVec.end());
+        if (!std::is_same<ExecutionPolicy, std::execution::sequenced_policy>::value) {
+            std::sort(execution_policy, generatedVec.begin(), generatedVec.end());
+        }
 
         return generatedVec;
     }
