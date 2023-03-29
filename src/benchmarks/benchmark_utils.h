@@ -66,15 +66,20 @@ namespace suite {
                        const T start_val,
                        const T decrement = 1) {
 
-        Container randValues(size);
+        Container generatedVec(size);
 
-        std::atomic<T> n = start_val;
+        std::atomic<T> n{start_val};
+
         std::generate(execution_policy,
-                      randValues.begin(), randValues.end(),
-                      [&n, &decrement] { return n -= decrement; }
+                      generatedVec.begin(), generatedVec.end(),
+                      [&n, decrement] {
+                          return n.fetch_sub(decrement);
+                      }
         );
 
-        return randValues;
+        std::sort(execution_policy, generatedVec.begin(), generatedVec.end());
+
+        return generatedVec;
     }
 
     /**
