@@ -63,8 +63,8 @@ namespace suite {
     Container
     generate_decrement(const ExecutionPolicy execution_policy,
                        const Size_type &size,
-                       const T &start_val,
-                       const T &decrement = 1) {
+                       const T start_val,
+                       const T decrement = 1) {
 
         Container randValues(size);
 
@@ -96,8 +96,8 @@ namespace suite {
     Container
     generate_increment(const ExecutionPolicy execution_policy,
                        const Size_type &size,
-                       const T &start,
-                       const T &increment) {
+                       const T start,
+                       const T increment) {
         return suite::generate_decrement<ExecutionPolicy, Container>(execution_policy, size, start, -increment);
     }
 
@@ -115,8 +115,8 @@ namespace suite {
             typename Size_type = typename Container::size_type>
     Container
     generate_increment(const ExecutionPolicy execution_policy,
-                       const Size_type &size,
-                       const T &increment
+                       const Size_type size,
+                       const T increment
     ) {
         return suite::generate_increment<ExecutionPolicy, Container>(execution_policy,
                                                                      size,

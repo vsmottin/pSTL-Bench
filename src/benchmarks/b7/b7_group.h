@@ -630,8 +630,6 @@ static void b7_4_stencil_transform_number_to_neightbours_stdev(benchmark::State 
     const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
 
     std::vector<double> res(size - 1);
-    suite::fill_init<Policy>(res, -1.0);
-
 
     const auto &view = suite::generate_increment(execution_policy, size, 1);
 
@@ -660,8 +658,6 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
     const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
     std::vector<double> res(size - 1);
 
-    suite::fill_init<Policy>(res, -1.0);
-
     //const auto &view = std::views::iota(0, static_cast<int>(vec1.size()));
     const auto &view = suite::generate_increment(execution_policy, size, 1);
 
@@ -669,7 +665,8 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
         B7::b7_4_stencil_for_each_to_neightbours_stdev(execution_policy, vec1, view, res);
 
         state.PauseTiming();
-        assert((res[0] >= 0));
+        std::vector res_check = res;
+        assert((res_check[0] >= 0));
         state.ResumeTiming();
     }
 

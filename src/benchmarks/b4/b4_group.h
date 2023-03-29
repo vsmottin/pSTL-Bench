@@ -67,7 +67,8 @@ static void b4_2_stable_sort_cutoff_already_sorted_wrapper(benchmark::State &sta
         B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
 
         state.PauseTiming();
-        assert(already_sorted_vec[0] <= already_sorted_vec[1]);
+        std::vector res_check = already_sorted_vec;
+        assert(res_check[0] <= res_check[1]);
         state.ResumeTiming();
     }
 
@@ -113,7 +114,8 @@ static void b4_2_stable_sort_cutoff_decrement_sorted_wrapper(benchmark::State &s
         B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
 
         state.PauseTiming();
-        assert(already_sorted_vec[0] <= already_sorted_vec[1]);
+        std::vector<int> res_check = already_sorted_vec;
+        assert(res_check[0] <= res_check[1]);
         state.ResumeTiming();
     }
 
@@ -145,8 +147,9 @@ static void b4_3_set_union_cutoff_one_empty(benchmark::State &state) {
         B4::b4_3_set_union_cutoff(execution_policy, already_sorted_vec, empty_vec, res);
 
         state.PauseTiming();
-        assert(res[0] <= res[1]);
-        assert(res.size() <= already_sorted_vec.size() + empty_vec.size());
+        std::vector<int> res_check = res;
+        assert(res_check[0] <= res_check[1]);
+        assert(res_check.size() <= already_sorted_vec.size() + empty_vec.size());
         state.ResumeTiming();
     }
 
@@ -168,8 +171,6 @@ static void b4_3_set_union_cutoff_one_wholly_greater(benchmark::State &state) {
     const auto already_sorted_vec_size_to_2size = suite::generate_increment<Policy>(execution_policy, size, size, 1);
 
     std::vector<int> res(already_sorted_vec_0_to_size.size() + already_sorted_vec_size_to_2size.size());
-    suite::fill_init<Policy>(res, -1);
-
 
     for (auto _: state) {
         B4::b4_3_set_union_cutoff(execution_policy,
@@ -178,8 +179,9 @@ static void b4_3_set_union_cutoff_one_wholly_greater(benchmark::State &state) {
                                   res);
 
         state.PauseTiming();
-        assert(res[0] <= res[1]);
-        assert(res.size() <= already_sorted_vec_size_to_2size.size() + already_sorted_vec_0_to_size.size());
+        std::vector res_check = res;
+        assert(res_check[0] <= res_check[1]);
+        assert(res_check.size() <= already_sorted_vec_size_to_2size.size() + already_sorted_vec_0_to_size.size());
         state.ResumeTiming();
     }
 
@@ -201,14 +203,14 @@ static void b4_3_set_union_cutoff_front_overhang(benchmark::State &state) {
     const auto vec2 = suite::generate_increment<Policy>(execution_policy, size, size / 2, 1);
 
     std::vector<int> res(vec1.size() + vec2.size());
-    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
         B4::b4_3_set_union_cutoff(execution_policy, vec1, vec2, res);
 
         state.PauseTiming();
-        assert(res[0] <= res[1]);
-        assert(res.size() <= vec2.size() + vec1.size());
+        std::vector<int> res_check = res;
+        assert(res_check[0] <= res_check[1]);
+        assert(res_check.size() <= vec2.size() + vec1.size());
         state.ResumeTiming();
     }
 
@@ -266,14 +268,14 @@ static void b4_4_set_difference_cutoff_right_empty(benchmark::State &state) {
     std::vector<int> empty_vec{};
 
     std::vector<int> res(vec1.size());
-    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
         B4::b4_4_set_difference_cutoff(execution_policy, vec1, empty_vec, res);
 
         state.PauseTiming();
-        assert(res[0] <= res[1]);
-        assert(res.size() == vec1.size());
+        std::vector res_check = res;
+        assert(res_check[0] <= res_check[1]);
+        assert(res_check.size() == vec1.size());
         state.ResumeTiming();
     }
 
@@ -296,14 +298,14 @@ static void b4_4_set_difference_cutoff_wholly_greater(benchmark::State &state) {
     const auto vec2 = suite::generate_increment<Policy>(execution_policy, size, size + 2, 1);
 
     std::vector<int> res(vec1.size());
-    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
         B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2, res);
 
         state.PauseTiming();
-        assert(res[0] <= res[1]);
-        assert(res.size() == vec1.size());
+        std::vector res_check = res;
+        assert(res_check[0] <= res_check[1]);
+        assert(res_check.size() == vec1.size());
         state.ResumeTiming();
     }
 
@@ -325,13 +327,14 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
     const auto vec2 = suite::generate_increment<Policy>(execution_policy, size, 1);
 
     std::vector<int> res(vec1.size());
-    suite::fill_init<Policy>(res, 0);
 
     for (auto _: state) {
         B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2, res);
 
         state.PauseTiming();
-        assert(res.size() >= 2 && res[res.size() - 1] == 0);
+        std::vector res_check = res;
+        assert(res_check.size() >= 2);
+        assert(res_check[res_check.size() - 1] == 0);
         state.ResumeTiming();
     }
 
