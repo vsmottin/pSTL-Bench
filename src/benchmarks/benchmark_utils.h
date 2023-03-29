@@ -78,7 +78,11 @@ namespace suite {
         );
 
         if (!std::is_same<ExecutionPolicy, std::execution::sequenced_policy>::value) {
-            std::sort(execution_policy, generatedVec.begin(), generatedVec.end());
+            std::function<bool(T, T)> sort_strategy = std::greater<T>(); // by default sort DESC only if increment do ASC
+            if (decrement <= 0) {
+                sort_strategy = std::less<T>();
+            }
+            std::sort(execution_policy, generatedVec.begin(), generatedVec.end(), sort_strategy);
         }
 
         return generatedVec;
@@ -127,7 +131,7 @@ namespace suite {
     ) {
         return suite::generate_increment<ExecutionPolicy, Container>(execution_policy,
                                                                      size,
-                                                                     static_cast<T>(-1),
+                                                                     static_cast<T>(0),
                                                                      increment
         );
     }
