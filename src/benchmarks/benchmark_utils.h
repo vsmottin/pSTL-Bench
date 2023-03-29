@@ -9,6 +9,7 @@
 #include <ctime>
 #include <atomic>
 #include <execution>
+#include <functional>
 
 #define CUSTOM_STATISTICS \
     ComputeStatistics("max", [](const std::vector<double>& v) -> double {return *(std::max_element(std::begin(v), std::end(v)));})-> \
@@ -78,7 +79,8 @@ namespace suite {
         );
 
         if (!std::is_same<ExecutionPolicy, std::execution::sequenced_policy>::value) {
-            std::function<bool(T, T)> sort_strategy = std::greater<T>(); // by default sort DESC only if increment do ASC
+            std::function<bool(T,
+                               T)> sort_strategy = std::greater<T>(); // by default sort DESC only if increment do ASC
             if (decrement <= 0) {
                 sort_strategy = std::less<T>();
             }
