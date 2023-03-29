@@ -9,7 +9,7 @@
 #include <ctime>
 #include <atomic>
 #include <execution>
-#include <functional>
+#include <numeric>
 
 #define CUSTOM_STATISTICS \
     ComputeStatistics("max", [](const std::vector<double>& v) -> double {return *(std::max_element(std::begin(v), std::end(v)));})-> \
@@ -69,23 +69,13 @@ namespace suite {
 
         Container generatedVec(size);
 
-        std::atomic<T> n{start_val};
+        std::vector<Size_type> indices(size);
+        std::iota(indices.begin(), indices.end(), 1);
 
-        std::generate(execution_policy,
-                      generatedVec.begin(), generatedVec.end(),
-                      [&n, decrement] {
-                          return n.fetch_sub(decrement);
-                      }
-        );
+        std::transform(execution_policy, indices.begin(), indices.end(), generatedVec.begin(), [=](const auto index) {
+            return start_val - ((index - 1) * decrement);
+        });
 
-        if (!std::is_same<ExecutionPolicy, std::execution::sequenced_policy>::value) {
-            std::function<bool(T,
-                               T)> sort_strategy = std::greater<T>(); // by default sort DESC only if increment do ASC
-            if (decrement <= 0) {
-                sort_strategy = std::less<T>();
-            }
-            std::sort(execution_policy, generatedVec.begin(), generatedVec.end(), sort_strategy);
-        }
 
         return generatedVec;
     }

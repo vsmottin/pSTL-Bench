@@ -58,6 +58,7 @@ static void b1_2_for_each_quadratic_wrapper(benchmark::State &state) {
     constexpr auto inner_execution_policy = InnerPolicy{};
 
     const auto size = state.range(0);
+    // create an array only containing 1's
     const auto input_data = suite::generate_increment<std::execution::parallel_policy, std::vector<double>>(
             std::execution::par, size, 1, 0);
 
@@ -77,7 +78,7 @@ static void b1_2_for_each_quadratic_mandelbrot_wrapper(benchmark::State &state) 
     constexpr auto inner_execution_policy = InnerPolicy{};
 
     const auto size = state.range(0);
-    const auto input_data = suite::generate_increment<std::execution::parallel_policy>(std::execution::par, size, 1, 0);
+    const auto input_data = suite::generate_increment<std::execution::parallel_policy>(std::execution::par, size, 1);
 
     for (auto _: state) {
         B1::b1_2_for_each_quadratic_mandelbrot(outer_execution_policy, inner_execution_policy, input_data);

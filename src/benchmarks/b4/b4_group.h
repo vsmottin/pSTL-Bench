@@ -108,7 +108,7 @@ static void b4_2_stable_sort_cutoff_decrement_sorted_wrapper(benchmark::State &s
 
     const auto &size = static_cast<int>(state.range(0));
 
-    auto already_sorted_vec = suite::generate_decrement<Policy>(execution_policy, size, size + 1, 1);
+    auto already_sorted_vec = suite::generate_decrement<Policy>(execution_policy, size, size, 1);
 
     for (auto _: state) {
         B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);
