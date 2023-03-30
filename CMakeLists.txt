@@ -73,4 +73,4 @@ endif ()
 # we need cassert even in release builds to make sure certain vars are not optimised aways
 string(REPLACE "-DNDEBUG" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 
-target_compile_options(${PROJECT_NAME} PRIVATE -O3)
+target_compile_options(${PROJECT_NAME} PRIVATE -O3 -march=native)
