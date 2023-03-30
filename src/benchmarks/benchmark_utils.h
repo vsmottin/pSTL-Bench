@@ -13,7 +13,18 @@
 
 #define CUSTOM_STATISTICS \
     ComputeStatistics("max", [](const std::vector<double>& v) -> double {return *(std::max_element(std::begin(v), std::end(v)));})-> \
-    ComputeStatistics("min", [](const std::vector<double>& v) -> double {return *(std::min_element(std::begin(v), std::end(v)));})
+    ComputeStatistics("min", [](const std::vector<double>& v) -> double {return *(std::min_element(std::begin(v), std::end(v)));})-> \
+    UseManualTime()
+
+
+
+#define WRAP_TIMING(code) \
+    auto start = std::chrono::high_resolution_clock::now();                                         \
+    code;                                                                                           \
+    auto end = std::chrono::high_resolution_clock::now();                                           \
+    auto elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);  \
+    state.SetIterationTime(elapsed_seconds.count());                                                \
+
 
 
 namespace suite {

@@ -31,12 +31,10 @@ static void b5_1_find_first_entry(benchmark::State &state) {
 
 
     for (auto _: state) {
-        auto find_location = B5::b5_1_find(execution_policy, vec1, 0);
+        WRAP_TIMING(auto find_location = B5::b5_1_find(execution_policy, vec1, 0);)
 
-        state.PauseTiming();
         // make sure the val is really found
         assert(find_location != vec1.end());
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -56,12 +54,10 @@ static void b5_1_find_last_entry(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<Policy, Container>(execution_policy, size, 1);
 
     for (auto _: state) {
-        auto find_location = B5::b5_1_find(execution_policy, vec1, size - 1);
+        WRAP_TIMING(auto find_location = B5::b5_1_find(execution_policy, vec1, size - 1);)
 
-        state.PauseTiming();
         // make sure the val is really found
         assert(find_location != vec1.end());
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -81,12 +77,10 @@ static void b5_1_find_non_existing_entry(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<Policy, Container>(execution_policy, size, 1);
 
     for (auto _: state) {
-        auto find_location = B5::b5_1_find(execution_policy, vec1, -10);
+        WRAP_TIMING(auto find_location = B5::b5_1_find(execution_policy, vec1, -10);)
 
-        state.PauseTiming();
         // make sure the val is really found
         assert(find_location == vec1.end());
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -123,12 +117,10 @@ static void b5_2_partition_wrapper(benchmark::State &state) {
     auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        auto find_location = B5::b5_2_partition(execution_policy, vec1);
+        WRAP_TIMING(auto find_location = B5::b5_2_partition(execution_policy, vec1);)
 
-        state.PauseTiming();
         // simple check so the val will not be optimized aways
         assert(std::distance(find_location, vec1.cend()) >= 0);
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -156,12 +148,10 @@ static void b5_3_unique_copy_default_wrapper(benchmark::State &state) {
     suite::fill_init<Policy>(result, 0);
 
     for (auto _: state) {
-        B5::b5_3_unique_copy_default(execution_policy, vec1, result);
+        WRAP_TIMING(B5::b5_3_unique_copy_default(execution_policy, vec1, result);)
 
-        state.PauseTiming();
         // simple check so the val will not be optimized aways
         assert(result.size() == 1 && result[0] == 1);
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -185,12 +175,10 @@ static void b5_4_minmax_element_all_equal(benchmark::State &state) {
     auto vec1 = suite::generate_increment(execution_policy, size, 1, 0);
 
     for (auto _: state) {
-        const auto res = B5::b5_4_minmax_element(execution_policy, vec1);
+        WRAP_TIMING(const auto res = B5::b5_4_minmax_element(execution_policy, vec1);)
 
-        state.PauseTiming();
         // min = max = 1 because all elements are 1
         assert(*(res.first) == 1 && *(res.second) == 1);
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -210,12 +198,10 @@ static void b5_4_minmax_element_increasing(benchmark::State &state) {
     auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B5::b5_4_minmax_element(execution_policy, vec1);
+        WRAP_TIMING(const auto res = B5::b5_4_minmax_element(execution_policy, vec1);)
 
-        state.PauseTiming();
         // min = max = 1 because all elements are 1
         assert(*(res.first) == 0 && *(res.second) == size - 1);
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html

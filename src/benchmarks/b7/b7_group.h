@@ -33,15 +33,8 @@ static void b7_1_copy(benchmark::State &state) {
     suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
-        auto start = std::chrono::high_resolution_clock::now();
 
-        B7::b7_1_copy(execution_policy, vec1, res);
-
-        auto end = std::chrono::high_resolution_clock::now();
-
-        auto elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
-
-        state.SetIterationTime(elapsed_seconds.count());
+        WRAP_TIMING(B7::b7_1_copy(execution_policy, vec1, res);)
 
         assert(std::equal(vec1.begin(), vec1.end(), res.begin()));
     }
@@ -68,11 +61,9 @@ static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
     const auto &view = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        B7::b7_1_custom_copy_with_foreach(execution_policy, vec1, view, res);
+        WRAP_TIMING(B7::b7_1_custom_copy_with_foreach(execution_policy, vec1, view, res);)
 
-        state.PauseTiming();
         assert(std::equal(vec1.begin(), vec1.end(), res.begin()));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -99,11 +90,9 @@ static void b7_2_all_of_all_true(benchmark::State &state) {
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_2_all_of(execution_policy, vec1, [](const int &val) { return val >= 0; });
+        WRAP_TIMING(const auto res = B7::b7_2_all_of(execution_policy, vec1, [](const int &val) { return val >= 0; });)
 
-        state.PauseTiming();
         assert((res == true));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -123,11 +112,10 @@ static void b7_2_all_of_first_false(benchmark::State &state) {
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_2_all_of(execution_policy, vec1, [](const int &val) { return val > 10000; });
+        WRAP_TIMING(
+                const auto res = B7::b7_2_all_of(execution_policy, vec1, [](const int &val) { return val > 10000; });)
 
-        state.PauseTiming();
         assert((res == false));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -147,11 +135,10 @@ static void b7_2_all_of_last_false(benchmark::State &state) {
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_2_all_of(execution_policy, vec1, [size](const int &val) { return val < size - 1; });
+        WRAP_TIMING(const auto res = B7::b7_2_all_of(execution_policy, vec1,
+                                                     [size](const int &val) { return val < size - 1; });)
 
-        state.PauseTiming();
         assert((res == false));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -171,11 +158,9 @@ static void b7_2_all_of_auto_false(benchmark::State &state) {
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_2_all_of(execution_policy, vec1, [](const int &val) { return false; });
+        WRAP_TIMING(const auto res = B7::b7_2_all_of(execution_policy, vec1, [](const int &val) { return false; });)
 
-        state.PauseTiming();
         assert((res == false));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -216,12 +201,12 @@ static void b7_2_custom_all_of_with_transform_reduce_all_true(benchmark::State &
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
-                                                                      [](const int &val) { return val >= 0; });
+        WRAP_TIMING(const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
+                                                                                  [](const int &val) {
+                                                                                      return val >= 0;
+                                                                                  });)
 
-        state.PauseTiming();
         assert((res == true));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -241,12 +226,12 @@ static void b7_2_custom_all_of_with_transform_reduce_first_false(benchmark::Stat
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
-                                                                      [](const int &val) { return val > 10000; });
+        WRAP_TIMING(const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
+                                                                                  [](const int &val) {
+                                                                                      return val > 10000;
+                                                                                  });)
 
-        state.PauseTiming();
         assert((res == false));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -266,14 +251,12 @@ static void b7_2_custom_all_of_with_transform_reduce_last_false(benchmark::State
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
-                                                                      [size](const int &val) {
-                                                                          return val < size - 1;
-                                                                      });
+        WRAP_TIMING(const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
+                                                                                  [size](const int &val) {
+                                                                                      return val < size - 1;
+                                                                                  });)
 
-        state.PauseTiming();
         assert((res == false));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -293,12 +276,10 @@ static void b7_2_custom_all_of_with_transform_reduce_auto_false(benchmark::State
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
-                                                                      [](const int &val) { return false; });
+        WRAP_TIMING(const auto res = B7::b7_2_custom_all_of_with_transform_reduce(execution_policy, vec1,
+                                                                                  [](const int &val) { return false; });)
 
-        state.PauseTiming();
         assert((res == false));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -344,12 +325,10 @@ static void b7_3_count_if_all_hit(benchmark::State &state) {
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_3_count_if(execution_policy, vec1,
-                                           [](const int &val) { return val >= -1; });
+        WRAP_TIMING(const auto res = B7::b7_3_count_if(execution_policy, vec1,
+                                                       [](const int &val) { return val >= -1; });)
 
-        state.PauseTiming();
         assert((res == size));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -370,12 +349,10 @@ static void b7_3_count_if_half_hit(benchmark::State &state) {
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_3_count_if(execution_policy, vec1,
-                                           [half_size](const int &val) { return val >= half_size; });
+        WRAP_TIMING(const auto res = B7::b7_3_count_if(execution_policy, vec1,
+                                                       [half_size](const int &val) { return val >= half_size; });)
 
-        state.PauseTiming();
         assert((res >= half_size));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -408,12 +385,12 @@ static void b7_3_count_if_orders_struct(benchmark::State &state) {
     //endregion generate order data
 
     for (auto _: state) {
-        const auto res = B7::b7_3_count_if(execution_policy, input_data,
-                                           [](const B7::Orders &val) { return val.price * val.quantity >= cutoff; });
+        WRAP_TIMING(const auto res = B7::b7_3_count_if(execution_policy, input_data,
+                                                       [](const B7::Orders &val) {
+                                                           return val.price * val.quantity >= cutoff;
+                                                       });)
 
-        state.PauseTiming();
         assert((res == expected_result));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -438,12 +415,12 @@ static void b7_3_custom_count_if_with_transform_reduce_all_hit(benchmark::State 
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_3_custom_count_if_with_transform_reduce(execution_policy, vec1,
-                                                                        [](const int &val) { return val >= -1; });
+        WRAP_TIMING(const auto res = B7::b7_3_custom_count_if_with_transform_reduce(execution_policy, vec1,
+                                                                                    [](const int &val) {
+                                                                                        return val >= -1;
+                                                                                    });)
 
-        state.PauseTiming();
         assert((res == size));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -464,14 +441,12 @@ static void b7_3_custom_count_if_with_transform_reduce_half_hit(benchmark::State
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_3_custom_count_if_with_transform_reduce(execution_policy, vec1,
-                                                                        [half_size](const int &val) {
-                                                                            return val >= half_size;
-                                                                        });
+        WRAP_TIMING(const auto res = B7::b7_3_custom_count_if_with_transform_reduce(execution_policy, vec1,
+                                                                                    [half_size](const int &val) {
+                                                                                        return val >= half_size;
+                                                                                    });)
 
-        state.PauseTiming();
         assert((res >= half_size));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -504,14 +479,13 @@ static void b7_3_custom_count_if_with_transform_reduce_orders_struct(benchmark::
     //endregion generate order data
 
     for (auto _: state) {
-        const auto res = B7::b7_3_custom_count_if_with_transform_reduce(execution_policy, input_data,
-                                                                        [](const B7::Orders &val) {
-                                                                            return val.price * val.quantity >= cutoff;
-                                                                        });
+        WRAP_TIMING(const auto res = B7::b7_3_custom_count_if_with_transform_reduce(execution_policy, input_data,
+                                                                                    [](const B7::Orders &val) {
+                                                                                        return val.price *
+                                                                                               val.quantity >= cutoff;
+                                                                                    });)
 
-        state.PauseTiming();
         assert((res == expected_result));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -536,12 +510,10 @@ static void b7_3_custom_count_if_with_for_each_all_hit(benchmark::State &state) 
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_3_custom_count_if_with_for_each(execution_policy, vec1,
-                                                                [](const int &val) { return val >= -1; });
+        WRAP_TIMING(const auto res = B7::b7_3_custom_count_if_with_for_each(execution_policy, vec1,
+                                                                            [](const int &val) { return val >= -1; });)
 
-        state.PauseTiming();
         assert((res == size));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -562,14 +534,12 @@ static void b7_3_custom_count_if_with_for_each_half_hit(benchmark::State &state)
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        const auto res = B7::b7_3_custom_count_if_with_for_each(execution_policy, vec1,
-                                                                [half_size](const int &val) {
-                                                                    return val >= half_size;
-                                                                });
+        WRAP_TIMING(const auto res = B7::b7_3_custom_count_if_with_for_each(execution_policy, vec1,
+                                                                            [half_size](const int &val) {
+                                                                                return val >= half_size;
+                                                                            });)
 
-        state.PauseTiming();
         assert((res >= half_size));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -602,14 +572,13 @@ static void b7_3_custom_count_if_with_for_each_orders_struct(benchmark::State &s
     //endregion generate order data
 
     for (auto _: state) {
-        const auto res = B7::b7_3_custom_count_if_with_for_each(execution_policy, input_data,
-                                                                [](const B7::Orders &val) {
-                                                                    return val.price * val.quantity >= cutoff;
-                                                                });
+        WRAP_TIMING(const auto res = B7::b7_3_custom_count_if_with_for_each(execution_policy, input_data,
+                                                                            [](const B7::Orders &val) {
+                                                                                return val.price * val.quantity >=
+                                                                                       cutoff;
+                                                                            });)
 
-        state.PauseTiming();
         assert((res == expected_result));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -639,11 +608,9 @@ static void b7_4_stencil_transform_number_to_neightbours_stdev(benchmark::State 
     const auto &view = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        B7::b7_4_stencil_transform_number_to_neightbours_stdev(execution_policy, vec1, view, res);
+        WRAP_TIMING(B7::b7_4_stencil_transform_number_to_neightbours_stdev(execution_policy, vec1, view, res);)
 
-        state.PauseTiming();
         assert((res[0] >= 0));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -667,12 +634,10 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
     const auto &view = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        B7::b7_4_stencil_for_each_to_neightbours_stdev(execution_policy, vec1, view, res);
+        WRAP_TIMING(B7::b7_4_stencil_for_each_to_neightbours_stdev(execution_policy, vec1, view, res);)
 
-        state.PauseTiming();
         std::vector res_check = res;
         assert((res_check[0] >= 0));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -699,11 +664,9 @@ static void b7_5_scalar_transform_number(benchmark::State &state) {
     suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
-        B7::b7_5_scalar_transform_number(execution_policy, vec1, res);
+        WRAP_TIMING(B7::b7_5_scalar_transform_number(execution_policy, vec1, res);)
 
-        state.PauseTiming();
         assert((res[0] >= 0));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -728,11 +691,9 @@ static void b7_5_scalar_for_each(benchmark::State &state) {
     const auto &view = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
-        B7::b7_5_scalar_for_each(execution_policy, vec1, view, res);
+        WRAP_TIMING(B7::b7_5_scalar_for_each(execution_policy, vec1, view, res);)
 
-        state.PauseTiming();
         assert((res[0] >= 0));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -762,11 +723,9 @@ static void b7_6_serial_transform_reduce(benchmark::State &state) {
 
 
     for (auto _: state) {
-        const auto res = B7::b7_6_serial_transform_reduce(execution_policy, input_data);
+        WRAP_TIMING(const auto res = B7::b7_6_serial_transform_reduce(execution_policy, input_data);)
 
-        state.PauseTiming();
         assert((res >= 0));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -791,11 +750,9 @@ static void b7_6_transform_reduce(benchmark::State &state) {
 
 
     for (auto _: state) {
-        const auto res = B7::b7_6_transform_reduce(execution_policy, input_data);
+        WRAP_TIMING(const auto res = B7::b7_6_transform_reduce(execution_policy, input_data);)
 
-        state.PauseTiming();
         assert((res >= 0));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -811,7 +768,7 @@ static void b7_6_transform_reduce(benchmark::State &state) {
 #define B7_GROUP_BENCHMARKS \
                             \
         BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
-        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_copy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE)->UseManualTime();     \
+        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_copy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
                             \
                             \
         BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \

@@ -29,11 +29,9 @@ static void b6_1_inclusive_scan_wrapper(benchmark::State &state) {
     suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
-        B6::b6_1_inclusive_scan(execution_policy, vec1, res);
+        WRAP_TIMING(B6::b6_1_inclusive_scan(execution_policy, vec1, res);)
 
-        state.PauseTiming();
         assert(vec1[0] == res[0]);
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -58,15 +56,13 @@ static void b6_2_exclusive_scan_wrapper(benchmark::State &state) {
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     std::vector<int> res(vec1.size());
-    suite::fill_init<Policy>(res,-1);
+    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
-        B6::b6_2_exclusive_scan(execution_policy, vec1, res);
+        WRAP_TIMING(B6::b6_2_exclusive_scan(execution_policy, vec1, res);)
 
-        state.PauseTiming();
         assert((res[0] == 0));
         assert((res[1] == vec1[0]));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
