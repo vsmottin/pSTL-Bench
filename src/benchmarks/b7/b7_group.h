@@ -32,13 +32,18 @@ static void b7_1_copy(benchmark::State &state) {
     suite::int_vec res(size);
     suite::fill_init<Policy>(res, -1);
 
-
     for (auto _: state) {
+        auto start = std::chrono::high_resolution_clock::now();
+
         B7::b7_1_copy(execution_policy, vec1, res);
 
-        state.PauseTiming();
+        auto end = std::chrono::high_resolution_clock::now();
+
+        auto elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
+
+        state.SetIterationTime(elapsed_seconds.count());
+
         assert(std::equal(vec1.begin(), vec1.end(), res.begin()));
-        state.ResumeTiming();
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -806,7 +811,7 @@ static void b7_6_transform_reduce(benchmark::State &state) {
 #define B7_GROUP_BENCHMARKS \
                             \
         BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
-        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_copy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
+        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_copy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE)->UseManualTime();     \
                             \
                             \
         BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
