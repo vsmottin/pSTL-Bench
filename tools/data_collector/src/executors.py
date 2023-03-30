@@ -3,7 +3,7 @@ import os
 import subprocess
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 import utils
 from models import Compiler, Config, Benchmark, BenchmarkType, get_binary_for_compiler
@@ -21,11 +21,15 @@ def generate_error_file(benchmark: Benchmark, compiler: Compiler, config: Config
                         f'{prefix}{benchmark.name}.err')
 
 
-def generate_benchmark_binary_call(benchmark: Benchmark, compiler: Compiler, config: Config) -> str:
+def generate_benchmark_binary_call(benchmark: Benchmark,
+                                   compiler: Compiler,
+                                   config: Config,
+                                   benchmark_repetitions: Optional[int] = None) -> str:
+    reps = config.benchmark_repetitions if benchmark_repetitions is None else benchmark_repetitions
     return ' '.join([
         get_binary_for_compiler(compiler, config),
         f'--benchmark_filter="{benchmark.regex_filter}"',
-        f'--benchmark_repetitions={config.benchmark_repetitions}',
+        f'--benchmark_repetitions={reps}',
         '--benchmark_format="csv"',
     ])
 
@@ -156,7 +160,7 @@ class THREADSExecutor(Executor):
                                     batch_output_filename: str, batch_error_filename: str) -> str:
         number_of_threads = benchmark.params['threads']
 
-        binary_call = generate_benchmark_binary_call(benchmark, compiler, config)
+        binary_call = generate_benchmark_binary_call(benchmark, compiler, config,benchmark_repetitions=100)
 
         file_contents = f"""#! /bin/bash
 #SBATCH -p {config.sbatch.partition}
@@ -168,7 +172,7 @@ class THREADSExecutor(Executor):
 
 export OMP_NUM_THREADS={number_of_threads}
 
-{binary_call}
+{binary_call} --benchmark_min_time=1x
 """
 
         return file_contents
