@@ -12,12 +12,15 @@
 #include "../benchmark_prefix.h"
 #include "../benchmark_utils.h"
 
+#include "../../parallel_allocator.h"
+
 #include "b7_1_copy_vs_for_each.h"
 #include "b7_2_all_off_vs_transform_reduce.h"
 #include "b7_3_count_if_vs_transform_reduce_vs_for_each.h"
 #include "b7_4_stencil_transform_vs_for_each.h"
 #include "b7_5_scalar_transform_vs_for_each.h"
 #include "b7_6_serial_transform_reduce_vs_transform_reduce.h"
+
 
 //region b7_copy_vs_for_each
 
@@ -30,7 +33,8 @@ static void b7_1_copy(benchmark::State &state) {
     // vector with values [0,size)
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
-    suite::int_vec res(size);
+    std::vector<int, suite::numa_allocator<int, Policy>> res(size,
+                                                             suite::numa_allocator<int, Policy>(execution_policy));
     suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
@@ -46,7 +50,7 @@ static void b7_1_copy(benchmark::State &state) {
 
     state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 }
-
+/*
 template<class Policy>
 static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
@@ -764,13 +768,13 @@ static void b7_6_transform_reduce(benchmark::State &state) {
 }
 
 //endregion b7_6_serial_transform_reduce_vs_transform_reduce
-
+*/
 
 #define B7_GROUP_BENCHMARKS \
                             \
         BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_copy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
-                            \
+        //                    \
                             \
         BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b7_1_custom_copy_with_foreach,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_custom_copy_with_foreach_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \

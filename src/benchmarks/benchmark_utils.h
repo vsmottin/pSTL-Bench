@@ -11,6 +11,8 @@
 #include <execution>
 #include <numeric>
 
+#include "../parallel_allocator.h"
+
 #define CUSTOM_STATISTICS \
     ComputeStatistics("max", [](const std::vector<double>& v) -> double {return *(std::max_element(std::begin(v), std::end(v)));})-> \
     ComputeStatistics("min", [](const std::vector<double>& v) -> double {return *(std::min_element(std::begin(v), std::end(v)));})-> \
@@ -30,7 +32,7 @@ namespace suite {
     typedef std::vector<int> int_vec;
 
     template<typename ExecutionPolicy,
-            typename Container = suite::int_vec,
+            typename Container = std::vector<int, suite::numa_allocator<int, ExecutionPolicy>>,
             typename Value_Type = typename Container::value_type>
     void fill_init(Container &container, const Value_Type value) {
         constexpr auto execution_policy = ExecutionPolicy{};
@@ -67,7 +69,7 @@ namespace suite {
      * @param decrement the value to use to decrement
      */
     template<typename ExecutionPolicy,
-            typename Container = suite::int_vec,
+            typename Container = std::vector<int, suite::numa_allocator<int, ExecutionPolicy>>,
             typename T = typename Container::value_type,
             typename Size_type = typename Container::size_type>
     Container
@@ -76,7 +78,8 @@ namespace suite {
                        const T start_val,
                        const T decrement = 1) {
 
-        Container generatedVec(size);
+        const suite::numa_allocator<int, ExecutionPolicy> allocator(execution_policy);
+        Container generatedVec(size, allocator);
 
         std::vector<Size_type> indices(size);
         std::iota(indices.begin(), indices.end(), 1);
@@ -102,7 +105,7 @@ namespace suite {
      * @param increment the increment to use
      */
     template<typename ExecutionPolicy,
-            typename Container = suite::int_vec,
+            typename Container = std::vector<int, suite::numa_allocator<int, ExecutionPolicy>>,
             typename T = typename Container::value_type,
             typename Size_type = typename Container::size_type>
     Container
@@ -122,7 +125,7 @@ namespace suite {
      * @param increment the increment to use
      */
     template<typename ExecutionPolicy,
-            typename Container = suite::int_vec,
+            typename Container = std::vector<int, suite::numa_allocator<int, ExecutionPolicy>>,
             typename T = typename Container::value_type,
             typename Size_type = typename Container::size_type>
     Container

@@ -14,9 +14,9 @@ namespace B7 {
     /**
      * Result must have enough space to store the copied elements
      */
-    template<class ExecutionPolicy>
+    template<class ExecutionPolicy, class T>
     inline void
-    b7_1_copy(ExecutionPolicy &&policy, const std::vector<int> &container, std::vector<int> &result) {
+    b7_1_copy(ExecutionPolicy &&policy, const T &container, T &result) {
 
         std::copy(policy, container.begin(), container.end(), result.begin());
     }
