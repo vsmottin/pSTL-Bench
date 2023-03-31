@@ -1,6 +1,7 @@
 #ifndef MASTER_BENCHMARKS_B1_GROUP_H
 #define MASTER_BENCHMARKS_B1_GROUP_H
 
+#include <chrono>
 #include <execution>
 #include <ranges>
 #include <benchmark/benchmark.h>

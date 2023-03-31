@@ -11,10 +11,6 @@
 #include <execution>
 #include <numeric>
 
-#ifndef __GNUG__
-#include <chrono>
-#endif
-
 #define CUSTOM_STATISTICS \
     ComputeStatistics("max", [](const std::vector<double>& v) -> double {return *(std::max_element(std::begin(v), std::end(v)));})-> \
     ComputeStatistics("min", [](const std::vector<double>& v) -> double {return *(std::min_element(std::begin(v), std::end(v)));})-> \
@@ -26,8 +22,7 @@
     code;                                                                                           \
     auto end = std::chrono::high_resolution_clock::now();                                           \
     auto elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);  \
-    state.SetIterationTime(elapsed_seconds.count());                                                \
-
+    state.SetIterationTime(elapsed_seconds.count());
 
 
 namespace suite {

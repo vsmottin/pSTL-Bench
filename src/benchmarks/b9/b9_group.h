@@ -2,6 +2,7 @@
 #ifndef MASTER_BENCHMARKS_B9_GROUP_H
 #define MASTER_BENCHMARKS_B9_GROUP_H
 
+#include <chrono>
 #include <benchmark/benchmark.h>
 
 #include <execution>
