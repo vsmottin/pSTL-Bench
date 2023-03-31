@@ -13,13 +13,12 @@
 
 #ifndef __GNUG__
 #include <chrono>
-#end
+#endif
 
 #define CUSTOM_STATISTICS \
     ComputeStatistics("max", [](const std::vector<double>& v) -> double {return *(std::max_element(std::begin(v), std::end(v)));})-> \
     ComputeStatistics("min", [](const std::vector<double>& v) -> double {return *(std::min_element(std::begin(v), std::end(v)));})-> \
     UseManualTime()
-
 
 
 #define WRAP_TIMING(code) \
