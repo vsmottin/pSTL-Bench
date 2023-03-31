@@ -70,7 +70,7 @@ def generate_ninja_cmake(compiler: Compiler, configuration: Config) -> None:
                               '-G', 'Ninja',
                               '-DCMAKE_BUILD_TYPE=Release',
                               f'-DBENCHMARK_PREFIX={compiler.name}',
-                              f'-DCMAKE_CXX_FLAGS="{compiler.CXX_FLAGS} -march=native"',
+                              f'-DCMAKE_CXX_FLAGS="{compiler.CXX_FLAGS}"',
                               '-S', configuration.cmake_location,
                               '-B', get_build_artifact_folder_for_compiler(compiler, configuration)
                               ]
