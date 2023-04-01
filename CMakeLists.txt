@@ -20,12 +20,13 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     add_compile_definitions(USE_TBB)
 endif ()
 
-SET(USE_PARALLEL_ALLOCATOR ON)
+option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" ON)
+message("Setting of the USE_PARALLEL_ALLOCATOR FLAG: ${USE_PARALLEL_ALLOCATOR}")
 
 if (USE_PARALLEL_ALLOCATOR)
     message("Using parallel allocator")
     add_compile_definitions(USE_PARALLEL_ALLOCATOR)
-else()
+else ()
     message("Using no allocator")
 endif ()
 
