@@ -48,7 +48,6 @@ def build_binary(compiler: Compiler, configuration: Config) -> None:
     binary_build_args = ['cmake',
                          '--build', build_artifact_folder,
                          '--target', configuration.binary_target,
-                         '-j', '8'
                          ]
 
     start_subprocess_and_log(binary_build_args, prefix=f"{compiler.name}-binary_build",
