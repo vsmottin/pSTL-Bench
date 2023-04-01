@@ -28,7 +28,7 @@ static void b9_1_transform_baseline_wrapper(benchmark::State &state) {
 
     const auto input_data = suite::generate_uniform_dist_vec<Policy>(size, 0, 10);
 
-    std::vector<int> res(size);
+    auto res = suite::get_vec<Policy>(size);
 
     for (auto _: state) {
         WRAP_TIMING(B9::b9_1_transform_baseline(execution_policy, input_data, res);)
@@ -63,7 +63,7 @@ static void b9_2_transform_old_iota_wrapper(benchmark::State &state) {
 
     const auto input_data = suite::generate_uniform_dist_vec<Policy>(size, 0, 10);
 
-    std::vector<int> res(size);
+    auto res = suite::get_vec<Policy>(size);
 
     for (auto _: state) {
         WRAP_TIMING(B9::b9_2_transform_old_iota(execution_policy, input_data, res);)
@@ -98,7 +98,7 @@ static void b9_3_transform_views_iota_wrapper(benchmark::State &state) {
 
     const auto input_data = suite::generate_uniform_dist_vec<Policy>(size, 0, 10);
 
-    std::vector<int> res(size);
+    auto res = suite::get_vec<Policy>(size);
 
     for (auto _: state) {
         WRAP_TIMING(B9::b9_3_transform_views_iota(execution_policy, input_data, res);)
@@ -133,7 +133,7 @@ static void b9_5_transform_custom_iterator_wrapper(benchmark::State &state) {
 
     const auto input_data = suite::generate_uniform_dist_vec<Policy>(size, 0, 10);
 
-    std::vector<int> res(size);
+    auto res = suite::get_vec<Policy>(size);
 
     for (auto _: state) {
         WRAP_TIMING(B9::b9_5_transform_custom_iterator(execution_policy, input_data, res);)
@@ -170,7 +170,7 @@ static void b9_6_transform_boost_wrapper(benchmark::State &state) {
 
     const auto input_data = suite::generate_uniform_dist_vec<Policy>(size, 0, 10);
 
-    std::vector<int> res(size);
+    auto res = suite::get_vec<Policy>(size);
 
     for (auto _: state) {
         WRAP_TIMING(B9::b9_6_transform_boost(execution_policy, input_data, res);)

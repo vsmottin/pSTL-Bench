@@ -8,11 +8,13 @@
 
 namespace B9 {
 
-    template<class ExecutionPolicy>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>
+    >
     inline void
     b9_2_transform_old_iota(ExecutionPolicy &&policy,
-                            const std::vector<int> &input_data,
-                            std::vector<int> &res) {
+                            const suite::int_vec<BASE_POLICY> &input_data,
+                            suite::int_vec<BASE_POLICY> &res) {
 
         std::vector<std::size_t> view(input_data.size());
         std::iota(view.begin(), view.end(), 0); // sadly this cannot be done with parallel stl
