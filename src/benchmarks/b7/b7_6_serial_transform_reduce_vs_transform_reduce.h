@@ -19,10 +19,15 @@ namespace B7 {
         }
     };
 
-    template<class ExecutionPolicy>
+    template<typename Policy>
+    using PIXEL_VEC = suite::vec<Pixel, Policy>;
+
+
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>>
     inline int
     b7_6_serial_transform_reduce(ExecutionPolicy &&policy,
-                                 const std::vector<Pixel> &input_data) {
+                                 const PIXEL_VEC<BASE_POLICY> &input_data) {
 
         std::vector<int> result(input_data.size());
 
@@ -33,10 +38,12 @@ namespace B7 {
         return std::reduce(policy, result.begin(), result.end(), 0, std::plus());
     }
 
-    template<class ExecutionPolicy>
+
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>>
     inline int
     b7_6_transform_reduce(ExecutionPolicy &&policy,
-                          const std::vector<Pixel> &input_data) {
+                          const PIXEL_VEC<BASE_POLICY> &input_data) {
         return std::transform_reduce(policy, input_data.begin(), input_data.end(), 0, std::plus(),
                                      [&](const auto &val) {
                                          return val.sum();
