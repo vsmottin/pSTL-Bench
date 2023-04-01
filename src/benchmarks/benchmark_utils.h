@@ -87,6 +87,32 @@ namespace suite {
     }
 
     /**
+     * Allows to create an empty vector using the allocation strategy configured
+     * @tparam ExecutionPolicy the execution policy to use. Only considered when using the flag `USE_PARALLEL_ALLOCATOR`
+     * @tparam Container the container type to create
+     * @tparam Value_Type the value type of the container
+     * @tparam Size_type the size type of the container
+     * @param size the actual size of the container we want to create
+     * @return  the newly created container
+     */
+    template<typename ExecutionPolicy,
+            typename Container = suite::int_vec<ExecutionPolicy>,
+            typename Value_Type = typename Container::value_type,
+            typename Size_type = typename Container::size_type
+    >
+    Container get_emtpy_vec() {
+#ifdef USE_PARALLEL_ALLOCATOR
+        constexpr auto execution_policy = ExecutionPolicy{};
+
+        const suite::numa_allocator<Value_Type, ExecutionPolicy> allocator(execution_policy);
+        Container vec(allocator);
+#else
+        Container vec;
+#endif
+        return vec;
+    }
+
+    /**
      * Fills the given container with the provided value
      * @tparam ExecutionPolicy the execution policy to use for filling
      * @tparam Container  the container type to fill by default its suit::int_vec
@@ -103,7 +129,7 @@ namespace suite {
     }
 
     template<typename ExecutionPolicy, typename T>
-    std::vector<T>
+    auto
     generate_uniform_dist_vec(const std::size_t &size, const T &lower_bound,
                               const T &upper_bound) {
         constexpr auto execution_policy = ExecutionPolicy{};
