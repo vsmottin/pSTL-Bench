@@ -26,7 +26,7 @@ static void b6_1_inclusive_scan_wrapper(benchmark::State &state) {
     // vector with values [0,size)
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
-    std::vector<int> res(vec1.size());
+    auto res = suite::get_vec<Policy>(vec1.size());
     suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
@@ -56,7 +56,7 @@ static void b6_2_exclusive_scan_wrapper(benchmark::State &state) {
     // vector with values [0,size)
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
-    std::vector<int> res(vec1.size());
+    auto res = suite::get_vec<Policy>(vec1.size());
     suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {

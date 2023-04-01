@@ -8,11 +8,13 @@
 
 namespace B6 {
 
-    template<class ExecutionPolicy>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>
+    >
     inline void
     b6_1_inclusive_scan(ExecutionPolicy &&policy,
-                        const std::vector<int> &container,
-                        std::vector<int> &result) {
+                        const suite::int_vec<BASE_POLICY> &container,
+                        suite::int_vec<BASE_POLICY> &result) {
         std::inclusive_scan(policy, container.begin(), container.end(), result.begin());
     }
 

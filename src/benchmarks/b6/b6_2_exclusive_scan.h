@@ -8,9 +8,13 @@
 
 namespace B6 {
 
-    template<class ExecutionPolicy>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>
+    >
     inline void
-    b6_2_exclusive_scan(ExecutionPolicy &&policy, const std::vector<int> &container, std::vector<int> &result) {
+    b6_2_exclusive_scan(ExecutionPolicy &&policy,
+                        const suite::int_vec<BASE_POLICY> &container,
+                        suite::int_vec<BASE_POLICY> &result) {
         std::exclusive_scan(policy, container.begin(), container.end(), result.begin(), 0);
     }
 
