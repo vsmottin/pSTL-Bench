@@ -21,7 +21,7 @@ template<class Policy>
 static void b1_1_for_each_linear_wrapper(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
-    std::vector<double> x(state.range(0));
+    auto x = suite::get_vec<Policy, suite::double_vec<Policy>>(state.range(0));
     suite::fill_init<Policy>(x, 1);
 
     for (auto _: state) {
@@ -58,10 +58,14 @@ static void b1_2_for_each_quadratic_wrapper(benchmark::State &state) {
     constexpr auto outer_execution_policy = OuterPolicy{};
     constexpr auto inner_execution_policy = InnerPolicy{};
 
+    // we use only parallel here because we will only deal here with parallel combos (aka par_seq or seq_par)
+    constexpr auto generation_policy = std::execution::par;
+    typedef suite::base_type<decltype(generation_policy)> GENERATION_POLICY;
+
     const auto size = state.range(0);
     // create an array only containing 1's
-    const auto input_data = suite::generate_increment<std::execution::parallel_policy, std::vector<double>>(
-            std::execution::par, size, 1, 0);
+    const auto input_data = suite::generate_increment<GENERATION_POLICY, suite::double_vec<GENERATION_POLICY>>(
+            generation_policy, size, 1.0, 0.0);
 
     for (auto _: state) {
         WRAP_TIMING(B1::b1_2_for_each_quadratic(outer_execution_policy, inner_execution_policy, input_data);)
@@ -79,7 +83,7 @@ static void b1_2_for_each_quadratic_mandelbrot_wrapper(benchmark::State &state) 
     constexpr auto inner_execution_policy = InnerPolicy{};
 
     const auto size = state.range(0);
-    const auto input_data = suite::generate_increment<std::execution::parallel_policy>(std::execution::par, size, 1);
+    const auto input_data = suite::generate_increment<InnerPolicy>(inner_execution_policy, size, 1);
 
     for (auto _: state) {
         WRAP_TIMING(B1::b1_2_for_each_quadratic_mandelbrot(outer_execution_policy, inner_execution_policy, input_data);)
@@ -94,13 +98,15 @@ static void b1_2_for_each_quadratic_mandelbrot_wrapper(benchmark::State &state) 
 //endregion b1_2_for_each_quadratic_mandelbrot
 
 
+
 //region b1_4_for_each_exponential
 
 template<class Policy>
 static void b1_4_for_each_exponential_wrapper(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
-    const auto &data = std::ranges::iota_view(1, static_cast<int>(state.range(0)));
+    const auto size = state.range(0);
+    const auto data = suite::generate_increment<Policy>(execution_policy, size, 1);
 
     for (auto _: state) {
         WRAP_TIMING(B1::b1_4_for_each_exponential(execution_policy, data);)

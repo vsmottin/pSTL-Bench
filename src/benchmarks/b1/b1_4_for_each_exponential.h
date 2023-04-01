@@ -13,6 +13,8 @@ namespace B1 {
     template<class ExecutionPolicy>
     struct FIB {
 
+        typedef suite::base_type<ExecutionPolicy> BASE_POLICY;
+
         ExecutionPolicy m_policy;
 
         explicit FIB(ExecutionPolicy &policy) : m_policy(policy) {}
@@ -25,7 +27,10 @@ namespace B1 {
             double value = std::tan(index) + std::cos(index);
             benchmark::DoNotOptimize(value);
 
-            std::vector<int> next{index - 1, index - 2};
+
+            auto next = suite::get_vec<BASE_POLICY>(2);
+            next = {index - 1, index - 2};
+
             std::for_each(m_policy, next.begin(), next.end(), FIB{m_policy});
         }
     };

@@ -56,7 +56,7 @@ namespace suite {
     using int_vec = suite::vec<int, ExecutionPolicy>;
 
     template<typename ExecutionPolicy>
-    using double_vec = std::vector<double, ExecutionPolicy>;
+    using double_vec = suite::vec<double, ExecutionPolicy>;
 
 #endif
 

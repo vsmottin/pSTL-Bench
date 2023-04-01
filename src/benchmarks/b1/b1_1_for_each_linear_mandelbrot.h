@@ -36,7 +36,8 @@ namespace B1 {
 
     template<class ExecutionPolicy>
     inline void
-    b1_1_for_each_linear_mandelbrot(ExecutionPolicy &policy, const std::vector<int> &pixel_x) {
+    b1_1_for_each_linear_mandelbrot(ExecutionPolicy &policy,
+                                    const suite::int_vec<suite::base_type<ExecutionPolicy>> &pixel_x) {
 
         // calculating the 17 row of mandelbrot with an adjustable limit.
         // adjusted from https://github.com/dario-marvin/Mandelbrot/blob/master/Mandelbrot.cc
