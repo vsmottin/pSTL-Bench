@@ -29,6 +29,9 @@
 
 namespace suite {
 
+    template<typename T>
+    using base_type = typename std::remove_cv<typename std::remove_reference<T>::type>::type;
+
 #ifdef USE_PARALLEL_ALLOCATOR
 
     template<typename VALUE_TYPE,
