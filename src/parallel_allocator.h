@@ -4,7 +4,7 @@
 
 // Adapted from:
 //  https://github.com/STEllAR-GROUP/hpx/blob/f4cb39cad8e0ac7478626141166b74dab9f01d52/libs/core/topology/src/topology.cpp
-//  COPYRIGHT FROM THE ROOT OF THIS CLASS
+//  COPYRIGHT FROM THE ROOT OF THIS CLASS CAN BE FOUND BELOW
 //  Copyright (c) 2015 Thomas Heller
 //  Copyright (c) 2015-2022 Hartmut Kaiser
 //
@@ -80,8 +80,8 @@ namespace suite {
             pointer begin = p;
             pointer end = begin + cnt;
 
+            // touch first byte of every object using the given strategy
             std::for_each(execution_policy, begin, end, [](T &val) {
-                // touch first byte of every object
                 *reinterpret_cast<char *>(&val) = 0;
             });
 
@@ -91,7 +91,6 @@ namespace suite {
 
         void deallocate(pointer p, size_type cnt) noexcept {
             ::operator delete(p);
-            return;
         }
 
         // size
@@ -121,6 +120,6 @@ namespace suite {
         Policy const &execution_policy;
 
     };
-}    // namespace hpx::parallel::util
+}
 
 #endif //MASTER_BENCHMARKS_PARALLEL_ALLOCATOR_H
