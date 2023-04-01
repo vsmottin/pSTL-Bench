@@ -33,8 +33,7 @@ static void b7_1_copy(benchmark::State &state) {
     // vector with values [0,size)
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
-    std::vector<int, suite::numa_allocator<int, Policy>> res(size,
-                                                             suite::numa_allocator<int, Policy>(execution_policy));
+    auto res = suite::get_vec<Policy>(size);
     suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {

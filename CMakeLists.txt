@@ -20,7 +20,14 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     add_compile_definitions(USE_TBB)
 endif ()
 
+SET(USE_PARALLEL_ALLOCATOR ON)
 
+if (USE_PARALLEL_ALLOCATOR)
+    message("Using parallel allocator")
+    add_compile_definitions(USE_PARALLEL_ALLOCATOR)
+else()
+    message("Using no allocator")
+endif ()
 
 # region skip boost option
 

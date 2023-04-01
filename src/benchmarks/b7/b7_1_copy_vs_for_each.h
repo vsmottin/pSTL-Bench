@@ -16,7 +16,9 @@ namespace B7 {
      */
     template<class ExecutionPolicy, class T>
     inline void
-    b7_1_copy(ExecutionPolicy &&policy, const T &container, T &result) {
+    b7_1_copy(ExecutionPolicy policy,
+              const suite::vec<T, ExecutionPolicy> &container,
+              suite::vec<T, ExecutionPolicy> &result) {
 
         std::copy(policy, container.begin(), container.end(), result.begin());
     }
