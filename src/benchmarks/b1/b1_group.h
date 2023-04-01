@@ -91,8 +91,8 @@ static void b1_2_for_each_quadratic_mandelbrot_wrapper(benchmark::State &state) 
 }
 
 #define B1_2_FOR_EACH_QUADRATIC_MANDELBROT_WRAPPER(outer) \
-    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_mandelbrot_wrapper,std::execution::sequenced_policy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_mandelbrot_outer_std::execution::sequenced_policy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1<<10, 1<<10); \
-    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_mandelbrot_wrapper,outer,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_mandelbrot_outer_" xstr(outer) "_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1<<10); \
+    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_mandelbrot_wrapper,std::execution::sequenced_policy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_mandelbrot_outer_std::execution::sequenced_policy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1<<13, 1<<13); \
+    BENCHMARK_TEMPLATE2(b1_2_for_each_quadratic_mandelbrot_wrapper,outer,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_2_for_each_quadratic_mandelbrot_outer_" xstr(outer) "_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1<<13); \
 
 
 //endregion b1_2_for_each_quadratic_mandelbrot
