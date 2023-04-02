@@ -170,12 +170,9 @@ namespace suite {
         auto generatedVec = suite::get_vec<ExecutionPolicy, Container>(size);
 
         // this vector of indices does not need to be parallel allocated since it is not performance critical
-        std::vector<Size_type> indices(size);
-        std::iota(indices.begin(), indices.end(), 1);
-
-        std::transform(execution_policy, indices.begin(), indices.end(), generatedVec.begin(), [=](const auto index) {
-            return start_val - ((index - 1) * decrement);
-        });
+        for (Size_type index = 0; index < size; ++index) {
+            generatedVec[index] = start_val - ((index - 1) * decrement);
+        }
 
         return generatedVec;
     }
