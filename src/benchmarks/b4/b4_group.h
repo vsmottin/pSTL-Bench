@@ -33,7 +33,6 @@ static void b4_1_merge_cutoff_wrapper(benchmark::State &state) {
     const auto vec_5_inc = suite::generate_increment<Policy>(execution_policy, size, 5);
 
     auto result = suite::get_vec<Policy>(vec_2_inc.size() + vec_5_inc.size());
-    suite::fill_init<Policy>(result, -1);
 
     for (auto _: state) {
         WRAP_TIMING(B4::b4_1_merge_cutoff(execution_policy, vec_2_inc, vec_5_inc, result);)
@@ -65,8 +64,7 @@ static void b4_2_stable_sort_cutoff_already_sorted_wrapper(benchmark::State &sta
     for (auto _: state) {
         WRAP_TIMING(B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);)
 
-        auto res_check = already_sorted_vec;
-        assert(res_check[0] <= res_check[1]);
+        assert(already_sorted_vec[0] <= already_sorted_vec[1]);
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -108,8 +106,7 @@ static void b4_2_stable_sort_cutoff_decrement_sorted_wrapper(benchmark::State &s
     for (auto _: state) {
         WRAP_TIMING(B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);)
 
-        auto res_check = already_sorted_vec;
-        assert(res_check[0] <= res_check[1]);
+        assert(already_sorted_vec[0] <= already_sorted_vec[1]);
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -134,14 +131,12 @@ static void b4_3_set_union_cutoff_one_empty(benchmark::State &state) {
     const auto empty_vec = suite::get_emtpy_vec<Policy>();
 
     auto res = suite::get_vec<Policy>(already_sorted_vec.size());
-    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
         WRAP_TIMING(B4::b4_3_set_union_cutoff(execution_policy, already_sorted_vec, empty_vec, res);)
 
-        auto res_check = res;
-        assert(res_check[0] <= res_check[1]);
-        assert(res_check.size() <= already_sorted_vec.size() + empty_vec.size());
+        assert(res[0] <= res[1]);
+        assert(res.size() <= already_sorted_vec.size() + empty_vec.size());
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -169,9 +164,8 @@ static void b4_3_set_union_cutoff_one_wholly_greater(benchmark::State &state) {
                                               already_sorted_vec_size_to_2size,
                                               res);)
 
-        auto res_check = res;
-        assert(res_check[0] <= res_check[1]);
-        assert(res_check.size() <= already_sorted_vec_size_to_2size.size() + already_sorted_vec_0_to_size.size());
+        assert(res[0] <= res[1]);
+        assert(res.size() <= already_sorted_vec_size_to_2size.size() + already_sorted_vec_0_to_size.size());
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -196,9 +190,8 @@ static void b4_3_set_union_cutoff_front_overhang(benchmark::State &state) {
     for (auto _: state) {
         WRAP_TIMING(B4::b4_3_set_union_cutoff(execution_policy, vec1, vec2, res);)
 
-        auto res_check = res;
-        assert(res_check[0] <= res_check[1]);
-        assert(res_check.size() <= vec2.size() + vec1.size());
+        assert(res[0] <= res[1]);
+        assert(res.size() <= vec2.size() + vec1.size());
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -257,9 +250,8 @@ static void b4_4_set_difference_cutoff_right_empty(benchmark::State &state) {
     for (auto _: state) {
         WRAP_TIMING(B4::b4_4_set_difference_cutoff(execution_policy, vec1, empty_vec, res);)
 
-        auto res_check = res;
-        assert(res_check[0] <= res_check[1]);
-        assert(res_check.size() == vec1.size());
+        assert(res[0] <= res[1]);
+        assert(res.size() == vec1.size());
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -285,9 +277,8 @@ static void b4_4_set_difference_cutoff_wholly_greater(benchmark::State &state) {
     for (auto _: state) {
         WRAP_TIMING(B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2, res);)
 
-        auto res_check = res;
-        assert(res_check[0] <= res_check[1]);
-        assert(res_check.size() == vec1.size());
+        assert(res[0] <= res[1]);
+        assert(res.size() == vec1.size());
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -311,10 +302,9 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
 
     for (auto _: state) {
         WRAP_TIMING(B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2, res);)
-
-        auto res_check = res;
-        assert(res_check.size() >= 2);
-        assert(res_check[res_check.size() - 1] == 0);
+        
+        assert(res.size() >= 2);
+        assert(res[res.size() - 1] == 0);
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html

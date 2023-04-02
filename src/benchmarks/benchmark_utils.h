@@ -10,6 +10,7 @@
 #include <atomic>
 #include <execution>
 #include <numeric>
+#include <iostream>
 
 #include "../parallel_allocator.h"
 
@@ -171,7 +172,7 @@ namespace suite {
 
         // this vector of indices does not need to be parallel allocated since it is not performance critical
         for (Size_type index = 0; index < size; ++index) {
-            generatedVec[index] = start_val - ((index - 1) * decrement);
+            generatedVec[index] = start_val - (index * decrement);
         }
 
         return generatedVec;

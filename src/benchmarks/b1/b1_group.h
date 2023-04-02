@@ -22,7 +22,7 @@ static void b1_1_for_each_linear_wrapper(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
     auto x = suite::get_vec<Policy, suite::double_vec<Policy>>(state.range(0));
-    suite::fill_init<Policy>(x, 1);
+    suite::fill_init<Policy>(x, 1.0);
 
     for (auto _: state) {
         WRAP_TIMING(B1::b1_1_for_each_linear(execution_policy, x);)

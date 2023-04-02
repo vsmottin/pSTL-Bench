@@ -34,7 +34,6 @@ static void b7_1_copy(benchmark::State &state) {
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     auto res = suite::get_vec<Policy>(size);
-    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
 
@@ -60,7 +59,6 @@ static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
     auto res = suite::get_vec<Policy>(size);
-    suite::fill_init<Policy>(res, -1);
 
     const auto &view = suite::generate_increment(execution_policy, size, 1);
 
@@ -639,8 +637,7 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
     for (auto _: state) {
         WRAP_TIMING(B7::b7_4_stencil_for_each_to_neightbours_stdev(execution_policy, vec1, view, res);)
 
-        std::vector res_check = res;
-        assert((res_check[0] >= 0));
+        assert((res[0] >= 0));
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -664,7 +661,6 @@ static void b7_5_scalar_transform_number(benchmark::State &state) {
     const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
 
     auto res = suite::get_vec<Policy>(size);
-    suite::fill_init<Policy>(res, -1);
 
     for (auto _: state) {
         WRAP_TIMING(B7::b7_5_scalar_transform_number(execution_policy, vec1, res);)
@@ -689,7 +685,6 @@ static void b7_5_scalar_for_each(benchmark::State &state) {
     const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
 
     auto res = suite::get_vec<Policy>(size);
-    suite::fill_init<Policy>(res, -1);
 
     const auto &view = suite::generate_increment(execution_policy, size, 1);
 

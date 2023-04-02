@@ -121,7 +121,7 @@ static void b5_2_partition_wrapper(benchmark::State &state) {
         WRAP_TIMING(auto find_location = B5::b5_2_partition(execution_policy, vec1);)
 
         // simple check so the val will not be optimized aways
-        assert(std::distance(find_location, vec1.cend()) >= 0);
+        assert(*find_location >= 0);
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
