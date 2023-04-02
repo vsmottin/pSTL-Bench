@@ -30,6 +30,9 @@ namespace suite {
     template<typename T, typename Policy>
     class numa_allocator {
 
+        using POLICY_BASE_TYPE = std::remove_cv<typename std::remove_reference<Policy>::type>::type;
+        using IS_SEQ = std::is_same<POLICY_BASE_TYPE, std::execution::sequenced_policy>;
+
     public:
         // typedefs
         using value_type = T;
@@ -76,6 +79,12 @@ namespace suite {
         pointer allocate(size_type cnt, void const * = nullptr) {
             // allocate memory
             auto p = static_cast<pointer>(::operator new(cnt * sizeof(T)));
+
+            // early exit when we use std::execution::seq because it would be waste of time to seq touch it
+            // this already happens by default since vector gets 0 initialized
+            if constexpr (IS_SEQ::value) {
+                return p;
+            }
 
             pointer begin = p;
             pointer end = begin + cnt;
