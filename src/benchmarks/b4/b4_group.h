@@ -32,8 +32,7 @@ static void b4_1_merge_cutoff_wrapper(benchmark::State &state) {
     const auto vec_2_inc = suite::generate_increment<Policy>(execution_policy, size, 2);
     const auto vec_5_inc = suite::generate_increment<Policy>(execution_policy, size, 5);
 
-    std::vector<int> result(vec_2_inc.size() + vec_5_inc.size());
-    suite::fill_init<Policy>(result, -1);
+    auto result = suite::get_vec<Policy>(vec_2_inc.size() + vec_5_inc.size());
 
     for (auto _: state) {
         WRAP_TIMING(B4::b4_1_merge_cutoff(execution_policy, vec_2_inc, vec_5_inc, result);)
@@ -65,8 +64,7 @@ static void b4_2_stable_sort_cutoff_already_sorted_wrapper(benchmark::State &sta
     for (auto _: state) {
         WRAP_TIMING(B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);)
 
-        std::vector res_check = already_sorted_vec;
-        assert(res_check[0] <= res_check[1]);
+        assert(already_sorted_vec[0] <= already_sorted_vec[1]);
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -108,8 +106,7 @@ static void b4_2_stable_sort_cutoff_decrement_sorted_wrapper(benchmark::State &s
     for (auto _: state) {
         WRAP_TIMING(B4::b4_2_stable_sort_cutoff(execution_policy, already_sorted_vec);)
 
-        std::vector<int> res_check = already_sorted_vec;
-        assert(res_check[0] <= res_check[1]);
+        assert(already_sorted_vec[0] <= already_sorted_vec[1]);
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -131,17 +128,15 @@ static void b4_3_set_union_cutoff_one_empty(benchmark::State &state) {
     const auto &size = state.range(0);
 
     const auto already_sorted_vec = suite::generate_increment<Policy>(execution_policy, size, 1);
-    const std::vector<int> empty_vec;
+    const auto empty_vec = suite::get_emtpy_vec<Policy>();
 
-    std::vector<int> res(already_sorted_vec.size());
-    suite::fill_init<Policy>(res, -1);
+    auto res = suite::get_vec<Policy>(already_sorted_vec.size());
 
     for (auto _: state) {
         WRAP_TIMING(B4::b4_3_set_union_cutoff(execution_policy, already_sorted_vec, empty_vec, res);)
 
-        std::vector<int> res_check = res;
-        assert(res_check[0] <= res_check[1]);
-        assert(res_check.size() <= already_sorted_vec.size() + empty_vec.size());
+        assert(res[0] <= res[1]);
+        assert(res.size() <= already_sorted_vec.size() + empty_vec.size());
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -161,7 +156,7 @@ static void b4_3_set_union_cutoff_one_wholly_greater(benchmark::State &state) {
     const auto already_sorted_vec_0_to_size = suite::generate_increment<Policy>(execution_policy, size, 1);
     const auto already_sorted_vec_size_to_2size = suite::generate_increment<Policy>(execution_policy, size, size, 1);
 
-    std::vector<int> res(already_sorted_vec_0_to_size.size() + already_sorted_vec_size_to_2size.size());
+    auto res = suite::get_vec<Policy>(already_sorted_vec_0_to_size.size() + already_sorted_vec_size_to_2size.size());
 
     for (auto _: state) {
         WRAP_TIMING(B4::b4_3_set_union_cutoff(execution_policy,
@@ -169,9 +164,8 @@ static void b4_3_set_union_cutoff_one_wholly_greater(benchmark::State &state) {
                                               already_sorted_vec_size_to_2size,
                                               res);)
 
-        std::vector res_check = res;
-        assert(res_check[0] <= res_check[1]);
-        assert(res_check.size() <= already_sorted_vec_size_to_2size.size() + already_sorted_vec_0_to_size.size());
+        assert(res[0] <= res[1]);
+        assert(res.size() <= already_sorted_vec_size_to_2size.size() + already_sorted_vec_0_to_size.size());
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -191,14 +185,13 @@ static void b4_3_set_union_cutoff_front_overhang(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
     const auto vec2 = suite::generate_increment<Policy>(execution_policy, size, size / 2, 1);
 
-    std::vector<int> res(vec1.size() + vec2.size());
+    auto res = suite::get_vec<Policy>(vec1.size() + vec2.size());
 
     for (auto _: state) {
         WRAP_TIMING(B4::b4_3_set_union_cutoff(execution_policy, vec1, vec2, res);)
 
-        std::vector<int> res_check = res;
-        assert(res_check[0] <= res_check[1]);
-        assert(res_check.size() <= vec2.size() + vec1.size());
+        assert(res[0] <= res[1]);
+        assert(res.size() <= vec2.size() + vec1.size());
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -222,10 +215,10 @@ static void b4_4_set_difference_cutoff_left_empty(benchmark::State &state) {
     // since the left vector is empty we know the difference can only be empty
     // this test simply checks if this simple check is really done or parallel execution just started.
     const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
-    const std::vector<int> empty_vec{};
+    const auto empty_vec = suite::get_emtpy_vec<Policy>();
 
     constexpr auto unrealistic_number = -9999;
-    std::vector<int> res(vec1.size());
+    auto res = suite::get_vec<Policy>(vec1.size());
     suite::fill_init<Policy>(res, unrealistic_number);
 
     for (auto _: state) {
@@ -250,16 +243,15 @@ static void b4_4_set_difference_cutoff_right_empty(benchmark::State &state) {
     // since the right vector is empty we know the difference is the left vector
     // this should result in a copy of the vec1.
     const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
-    std::vector<int> empty_vec{};
+    const auto empty_vec = suite::get_emtpy_vec<Policy>();
 
-    std::vector<int> res(vec1.size());
+    auto res = suite::get_vec<Policy>(vec1.size());
 
     for (auto _: state) {
         WRAP_TIMING(B4::b4_4_set_difference_cutoff(execution_policy, vec1, empty_vec, res);)
 
-        std::vector res_check = res;
-        assert(res_check[0] <= res_check[1]);
-        assert(res_check.size() == vec1.size());
+        assert(res[0] <= res[1]);
+        assert(res.size() == vec1.size());
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -280,14 +272,13 @@ static void b4_4_set_difference_cutoff_wholly_greater(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
     const auto vec2 = suite::generate_increment<Policy>(execution_policy, size, size + 2, 1);
 
-    std::vector<int> res(vec1.size());
+    auto res = suite::get_vec<Policy>(vec1.size());
 
     for (auto _: state) {
         WRAP_TIMING(B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2, res);)
 
-        std::vector res_check = res;
-        assert(res_check[0] <= res_check[1]);
-        assert(res_check.size() == vec1.size());
+        assert(res[0] <= res[1]);
+        assert(res.size() == vec1.size());
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -307,14 +298,13 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
     const auto vec1 = suite::generate_increment<Policy>(execution_policy, size, 1);
     const auto vec2 = suite::generate_increment<Policy>(execution_policy, size, 1);
 
-    std::vector<int> res(vec1.size());
+    auto res = suite::get_vec<Policy>(vec1.size());
 
     for (auto _: state) {
         WRAP_TIMING(B4::b4_4_set_difference_cutoff(execution_policy, vec1, vec2, res);)
-
-        std::vector res_check = res;
-        assert(res_check.size() >= 2);
-        assert(res_check[res_check.size() - 1] == 0);
+        
+        assert(res.size() >= 2);
+        assert(res[res.size() - 1] == 0);
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html

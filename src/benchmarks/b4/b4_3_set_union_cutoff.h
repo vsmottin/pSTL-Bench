@@ -7,12 +7,13 @@
 
 namespace B4 {
 
-    template<class ExecutionPolicy>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>>
     inline void
     b4_3_set_union_cutoff(ExecutionPolicy &&policy,
-                          const std::vector<int> &v1,
-                          const std::vector<int> &v2,
-                          std::vector<int> &result) {
+                          const suite::int_vec<BASE_POLICY> &v1,
+                          const suite::int_vec<BASE_POLICY> &v2,
+                          suite::int_vec<BASE_POLICY> &result) {
         std::set_union(policy, v1.begin(), v1.end(), v2.begin(), v2.end(), result.begin());
     }
 

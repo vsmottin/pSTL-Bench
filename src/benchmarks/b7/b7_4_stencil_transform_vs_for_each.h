@@ -10,12 +10,16 @@
 
 namespace B7 {
 
-    template<class ExecutionPolicy, typename View>
+
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>,
+            typename View
+    >
     inline void
     b7_4_stencil_transform_number_to_neightbours_stdev(ExecutionPolicy &&policy,
-                                                       const std::vector<int> &input_data,
+                                                       const suite::int_vec<BASE_POLICY> &input_data,
                                                        const View &view,
-                                                       std::vector<double> &result) {
+                                                       suite::double_vec<BASE_POLICY> &result) {
 
 
         std::transform(policy, view.begin(), view.end() - 2, result.begin(), [&](const auto &index) {
@@ -33,12 +37,15 @@ namespace B7 {
         });
     }
 
-    template<class ExecutionPolicy, typename View>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>,
+            typename View
+    >
     inline void
     b7_4_stencil_for_each_to_neightbours_stdev(ExecutionPolicy &&policy,
-                                               const std::vector<int> &input_data,
+                                               const suite::int_vec<BASE_POLICY> &input_data,
                                                const View &view,
-                                               std::vector<double> &result) {
+                                               suite::double_vec<BASE_POLICY> &result) {
 
         std::for_each(policy, view.begin(), view.end() - 2, [&](const auto &index) {
 

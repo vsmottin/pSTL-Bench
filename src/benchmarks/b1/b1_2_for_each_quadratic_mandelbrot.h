@@ -33,7 +33,7 @@ namespace B1 {
     inline void
     b1_2_for_each_quadratic_mandelbrot(OuterExecutionPolicy &&outerExecutionPolicy,
                                        InnerExecutionPolicy &&innerExecutionPolicy,
-                                       const std::vector<int> &input_data) {
+                                       const suite::int_vec<suite::base_type<InnerExecutionPolicy>> &input_data) {
 
         const auto width = input_data.size();
         const auto heigth = input_data.size();

@@ -7,23 +7,28 @@
 
 namespace B7 {
 
-    template<class ExecutionPolicy>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>
+    >
     inline void
     b7_5_scalar_transform_number(ExecutionPolicy &&policy,
-                                 const std::vector<int> &input_data,
-                                 std::vector<int> &result) {
+                                 const suite::int_vec<BASE_POLICY> &input_data,
+                                 suite::int_vec<BASE_POLICY> &result) {
 
         std::transform(policy, input_data.begin(), input_data.end(), result.begin(), [&](const auto &val) {
             return val * 3 + 10;
         });
     }
 
-    template<class ExecutionPolicy, typename View>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>,
+            typename View
+    >
     inline void
     b7_5_scalar_for_each(ExecutionPolicy &&policy,
-                         const std::vector<int> &input_data,
+                         const suite::int_vec<BASE_POLICY> &input_data,
                          const View &view,
-                         std::vector<int> &result) {
+                         suite::int_vec<BASE_POLICY> &result) {
 
         std::for_each(policy, view.begin(), view.end(), [&](const auto &index) {
             result[index] = input_data[index] * 3 + 10;

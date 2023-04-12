@@ -6,7 +6,7 @@
 #include <algorithm>
 
 namespace B9 {
-    
+
     namespace CustomIterator {
 
         // copied from https://github.com/UoB-HPC/cloverleaf_stdpar/blob/5f17b03982f059765684b568cc93a95591c84905/src/utils.hpp
@@ -92,11 +92,13 @@ namespace B9 {
 
     }
 
-    template<class ExecutionPolicy>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>
+    >
     inline void
     b9_5_transform_custom_iterator(ExecutionPolicy &&policy,
-                                   const std::vector<int> &input_data,
-                                   std::vector<int> &res) {
+                                   const suite::int_vec<BASE_POLICY> &input_data,
+                                   suite::int_vec<BASE_POLICY> &res) {
 
         auto view = B9::CustomIterator::range<int>(0, input_data.size());
 

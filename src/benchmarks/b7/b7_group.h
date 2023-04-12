@@ -12,12 +12,15 @@
 #include "../benchmark_prefix.h"
 #include "../benchmark_utils.h"
 
+#include "../../parallel_allocator.h"
+
 #include "b7_1_copy_vs_for_each.h"
 #include "b7_2_all_off_vs_transform_reduce.h"
 #include "b7_3_count_if_vs_transform_reduce_vs_for_each.h"
 #include "b7_4_stencil_transform_vs_for_each.h"
 #include "b7_5_scalar_transform_vs_for_each.h"
 #include "b7_6_serial_transform_reduce_vs_transform_reduce.h"
+
 
 //region b7_copy_vs_for_each
 
@@ -30,8 +33,7 @@ static void b7_1_copy(benchmark::State &state) {
     // vector with values [0,size)
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
-    suite::int_vec res(size);
-    suite::fill_init<Policy>(res, -1);
+    auto res = suite::get_vec<Policy>(size);
 
     for (auto _: state) {
 
@@ -56,8 +58,7 @@ static void b7_1_custom_copy_with_foreach(benchmark::State &state) {
     // vector with values [0,size)
     const auto vec1 = suite::generate_increment(execution_policy, size, 1);
 
-    suite::int_vec res(size);
-    suite::fill_init<Policy>(res, -1);
+    auto res = suite::get_vec<Policy>(size);
 
     const auto &view = suite::generate_increment(execution_policy, size, 1);
 
@@ -376,7 +377,7 @@ static void b7_3_count_if_orders_struct(benchmark::State &state) {
     // we calculate the number of elements that satisfy condition (val.price * val.quantity >= cutoff)
     const auto expected_result = std::max(size - (cutoff / default_quantity), static_cast<decltype(size)>(0));
 
-    std::vector<B7::Orders> input_data(size);
+    auto input_data = suite::get_vec<Policy, suite::vec<B7::Orders, Policy>>(size);
 
     std::atomic<std::size_t> n{0};
     const auto values = suite::generate_increment(execution_policy, size, 1);
@@ -469,8 +470,7 @@ static void b7_3_custom_count_if_with_transform_reduce_orders_struct(benchmark::
 
     // we calculate the number of elements that satisfy condition (val.price * val.quantity >= cutoff)
     const auto expected_result = std::max(size - (cutoff / default_quantity), static_cast<decltype(size)>(0));
-
-    std::vector<B7::Orders> input_data(size);
+    auto input_data = suite::get_vec<Policy, suite::vec<B7::Orders, Policy>>(size);
 
     std::atomic<int> n{0};
     const auto values = suite::generate_increment(execution_policy, size, 1);
@@ -562,8 +562,7 @@ static void b7_3_custom_count_if_with_for_each_orders_struct(benchmark::State &s
 
     // we calculate the number of elements that satisfy condition (val.price * val.quantity >= cutoff)
     const auto expected_result = std::max(size - (cutoff / default_quantity), static_cast<decltype(size)>(0));
-
-    std::vector<B7::Orders> input_data(size);
+    auto input_data = suite::get_vec<Policy, suite::vec<B7::Orders, Policy>>(size);
 
     std::atomic<int> n{0};
     const auto values = suite::generate_increment(execution_policy, size, 1);
@@ -593,6 +592,7 @@ static void b7_3_custom_count_if_with_for_each_orders_struct(benchmark::State &s
 
 //endregion b7_3_count_if_vs_transform_reduce
 
+
 //region b7_4_stencil_transform_vs_for_each
 
 template<class Policy>
@@ -604,7 +604,7 @@ static void b7_4_stencil_transform_number_to_neightbours_stdev(benchmark::State 
     // vector with values [0,size)
     const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
 
-    std::vector<double> res(size - 1);
+    auto res = suite::get_vec<Policy, suite::double_vec<Policy>>(size - 1);
 
     const auto &view = suite::generate_increment(execution_policy, size, 1);
 
@@ -629,7 +629,7 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
 
     // vector with values [0,size)
     const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
-    std::vector<double> res(size - 1);
+    auto res = suite::get_vec<Policy, suite::double_vec<Policy>>(size - 1);
 
     //const auto &view = std::views::iota(0, static_cast<int>(vec1.size()));
     const auto &view = suite::generate_increment(execution_policy, size, 1);
@@ -637,8 +637,7 @@ static void b7_4_stencil_for_each_to_neightbours_stdev(benchmark::State &state) 
     for (auto _: state) {
         WRAP_TIMING(B7::b7_4_stencil_for_each_to_neightbours_stdev(execution_policy, vec1, view, res);)
 
-        std::vector res_check = res;
-        assert((res_check[0] >= 0));
+        assert((res[0] >= 0));
     }
 
     // https://ccfd.github.io/courses/hpc_lab01.html
@@ -660,9 +659,8 @@ static void b7_5_scalar_transform_number(benchmark::State &state) {
 
     // vector with values [0,size)
     const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
-    std::vector<int> res(size);
 
-    suite::fill_init<Policy>(res, -1);
+    auto res = suite::get_vec<Policy>(size);
 
     for (auto _: state) {
         WRAP_TIMING(B7::b7_5_scalar_transform_number(execution_policy, vec1, res);)
@@ -686,8 +684,7 @@ static void b7_5_scalar_for_each(benchmark::State &state) {
     // vector with values [0,size)
     const auto vec1 = suite::generate_uniform_dist_vec<Policy>(size, 1, 100);
 
-    std::vector<int> res(size);
-    suite::fill_init<Policy>(res, -1);
+    auto res = suite::get_vec<Policy>(size);
 
     const auto &view = suite::generate_increment(execution_policy, size, 1);
 
@@ -716,9 +713,9 @@ static void b7_6_serial_transform_reduce(benchmark::State &state) {
     const auto &size = state.range(0);
 
     // vector with values [0,size)
-    const auto values = suite::generate_uniform_dist_vec<Policy>(size, 1, 10);
+    const auto values = suite::generate_uniform_dist_vec<Policy>(2, 1, 10);
 
-    std::vector<B7::Pixel> input_data(size);
+    auto input_data = suite::get_vec<Policy, suite::vec<B7::Pixel, Policy>>(size);
     std::generate(execution_policy, input_data.begin(), input_data.end(),
                   [n = 0, &values]() { return B7::Pixel{values[n], values[n], values[n]}; });
 
@@ -745,7 +742,7 @@ static void b7_6_transform_reduce(benchmark::State &state) {
     // vector with values [0,size)
     const auto values = suite::generate_uniform_dist_vec<Policy>(size, 1, 10);
 
-    std::vector<B7::Pixel> input_data(size);
+    auto input_data = suite::get_vec<Policy, suite::vec<B7::Pixel, Policy>>(size);
     std::generate(execution_policy, input_data.begin(), input_data.end(),
                   [n = 0, &values]() { return B7::Pixel{values[n], values[n], values[n]}; });
 
@@ -764,7 +761,6 @@ static void b7_6_transform_reduce(benchmark::State &state) {
 }
 
 //endregion b7_6_serial_transform_reduce_vs_transform_reduce
-
 
 #define B7_GROUP_BENCHMARKS \
                             \

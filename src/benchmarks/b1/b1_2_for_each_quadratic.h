@@ -8,12 +8,12 @@
 
 
 namespace B1 {
-    
-    template<class OuterExecutionPolicy, class InnerExecutionPolicy>
+
+    template<class OuterExecutionPolicy, class InnerExecutionPolicy, typename T>
     inline void
-    b1_2_for_each_quadratic(OuterExecutionPolicy &&outerExecutionPolicy,
-                            InnerExecutionPolicy &&innerExecutionPolicy,
-                            const std::vector<double> &input_data) {
+    b1_2_for_each_quadratic(OuterExecutionPolicy outerExecutionPolicy,
+                            InnerExecutionPolicy innerExecutionPolicy,
+                            const T &input_data) {
 
         // quite straight forward std::for_each. The body of the lambda has no intention behind it, the goal was just
         // to have a big enough computation that takes some amount of time.

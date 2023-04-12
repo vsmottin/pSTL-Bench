@@ -10,11 +10,13 @@
 
 namespace B9 {
 
-    template<class ExecutionPolicy>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>
+    >
     inline void
     b9_6_transform_boost(ExecutionPolicy &&policy,
-                         const std::vector<int> &input_data,
-                         std::vector<int> &res) {
+                         const suite::int_vec<BASE_POLICY> &input_data,
+                         suite::int_vec<BASE_POLICY> &res) {
 
         std::transform(policy,
                        boost::counting_iterator<int>(0),

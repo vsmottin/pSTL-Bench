@@ -8,8 +8,10 @@
 
 namespace B5 {
 
-    template<class ExecutionPolicy>
-    inline std::vector<int>::const_iterator b5_2_partition(ExecutionPolicy &&policy, std::vector<int> &container) {
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>>
+    inline suite::int_vec<BASE_POLICY>::const_iterator
+    b5_2_partition(ExecutionPolicy &&policy, suite::int_vec<BASE_POLICY> &container) {
 
         return std::partition(policy, container.begin(), container.end(), [](const auto &a) {
             const auto b = a + 2;

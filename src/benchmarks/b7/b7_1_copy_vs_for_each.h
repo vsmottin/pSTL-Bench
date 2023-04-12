@@ -14,9 +14,14 @@ namespace B7 {
     /**
      * Result must have enough space to store the copied elements
      */
-    template<class ExecutionPolicy>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>,
+            typename T
+    >
     inline void
-    b7_1_copy(ExecutionPolicy &&policy, const std::vector<int> &container, std::vector<int> &result) {
+    b7_1_copy(ExecutionPolicy &&policy,
+              const suite::vec<T, BASE_POLICY> &container,
+              suite::vec<T, BASE_POLICY> &result) {
 
         std::copy(policy, container.begin(), container.end(), result.begin());
     }
@@ -28,12 +33,15 @@ namespace B7 {
     /**
      * Result must have enough space to store the copied elements
      */
-    template<class ExecutionPolicy, typename View>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>,
+            typename View
+    >
     inline void
     b7_1_custom_copy_with_foreach(ExecutionPolicy &&policy,
-                                  const std::vector<int> &container,
+                                  const suite::int_vec<BASE_POLICY> &container,
                                   const View &view,
-                                  std::vector<int> &result) {
+                                  suite::int_vec<BASE_POLICY> &result) {
 
         std::for_each(policy, view.begin(), view.end(), [&](const auto &index) {
             result[index] = container[index];

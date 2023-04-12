@@ -7,9 +7,10 @@
 
 namespace B4 {
 
-    template<class ExecutionPolicy>
+    template<class ExecutionPolicy,
+            typename base_policy = typename suite::base_type<ExecutionPolicy>>
     inline void
-    b4_2_stable_sort_cutoff(ExecutionPolicy &&policy, std::vector<int> &input_data) {
+    b4_2_stable_sort_cutoff(ExecutionPolicy &&policy, suite::int_vec<base_policy> &input_data) {
 
         std::stable_sort(policy, input_data.begin(), input_data.end());
 

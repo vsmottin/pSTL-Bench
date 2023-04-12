@@ -160,7 +160,7 @@ class THREADSExecutor(Executor):
                                     batch_output_filename: str, batch_error_filename: str) -> str:
         number_of_threads = benchmark.params['threads']
 
-        binary_call = generate_benchmark_binary_call(benchmark, compiler, config,benchmark_repetitions=100)
+        binary_call = generate_benchmark_binary_call(benchmark, compiler, config)
 
         file_contents = f"""#! /bin/bash
 #SBATCH -p {config.sbatch.partition}
@@ -172,7 +172,7 @@ class THREADSExecutor(Executor):
 
 export OMP_NUM_THREADS={number_of_threads}
 
-{binary_call} --benchmark_min_time=1x
+{binary_call}
 """
 
         return file_contents
