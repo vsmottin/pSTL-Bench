@@ -3,7 +3,7 @@
 #define MASTER_BENCHMARKS_PARALLEL_ALLOCATOR_H
 
 // Adapted from:
-//  https://github.com/STEllAR-GROUP/hpx/blob/f4cb39cad8e0ac7478626141166b74dab9f01d52/libs/core/topology/src/topology.cpp
+//  https://github.com/STEllAR-GROUP/hpx/blob/fe048ee6e01abedad0a60a0fdc204116419871c3/libs/core/compute_local/include/hpx/compute_local/host/numa_allocator.hpp
 //  COPYRIGHT FROM THE ROOT OF THIS CLASS CAN BE FOUND BELOW
 //  Copyright (c) 2015 Thomas Heller
 //  Copyright (c) 2015-2022 Hartmut Kaiser
