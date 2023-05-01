@@ -46,6 +46,19 @@ endif ()
 
 #endregion
 
+# region only GPU benchmarks
+
+#-DONLY_GPU=OFF
+option(ONLY_GPU "Only enable GPU benchmarks" OFF)
+message("Setting of the ONLY_GPU FLAG: ${ONLY_GPU}")
+
+if (ONLY_GPU)
+    message("Using ONLY_GPU")
+    add_compile_definitions(ONLY_GPU)
+endif ()
+
+# endregion only GPU benchmarks
+
 # region input size
 if (NOT DEFINED ${MAX_INPUT_SIZE})
     set(MAX_INPUT_SIZE 67108864) # default is 2^26
