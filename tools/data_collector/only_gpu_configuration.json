@@ -1,0 +1,76 @@
+{
+  "output_dir": "/home/thesis/krupitza/scratch_files/master_benchmarks/tools/data_collector/output",
+  "benchmark_repetitions": 10,
+  "cmake_location": "/home/thesis/krupitza/scratch_files/master_benchmarks/",
+  "build_artifacts_dir": "/home/thesis/krupitza/scratch_files/master_benchmarks/tools/data_collector/build-artifacts",
+  "binary_target": "master_benchmarks",
+  "batch_file_location": "/home/thesis/krupitza/scratch_files/master_benchmarks/tools/data_collector/job_files",
+  "sbatch": {
+    "partition": "q_thesis_tesla",
+    "time": "30:00"
+  },
+  "compiler": [
+    {
+      "name": "TESLA_GPU",
+      "CXX_COMPILER": "nvc++",
+      "CMAKE_OPTIONS": [
+        "-DONLY_GPU=ON"
+      ],
+      "CXX_FLAGS": "-stdpar -DMAX_INPUT_SIZE=1073741824",
+      "build_location": "cmake-build-gpu",
+      "description": "Running the benchmarks with nvc++ with stdpar"
+    },
+    {
+      "name": "GCC_TBB",
+      "CXX_COMPILER": "g++",
+      "CMAKE_OPTIONS": [
+        "-DONLY_GPU=ON"
+      ],
+      "CXX_FLAGS": "-L/home/thesis/krupitza/scratch_files/oneapi-tbb-2021.7.0/lib/intel64/gcc4.8/ -ltbb -pthread -fopenmp -O3  -DMAX_INPUT_SIZE=1073741824",
+      "build_location": "cmake-build-gcc",
+      "description": "Running the benchmarks with gcc and tbb"
+    },
+    {
+      "name": "NVHPC_Multicore",
+      "CXX_COMPILER": "nvc++",
+      "CMAKE_OPTIONS": [
+        "-DONLY_GPU=ON"
+      ],
+      "CXX_FLAGS": "-stdpar=multicore  -DMAX_INPUT_SIZE=1073741824",
+      "build_location": "cmake-build-nvc_multicore",
+      "description": "Running the benchmarks with nvc++ with multicore"
+    }
+  ],
+  "benchmarks": [
+    {
+      "name": "b1_1_for_each_linear_mandelbrot_par__Default",
+      "description": "Running the b1_1_for_each_linear_mandelbrot_par/ benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b1_1_for_each_linear_mandelbrot_par/"
+    },
+    {
+      "name": "b4_1_merge_cutoff_wrapper_par__Default",
+      "description": "Running the b4_1_merge_cutoff_wrapper_par/ benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b4_1_merge_cutoff_wrapper_par/"
+    },
+    {
+      "name": "b6_1_inclusive_scan_par__Default",
+      "description": "Running the b6_1_inclusive_scan_par/ benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b6_1_inclusive_scan_par/"
+    },
+    {
+      "name": "b7_1_copy_par__Default",
+      "description": "Running the b7_1_copy_par/ benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_1_copy_par/"
+    },
+    {
+      "name": "b7_4_stencil_transform_number_to_neightbours_stdev_par__Default",
+      "description": "Running the b7_4_stencil_transform_number_to_neightbours_stdev_par/ benchmarks without any constraints",
+      "type": "DEFAULT",
+      "regex_filter": "b7_4_stencil_transform_number_to_neightbours_stdev_par/"
+    }
+  ]
+}
