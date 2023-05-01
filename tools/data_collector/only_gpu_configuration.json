@@ -16,7 +16,7 @@
       "CMAKE_OPTIONS": [
         "-DONLY_GPU=ON"
       ],
-      "CXX_FLAGS": "-stdpar -DMAX_INPUT_SIZE=1073741824",
+      "CXX_FLAGS": "\"-stdpar -DMAX_INPUT_SIZE=1073741824\"",
       "build_location": "cmake-build-gpu",
       "description": "Running the benchmarks with nvc++ with stdpar"
     },
@@ -26,7 +26,7 @@
       "CMAKE_OPTIONS": [
         "-DONLY_GPU=ON"
       ],
-      "CXX_FLAGS": "-L/home/thesis/krupitza/scratch_files/oneapi-tbb-2021.7.0/lib/intel64/gcc4.8/ -ltbb -pthread -fopenmp -O3  -DMAX_INPUT_SIZE=1073741824",
+      "CXX_FLAGS": "\"-L/home/thesis/krupitza/scratch_files/oneapi-tbb-2021.7.0/lib/intel64/gcc4.8/ -ltbb -pthread -fopenmp -O3  -DMAX_INPUT_SIZE=1073741824\"",
       "build_location": "cmake-build-gcc",
       "description": "Running the benchmarks with gcc and tbb"
     },
@@ -36,7 +36,7 @@
       "CMAKE_OPTIONS": [
         "-DONLY_GPU=ON"
       ],
-      "CXX_FLAGS": "-stdpar=multicore  -DMAX_INPUT_SIZE=1073741824",
+      "CXX_FLAGS": "\"-stdpar=multicore  -DMAX_INPUT_SIZE=1073741824\"",
       "build_location": "cmake-build-nvc_multicore",
       "description": "Running the benchmarks with nvc++ with multicore"
     }
