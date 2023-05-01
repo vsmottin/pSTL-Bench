@@ -1,0 +1,13 @@
+,name,PP
+0,Serial vs Direct Call - Direct,0.6606130035064223
+1,Serial vs Direct Call - Serial,0.9998464923502022
+2,Scalar transform Logic - std::for_each,0.7742510315377575
+3,Scalar transform Logic - std::transform,0.7863166858772355
+4,Stencil transform Logic - std::for_each,0.7075595480186027
+5,Stencil transform Logic - std::transform,0.657059307169889
+6,Count_if Logic - std::transform_reduce,0.678185601491451
+7,Count_if Logic - std::count_if,0.7253100140696934
+8,All_of Logic - std::transform_reduce,0.6467941013385594
+9,All_of Logic - std::all_of,0.40830307607954186
+10,b7_1_copy - std::copy,0.7415164964667083
+11,b7_1_copy - std::foreach,0.9134231131615712
