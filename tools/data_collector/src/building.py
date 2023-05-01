@@ -63,10 +63,12 @@ def generate_ninja_cmake(compiler: Compiler, configuration: Config) -> None:
     :return:
     """
     logger.info("Starting cmake ninja build")
+
     cmake_ninja_build_args = ['cmake',
                               '-DCMAKE_MAKE_PROGRAM=ninja',
                               f'-DCMAKE_CXX_COMPILER={compiler.CXX_COMPILER}',
                               '-G', 'Ninja',
+                              f'{" ".join(compiler.CMAKE_OPTIONS if compiler.CMAKE_OPTIONS else [])}',
                               '-DCMAKE_BUILD_TYPE=Release',
                               f'-DBENCHMARK_PREFIX={compiler.name}',
                               f'-DCMAKE_CXX_FLAGS="{compiler.CXX_FLAGS}"',

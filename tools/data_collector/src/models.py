@@ -19,6 +19,7 @@ class Compiler:
     name: str
     CXX_COMPILER: str
     CXX_FLAGS: str
+    CMAKE_OPTIONS: Optional[List[str]]
     build_location: str
     description: Optional[str]
 

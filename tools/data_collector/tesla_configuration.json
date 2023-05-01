@@ -1,0 +1,24 @@
+{
+  "output_dir": "/home/thesis/krupitza/scratch_files/master_benchmarks/tools/data_collector/output",
+  "benchmark_repetitions": 10,
+  "cmake_location": "/home/thesis/krupitza/scratch_files/master_benchmarks/",
+  "build_artifacts_dir": "/home/thesis/krupitza/scratch_files/master_benchmarks/tools/data_collector/build-artifacts",
+  "binary_target": "master_benchmarks",
+  "batch_file_location": "/home/thesis/krupitza/scratch_files/master_benchmarks/tools/data_collector/job_files",
+  "sbatch": {
+    "partition": "q_thesis_tesla",
+    "time": "30:00"
+  },
+  "compiler": [
+    {
+      "name": "TESLA_GPU",
+      "CXX_COMPILER": "nvc++",
+      "CMAKE_OPTIONS": ["-DONLY_GPU=ON"],
+      "CXX_FLAGS": "-stdpar",
+      "build_location": "cmake-build-gpu",
+      "description": "Running the benchmarks with nvc++ with stdpar"
+    }
+  ],
+  "benchmarks": []
+
+}
