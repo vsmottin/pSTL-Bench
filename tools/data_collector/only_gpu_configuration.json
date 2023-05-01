@@ -1,6 +1,6 @@
 {
   "output_dir": "/home/thesis/krupitza/scratch_files/master_benchmarks/tools/data_collector/output",
-  "benchmark_repetitions": 10,
+  "benchmark_repetitions": 5,
   "cmake_location": "/home/thesis/krupitza/scratch_files/master_benchmarks/",
   "build_artifacts_dir": "/home/thesis/krupitza/scratch_files/master_benchmarks/tools/data_collector/build-artifacts",
   "binary_target": "master_benchmarks",
