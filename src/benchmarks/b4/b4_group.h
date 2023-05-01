@@ -316,6 +316,15 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
 
 //endregion b4_4_set_difference_cutoff
 
+#ifdef ONLY_GPU
+
+#define B4_GROUP_BENCHMARKS \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b4_1_merge_cutoff_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_1_merge_cutoff_wrapper_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
+
+#elif
 
 // Register the function as a benchmark
 #define B4_GROUP_BENCHMARKS \
@@ -368,6 +377,7 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b4_4_set_difference_cutoff_intersected,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b4_4_set_difference_cutoff_intersected_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
 
+#endif
 
 
 #endif //MASTER_BENCHMARKS_B4_GROUP_H

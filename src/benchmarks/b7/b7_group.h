@@ -762,6 +762,21 @@ static void b7_6_transform_reduce(benchmark::State &state) {
 
 //endregion b7_6_serial_transform_reduce_vs_transform_reduce
 
+#ifdef ONLY_GPU
+
+#define B7_GROUP_BENCHMARKS \
+                            \
+        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_copy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
+                            \
+                            \
+        BENCHMARK_TEMPLATE1(b7_4_stencil_transform_number_to_neightbours_stdev,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_4_stencil_transform_number_to_neightbours_stdev_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
+        BENCHMARK_TEMPLATE1(b7_4_stencil_transform_number_to_neightbours_stdev,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_4_stencil_transform_number_to_neightbours_stdev_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
+
+
+
+#else
+
 #define B7_GROUP_BENCHMARKS \
                             \
         BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
@@ -841,5 +856,7 @@ static void b7_6_transform_reduce(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b7_6_transform_reduce,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_6_transform_reduce_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
 
+
+#endif
 
 #endif //MASTER_BENCHMARKS_B7_GROUP_H

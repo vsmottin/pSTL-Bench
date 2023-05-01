@@ -215,6 +215,11 @@ static void b5_4_minmax_element_increasing(benchmark::State &state) {
 
 //endregion b5_4_minmax_element
 
+#ifdef ONLY_GPU
+
+#define B5_GROUP_BENCHMARKS
+
+#else
 
 // Register the function as a benchmark
 #define B5_GROUP_BENCHMARKS \
@@ -237,5 +242,7 @@ static void b5_4_minmax_element_increasing(benchmark::State &state) {
         BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b5_4_minmax_element_increasing,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b5_4_minmax_element_increasing_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
 
+
+#endif
 
 #endif //MASTER_BENCHMARKS_B5_GROUP_H

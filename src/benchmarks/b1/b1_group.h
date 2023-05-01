@@ -115,6 +115,15 @@ static void b1_4_for_each_exponential_wrapper(benchmark::State &state) {
 
 //endregion b1_4_for_each_exponential
 
+#ifdef ONLY_GPU
+
+
+#define B1_GROUP_BENCHMARKS \
+                            \
+    B1_1_FOR_EACH_LINEAR_MANDELBROT_WRAPPER
+
+
+#else
 
 // Register the function as a benchmark
 #define B1_GROUP_BENCHMARKS \
@@ -142,5 +151,7 @@ static void b1_4_for_each_exponential_wrapper(benchmark::State &state) {
     BENCHMARK_TEMPLATE1(b1_4_for_each_exponential_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_4_for_each_exponential_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 5, 1 << 5); \
     BENCHMARK_TEMPLATE1(b1_4_for_each_exponential_wrapper,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b1_4_for_each_exponential_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, 1 << 5); \
 
+
+#endif
 
 #endif //MASTER_BENCHMARKS_B1_GROUP_H

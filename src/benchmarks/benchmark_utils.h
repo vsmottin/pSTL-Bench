@@ -133,7 +133,11 @@ namespace suite {
     auto
     generate_uniform_dist_vec(const std::size_t &size, const T &lower_bound,
                               const T &upper_bound) {
+#if ONLY_GPU
+        constexpr auto execution_policy = std::execution::seq;
+#else
         constexpr auto execution_policy = ExecutionPolicy{};
+#endif
 
         std::mt19937 mt_engine(std::time(nullptr));
         std::uniform_real_distribution<> dist(lower_bound, upper_bound);

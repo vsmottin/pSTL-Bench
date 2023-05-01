@@ -199,6 +199,11 @@ static void b9_6_transform_boost_wrapper(benchmark::State &state) {
 
 //endregion b9_6_transform_boost
 
+#ifdef ONLY_GPU
+
+#define B9_GROUP_BENCHMARKS
+
+#else
 
 #define B9_GROUP_BENCHMARKS \
                             \
@@ -216,5 +221,6 @@ static void b9_6_transform_boost_wrapper(benchmark::State &state) {
                             \
             B9_6_TRANSFORM_BOOST_WRAPPER
 
+#endif
 
 #endif //MASTER_BENCHMARKS_B9_GROUP_H
