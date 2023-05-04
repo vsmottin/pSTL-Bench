@@ -6,6 +6,7 @@
 #include <cmath>
 #include <algorithm>
 #include <benchmark/benchmark.h>
+#include "../benchmark_utils.h"
 
 namespace B1 {
 
@@ -34,10 +35,11 @@ namespace B1 {
         return limit;
     }
 
-    template<class ExecutionPolicy>
+    template<class ExecutionPolicy,
+            typename BASE_POLICY = suite::base_type<ExecutionPolicy>>
     inline void
     b1_1_for_each_linear_mandelbrot(ExecutionPolicy &policy,
-                                    const suite::int_vec<suite::base_type<ExecutionPolicy>> &pixel_x) {
+                                    const suite::int_vec<BASE_POLICY> &pixel_x) {
 
         // calculating the 17 row of mandelbrot with an adjustable limit.
         // adjusted from https://github.com/dario-marvin/Mandelbrot/blob/master/Mandelbrot.cc

@@ -38,7 +38,7 @@ static void b1_1_for_each_linear_mandelbrot_wrapper(benchmark::State &state) {
     constexpr auto execution_policy = Policy{};
 
     const auto size = state.range(0);
-    const auto x = suite::generate_increment<Policy>(execution_policy, size, 1);
+    const auto x = suite::generate_increment(execution_policy, size, 1);
 
     for (auto _: state) {
         WRAP_TIMING(B1::b1_1_for_each_linear_mandelbrot(execution_policy, x);)
