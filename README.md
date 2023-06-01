@@ -45,7 +45,7 @@ It is important that one defines what backend to be used and what compiler. You 
 with `-DBACKEND=...` and the compiler with `-DCMAKE_CXX_COMPILER=...`. In the example above we will use g++ with GCC
 TBB. A list of supported backends can be seen in `./cmake/`
 
-_Note_: we advise to use `ninja` in order to increase the compile time (aka add the flag `-G Ninja`)
+_Note_: we advise to use `ninja` in order to speedup the compile time (aka add the flag `-G Ninja`)
 
 ## USAGE
 
