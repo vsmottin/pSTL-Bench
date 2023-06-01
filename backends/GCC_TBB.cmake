@@ -10,3 +10,4 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 endif ()
 
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
