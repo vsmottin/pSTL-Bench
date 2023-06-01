@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <vector>
+#include <benchmark_utils.h>
 
 namespace B5 {
 

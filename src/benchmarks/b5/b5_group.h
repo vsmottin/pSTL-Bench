@@ -11,8 +11,8 @@
 #include <list>
 #include <deque>
 
-#include "../benchmark_prefix.h"
-#include "../benchmark_utils.h"
+#include <benchmark_prefix.h>
+#include <benchmark_utils.h>
 
 #include "b5_1_find.h"
 #include "b5_2_partition.h"

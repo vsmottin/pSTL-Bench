@@ -7,6 +7,8 @@
 #include <functional>
 #include <numeric>
 
+#include <benchmark_utils.h>
+
 namespace B7 {
 
     struct Orders {

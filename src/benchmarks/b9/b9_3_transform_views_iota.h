@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <ranges>
+#include <benchmark_utils.h>
 
 namespace B9 {
 

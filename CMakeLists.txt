@@ -104,10 +104,12 @@ set(BENCHMARK_ENABLE_WERROR OFF)
 
 add_subdirectory(ext/google-benchmark)
 
+# endregion
+
 target_include_directories(${PROJECT_NAME}
         PUBLIC SYSTEM ext/google-benchmark/include
+        PRIVATE include/
         )
-# endregion
 
 target_link_libraries(${PROJECT_NAME} PRIVATE benchmark ${BACKEND_LINK_LIBRARIES})
 

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include <cmath>
+#include <benchmark_utils.h>
 
 
 namespace B5 {

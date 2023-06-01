@@ -5,6 +5,7 @@
 #include <numeric>
 #include <vector>
 #include <utility>
+#include <benchmark_utils.h>
 
 namespace B6 {
 

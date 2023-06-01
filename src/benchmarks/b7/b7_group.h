@@ -9,10 +9,10 @@
 #include <cassert>
 #include <iostream>
 
-#include "../benchmark_prefix.h"
-#include "../benchmark_utils.h"
+#include <benchmark_prefix.h>
+#include <benchmark_utils.h>
 
-#include "../../parallel_allocator.h"
+#include <parallel_allocator.h>
 
 #include "b7_1_copy_vs_for_each.h"
 #include "b7_2_all_off_vs_transform_reduce.h"

@@ -6,6 +6,7 @@
 #include <vector>
 #include <numeric>
 #include <functional>
+#include <benchmark_utils.h>
 
 namespace B7 {
 

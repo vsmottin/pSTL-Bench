@@ -9,8 +9,8 @@
 #include <cassert>
 #include <iostream>
 
-#include "../benchmark_prefix.h"
-#include "../benchmark_utils.h"
+#include <benchmark_prefix.h>
+#include <benchmark_utils.h>
 
 #include "b4_1_merge_cutoff.h"
 #include "b4_2_stable_sort_cutoff.h"

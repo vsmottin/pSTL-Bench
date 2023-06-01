@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <benchmark_utils.h>
 
 namespace B9 {
 

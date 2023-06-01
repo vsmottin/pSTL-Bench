@@ -7,6 +7,7 @@
 #include <boost/iterator/counting_iterator.hpp>
 #include <vector>
 #include <algorithm>
+#include <benchmark_utils.h>
 
 namespace B9 {
 

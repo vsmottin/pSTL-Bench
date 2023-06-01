@@ -2,7 +2,7 @@
 // we have the case that we use gcc. this means tbb will be used for parallel stl
 // potential thread limits have to be configured
 
-#include "tbb_thread_control.h"
+#include <tbb_thread_control.h>
 
 #endif
 

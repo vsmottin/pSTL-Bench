@@ -7,6 +7,8 @@
 #include <functional>
 #include <ranges>
 
+#include <benchmark_utils.h>
+
 namespace B7 {
 
     //region copy

@@ -8,6 +8,8 @@
 #include <ranges>
 #include <cmath>
 
+#include <benchmark_utils.h>
+
 namespace B7 {
 
 

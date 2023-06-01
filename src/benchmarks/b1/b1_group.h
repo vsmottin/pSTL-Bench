@@ -6,8 +6,8 @@
 #include <ranges>
 #include <benchmark/benchmark.h>
 
-#include "../benchmark_prefix.h"
-#include "../benchmark_utils.h"
+#include <benchmark_prefix.h>
+#include <benchmark_utils.h>
 
 #include "b1_1_for_each_linear.h"
 #include "b1_2_for_each_quadratic.h"

@@ -8,8 +8,8 @@
 #include <execution>
 #include <vector>
 
-#include "../benchmark_prefix.h"
-#include "../benchmark_utils.h"
+#include <benchmark_prefix.h>
+#include <benchmark_utils.h>
 
 #include "b9_1_transform_baseline.h"
 #include "b9_2_transform_old_iota.h"

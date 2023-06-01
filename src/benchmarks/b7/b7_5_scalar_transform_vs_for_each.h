@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <vector>
 
+#include <benchmark_utils.h>
+
 namespace B7 {
 
     template<class ExecutionPolicy,

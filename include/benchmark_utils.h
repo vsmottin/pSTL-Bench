@@ -12,7 +12,7 @@
 #include <numeric>
 #include <iostream>
 
-#include "../parallel_allocator.h"
+#include <parallel_allocator.h>
 
 #define CUSTOM_STATISTICS \
     ComputeStatistics("max", [](const std::vector<double>& v) -> double {return *(std::max_element(std::begin(v), std::end(v)));})-> \

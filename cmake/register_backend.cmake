@@ -1,3 +1,5 @@
+# the idea to structure the registration of benchmarks like this came from BabelStream!
+# https://github.com/UoB-HPC/BabelStream/blob/main/cmake/register_models.cmake
 
 macro(register_backend NAME)
     string(TOUPPER ${NAME} NAME_UPPER)

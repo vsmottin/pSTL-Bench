@@ -8,8 +8,8 @@
 #include <execution>
 #include <cassert>
 
-#include "../benchmark_prefix.h"
-#include "../benchmark_utils.h"
+#include <benchmark_prefix.h>
+#include <benchmark_utils.h>
 
 #include "b6_1_inclusive_scan.h"
 #include "b6_2_exclusive_scan.h"

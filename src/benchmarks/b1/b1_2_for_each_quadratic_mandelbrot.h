@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <benchmark/benchmark.h>
 
+#include <benchmark_utils.h>
+
 
 namespace B1 {
 
