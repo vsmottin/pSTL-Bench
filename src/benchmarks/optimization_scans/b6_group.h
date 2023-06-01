@@ -1,6 +1,6 @@
 
-#ifndef MASTER_BENCHMARKS_B6_GROUP_H
-#define MASTER_BENCHMARKS_B6_GROUP_H
+#ifndef PSTL_BENCH_B6_GROUP_H
+#define PSTL_BENCH_B6_GROUP_H
 
 #include <chrono>
 #include <benchmark/benchmark.h>
@@ -96,4 +96,4 @@ static void b6_2_exclusive_scan_wrapper(benchmark::State &state) {
 #endif
 
 
-#endif //MASTER_BENCHMARKS_B6_GROUP_H
+#endif //PSTL_BENCH_B6_GROUP_H

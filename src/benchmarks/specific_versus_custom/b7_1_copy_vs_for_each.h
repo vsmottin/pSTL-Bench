@@ -1,6 +1,6 @@
 
-#ifndef MASTER_BENCHMARKS_B7_1_COPY_VS_FOR_EACH_H
-#define MASTER_BENCHMARKS_B7_1_COPY_VS_FOR_EACH_H
+#ifndef PSTL_BENCH_B7_1_COPY_VS_FOR_EACH_H
+#define PSTL_BENCH_B7_1_COPY_VS_FOR_EACH_H
 
 #include <vector>
 #include <algorithm>
@@ -55,4 +55,4 @@ namespace B7 {
 
 }
 
-#endif //MASTER_BENCHMARKS_B7_1_COPY_VS_FOR_EACH_H
+#endif //PSTL_BENCH_B7_1_COPY_VS_FOR_EACH_H

@@ -3,7 +3,7 @@
   "benchmark_repetitions": 2,
   "cmake_location": "..",
   "build_artifacts_dir": "./build-artifacts",
-  "binary_target": "master_benchmarks",
+  "binary_target": "pSTL-Bench",
   "batch_file_location": "../job_files",
   "sbatch": {
     "partition": "q_thesis",

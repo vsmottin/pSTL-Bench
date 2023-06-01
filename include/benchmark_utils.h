@@ -1,6 +1,6 @@
 
-#ifndef MASTER_BENCHMARKS_BENCHMARK_UTILS_H
-#define MASTER_BENCHMARKS_BENCHMARK_UTILS_H
+#ifndef PSTL_BENCH_BENCHMARK_UTILS_H
+#define PSTL_BENCH_BENCHMARK_UTILS_H
 
 #include <vector>
 #include <list>
@@ -231,4 +231,4 @@ namespace suite {
     }
 
 }
-#endif //MASTER_BENCHMARKS_BENCHMARK_UTILS_H
+#endif //PSTL_BENCH_BENCHMARK_UTILS_H

@@ -1,6 +1,6 @@
 
-#ifndef MASTER_BENCHMARKS_TBB_THREAD_CONTROL_H
-#define MASTER_BENCHMARKS_TBB_THREAD_CONTROL_H
+#ifndef PSTL_BENCH_TBB_THREAD_CONTROL_H
+#define PSTL_BENCH_TBB_THREAD_CONTROL_H
 
 #include <cstdlib>
 #include <sstream>
@@ -30,4 +30,4 @@ std::unique_ptr<tbb::global_control> init_tbb_thread_control() {
 }
 
 
-#endif //MASTER_BENCHMARKS_TBB_THREAD_CONTROL_H
+#endif //PSTL_BENCH_TBB_THREAD_CONTROL_H

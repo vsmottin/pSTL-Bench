@@ -1,6 +1,6 @@
 
-#ifndef MASTER_BENCHMARKS_B4_GROUP_H
-#define MASTER_BENCHMARKS_B4_GROUP_H
+#ifndef PSTL_BENCH_B4_GROUP_H
+#define PSTL_BENCH_B4_GROUP_H
 
 #include <chrono>
 #include <benchmark/benchmark.h>
@@ -380,4 +380,4 @@ static void b4_4_set_difference_cutoff_intersected(benchmark::State &state) {
 #endif
 
 
-#endif //MASTER_BENCHMARKS_B4_GROUP_H
+#endif //PSTL_BENCH_B4_GROUP_H

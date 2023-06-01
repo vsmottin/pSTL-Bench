@@ -1,6 +1,6 @@
 
-#ifndef MASTER_BENCHMARKS_B5_3_UNIQUE_COPY_H
-#define MASTER_BENCHMARKS_B5_3_UNIQUE_COPY_H
+#ifndef PSTL_BENCH_B5_3_UNIQUE_COPY_H
+#define PSTL_BENCH_B5_3_UNIQUE_COPY_H
 
 #include <algorithm>
 #include <vector>
@@ -22,4 +22,4 @@ namespace B5 {
 
 }
 
-#endif //MASTER_BENCHMARKS_B5_3_UNIQUE_COPY_H
+#endif //PSTL_BENCH_B5_3_UNIQUE_COPY_H

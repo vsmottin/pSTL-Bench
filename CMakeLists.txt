@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(master_benchmarks)
+project(pSTL-Bench)
 
 set(CMAKE_CXX_STANDARD 20)
 set(BENCHMARK_DOWNLOAD_DEPENDENCIES ON)

@@ -1,41 +1,64 @@
-# master_benchmarks
+# pSTL-Bench
 
-## How to build
+pSTL-Bench is a comprehensive benchmark suite designed to assist developers in evaluating the most suitable parallel
+STL (Standard Template Library) backend for their needs. This tool allows developers to benchmark a wide variety of
+parallel primitives and offers the flexibility to choose the desired backend for execution during compile time.
 
-To build the benchmarks use the following commands in the command line.
+## Table of Contents
 
-### GCC
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
 
-```bash
-cmake -DCMAKE_MAKE_PROGRAM=ninja -DCMAKE_CXX_COMPILER=g++ -G Ninja -S . -B ./cmake-build-debug
+## Introduction
 
-cmake --build cmake-build-debug --target master_benchmarks -j 8
+pSTL-Bench is an invaluable resource for developers seeking to assess the performance and suitability of different
+parallel STL backends. By providing a rich benchmark suite, it facilitates the evaluation of parallel primitives across
+various implementations, aiding in the selection of the optimal backend for specific requirements.
+
+## Features
+
+- Comprehensive benchmark suite for parallel STL backends
+- Benchmarks a wide variety of parallel primitives
+- Flexibility to choose the desired backend at compile time
+- Facilitates performance comparison and evaluation of different implementations
+
+## Installation
+
+To install pSTL-Bench, follow these steps:
+
+1. Clone the repository:
+
+```shell
+git clone https://github.com/diegokrupitza/pSTL-Bench.git
 ```
 
-### NVHPC
+2. Build the project with the desired parallel STL Backend
 
-The Nvidia HPC compiler for C++ (nvc++) supports parallel STL with two backends. For multicore architectures we have
-OpenMP and for GPUs CUDA.
-
-#### Multicore using OMP Backend
-
-```bash
-cmake -DCMAKE_MAKE_PROGRAM=ninja -DCMAKE_CXX_COMPILER=nvc++ -G Ninja -DCMAKE_CXX_FLAGS=-stdpar=multicore -S . -B ./cmake-build-debug
-
-cmake --build cmake-build-debug --target master_benchmarks -j 8
+```shell
+cmake -DBACKEND=GCC_TBB -DCMAKE_CXX_COMPILER=g++ -S . -B ./cmake-build-gcc
+cmake --build cmake-build-gcc/ --target pSTL-Bench
 ```
 
-#### Multicore using CUDA Backend
+It is important that one defines what backend to be used and what compiler. You can define the backend
+with `-DBACKEND=...` and the compiler with `-DCMAKE_CXX_COMPILER=...`. In the example above we will use g++ with GCC
+TBB. A list of supported backends can be seen in `./cmake/`
 
-```bash
-cmake -DCMAKE_MAKE_PROGRAM=ninja -DCMAKE_CXX_COMPILER=nvc++ -G Ninja -DCMAKE_CXX_FLAGS=-stdpar -S . -B ./cmake-build-debug
+_Note_: we advise to use `ninja` in order to increase the compile time (aka add the flag `-G Ninja`)
 
-cmake --build cmake-build-debug --target master_benchmarks -j 8
+## USAGE
+
+After building the binary for a desired backend compiler pairing, you can simply call it. Since we are
+using [Google benchmark](https://github.com/google/benchmark) under the hood, you can use all the possible command line
+parameters (e.g. `--benchmark_filter=...`).
+
+```shell
+./cmake-build-gcc/master_benchmarks --benchmark_filter="b7_1"
 ```
 
-### FLAGS
+## Dependencies
 
-The build systems with CMAKE provides a set of flags you can set to customize the build.
-
-* `-DBENCHMARK_PREFIX` allows to set a prefix for every benchmark (e.g. `-DBENCHMARK_PREFIX=nvhpc_multicore` will result
-  in `nvhpc_multicore_B1_NAME`)
+Some parallel STL backends have dependencies. For example GCC_TBB requires oneTBB to be installed. In case you did not
+install it you can see here how to get
+it https://www.intel.com/content/www/us/en/docs/onetbb/get-started-guide/2021-6/install-onetbb-on-linux-os.html 

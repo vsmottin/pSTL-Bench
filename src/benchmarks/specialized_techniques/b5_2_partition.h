@@ -1,6 +1,6 @@
 
-#ifndef MASTER_BENCHMARKS_B5_2_PARTITION_H
-#define MASTER_BENCHMARKS_B5_2_PARTITION_H
+#ifndef PSTL_BENCH_B5_2_PARTITION_H
+#define PSTL_BENCH_B5_2_PARTITION_H
 
 #include <algorithm>
 #include <vector>
@@ -28,4 +28,4 @@ namespace B5 {
 
 }
 
-#endif //MASTER_BENCHMARKS_B5_2_PARTITION_H
+#endif //PSTL_BENCH_B5_2_PARTITION_H
