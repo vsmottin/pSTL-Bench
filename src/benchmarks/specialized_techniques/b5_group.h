@@ -217,12 +217,12 @@ static void b5_4_minmax_element_increasing(benchmark::State &state) {
 
 #ifdef ONLY_GPU
 
-#define B5_GROUP_BENCHMARKS
+#define SPECIALIZED_TECHNIQUES_GROUP
 
 #else
 
 // Register the function as a benchmark
-#define B5_GROUP_BENCHMARKS \
+#define SPECIALIZED_TECHNIQUES_GROUP \
                             \
         B5_1_FIND_WRAPPER   \
                             \

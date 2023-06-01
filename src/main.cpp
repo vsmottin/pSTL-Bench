@@ -7,19 +7,19 @@
 #endif
 
 #include <benchmark/benchmark.h>
-#include "benchmarks/b1/b1_group.h"
-#include "benchmarks/b4/b4_group.h"
-#include "benchmarks/b5/b5_group.h"
-#include "benchmarks/b6/b6_group.h"
-#include "benchmarks/b7/b7_group.h"
-#include "benchmarks/b9/b9_group.h"
+#include "benchmarks/nested_parallelism/b1_group.h"
+#include "benchmarks/sequential_fallback/b4_group.h"
+#include "benchmarks/specialized_techniques/b5_group.h"
+#include "benchmarks/optimization_scans/b6_group.h"
+#include "benchmarks/specific_versus_custom/b7_group.h"
+#include "benchmarks/index_based_iterations/b9_group.h"
 
-B1_GROUP_BENCHMARKS
-B4_GROUP_BENCHMARKS
-B5_GROUP_BENCHMARKS
-B6_GROUP_BENCHMARKS
-B7_GROUP_BENCHMARKS
-B9_GROUP_BENCHMARKS
+NESTED_PARALLELISM_GROUP
+SEQUENTIAL_FALLBACK_GROUP
+SPECIALIZED_TECHNIQUES_GROUP
+OPTIMIZED_SCAN_GROUP
+SPECIFIC_VS_CUSTOM_GROUP
+INDEX_BASED_ITERATIONS_GROUP
 
 // Run the benchmark
 int main(int argc, char **argv) {

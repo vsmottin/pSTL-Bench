@@ -118,7 +118,7 @@ static void b1_4_for_each_exponential_wrapper(benchmark::State &state) {
 #ifdef ONLY_GPU
 
 
-#define B1_GROUP_BENCHMARKS \
+#define NESTED_PARALLELISM_GROUP \
                             \
     B1_1_FOR_EACH_LINEAR_MANDELBROT_WRAPPER
 
@@ -126,7 +126,7 @@ static void b1_4_for_each_exponential_wrapper(benchmark::State &state) {
 #else
 
 // Register the function as a benchmark
-#define B1_GROUP_BENCHMARKS \
+#define NESTED_PARALLELISM_GROUP \
                             \
                             \
     BENCHMARK_TEMPLATE1(b1_1_for_each_linear_wrapper,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b1_1_for_each_linear_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \

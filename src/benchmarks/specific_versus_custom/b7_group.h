@@ -764,7 +764,7 @@ static void b7_6_transform_reduce(benchmark::State &state) {
 
 #ifdef ONLY_GPU
 
-#define B7_GROUP_BENCHMARKS \
+#define SPECIFIC_VS_CUSTOM_GROUP \
                             \
         BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_copy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
@@ -777,7 +777,7 @@ static void b7_6_transform_reduce(benchmark::State &state) {
 
 #else
 
-#define B7_GROUP_BENCHMARKS \
+#define SPECIFIC_VS_CUSTOM_GROUP \
                             \
         BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::sequenced_policy)->Name(BENCHMARK_NAME("b7_1_copy_seq"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE); \
         BENCHMARK_TEMPLATE1(b7_1_copy,std::execution::parallel_policy)->Name(BENCHMARK_NAME("b7_1_copy_par"))->CUSTOM_STATISTICS->RangeMultiplier(2)->Range(1 << 2, MAX_INPUT_SIZE);     \
