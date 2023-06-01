@@ -1,2 +1,1 @@
-list(APPEND BACKEND_COMPILE_OPTIONS "-stdpar=multicore")
-set(ONLY_GPU ON)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdpar=multicore")

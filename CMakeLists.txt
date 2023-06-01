@@ -4,6 +4,8 @@ project(master_benchmarks)
 set(CMAKE_CXX_STANDARD 20)
 set(BENCHMARK_DOWNLOAD_DEPENDENCIES ON)
 
+option(ONLY_GPU "Only enable GPU benchmarks" OFF)
+
 # register backends we supports right now
 include(cmake/register_backend.cmake)
 
@@ -75,7 +77,6 @@ endif ()
 # region only GPU benchmarks
 
 #-DONLY_GPU=OFF
-option(ONLY_GPU "Only enable GPU benchmarks" OFF)
 message("Setting of the ONLY_GPU FLAG: ${ONLY_GPU}")
 
 if (ONLY_GPU)
@@ -117,4 +118,4 @@ target_link_libraries(${PROJECT_NAME} PRIVATE benchmark ${BACKEND_LINK_LIBRARIES
 # we need cassert even in release builds to make sure certain vars are not optimised aways
 string(REPLACE "-DNDEBUG" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 
-target_compile_options(${PROJECT_NAME} PRIVATE ${BACKEND_COMPILE_OPTIONS} -O3 -march=native )
+target_compile_options(${PROJECT_NAME} PRIVATE ${BACKEND_COMPILE_OPTIONS} -O3 -march=native)
