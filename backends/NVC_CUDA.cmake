@@ -1,1 +1,1 @@
-add_compile_options(-stdpar)
+list(APPEND BACKEND_COMPILE_OPTIONS "-stdpar")

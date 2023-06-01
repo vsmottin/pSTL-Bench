@@ -12,8 +12,9 @@ register_backend(NVC_OMP)
 register_backend(NVC_CUDA)
 
 # select the backend
-set(BACKEND "GCC_TBB")
-
+if (NOT DEFINED BACKEND)
+    message(FATAL_ERROR "No Backend selected!")
+endif ()
 
 # load backend specific stuff
 use_backend(${BACKEND})
@@ -114,4 +115,4 @@ target_link_libraries(${PROJECT_NAME} PRIVATE benchmark ${BACKEND_LINK_LIBRARIES
 # we need cassert even in release builds to make sure certain vars are not optimised aways
 string(REPLACE "-DNDEBUG" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 
-target_compile_options(${PROJECT_NAME} PRIVATE -O3 -march=native)
+target_compile_options(${PROJECT_NAME} PRIVATE ${BACKEND_COMPILE_OPTIONS} -O3 -march=native )

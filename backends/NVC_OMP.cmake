@@ -1,1 +1,1 @@
-add_compile_definitions(-stdpar=multicore)
+list(APPEND BACKEND_COMPILE_OPTIONS "-stdpar=multicore")
