@@ -30,8 +30,8 @@ namespace suite {
     template<typename T, typename Policy>
     class numa_allocator {
 
-        using POLICY_BASE_TYPE = std::remove_cv<typename std::remove_reference<Policy>::type>::type;
-        using IS_SEQ = std::is_same<POLICY_BASE_TYPE, std::execution::sequenced_policy>;
+        using POLICY_BASE_TYPE = typename std::remove_cv<typename std::remove_reference<Policy>::type>::type;
+        using IS_SEQ = typename std::is_same<POLICY_BASE_TYPE, std::execution::sequenced_policy>;
 
     public:
         // typedefs
