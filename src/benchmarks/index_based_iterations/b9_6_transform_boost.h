@@ -11,22 +11,13 @@
 
 namespace B9 {
 
-    template<class ExecutionPolicy,
-            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>
-    >
-    inline void
-    b9_6_transform_boost(ExecutionPolicy &&policy,
-                         const suite::int_vec<BASE_POLICY> &input_data,
-                         suite::int_vec<BASE_POLICY> &res) {
-
-        std::transform(policy,
-                       boost::counting_iterator<int>(0),
-                       boost::counting_iterator<int>(input_data.size()),
-                       res.begin(), [&](const auto &index) {
-                    return input_data[index] + 10;
-                });
-
-    }
+	const auto b9_6_transform_boost = [] (auto && policy, const auto & input_data, auto & res, auto && f) {
+		std::transform(policy,
+					   boost::counting_iterator<int>(0),
+					   boost::counting_iterator<int>(input_data.size()),
+					   res.begin(),
+					   [&input_data, &f] (const auto & i) { return f(input_data[i]); });
+	};
 
 }
 

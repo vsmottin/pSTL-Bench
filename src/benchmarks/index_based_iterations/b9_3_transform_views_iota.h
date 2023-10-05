@@ -9,21 +9,11 @@
 
 namespace B9 {
 
-    template<class ExecutionPolicy,
-            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>
-    >
-    inline void
-    b9_3_transform_views_iota(ExecutionPolicy &&policy,
-                              const suite::int_vec<BASE_POLICY> &input_data,
-                              suite::int_vec<BASE_POLICY> &res) {
-
-        const auto &view = std::views::iota(0, static_cast<int>(input_data.size()));
-
-        std::transform(policy, view.begin(), view.end(), res.begin(), [&](const auto &index) {
-            return input_data[index] + 10;
-        });
-
-    }
+	const auto b9_3_transform_views_iota = [] (auto && policy, const auto & input_data, auto & res, auto && f) {
+		const auto &view = std::views::iota(0, static_cast<int>(input_data.size()));
+		std::transform(policy, view.begin(), view.end(), res.begin(),
+					   [&input_data, &f] (const auto & i) { return f(input_data[i]); });
+	};
 
 }
 

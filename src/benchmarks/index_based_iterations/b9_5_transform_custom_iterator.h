@@ -93,21 +93,11 @@ namespace B9 {
 
     }
 
-    template<class ExecutionPolicy,
-            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>
-    >
-    inline void
-    b9_5_transform_custom_iterator(ExecutionPolicy &&policy,
-                                   const suite::int_vec<BASE_POLICY> &input_data,
-                                   suite::int_vec<BASE_POLICY> &res) {
-
-        auto view = B9::CustomIterator::range<int>(0, input_data.size());
-
-        std::transform(policy, view.begin(), view.end(), res.begin(), [&](const auto &index) {
-            return input_data[index] + 10;
-        });
-
-    }
+	const auto b9_5_transform_custom_iterator = [] (auto && policy, const auto & input_data, auto & res, auto && f) {
+		auto view = B9::CustomIterator::range<int>(0, input_data.size());
+		std::transform(policy, view.begin(), view.end(), res.begin(),
+					   [&input_data, &f] (const auto & i) { return f(input_data[i]); });
+	};
 
 }
 

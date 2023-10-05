@@ -9,22 +9,12 @@
 
 namespace B9 {
 
-    template<class ExecutionPolicy,
-            typename BASE_POLICY = typename suite::base_type<ExecutionPolicy>
-    >
-    inline void
-    b9_2_transform_old_iota(ExecutionPolicy &&policy,
-                            const suite::int_vec<BASE_POLICY> &input_data,
-                            suite::int_vec<BASE_POLICY> &res) {
-
-        std::vector<std::size_t> view(input_data.size());
-        std::iota(view.begin(), view.end(), 0); // sadly this cannot be done with parallel stl
-
-        std::transform(policy, view.begin(), view.end(), res.begin(), [&](const auto &index) {
-            return input_data[index] + 10;
-        });
-
-    }
+	const auto b9_2_transform_old_iota = [] (auto && policy, const auto & input_data, auto & res, auto && f) {
+		std::vector<std::size_t> view(input_data.size());
+		std::iota(view.begin(), view.end(), 0); // sadly this cannot be done with parallel stl
+		std::transform(policy, view.begin(), view.end(), res.begin(),
+					   [&input_data, &f] (const auto & i) { return f(input_data[i]); });
+	};
 
 }
 
