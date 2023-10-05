@@ -15,12 +15,13 @@ register_backend(NVC_CUDA)
 
 # select the backend
 if (NOT DEFINED BACKEND)
-    message(FATAL_ERROR "No Backend selected!")
+    # Select a default backend
+    set(BACKEND GCC_TBB CACHE STRING "Select the backend to use")
+    message(WARNING "No backend selected, using default: ${BACKEND}")
 endif ()
 
 # load backend specific stuff
 use_backend(${BACKEND})
-
 
 # region set default build type to release
 if (NOT CMAKE_BUILD_TYPE)
@@ -31,21 +32,18 @@ endif ()
 file(GLOB SOURCES
         src/*.h
         src/*.cpp
-        )
+)
 
 add_executable(${PROJECT_NAME}
         ${SOURCES}
         src/main.cpp)
 
 # region benchmark prefix
-
 set(BENCHMARK_PREFIX ${BACKEND})
 add_compile_definitions(BENCHMARK_PREFIX=${BENCHMARK_PREFIX})
-
 # endregion benchmark prefix
 
 # region parallel allocator
-
 option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" ON)
 message("Setting of the USE_PARALLEL_ALLOCATOR FLAG: ${USE_PARALLEL_ALLOCATOR}")
 
@@ -55,11 +53,9 @@ if (USE_PARALLEL_ALLOCATOR)
 else ()
     message("Using no allocator")
 endif ()
-
 # endregion parallel allocator
 
 # region skip boost option
-
 message("Setting of the SKIP_BOOST FLAG: ${SKIP_BOOST}")
 
 if (DEFINED SKIP_BOOST)
@@ -69,21 +65,18 @@ else ()
     message("Using boost in benchmarks")
     target_include_directories(${PROJECT_NAME}
             PRIVATE ext/boost_1_81
-            )
+    )
 endif ()
-
-#endregion
+# endregion skip boost option
 
 # region only GPU benchmarks
-
-#-DONLY_GPU=OFF
+# -DONLY_GPU=OFF
 message("Setting of the ONLY_GPU FLAG: ${ONLY_GPU}")
 
 if (ONLY_GPU)
     message("Using ONLY_GPU")
     add_compile_definitions(ONLY_GPU)
 endif ()
-
 # endregion only GPU benchmarks
 
 # region input size
@@ -92,30 +85,46 @@ if (NOT DEFINED ${MAX_INPUT_SIZE})
 endif ()
 
 add_compile_definitions(MAX_INPUT_SIZE=${MAX_INPUT_SIZE})
+# endregion input size
 
-# endregion
+# region Setup CPM (for dependencies)
+set(CPM_USE_LOCAL_PACKAGES ON)
+set(CPM_USE_NAMED_CACHE_DIRECTORIES ON)
+include(cmake/get_cpm.cmake)
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
+# endregion Setup CPM (for dependencies)
 
-#region google benchmark stuff
+# region google benchmark stuff
+CPMAddPackage(
+        NAME benchmark
+        GITHUB_REPOSITORY google/benchmark
+        VERSION 1.8.3
+        OPTIONS
+        "BENCHMARK_ENABLE_TESTING Off" # disable tests
+        "BENCHMARK_ENABLE_LIBPFM ON" # enable performance counters
+        "BENCHMARK_ENABLE_WERROR OFF" # make sure google benchmark builds no mather what
+)
 
-# enable google benchmark performance counters
-set(BENCHMARK_ENABLE_LIBPFM ON)
+if (NOT benchmark_ADDED)
+    message(FATAL_ERROR "Failed to add google benchmark")
+endif ()
 
-# make sure google benchmark builds no mather
-set(BENCHMARK_ENABLE_WERROR OFF)
+target_link_libraries(${PROJECT_NAME} PRIVATE benchmark::benchmark)
+# endregion google benchmark stuff
 
-add_subdirectory(ext/google-benchmark)
-
-# endregion
+target_link_libraries(${PROJECT_NAME} PRIVATE ${BACKEND_LINK_LIBRARIES})
 
 target_include_directories(${PROJECT_NAME}
-        PUBLIC SYSTEM ext/google-benchmark/include
         PRIVATE include/
-        )
+)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE benchmark ${BACKEND_LINK_LIBRARIES})
-
-
-# we need cassert even in release builds to make sure certain vars are not optimised aways
+# we need cassert even in release builds to make sure certain vars are not optimised away
 string(REPLACE "-DNDEBUG" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 
-target_compile_options(${PROJECT_NAME} PRIVATE ${BACKEND_COMPILE_OPTIONS} -O3 -march=native)
+# append backend specific compile options
+target_compile_options(${PROJECT_NAME} PRIVATE ${BACKEND_COMPILE_OPTIONS})
+
+# append further optimization options
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_options(${PROJECT_NAME} PRIVATE -O3 -march=native)
+endif ()
