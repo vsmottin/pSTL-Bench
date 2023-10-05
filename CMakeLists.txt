@@ -4,24 +4,25 @@ project(pSTL-Bench)
 set(CMAKE_CXX_STANDARD 20)
 set(BENCHMARK_DOWNLOAD_DEPENDENCIES ON)
 
+# region options
 option(ONLY_GPU "Only enable GPU benchmarks" OFF)
+option(SKIP_BOOST "Skip boost in benchmarks" OFF)
+option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" ON)
 
-# register backends we supports right now
+set(BACKEND GCC_TBB CACHE STRING "Select the backend to use")
+set_property(CACHE BACKEND PROPERTY STRINGS GCC_TBB NVC_OMP NVC_CUDA)
+# endregion options
+
+# region register backends
 include(cmake/register_backend.cmake)
 
 register_backend(GCC_TBB)
 register_backend(NVC_OMP)
 register_backend(NVC_CUDA)
 
-# select the backend
-if (NOT DEFINED BACKEND)
-    # Select a default backend
-    set(BACKEND GCC_TBB CACHE STRING "Select the backend to use")
-    message(WARNING "No backend selected, using default: ${BACKEND}")
-endif ()
-
 # load backend specific stuff
 use_backend(${BACKEND})
+# endregion register backends
 
 # region set default build type to release
 if (NOT CMAKE_BUILD_TYPE)
@@ -44,14 +45,11 @@ add_compile_definitions(BENCHMARK_PREFIX=${BENCHMARK_PREFIX})
 # endregion benchmark prefix
 
 # region parallel allocator
-option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" ON)
-message("Setting of the USE_PARALLEL_ALLOCATOR FLAG: ${USE_PARALLEL_ALLOCATOR}")
-
 if (USE_PARALLEL_ALLOCATOR)
-    message("Using parallel allocator")
+    message(STATUS "Using parallel allocator")
     add_compile_definitions(USE_PARALLEL_ALLOCATOR)
 else ()
-    message("Using no allocator")
+    message(STATUS "Using no allocator")
 endif ()
 # endregion parallel allocator
 
@@ -64,13 +62,11 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 # endregion Setup CPM (for dependencies)
 
 # region skip boost option
-message("Setting of the SKIP_BOOST FLAG: ${SKIP_BOOST}")
-
 if (DEFINED SKIP_BOOST)
-    message("Skipping boost option enabled")
+    message(STATUS "Skipping boost option enabled")
     add_compile_definitions(SKIP_BOOST)
 else ()
-    message("Using boost in benchmarks")
+    message(STATUS "Using boost in benchmarks")
     CPMAddPackage(
             NAME Boost
             GITHUB_REPOSITORY "boostorg/boost"
@@ -88,11 +84,8 @@ endif ()
 # endregion skip boost option
 
 # region only GPU benchmarks
-# -DONLY_GPU=OFF
-message("Setting of the ONLY_GPU FLAG: ${ONLY_GPU}")
-
 if (ONLY_GPU)
-    message("Using ONLY_GPU")
+    message(STATUS "Using ONLY_GPU")
     add_compile_definitions(ONLY_GPU)
 endif ()
 # endregion only GPU benchmarks
