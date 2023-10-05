@@ -55,6 +55,14 @@ else ()
 endif ()
 # endregion parallel allocator
 
+# region Setup CPM (for dependencies)
+set(CPM_USE_LOCAL_PACKAGES ON)
+set(CPM_USE_NAMED_CACHE_DIRECTORIES ON)
+set(CPM_SOURCE_CACHE "${CMAKE_CURRENT_BINARY_DIR}/deps_cache/")
+include(cmake/get_cpm.cmake)
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
+# endregion Setup CPM (for dependencies)
+
 # region skip boost option
 message("Setting of the SKIP_BOOST FLAG: ${SKIP_BOOST}")
 
@@ -63,9 +71,19 @@ if (DEFINED SKIP_BOOST)
     add_compile_definitions(SKIP_BOOST)
 else ()
     message("Using boost in benchmarks")
-    target_include_directories(${PROJECT_NAME}
-            PRIVATE ext/boost_1_81
+    CPMAddPackage(
+            NAME Boost
+            GITHUB_REPOSITORY "boostorg/boost"
+            VERSION 1.81.0
+            GIT_TAG "boost-1.81.0"
+            OPTIONS
+            "Boost_USE_STATIC_LIBS ON"
+            "BOOST_USE_RELEASE_LIBS ON"
+            "Boost_USE_MULTITHREADED ON"
+            "Boost_USE_STATIC_RUNTIME OFF"
     )
+
+    target_link_libraries(${PROJECT_NAME} PRIVATE Boost::thread)
 endif ()
 # endregion skip boost option
 
@@ -87,13 +105,6 @@ endif ()
 add_compile_definitions(MAX_INPUT_SIZE=${MAX_INPUT_SIZE})
 # endregion input size
 
-# region Setup CPM (for dependencies)
-set(CPM_USE_LOCAL_PACKAGES ON)
-set(CPM_USE_NAMED_CACHE_DIRECTORIES ON)
-include(cmake/get_cpm.cmake)
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
-# endregion Setup CPM (for dependencies)
-
 # region google benchmark stuff
 CPMAddPackage(
         NAME benchmark
@@ -105,11 +116,13 @@ CPMAddPackage(
         "BENCHMARK_ENABLE_WERROR OFF" # make sure google benchmark builds no mather what
 )
 
-if (NOT benchmark_ADDED)
+if (benchmark_ADDED)
+    # enable the C++ standard to avoid errors
+    set_target_properties(benchmark PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
+    target_link_libraries(${PROJECT_NAME} PRIVATE benchmark::benchmark)
+else ()
     message(FATAL_ERROR "Failed to add google benchmark")
 endif ()
-
-target_link_libraries(${PROJECT_NAME} PRIVATE benchmark::benchmark)
 # endregion google benchmark stuff
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${BACKEND_LINK_LIBRARIES})
