@@ -62,7 +62,7 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 # endregion Setup CPM (for dependencies)
 
 # region skip boost option
-if (DEFINED SKIP_BOOST)
+if (SKIP_BOOST)
     message(STATUS "Skipping boost option enabled")
     add_compile_definitions(SKIP_BOOST)
 else ()
