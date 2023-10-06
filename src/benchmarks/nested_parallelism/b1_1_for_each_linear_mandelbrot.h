@@ -47,7 +47,7 @@ namespace B1 {
 
         const auto dx = (1.0 - -2.0) / (pixel_x.size() - 1);
 
-        std::for_each(policy, pixel_x.begin(), pixel_x.end(), [&](const auto &entry) {
+        std::for_each(policy, pixel_x.begin(), pixel_x.end(), [dx](const auto &entry) {
             int val = calculate_mandelbrot(entry, dx);
 #ifndef ONLY_GPU
             benchmark::DoNotOptimize(val);
