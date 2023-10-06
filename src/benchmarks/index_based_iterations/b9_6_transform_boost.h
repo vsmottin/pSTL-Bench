@@ -2,7 +2,7 @@
 #ifndef PSTL_BENCH_B9_6_TRANSFORM_BOOST_H
 #define PSTL_BENCH_B9_6_TRANSFORM_BOOST_H
 
-#ifndef SKIP_BOOST
+#ifdef USE_BOOST
 
 #include <boost/iterator/counting_iterator.hpp>
 #include <vector>

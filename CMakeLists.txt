@@ -6,7 +6,8 @@ set(BENCHMARK_DOWNLOAD_DEPENDENCIES ON)
 
 # region options
 option(ONLY_GPU "Only enable GPU benchmarks" OFF)
-option(SKIP_BOOST "Skip boost in benchmarks" OFF)
+option(USE_BOOST "Use boost in benchmarks" OFF)
+option(USE_OMP "Use OpenMP in benchmarks" OFF)
 option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" ON)
 
 set(BACKEND GCC_TBB CACHE STRING "Select the backend to use")
@@ -61,12 +62,11 @@ include(cmake/get_cpm.cmake)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 # endregion Setup CPM (for dependencies)
 
-# region skip boost option
-if (SKIP_BOOST)
-    message(STATUS "Skipping boost option enabled")
-    add_compile_definitions(SKIP_BOOST)
-else ()
+# region use boost option
+if (USE_BOOST)
     message(STATUS "Using boost in benchmarks")
+    add_compile_definitions(USE_BOOST)
+
     CPMAddPackage(
             NAME Boost
             GITHUB_REPOSITORY "boostorg/boost"
@@ -81,7 +81,15 @@ else ()
 
     target_link_libraries(${PROJECT_NAME} PRIVATE Boost::thread)
 endif ()
-# endregion skip boost option
+# endregion use boost option
+
+# region use OpenMP option
+if (USE_OMP)
+    message(STATUS "Using OpenMP in benchmarks")
+    add_compile_definitions(USE_OMP)
+    find_package(OpenMP REQUIRED)
+    target_link_libraries(${PROJECT_NAME} PRIVATE OpenMP::OpenMP_CXX)
+endif ()
 
 # region only GPU benchmarks
 if (ONLY_GPU)
