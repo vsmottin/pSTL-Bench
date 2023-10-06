@@ -91,7 +91,9 @@ static void b9_6_transform_boost_wrapper (benchmark::State & state) {
 
 #ifdef ONLY_GPU
 
-#define INDEX_BASED_ITERATIONS_GROUP
+#define INDEX_BASED_ITERATIONS_GROUP \
+                            \
+            B9_1_TRANSFORM_BASELINE_WRAPPER
 
 #else
 
