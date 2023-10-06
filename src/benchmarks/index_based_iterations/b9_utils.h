@@ -1,6 +1,6 @@
 
-#ifndef PSTL_BENCH_B9_UTILS_HPP
-#define PSTL_BENCH_B9_UTILS_HPP
+#ifndef PSTL_BENCH_B9_UTILS_H
+#define PSTL_BENCH_B9_UTILS_H
 
 #include <benchmark/benchmark.h>
 
@@ -38,4 +38,4 @@ namespace B9 {
 	}
 }
 
-#endif //PSTL_BENCH_B9_UTILS_HPP
+#endif //PSTL_BENCH_B9_UTILS_H
