@@ -10,20 +10,18 @@
 #ifdef ONLY_GPU
 
 
-#define NESTED_PARALLELISM_GROUP \
-							\
-	B1_2_FOR_EACH_LINEAR_MANDELBROT_WRAPPER
+#define NESTED_PARALLELISM_GROUP B1_2_FOR_EACH_LINEAR_MANDELBROT_WRAPPER
 
 
 #else
 
 // Register the function as a benchmark
-#define NESTED_PARALLELISM_GROUP \
-        B1_1_FOR_EACH_LINEAR_GROUP \
-        B1_2_FOR_EACH_LINEAR_MANDELBROT_GROUP \
-        B1_3_FOR_EACH_QUADRATIC_GROUP \
-        B1_4_FOR_EACH_QUADRATIC_MANDELBROT_GROUP(std::execution::parallel_policy) \
-        B1_5_FOR_EACH_EXPONENTIAL_GROUP
+#define NESTED_PARALLELISM_GROUP                                              \
+	B1_1_FOR_EACH_LINEAR_GROUP                                                \
+	B1_2_FOR_EACH_LINEAR_MANDELBROT_GROUP                                     \
+	B1_3_FOR_EACH_QUADRATIC_GROUP                                             \
+	B1_4_FOR_EACH_QUADRATIC_MANDELBROT_GROUP(std::execution::parallel_policy) \
+	B1_5_FOR_EACH_EXPONENTIAL_GROUP
 
 #endif
 

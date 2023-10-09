@@ -1,11 +1,11 @@
 #ifndef PSTL_BENCH_BENCHMARK_PREFIX_H
 #define PSTL_BENCH_BENCHMARK_PREFIX_H
 
-#define xstr(s) str(s)
-#define str(s) #s
+#define xstr(s)        str(s)
+#define str(s)         #s
 
-#define DO_EXPAND(VAL)  VAL ## 1
-#define EXPAND(VAL)     DO_EXPAND(VAL)
+#define DO_EXPAND(VAL) VAL##1
+#define EXPAND(VAL)    DO_EXPAND(VAL)
 
 // IS PREFIX SET AND NOT EMPTY
 #if (defined(BENCHMARK_PREFIX) && (EXPAND(BENCHMARK_PREFIX) != 1))

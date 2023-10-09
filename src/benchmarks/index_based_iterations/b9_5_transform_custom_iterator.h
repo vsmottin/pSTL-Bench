@@ -2,103 +2,111 @@
 #ifndef PSTL_BENCH_B9_5_TRANSFORM_CUSTOM_ITERATOR_H
 #define PSTL_BENCH_B9_5_TRANSFORM_CUSTOM_ITERATOR_H
 
-#include <vector>
 #include <algorithm>
 #include <benchmark_utils.h>
+#include <vector>
 
-namespace B9 {
+namespace B9
+{
 
-    namespace CustomIterator {
+	namespace CustomIterator
+	{
 
-        // copied from https://github.com/UoB-HPC/cloverleaf_stdpar/blob/5f17b03982f059765684b568cc93a95591c84905/src/utils.hpp
-        // similar can be found in https://github.com/UoB-HPC/BabelStream/blob/main/src/std-indices/STDIndicesStream.h
-        // used in paper such as "Evaluating ISO C++ Parallel Algorithms on Heterogeneous HPC Systems"
-        template<typename N>
-        class range {
-        public:
-            class iterator {
-                friend class range;
+		// copied from https://github.com/UoB-HPC/cloverleaf_stdpar/blob/5f17b03982f059765684b568cc93a95591c84905/src/utils.hpp
+		// similar can be found in https://github.com/UoB-HPC/BabelStream/blob/main/src/std-indices/STDIndicesStream.h
+		// used in paper such as "Evaluating ISO C++ Parallel Algorithms on Heterogeneous HPC Systems"
+		template<typename N>
+		class range
+		{
+		public:
+			class iterator
+			{
+				friend class range;
 
-            public:
+			public:
+				using difference_type   = typename std::make_signed_t<N>;
+				using value_type        = N;
+				using pointer           = const N *;
+				using reference         = N;
+				using iterator_category = std::random_access_iterator_tag;
 
-                using difference_type = typename std::make_signed_t<N>;
-                using value_type = N;
-                using pointer = const N *;
-                using reference = N;
-                using iterator_category = std::random_access_iterator_tag;
+				// XXX This is not part of the iterator spec, it gets picked up by oneDPL if enabled.
+				// Without this, the DPL SYCL backend collects the iterator data on the host and copies to the device.
+				// This type is unused for any other STL impl.
+				using is_passed_directly = std::true_type;
 
-                // XXX This is not part of the iterator spec, it gets picked up by oneDPL if enabled.
-                // Without this, the DPL SYCL backend collects the iterator data on the host and copies to the device.
-                // This type is unused for any other STL impl.
-                using is_passed_directly = std::true_type;
+				reference operator*() const { return i_; }
 
-                reference operator*() const { return i_; }
+				iterator & operator++()
+				{
+					++i_;
+					return *this;
+				}
 
-                iterator &operator++() {
-                    ++i_;
-                    return *this;
-                }
+				iterator operator++(int)
+				{
+					iterator copy(*this);
+					++i_;
+					return copy;
+				}
 
-                iterator operator++(int) {
-                    iterator copy(*this);
-                    ++i_;
-                    return copy;
-                }
+				iterator & operator--()
+				{
+					--i_;
+					return *this;
+				}
 
-                iterator &operator--() {
-                    --i_;
-                    return *this;
-                }
+				iterator operator--(int)
+				{
+					iterator copy(*this);
+					--i_;
+					return copy;
+				}
 
-                iterator operator--(int) {
-                    iterator copy(*this);
-                    --i_;
-                    return copy;
-                }
+				iterator & operator+=(N by)
+				{
+					i_ += by;
+					return *this;
+				}
 
-                iterator &operator+=(N by) {
-                    i_ += by;
-                    return *this;
-                }
+				value_type operator[](const difference_type & i) const { return i_ + i; }
 
-                value_type operator[](const difference_type &i) const { return i_ + i; }
+				difference_type operator-(const iterator & it) const { return i_ - it.i_; }
 
-                difference_type operator-(const iterator &it) const { return i_ - it.i_; }
+				iterator operator+(const value_type v) const { return iterator(i_ + v); }
 
-                iterator operator+(const value_type v) const { return iterator(i_ + v); }
+				bool operator==(const iterator & other) const { return i_ == other.i_; }
 
-                bool operator==(const iterator &other) const { return i_ == other.i_; }
+				bool operator!=(const iterator & other) const { return i_ != other.i_; }
 
-                bool operator!=(const iterator &other) const { return i_ != other.i_; }
+				bool operator<(const iterator & other) const { return i_ < other.i_; }
 
-                bool operator<(const iterator &other) const { return i_ < other.i_; }
+			protected:
+				explicit iterator(N start) : i_(start) {}
 
-            protected:
-                explicit iterator(N start) : i_(start) {}
+			private:
+				N i_;
+			};
 
-            private:
-                N i_;
-            };
+			iterator begin() const { return begin_; }
 
-            iterator begin() const { return begin_; }
+			iterator end() const { return end_; }
 
-            iterator end() const { return end_; }
+			range(N begin, N end) : begin_(begin), end_(end) {}
 
-            range(N begin, N end) : begin_(begin), end_(end) {}
+		private:
+			iterator begin_;
+			iterator end_;
+		};
 
-        private:
-            iterator begin_;
-            iterator end_;
-        };
+	} // namespace CustomIterator
 
-    }
-
-	const auto b9_5_transform_custom_iterator = [] (auto && policy, const auto & input_data, auto & res, auto && f) {
+	const auto b9_5_transform_custom_iterator = [](auto && policy, const auto & input_data, auto & res, auto && f) {
 		auto view = B9::CustomIterator::range<int>(0, input_data.size());
 		std::transform(policy, view.begin(), view.end(), res.begin(),
-					   [&input_data, &f] (const auto & i) { return f(input_data[i]); });
+		               [&input_data, &f](const auto & i) { return f(input_data[i]); });
 	};
 
-}
+} // namespace B9
 
 #endif //PSTL_BENCH_B9_5_TRANSFORM_CUSTOM_ITERATOR_H

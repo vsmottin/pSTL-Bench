@@ -3,18 +3,18 @@
 #define PSTL_BENCH_B5_2_PARTITION_GNU_H
 
 #include <algorithm>
-#include <vector>
 #include <cmath>
+#include <vector>
 
 #include <parallel/algorithm>
 
 #include <benchmark_utils.h>
 
-namespace B5 {
+namespace B5
+{
 
-	const auto b5_2_partition_gnu = [] (auto && policy, auto & container) {
-
-		return __gnu_parallel::partition(container.begin(), container.end(), [] (const auto & a) {
+	const auto b5_2_partition_gnu = [](auto && policy, auto & container) {
+		return __gnu_parallel::partition(container.begin(), container.end(), [](const auto & a) {
 			const auto b = a + 2;
 			const auto c = M_PI;
 

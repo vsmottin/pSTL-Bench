@@ -9,9 +9,10 @@
 
 #include <benchmark_utils.h>
 
-namespace B5 {
+namespace B5
+{
 
-	const auto b5_1_find_gnu = [] (auto && policy, const auto & container, const auto & find_val) {
+	const auto b5_1_find_gnu = [](auto && policy, const auto & container, const auto & find_val) {
 		return __gnu_parallel::find(container.begin(), container.end(), find_val);
 	};
 

@@ -10,11 +10,10 @@
 
 #include <omp_helpers.h>
 
-namespace B1 {
+namespace B1
+{
 
-	const auto b1_1_for_each_linear_omp = [] (auto && policy,
-											  const auto & input_data,
-											  auto && f) {
+	const auto b1_1_for_each_linear_omp = [](auto && policy, const auto & input_data, auto && f) {
 		omp::for_each(policy, input_data.begin(), input_data.end(), f);
 	};
 

@@ -10,11 +10,10 @@
 
 #include <parallel/algorithm>
 
-namespace B1 {
+namespace B1
+{
 
-	const auto b1_1_for_each_linear_gnu = [] (auto && policy,
-											  const auto & input_data,
-											  auto && f) {
+	const auto b1_1_for_each_linear_gnu = [](auto && policy, const auto & input_data, auto && f) {
 		__gnu_parallel::for_each(input_data.begin(), input_data.end(), f);
 	};
 

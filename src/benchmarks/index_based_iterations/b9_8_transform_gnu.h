@@ -6,9 +6,10 @@
 
 #include <parallel/algorithm>
 
-namespace B9 {
+namespace B9
+{
 
-	const auto b9_8_transform_gnu = [] (auto && policy, const auto & input_data, auto & res, auto && f) {
+	const auto b9_8_transform_gnu = [](auto && policy, const auto & input_data, auto & res, auto && f) {
 		__gnu_parallel::transform(std::begin(input_data), std::end(input_data), std::begin(res), f);
 	};
 
