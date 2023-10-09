@@ -10,19 +10,9 @@
 
 namespace B1 {
 
-    template<class ExecutionPolicy>
-    inline void b1_1_for_each_linear(ExecutionPolicy &policy,
-                                     const suite::double_vec<suite::base_type<ExecutionPolicy>> &input_data) {
-
-        // quite straight forward std::for_each. The body of the lambda has no intention behind it, the goal was just
-        // to have a big enough computation that takes some amount of time.
-        std::for_each(policy, input_data.begin(), input_data.end(), [](const auto &entry) {
-            auto value = std::min(std::sin(entry), std::tan(entry));
-
-            benchmark::DoNotOptimize(value);
-        });
-
-    }
+	const auto b1_1_for_each_linear = [] (auto && policy, const auto & input_data, auto && f) {
+		std::for_each(policy, input_data.begin(), input_data.end(), f);
+	};
 
 }
 

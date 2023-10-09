@@ -11,37 +11,36 @@
 
 namespace B1 {
 
-    template<class ExecutionPolicy>
-    struct FIB {
+	template<class ExecutionPolicy>
+	struct FIB {
 
-        typedef suite::base_type<ExecutionPolicy> BASE_POLICY;
+		typedef suite::base_type<ExecutionPolicy> BASE_POLICY;
 
-        ExecutionPolicy m_policy;
+		ExecutionPolicy m_policy;
 
-        explicit FIB(ExecutionPolicy &policy) : m_policy(policy) {}
+		explicit FIB (ExecutionPolicy & policy) : m_policy(policy) {}
 
-        void operator()(const int &index) {
-            if (index <= 0) {
-                return;
-            }
+		void operator() (const int & index) {
+			if (index <= 0) {
+				return;
+			}
 
-            double value = std::tan(index) + std::cos(index);
-            benchmark::DoNotOptimize(value);
+			double value = std::tan(index) + std::cos(index);
+			benchmark::DoNotOptimize(value);
 
 
-            auto next = suite::get_vec<BASE_POLICY>(2);
-            next = {index - 1, index - 2};
+			auto next = suite::get_vec<BASE_POLICY>(2);
+			next = {index - 1, index - 2};
 
-            std::for_each(m_policy, next.begin(), next.end(), FIB{m_policy});
-        }
-    };
+			std::for_each(m_policy, next.begin(), next.end(), FIB{m_policy});
+		}
+	};
 
-    template<class ExecutionPolicy, typename T>
-    inline void b1_4_for_each_exponential(ExecutionPolicy &policy, const T &input_data) {
+	const auto b1_4_for_each_exponential = [] (auto && policy, const auto & input_data) {
 
-        std::for_each(policy, input_data.begin(), input_data.end(), FIB{policy});
+		std::for_each(policy, input_data.begin(), input_data.end(), FIB{policy});
 
-    }
+	};
 
 }
 
