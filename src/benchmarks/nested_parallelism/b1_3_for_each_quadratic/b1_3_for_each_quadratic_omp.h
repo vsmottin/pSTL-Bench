@@ -1,7 +1,5 @@
-#ifndef PSTL_BENCH_B1_2_FOR_EACH_QUADRATIC_OMP_H
-#define PSTL_BENCH_B1_2_FOR_EACH_QUADRATIC_OMP_H
-
-#ifdef USE_OMP
+#ifndef PSTL_BENCH_B1_3_FOR_EACH_QUADRATIC_OMP_H
+#define PSTL_BENCH_B1_3_FOR_EACH_QUADRATIC_OMP_H
 
 #include <vector>
 #include <cmath>
@@ -17,7 +15,7 @@
 
 namespace B1 {
 
-	const auto b1_2_for_each_quadratic_omp = [] (auto && outerExecutionPolicy,
+	const auto b1_3_for_each_quadratic_omp = [] (auto && outerExecutionPolicy,
 												 auto && innerExecutionPolicy,
 												 const auto & input_data,
 												 auto && f) {
@@ -30,6 +28,4 @@ namespace B1 {
 
 }
 
-#endif // USE_OMP
-
-#endif //PSTL_BENCH_B1_2_FOR_EACH_QUADRATIC_OMP_H
+#endif //PSTL_BENCH_B1_3_FOR_EACH_QUADRATIC_OMP_H

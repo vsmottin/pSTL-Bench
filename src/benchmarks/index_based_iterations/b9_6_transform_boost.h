@@ -2,8 +2,6 @@
 #ifndef PSTL_BENCH_B9_6_TRANSFORM_BOOST_H
 #define PSTL_BENCH_B9_6_TRANSFORM_BOOST_H
 
-#ifdef USE_BOOST
-
 #include <boost/iterator/counting_iterator.hpp>
 #include <vector>
 #include <algorithm>
@@ -20,7 +18,5 @@ namespace B9 {
 	};
 
 }
-
-#endif
 
 #endif //PSTL_BENCH_B9_6_TRANSFORM_BOOST_H

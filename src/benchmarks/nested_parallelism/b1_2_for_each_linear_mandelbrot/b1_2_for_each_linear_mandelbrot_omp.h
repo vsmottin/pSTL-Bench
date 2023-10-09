@@ -1,7 +1,5 @@
-#ifndef PSTL_BENCH_B1_1_FOR_EACH_LINEAR_MANDELBROT_OMP_H
-#define PSTL_BENCH_B1_1_FOR_EACH_LINEAR_MANDELBROT_OMP_H
-
-#ifdef USE_OMP
+#ifndef PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_OMP_H
+#define PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_OMP_H
 
 #include <vector>
 #include <cmath>
@@ -15,7 +13,7 @@
 
 namespace B1 {
 
-	const auto b1_1_for_each_linear_mandelbrot_omp = [] (auto && policy,
+	const auto b1_2_for_each_linear_mandelbrot_omp = [] (auto && policy,
 														 const auto & pixel_x,
 														 auto && mandelbrot_kernel) {
 
@@ -33,6 +31,4 @@ namespace B1 {
 
 }
 
-#endif // USE_OMP
-
-#endif //PSTL_BENCH_B1_1_FOR_EACH_LINEAR_MANDELBROT_OMP_H
+#endif //PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_OMP_H

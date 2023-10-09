@@ -1,5 +1,5 @@
-#ifndef PSTL_BENCH_B1_4_FOR_EACH_EXPONENTIAL_OMP_H
-#define PSTL_BENCH_B1_4_FOR_EACH_EXPONENTIAL_OMP_H
+#ifndef PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_OMP_H
+#define PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_OMP_H
 
 #include <vector>
 #include <cmath>
@@ -41,7 +41,7 @@ namespace B1 {
 		}
 	};
 
-	const auto b1_4_for_each_exponential_omp = [] (auto && policy, const auto & input_data) {
+	const auto b1_5_for_each_exponential_omp = [] (auto && policy, const auto & input_data) {
 		// enable nested parallelism
 		omp_set_nested(1);
 
@@ -51,4 +51,4 @@ namespace B1 {
 
 }
 
-#endif //PSTL_BENCH_B1_4_FOR_EACH_EXPONENTIAL_OMP_H
+#endif //PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_OMP_H

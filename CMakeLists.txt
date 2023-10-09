@@ -6,12 +6,13 @@ set(BENCHMARK_DOWNLOAD_DEPENDENCIES ON)
 
 # region options
 option(ONLY_GPU "Only enable GPU benchmarks" OFF)
-option(USE_BOOST "Use boost in benchmarks" OFF)
-option(USE_OMP "Use OpenMP in benchmarks" OFF)
+option(USE_BOOST "Use Boost's parallel implementation in benchmarks" OFF)
+option(USE_GNU_PSTL "Use GNU's parallel implementation of STL in benchmarks" OFF)
+option(USE_OMP "Use custom OpenMP parallel implementation in benchmarks" OFF)
 option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" ON)
 
 set(BACKEND GCC_TBB CACHE STRING "Select the backend to use")
-set_property(CACHE BACKEND PROPERTY STRINGS GCC_TBB NVC_OMP NVC_CUDA)
+set_property(CACHE BACKEND PROPERTY STRINGS GCC_TBB GCC_OMP NVC_OMP NVC_CUDA)
 # endregion options
 
 # region register backends
@@ -87,6 +88,15 @@ endif ()
 if (USE_OMP)
     message(STATUS "Using OpenMP in benchmarks")
     add_compile_definitions(USE_OMP)
+    find_package(OpenMP REQUIRED)
+    target_link_libraries(${PROJECT_NAME} PRIVATE OpenMP::OpenMP_CXX)
+endif ()
+# endregion use OpenMP option
+
+# region use GNU PSTL option
+if (USE_GNU_PSTL)
+    message(STATIUS "Using GNU PSTL in benchmarks")
+    add_compile_definitions(USE_GNU_PSTL)
     find_package(OpenMP REQUIRED)
     target_link_libraries(${PROJECT_NAME} PRIVATE OpenMP::OpenMP_CXX)
 endif ()

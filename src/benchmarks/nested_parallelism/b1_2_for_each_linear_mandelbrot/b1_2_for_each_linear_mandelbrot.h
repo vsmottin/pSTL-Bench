@@ -1,5 +1,5 @@
-#ifndef PSTL_BENCH_B1_1_FOR_EACH_LINEAR_MANDELBROT_H
-#define PSTL_BENCH_B1_1_FOR_EACH_LINEAR_MANDELBROT_H
+#ifndef PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_H
+#define PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_H
 
 
 #include <vector>
@@ -11,7 +11,7 @@
 
 namespace B1 {
 
-	const auto b1_1_for_each_linear_mandelbrot = [] (auto && policy,
+	const auto b1_2_for_each_linear_mandelbrot = [] (auto && policy,
 													 const auto & pixel_x,
 													 auto && mandelbrot) {
 		const auto dx = (1.0 - -2.0) / (pixel_x.size() - 1);
@@ -27,4 +27,4 @@ namespace B1 {
 
 }
 
-#endif //PSTL_BENCH_B1_1_FOR_EACH_LINEAR_MANDELBROT_H
+#endif //PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_H

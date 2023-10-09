@@ -2,8 +2,6 @@
 #ifndef PSTL_BENCH_B9_7_TRANSFORM_OMP_H
 #define PSTL_BENCH_B9_7_TRANSFORM_OMP_H
 
-#ifdef USE_OMP
-
 #include <vector>
 
 #include <omp_helpers.h>
@@ -15,7 +13,5 @@ namespace B9 {
 	};
 
 }
-
-#endif // USE_OMP
 
 #endif //PSTL_BENCH_B9_7_TRANSFORM_OMP_H

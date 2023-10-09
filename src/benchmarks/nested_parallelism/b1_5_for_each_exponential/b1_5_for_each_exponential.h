@@ -1,5 +1,5 @@
-#ifndef PSTL_BENCH_B1_4_FOR_EACH_EXPONENTIAL_H
-#define PSTL_BENCH_B1_4_FOR_EACH_EXPONENTIAL_H
+#ifndef PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_H
+#define PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_H
 
 #include <vector>
 #include <cmath>
@@ -36,7 +36,7 @@ namespace B1 {
 		}
 	};
 
-	const auto b1_4_for_each_exponential = [] (auto && policy, const auto & input_data) {
+	const auto b1_5_for_each_exponential = [] (auto && policy, const auto & input_data) {
 
 		std::for_each(policy, input_data.begin(), input_data.end(), FIB{policy});
 
@@ -44,4 +44,4 @@ namespace B1 {
 
 }
 
-#endif //PSTL_BENCH_B1_4_FOR_EACH_EXPONENTIAL_H
+#endif //PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_H

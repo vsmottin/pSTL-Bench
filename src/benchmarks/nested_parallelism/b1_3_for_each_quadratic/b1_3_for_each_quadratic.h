@@ -1,5 +1,5 @@
-#ifndef PSTL_BENCH_B1_2_FOR_EACH_QUADRATIC_H
-#define PSTL_BENCH_B1_2_FOR_EACH_QUADRATIC_H
+#ifndef PSTL_BENCH_B1_3_FOR_EACH_QUADRATIC_H
+#define PSTL_BENCH_B1_3_FOR_EACH_QUADRATIC_H
 
 #include <vector>
 #include <cmath>
@@ -10,7 +10,7 @@
 
 namespace B1 {
 
-	const auto b1_2_for_each_quadratic = [] (auto && outerExecutionPolicy,
+	const auto b1_3_for_each_quadratic = [] (auto && outerExecutionPolicy,
 											 auto && innerExecutionPolicy,
 											 const auto & input_data,
 											 auto && f) {
@@ -23,4 +23,4 @@ namespace B1 {
 
 }
 
-#endif //PSTL_BENCH_B1_2_FOR_EACH_QUADRATIC_H
+#endif //PSTL_BENCH_B1_3_FOR_EACH_QUADRATIC_H

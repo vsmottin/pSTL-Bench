@@ -1,8 +1,6 @@
 
-#ifndef PSTL_BENCH_B1_2_FOR_EACH_QUADRATIC_MANDELBROT_OMP_H
-#define PSTL_BENCH_B1_2_FOR_EACH_QUADRATIC_MANDELBROT_OMP_H
-
-#ifdef USE_OMP
+#ifndef PSTL_BENCH_B1_4_FOR_EACH_QUADRATIC_MANDELBROT_OMP_H
+#define PSTL_BENCH_B1_4_FOR_EACH_QUADRATIC_MANDELBROT_OMP_H
 
 #include <vector>
 #include <cmath>
@@ -17,7 +15,7 @@
 
 namespace B1 {
 
-	const auto b1_2_for_each_quadratic_mandelbrot_omp = [] (auto && outerExecutionPolicy,
+	const auto b1_4_for_each_quadratic_mandelbrot_omp = [] (auto && outerExecutionPolicy,
 															auto && innerExecutionPolicy,
 															const auto & input_data,
 															auto && quadratic_mandelbrot_kernel) {
@@ -52,6 +50,4 @@ namespace B1 {
 
 }
 
-#endif // USE_OMP
-
-#endif //PSTL_BENCH_B1_2_FOR_EACH_QUADRATIC_MANDELBROT_OMP_H
+#endif //PSTL_BENCH_B1_4_FOR_EACH_QUADRATIC_MANDELBROT_OMP_H
