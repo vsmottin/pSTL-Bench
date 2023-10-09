@@ -1,17 +1,20 @@
 
-#ifndef PSTL_BENCH_B5_2_PARTITION_H
-#define PSTL_BENCH_B5_2_PARTITION_H
+#ifndef PSTL_BENCH_B5_2_PARTITION_GNU_H
+#define PSTL_BENCH_B5_2_PARTITION_GNU_H
 
 #include <algorithm>
 #include <vector>
 #include <cmath>
+
+#include <parallel/algorithm>
+
 #include <benchmark_utils.h>
 
 namespace B5 {
 
-	const auto b5_2_partition = [] (auto && policy, auto & container) {
+	const auto b5_2_partition_gnu = [] (auto && policy, auto & container) {
 
-		return std::partition(policy, container.begin(), container.end(), [] (const auto & a) {
+		return __gnu_parallel::partition(container.begin(), container.end(), [] (const auto & a) {
 			const auto b = a + 2;
 			const auto c = M_PI;
 
@@ -25,4 +28,4 @@ namespace B5 {
 
 }
 
-#endif //PSTL_BENCH_B5_2_PARTITION_H
+#endif //PSTL_BENCH_B5_2_PARTITION_GNU_H
