@@ -58,7 +58,7 @@ namespace omp
 			}
 		}
 		// if policy is std::execution::sequenced_policy or any other unknown policy -> forward to the default...
-		else { return std::exclusive_scan(std::forward(policy), first, last, d_first, init, binary_op); }
+		else { return std::exclusive_scan(policy, first, last, d_first, init, binary_op); }
 
 		return ++d_first;
 	}
@@ -66,7 +66,7 @@ namespace omp
 	template<class ExecutionPolicy, class ForwardIt1, class ForwardIt2, class T>
 	ForwardIt2 exclusive_scan(ExecutionPolicy && policy, ForwardIt1 first, ForwardIt1 last, ForwardIt2 d_first, T init)
 	{
-		return omp::exclusive_scan(std::forward(policy), first, last, d_first, init, std::plus<>());
+		return omp::exclusive_scan(policy, first, last, d_first, init, std::plus<>());
 	}
 
 } // namespace omp

@@ -37,7 +37,7 @@ namespace omp
 			}
 		}
 		// if policy is std::execution::sequenced_policy or any other unknown policy -> forward to the default...
-		else { std::for_each(std::forward(policy), first, last, f); }
+		else { std::for_each(policy, first, last, f); }
 	}
 } // namespace omp
 

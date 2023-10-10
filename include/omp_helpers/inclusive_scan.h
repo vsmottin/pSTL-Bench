@@ -59,7 +59,7 @@ namespace omp
 			}
 		}
 		// if policy is std::execution::sequenced_policy or any other unknown policy -> forward to the default...
-		else { return std::inclusive_scan(std::forward(policy), first, last, d_first, binary_op, init); }
+		else { return std::inclusive_scan(policy, first, last, d_first, binary_op, init); }
 
 		return d_first;
 	}
@@ -70,7 +70,7 @@ namespace omp
 	{
 		typename std::iterator_traits<ForwardIt1>::value_type init = d_first++;
 
-		return omp::inclusive_scan(std::forward(policy), first, last, d_first, binary_op, init);
+		return omp::inclusive_scan(policy, first, last, d_first, binary_op, init);
 	}
 
 	template<class ExecutionPolicy, class ForwardIt1, class ForwardIt2>
@@ -78,7 +78,7 @@ namespace omp
 	{
 		typename std::iterator_traits<ForwardIt1>::value_type init = *d_first++;
 
-		return omp::inclusive_scan(std::forward(policy), first, last, d_first, std::plus<>(), init);
+		return omp::inclusive_scan(policy, first, last, d_first, std::plus<>(), init);
 	}
 
 } // namespace omp

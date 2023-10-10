@@ -41,7 +41,7 @@ namespace omp
 			return d_first + std::distance(first1, last1);
 		}
 		// if policy is std::execution::sequenced_policy or any other unknown policy -> forward to the default...
-		else { return std::transform(std::forward(policy), first1, last1, d_first, unary_op); }
+		else { return std::transform(policy, first1, last1, d_first, unary_op); }
 	}
 
 	template<class ExecutionPolicy, class ForwardIt1, class ForwardIt2, class ForwardIt3, class BinaryOperation>
@@ -79,7 +79,7 @@ namespace omp
 			return d_first + std::distance(first1, last1);
 		}
 		// if policy is std::execution::sequenced_policy or any other unknown policy -> forward to the default...
-		else { return std::transform(std::forward(policy), first1, last1, first2, d_first, binary_op); }
+		else { return std::transform(policy, first1, last1, first2, d_first, binary_op); }
 	}
 } // namespace omp
 
