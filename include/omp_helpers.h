@@ -5,6 +5,7 @@
 #ifdef USE_OMP
 
 #include "omp_helpers/exclusive_scan.h"
+#include "omp_helpers/find.h"
 #include "omp_helpers/for_each.h"
 #include "omp_helpers/inclusive_scan.h"
 #include "omp_helpers/transform.h"
