@@ -35,7 +35,7 @@ namespace B1
 			auto next = suite::get_vec<BASE_POLICY>(2);
 			next      = { index - 1, index - 2 };
 
-			__gnu_parallel::for_each(next.begin(), next.end(), FIB_omp{ m_policy });
+			__gnu_parallel::for_each(next.begin(), next.end(), FIB_gnu{ m_policy });
 		}
 	};
 
@@ -43,7 +43,7 @@ namespace B1
 		// enable nested parallelism
 		omp_set_nested(1);
 
-		__gnu_parallel::for_each(input_data.begin(), input_data.end(), FIB_omp{ policy });
+		__gnu_parallel::for_each(input_data.begin(), input_data.end(), FIB_gnu{ policy });
 	};
 
 } // namespace B1

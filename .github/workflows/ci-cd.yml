@@ -9,110 +9,125 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@latest
+
+      - name: Set up CPM cache folder
+        run: |
+          echo "CPM_SOURCE_CACHE=${HOME}/.cpm/cache" >> $GITHUB_ENV
+          echo "CPM_SOURCE_CACHE=${CPM_SOURCE_CACHE}"
+
+      - name: Check CPM cache folder
+        run: |
+          echo "check CPM_SOURCE_CACHE=${CPM_SOURCE_CACHE}"
+
+      - name: Run apt update
+        run: sudo apt update
+
+
+      - name: Cache CMake
+        id: cache-cmake
+        uses: actions/cache@latest
+        with:
+          path: ~/.cmake
+          key: ${{ runner.os }}-cmake-${{ hashFiles('**/') }}
+          restore-keys: |
+            ${{ runner.os }}-cmake-
 
       - name: Set up CMake
+        if: steps.cache-cmake.outputs.cache-hit != 'true'
         run: |
-          sudo apt-get install -y cmake
+          sudo apt install -y cmake
           cmake --version
           echo "cmake version: $(cmake --version)"
 
-#      - name: Cache CMake and Build Dependencies
-#        uses: actions/cache@v2
-#        with:
-#          path: |
-#            ~/.cmake
-#            build
-#          key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt') }}
-#          restore-keys: |
-#            ${{ runner.os }}-cmake-
+
+      - name: Cache C++ compiler
+        id: cache-cpp
+        uses: actions/cache@latest
+        with:
+          path: ~/.cache
+          key: ${{ runner.os }}-cpp-${{ hashFiles('**/') }}
+          restore-keys: |
+            ${{ runner.os }}-cpp-
 
       - name: Set up C++ compiler (11 or newer)
+        if: steps.cache-cpp.outputs.cache-hit != 'true'
         run: |
-          sudo apt-get install -y g++-11
+          sudo apt install -y g++-11
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
-          g++ --version
-          echo "g++ version: $(g++ --version)"
+          c++ --version
+          echo "c++ version: $(c++ --version)"
+          
 
-#      - name: Cache C++ compiler
-#        uses: actions/cache@v2
-#        with:
-#          path: /usr/bin/g++-11
-#          key: ${{ runner.os }}-g++-${{ hashFiles('**/CMakeLists.txt') }}
-#          restore-keys: |
-#            ${{ runner.os }}-g++-
+      - name: Cache libPFM
+        id: cache-libpfm
+        uses: actions/cache@latest
+        with:
+          path: ~/.cache
+          key: ${{ runner.os }}-libpfm-${{ hashFiles('**/') }}
+          restore-keys: |
+            ${{ runner.os }}-libpfm-
 
-#      - name: Set up NVIDIA HPC toolkit
-#        run: |
-#          curl https://developer.download.nvidia.com/hpc-sdk/ubuntu/DEB-GPG-KEY-NVIDIA-HPC-SDK | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-hpcsdk-archive-keyring.gpg
-#          echo 'deb [signed-by=/usr/share/keyrings/nvidia-hpcsdk-archive-keyring.gpg] https://developer.download.nvidia.com/hpc-sdk/ubuntu/amd64 /' | sudo tee /etc/apt/sources.list.d/nvhpc.list
-#          sudo apt-get update -y
-#          sudo apt-get install -y nvhpc-23-9
-#          nvc --version
-#          echo "nvc --version: $(nvc --version)"
+      - name: Set up libPFM
+        if: steps.cache-libpfm.outputs.cache-hit != 'true'
+        run: |
+          sudo apt install -y libpfm4-dev
+          echo "libpfm version: $(dpkg -s libpfm4-dev | grep Version)"
+          
 
-#      - name: Cache NVIDIA HPC toolkit
-#        uses: actions/cache@v2
-#        with:
-#          path: /opt/nvidia/hpc_sdk/Linux_x86_64/23.9
-#          key: ${{ runner.os }}-nvhpc-${{ hashFiles('**/CMakeLists.txt') }}
-#          restore-keys: |
-#            ${{ runner.os }}-nvhpc-
-
-#      - name: Set up Intel OneAPI
-#        run: |
-#          wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \ | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
-#          echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
-#          sudo apt update -y
-#          sudo apt install -y intel-basekit
-#          source /opt/intel/oneapi/setvars.sh
-#          cpx --version
-#          echo "cpx --version: $(cpx --version)"
-
-#      - name: Cache Intel OneAPI
-#        uses: actions/cache@v2
-#        with:
-#          path: /opt/intel
-#          key: ${{ runner.os }}-oneapi-${{ hashFiles('**/CMakeLists.txt') }}
-#          restore-keys: |
-#            ${{ runner.os }}-oneapi-
+      - name: Cache Google Benchmark
+        id: cache-benchmark
+        uses: actions/cache@latest
+        with:
+          path: ~/.cache
+          key: ${{ runner.os }}-benchmark-${{ hashFiles('**/') }}
+          restore-keys: |
+            ${{ runner.os }}-benchmark-
 
       - name: Set up Google Benchmark
+        if: steps.cache-benchmark.outputs.cache-hit != 'true'
         run: |
-          sudo apt-get install -y libbenchmark-dev
+          sudo apt install -y libbenchmark-dev
           echo "benchmark version: $(dpkg -s libbenchmark-dev | grep Version)"
 
-#      - name: Cache Google Benchmark
-#        uses: actions/cache@v2
-#        with:
-#          path: /usr/lib/x86_64-linux-gnu/libbenchmark.so
-#          key: ${{ runner.os }}-benchmark-${{ hashFiles('**/CMakeLists.txt') }}
-#          restore-keys: |
-#            ${{ runner.os }}-benchmark-
+
+      - name: Cache Boost
+        id: cache-boost
+        uses: actions/cache@latest
+        with:
+          path: ~/.cache
+          key: ${{ runner.os }}-boost-${{ hashFiles('**/') }}
+          restore-keys: |
+            ${{ runner.os }}-boost-
 
       - name: Set up Boost
+        if: steps.cache-boost.outputs.cache-hit != 'true'
         run: |
-          sudo apt-get install -y libboost-all-dev
-          echo "boost version: $(dpkg -s libboost-all-dev | grep Version)"
+          sudo apt install -y libboost-dev
+          echo "boost version: $(dpkg -s libboost-dev | grep Version)"
 
-#      - name: Cache Boost
-#        uses: actions/cache@v2
-#        with:
-#          path: /usr/lib/x86_64-linux-gnu/libboost_system.so
-#          key: ${{ runner.os }}-boost-${{ hashFiles('**/CMakeLists.txt') }}
-#          restore-keys: |
-#            ${{ runner.os }}-boost-
+
+      - name: Cache TBB
+        id: cache-tbb
+        uses: actions/cache@latest
+        with:
+          path: ~/.cache
+          key: ${{ runner.os }}-tbb-${{ hashFiles('**/') }}
+          restore-keys: |
+            ${{ runner.os }}-tbb-
 
       - name: Set up TBB
+        if: steps.cache-tbb.outputs.cache-hit != 'true'
         run: |
-          sudo apt-get install -y libtbb-dev
+          sudo apt install -y libtbb2-dev
           echo "tbb version: $(dpkg -s libtbb-dev | grep Version)"
+
 
       - name: Build application with CMake (no options)
         run: |
           mkdir build
           cd build
-          cmake .. -DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=GCC_TBB -DUSE_PARALLEL_ALLOCATOR=ON
           make
           echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release)"
 
@@ -120,17 +135,9 @@ jobs:
         run: |
           mkdir build-omp
           cd build-omp
-          cmake .. -BACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_OPENMP=ON
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=GCC_TBB -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_OMP=ON
           make 
-          echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_OPENMP=ON)"
-
-      - name: Build application with CMake (enable BOOST)
-        run: |
-          mkdir build-boost
-          cd build-boost
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=GCC_TBB -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_BOOST=ON
-          make
-          echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_BOOST=ON)"
+          echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_OMP=ON)"
 
       - name: Build application with CMake (enable GNU parallel STL)
         run: |
@@ -140,20 +147,10 @@ jobs:
           make
           echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_GNU_PSTL=ON)"
 
-#      - name: Build application with CMake (Intel compiler)
-#        run: |
-#          . /opt/intel/oneapi/setvars.sh
-#          export CXX=cpx
-#          mkdir build-intel
-#          cd build-intel
-#          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=GCC_TBB -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_ONEAPI=ON
-#          make
-#          echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_ONEAPI=ON)"
-#
-#      - name: Build application with CMake (NVIDIA compiler)
-#        run: |
-#          mkdir build-nvidia
-#          cd build-nvidia
-#          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=NVC_OMP -DUSE_PARALLEL_ALLOCATOR=ON
-#          make
-#          echo "Application built successfully! (-DBACKEND=NVC_OMP -DCMAKE_BUILD_TYPE=Release -DUSE_PARALLEL_ALLOCATOR=ON)"
+      - name: Build application with CMake (enable BOOST)
+        run: |
+          mkdir build-boost
+          cd build-boost
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=GCC_TBB -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_BOOST=ON
+          make
+          echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_BOOST=ON)"

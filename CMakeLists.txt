@@ -58,9 +58,22 @@ endif ()
 # region Setup CPM (for dependencies)
 set(CPM_USE_LOCAL_PACKAGES ON)
 set(CPM_USE_NAMED_CACHE_DIRECTORIES ON)
-set(CPM_SOURCE_CACHE "${CMAKE_CURRENT_BINARY_DIR}/deps_cache/")
+
+# check if the cache is not defined (also as an environment variable)
+if (NOT DEFINED ENV{CPM_SOURCE_CACHE} AND NOT DEFINED CPM_SOURCE_CACHE)
+    set(CPM_SOURCE_CACHE "${CMAKE_BINARY_DIR}/deps_cache/" CACHE PATH "CPM source cache" FORCE)
+    message(STATUS "CPM_SOURCE_CACHE not defined, using ${CPM_SOURCE_CACHE}")
+else ()
+    if (DEFINED ENV{CPM_SOURCE_CACHE})
+        message(STATUS "CPM_SOURCE_CACHE (env) defined, using $ENV{CPM_SOURCE_CACHE}")
+    else ()
+        message(STATUS "CPM_SOURCE_CACHE defined, using ${CPM_SOURCE_CACHE}")
+    endif ()
+endif ()
+
 include(cmake/get_cpm.cmake)
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
+
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CPM_SOURCE_CACHE};${CMAKE_MODULE_PATH}")
 # endregion Setup CPM (for dependencies)
 
 # region use boost option
@@ -71,8 +84,8 @@ if (USE_BOOST)
     CPMAddPackage(
             NAME Boost
             GITHUB_REPOSITORY "boostorg/boost"
-            VERSION 1.81.0
-            GIT_TAG "boost-1.81.0"
+            VERSION 1.74.0
+            GIT_TAG "boost-1.74.0"
             OPTIONS
             "Boost_USE_STATIC_LIBS ON"
             "BOOST_USE_RELEASE_LIBS ON"
@@ -80,7 +93,7 @@ if (USE_BOOST)
             "Boost_USE_STATIC_RUNTIME OFF"
     )
 
-    target_link_libraries(${PROJECT_NAME} PRIVATE Boost::thread)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Boost::boost)
 endif ()
 # endregion use boost option
 

@@ -16,8 +16,10 @@
 #include "b6_1_inclusive_scan.h"
 #include "b6_2_exclusive_scan.h"
 
+#ifdef USE_OMP
 #include "b6_1_inclusive_scan_omp.h"
 #include "b6_2_exclusive_scan_omp.h"
+#endif
 
 
 //region b6_1_inclusive_scan
