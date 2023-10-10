@@ -103,6 +103,11 @@ jobs:
 #          restore-keys: |
 #            ${{ runner.os }}-boost-
 
+      - name: Set up TBB
+        run: |
+          sudo apt-get install -y libtbb-dev
+          echo "tbb version: $(dpkg -s libtbb-dev | grep Version)"
+
       - name: Build application with CMake (no options)
         run: |
           mkdir build
