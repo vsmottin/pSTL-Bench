@@ -11,113 +11,38 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@latest
 
-      - name: Set up CPM cache folder
-        run: |
-          echo "CPM_SOURCE_CACHE=${HOME}/.cpm/cache" >> $GITHUB_ENV
-          echo "CPM_SOURCE_CACHE=${CPM_SOURCE_CACHE}"
-
-      - name: Check CPM cache folder
-        run: |
-          echo "check CPM_SOURCE_CACHE=${CPM_SOURCE_CACHE}"
-
       - name: Run apt update
         run: sudo apt update
 
-
-      - name: Cache CMake
-        id: cache-cmake
-        uses: actions/cache@latest
-        with:
-          path: ~/.cmake
-          key: ${{ runner.os }}-cmake-${{ hashFiles('**/') }}
-          restore-keys: |
-            ${{ runner.os }}-cmake-
-
       - name: Set up CMake
-        if: steps.cache-cmake.outputs.cache-hit != 'true'
         run: |
           sudo apt install -y cmake
           cmake --version
           echo "cmake version: $(cmake --version)"
 
-
-      - name: Cache C++ compiler
-        id: cache-cpp
-        uses: actions/cache@latest
-        with:
-          path: ~/.cache
-          key: ${{ runner.os }}-cpp-${{ hashFiles('**/') }}
-          restore-keys: |
-            ${{ runner.os }}-cpp-
-
       - name: Set up C++ compiler (11 or newer)
-        if: steps.cache-cpp.outputs.cache-hit != 'true'
         run: |
           sudo apt install -y g++-11
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
           c++ --version
           echo "c++ version: $(c++ --version)"
-          
-
-      - name: Cache libPFM
-        id: cache-libpfm
-        uses: actions/cache@latest
-        with:
-          path: ~/.cache
-          key: ${{ runner.os }}-libpfm-${{ hashFiles('**/') }}
-          restore-keys: |
-            ${{ runner.os }}-libpfm-
 
       - name: Set up libPFM
-        if: steps.cache-libpfm.outputs.cache-hit != 'true'
         run: |
           sudo apt install -y libpfm4-dev
           echo "libpfm version: $(dpkg -s libpfm4-dev | grep Version)"
-          
-
-      - name: Cache Google Benchmark
-        id: cache-benchmark
-        uses: actions/cache@latest
-        with:
-          path: ~/.cache
-          key: ${{ runner.os }}-benchmark-${{ hashFiles('**/') }}
-          restore-keys: |
-            ${{ runner.os }}-benchmark-
 
       - name: Set up Google Benchmark
-        if: steps.cache-benchmark.outputs.cache-hit != 'true'
         run: |
           sudo apt install -y libbenchmark-dev
           echo "benchmark version: $(dpkg -s libbenchmark-dev | grep Version)"
 
-
-      - name: Cache Boost
-        id: cache-boost
-        uses: actions/cache@latest
-        with:
-          path: ~/.cache
-          key: ${{ runner.os }}-boost-${{ hashFiles('**/') }}
-          restore-keys: |
-            ${{ runner.os }}-boost-
-
       - name: Set up Boost
-        if: steps.cache-boost.outputs.cache-hit != 'true'
         run: |
           sudo apt install -y libboost-dev
           echo "boost version: $(dpkg -s libboost-dev | grep Version)"
 
-
-      - name: Cache TBB
-        id: cache-tbb
-        uses: actions/cache@latest
-        with:
-          path: ~/.cache
-          key: ${{ runner.os }}-tbb-${{ hashFiles('**/') }}
-          restore-keys: |
-            ${{ runner.os }}-tbb-
-
       - name: Set up TBB
-        if: steps.cache-tbb.outputs.cache-hit != 'true'
         run: |
           sudo apt install -y libtbb2-dev
           echo "tbb version: $(dpkg -s libtbb-dev | grep Version)"
