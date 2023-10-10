@@ -8,6 +8,7 @@
 #include "omp_helpers/find.h"
 #include "omp_helpers/for_each.h"
 #include "omp_helpers/inclusive_scan.h"
+#include "omp_helpers/reduce.h"
 #include "omp_helpers/transform.h"
 
 #endif //USE_OMP

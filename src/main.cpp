@@ -9,11 +9,13 @@
 #include "benchmarks/index_based_iterations/b9_group.h"
 #include "benchmarks/nested_parallelism/b1_group.h"
 #include "benchmarks/optimization_scans/b6_group.h"
+#include "benchmarks/reduce/group.h"
 #include "benchmarks/sequential_fallback/b4_group.h"
 #include "benchmarks/specialized_techniques/b5_group.h"
 #include "benchmarks/specific_versus_custom/b7_group.h"
 #include <benchmark/benchmark.h>
 
+REDUCE_GROUP
 NESTED_PARALLELISM_GROUP
 SEQUENTIAL_FALLBACK_GROUP
 SPECIALIZED_TECHNIQUES_GROUP
