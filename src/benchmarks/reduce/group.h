@@ -1,5 +1,5 @@
-#ifndef PSTL_BENCH_GROUP_H
-#define PSTL_BENCH_GROUP_H
+#ifndef PSTL_BENCH_REDUCE_GROUP_H
+#define PSTL_BENCH_REDUCE_GROUP_H
 
 #include "reduce_utils.h"
 
@@ -80,4 +80,4 @@ static void reduce_gnu_wrapper(benchmark::State & state)
 	REDUCE_OMP_WRAPPER \
 	REDUCE_GNU_WRAPPER
 
-#endif //PSTL_BENCH_GROUP_H
+#endif //PSTL_BENCH_REDUCE_GROUP_H
