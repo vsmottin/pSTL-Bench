@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 
 on:
-  push: {} # Run this workflow on push events (all branches)
+  push: { } # Run this workflow on push events (all branches)
 
 jobs:
   build:
@@ -12,7 +12,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up CMake
-        run: sudo apt-get install -y cmake  # Install CMake if not already available
+        run: |
+          sudo apt-get install -y cmake
+          cmake --version
+          echo "cmake version: $(cmake --version)"
 
       - name: Cache CMake and Build Dependencies
         uses: actions/cache@v2
@@ -25,7 +28,11 @@ jobs:
             ${{ runner.os }}-cmake-
 
       - name: Set up C++ compiler (11 or newer)
-        run: sudo apt-get install -y g++-11  # Install g++-11 if not already available
+        run: |
+          sudo apt-get install -y g++-11
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 90
+          g++ --version
+          echo "g++ version: $(g++ --version)"
 
       - name: Cache C++ compiler
         uses: actions/cache@v2
@@ -35,59 +42,66 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-g++-
 
-      - name: Set up NVIDIA HPC toolkit
-        run: |
-          curl https://developer.download.nvidia.com/hpc-sdk/ubuntu/DEB-GPG-KEY-NVIDIA-HPC-SDK | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-hpcsdk-archive-keyring.gpg
-          echo 'deb [signed-by=/usr/share/keyrings/nvidia-hpcsdk-archive-keyring.gpg] https://developer.download.nvidia.com/hpc-sdk/ubuntu/amd64 /' | sudo tee /etc/apt/sources.list.d/nvhpc.list
-          sudo apt-get update -y
-          sudo apt-get install -y nvhpc-23-9
+#      - name: Set up NVIDIA HPC toolkit
+#        run: |
+#          curl https://developer.download.nvidia.com/hpc-sdk/ubuntu/DEB-GPG-KEY-NVIDIA-HPC-SDK | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-hpcsdk-archive-keyring.gpg
+#          echo 'deb [signed-by=/usr/share/keyrings/nvidia-hpcsdk-archive-keyring.gpg] https://developer.download.nvidia.com/hpc-sdk/ubuntu/amd64 /' | sudo tee /etc/apt/sources.list.d/nvhpc.list
+#          sudo apt-get update -y
+#          sudo apt-get install -y nvhpc-23-9
+#          nvc --version
+#          echo "nvc --version: $(nvc --version)"
 
-      - name: Cache NVIDIA HPC toolkit
-        uses: actions/cache@v2
-        with:
-          path: /opt/nvidia/hpc_sdk/Linux_x86_64/23.9
-          key: ${{ runner.os }}-nvhpc-${{ hashFiles('**/CMakeLists.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-nvhpc-
+#      - name: Cache NVIDIA HPC toolkit
+#        uses: actions/cache@v2
+#        with:
+#          path: /opt/nvidia/hpc_sdk/Linux_x86_64/23.9
+#          key: ${{ runner.os }}-nvhpc-${{ hashFiles('**/CMakeLists.txt') }}
+#          restore-keys: |
+#            ${{ runner.os }}-nvhpc-
 
-      - name: Set up Intel OneAPI
-        run: |
-          wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \ | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
-          echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
-          sudo apt update -y
-          sudo apt install -y intel-basekit
+#      - name: Set up Intel OneAPI
+#        run: |
+#          wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB \ | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
+#          echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+#          sudo apt update -y
+#          sudo apt install -y intel-basekit
+#          source /opt/intel/oneapi/setvars.sh
+#          cpx --version
+#          echo "cpx --version: $(cpx --version)"
 
-      - name: Cache Intel OneAPI
-        uses: actions/cache@v2
-        with:
-          path: /opt/intel
-          key: ${{ runner.os }}-oneapi-${{ hashFiles('**/CMakeLists.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-oneapi-
+#      - name: Cache Intel OneAPI
+#        uses: actions/cache@v2
+#        with:
+#          path: /opt/intel
+#          key: ${{ runner.os }}-oneapi-${{ hashFiles('**/CMakeLists.txt') }}
+#          restore-keys: |
+#            ${{ runner.os }}-oneapi-
 
       - name: Set up Google Benchmark
         run: |
-          sudo apt-get install -y libbenchmark-dev  # Install libbenchmark-dev if not already available
+          sudo apt-get install -y libbenchmark-dev
+          echo "benchmark version: $(dpkg -s libbenchmark-dev | grep Version)"
 
-      - name: Cache Google Benchmark
-        uses: actions/cache@v2
-        with:
-          path: /usr/lib/x86_64-linux-gnu/libbenchmark.so
-          key: ${{ runner.os }}-benchmark-${{ hashFiles('**/CMakeLists.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-benchmark-
+#      - name: Cache Google Benchmark
+#        uses: actions/cache@v2
+#        with:
+#          path: /usr/lib/x86_64-linux-gnu/libbenchmark.so
+#          key: ${{ runner.os }}-benchmark-${{ hashFiles('**/CMakeLists.txt') }}
+#          restore-keys: |
+#            ${{ runner.os }}-benchmark-
 
       - name: Set up Boost
         run: |
-          sudo apt-get install -y libboost-all-dev  # Install libboost-all-dev if not already available
+          sudo apt-get install -y libboost-all-dev
+          echo "boost version: $(dpkg -s libboost-all-dev | grep Version)"
 
-      - name: Cache Boost
-        uses: actions/cache@v2
-        with:
-          path: /usr/lib/x86_64-linux-gnu/libboost_system.so
-          key: ${{ runner.os }}-boost-${{ hashFiles('**/CMakeLists.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-boost-
+#      - name: Cache Boost
+#        uses: actions/cache@v2
+#        with:
+#          path: /usr/lib/x86_64-linux-gnu/libboost_system.so
+#          key: ${{ runner.os }}-boost-${{ hashFiles('**/CMakeLists.txt') }}
+#          restore-keys: |
+#            ${{ runner.os }}-boost-
 
       - name: Build application with CMake (no options)
         run: |
@@ -95,6 +109,7 @@ jobs:
           cd build
           cmake .. -DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release
           make
+          echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release)"
 
       - name: Build application with CMake (enable OpenMP)
         run: |
@@ -102,6 +117,7 @@ jobs:
           cd build-omp
           cmake .. -BACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_OPENMP=ON
           make 
+          echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_OPENMP=ON)"
 
       - name: Build application with CMake (enable BOOST)
         run: |
@@ -109,6 +125,7 @@ jobs:
           cd build-boost
           cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=GCC_TBB -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_BOOST=ON
           make
+          echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_BOOST=ON)"
 
       - name: Build application with CMake (enable GNU parallel STL)
         run: |
@@ -116,19 +133,22 @@ jobs:
           cd build-gpstl
           cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=GCC_TBB -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_GNU_PSTL=ON
           make
+          echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_GNU_PSTL=ON)"
 
-      - name: Build application with CMake (Intel compiler)
-        run: |
-          . /opt/intel/oneapi/setvars.sh
-          export CXX=cpx
-          mkdir build-intel
-          cd build-intel
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=GCC_TBB -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_ONEAPI=ON
-          make
-
-      - name: Build application with CMake (NVIDIA compiler)
-        run: |
-          mkdir build-nvidia
-          cd build-nvidia
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=NVC_OMP -DUSE_PARALLEL_ALLOCATOR=ON
-          make
+#      - name: Build application with CMake (Intel compiler)
+#        run: |
+#          . /opt/intel/oneapi/setvars.sh
+#          export CXX=cpx
+#          mkdir build-intel
+#          cd build-intel
+#          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=GCC_TBB -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_ONEAPI=ON
+#          make
+#          echo "Application built successfully! (-DBACKEND=GCC_TBB -DCMAKE_BUILD_TYPE=Release -DUSE_PARALLEL_ALLOCATOR=ON -DUSE_ONEAPI=ON)"
+#
+#      - name: Build application with CMake (NVIDIA compiler)
+#        run: |
+#          mkdir build-nvidia
+#          cd build-nvidia
+#          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=NVC_OMP -DUSE_PARALLEL_ALLOCATOR=ON
+#          make
+#          echo "Application built successfully! (-DBACKEND=NVC_OMP -DCMAKE_BUILD_TYPE=Release -DUSE_PARALLEL_ALLOCATOR=ON)"
