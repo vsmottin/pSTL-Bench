@@ -45,15 +45,15 @@ static void for_each_omp_quadratic_mandelbrot_wrapper(benchmark::State & state)
 	    state, benchmark_for_each::for_each_omp_quadratic_mandelbrot);
 }
 
-#define FOR_EACH_OMP_QUADRATIC_MANDELBROT_WRAPPER(outer)                                                       \
-	BENCHMARK_TEMPLATE2(for_each_omp_quadratic_mandelbrot_wrapper, std::execution::sequenced_policy,           \
-	                    std::execution::sequenced_policy)                                                      \
+#define FOR_EACH_OMP_QUADRATIC_MANDELBROT_WRAPPER(outer)                                                        \
+	BENCHMARK_TEMPLATE2(for_each_omp_quadratic_mandelbrot_wrapper, std::execution::sequenced_policy,            \
+	                    std::execution::sequenced_policy)                                                       \
 	    ->Name(BENCHMARK_NAME("omp::for_each_quadratic_mandelbrot_outer_std::execution::sequenced_policy_seq")) \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                                \
-	    ->Range(1 << 13, 1 << 13);                                                                             \
-	BENCHMARK_TEMPLATE2(for_each_omp_quadratic_mandelbrot_wrapper, outer, std::execution::parallel_policy)     \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                                 \
+	    ->Range(1 << 13, 1 << 13);                                                                              \
+	BENCHMARK_TEMPLATE2(for_each_omp_quadratic_mandelbrot_wrapper, outer, std::execution::parallel_policy)      \
 	    ->Name(BENCHMARK_NAME("omp::for_each_quadratic_mandelbrot_outer_" xstr(outer) "_par"))                  \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                                \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                                 \
 	    ->Range(1 << 5, 1 << 13);
 #else
 #define FOR_EACH_OMP_QUADRATIC_MANDELBROT_WRAPPER(outer)
@@ -69,15 +69,15 @@ static void for_each_gnu_quadratic_mandelbrot_wrapper(benchmark::State & state)
 	    state, benchmark_for_each::for_each_gnu_quadratic_mandelbrot);
 }
 
-#define FOR_EACH_GNU_QUADRATIC_MANDELBROT_WRAPPER(outer)                                                       \
-	BENCHMARK_TEMPLATE2(for_each_gnu_quadratic_mandelbrot_wrapper, std::execution::sequenced_policy,           \
-	                    std::execution::sequenced_policy)                                                      \
+#define FOR_EACH_GNU_QUADRATIC_MANDELBROT_WRAPPER(outer)                                                        \
+	BENCHMARK_TEMPLATE2(for_each_gnu_quadratic_mandelbrot_wrapper, std::execution::sequenced_policy,            \
+	                    std::execution::sequenced_policy)                                                       \
 	    ->Name(BENCHMARK_NAME("gnu::for_each_quadratic_mandelbrot_outer_std::execution::sequenced_policy_seq")) \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                                \
-	    ->Range(1 << 13, 1 << 13);                                                                             \
-	BENCHMARK_TEMPLATE2(for_each_gnu_quadratic_mandelbrot_wrapper, outer, std::execution::parallel_policy)     \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                                 \
+	    ->Range(1 << 13, 1 << 13);                                                                              \
+	BENCHMARK_TEMPLATE2(for_each_gnu_quadratic_mandelbrot_wrapper, outer, std::execution::parallel_policy)      \
 	    ->Name(BENCHMARK_NAME("gnu::for_each_quadratic_mandelbrot_outer_" xstr(outer) "_par"))                  \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                                \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                                 \
 	    ->Range(1 << 5, 1 << 13);
 #else
 #define FOR_EACH_GNU_QUADRATIC_MANDELBROT_WRAPPER(outer)

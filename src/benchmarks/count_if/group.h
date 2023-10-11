@@ -23,11 +23,11 @@ static void count_if_std_wrapper(benchmark::State & state)
 #define COUNT_IF_STD_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(count_if_std_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME("std::count_if_seq"))                             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
-	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                              \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
+	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                \
 	BENCHMARK_TEMPLATE1(count_if_std_wrapper, std::execution::parallel_policy)  \
 	    ->Name(BENCHMARK_NAME("std::count_if_par"))                             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);
 //endregion count_if_std
 
@@ -42,11 +42,11 @@ static void count_if_omp_wrapper(benchmark::State & state)
 #define COUNT_IF_OMP_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(count_if_omp_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME("omp::count_if_seq"))                             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
-	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                              \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
+	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                \
 	BENCHMARK_TEMPLATE1(count_if_omp_wrapper, std::execution::parallel_policy)  \
 	    ->Name(BENCHMARK_NAME("omp::count_if_par"))                             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);
 #else
 #define COUNT_IF_OMP_WRAPPER
@@ -64,11 +64,11 @@ static void count_if_gnu_wrapper(benchmark::State & state)
 #define COUNT_IF_GNU_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(count_if_gnu_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME("gnu::count_if_seq"))                             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
-	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                              \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
+	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                \
 	BENCHMARK_TEMPLATE1(count_if_gnu_wrapper, std::execution::parallel_policy)  \
 	    ->Name(BENCHMARK_NAME("gnu::count_if_par"))                             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);
 #else
 #define COUNT_IF_GNU_WRAPPER
