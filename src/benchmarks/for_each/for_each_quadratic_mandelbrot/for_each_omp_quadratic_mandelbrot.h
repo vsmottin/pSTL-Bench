@@ -1,6 +1,6 @@
 
-#ifndef PSTL_BENCH_B1_4_FOR_EACH_QUADRATIC_MANDELBROT_OMP_H
-#define PSTL_BENCH_B1_4_FOR_EACH_QUADRATIC_MANDELBROT_OMP_H
+#ifndef PSTL_BENCH_FOR_EACH_OMP_QUADRATIC_MANDELBROT_H
+#define PSTL_BENCH_FOR_EACH_OMP_QUADRATIC_MANDELBROT_H
 
 #include <algorithm>
 #include <benchmark/benchmark.h>
@@ -13,12 +13,11 @@
 
 #include <omp_helpers.h>
 
-namespace B1
+namespace benchmark_for_each
 {
 
-	const auto b1_4_for_each_quadratic_mandelbrot_omp = [](auto && outerExecutionPolicy, auto && innerExecutionPolicy,
-	                                                       const auto & input_data,
-	                                                       auto &&      quadratic_mandelbrot_kernel) {
+	const auto for_each_omp_quadratic_mandelbrot = [](auto && outerExecutionPolicy, auto && innerExecutionPolicy,
+	                                                  const auto & input_data, auto && quadratic_mandelbrot_kernel) {
 		omp_set_nested(1);
 
 		const auto width  = input_data.size();
@@ -49,4 +48,4 @@ namespace B1
 
 }
 
-#endif //PSTL_BENCH_B1_4_FOR_EACH_QUADRATIC_MANDELBROT_OMP_H
+#endif //PSTL_BENCH_FOR_EACH_OMP_QUADRATIC_MANDELBROT_H

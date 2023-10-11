@@ -1,5 +1,5 @@
-#ifndef PSTL_BENCH_B1_3_FOR_EACH_QUADRATIC_GNU_H
-#define PSTL_BENCH_B1_3_FOR_EACH_QUADRATIC_GNU_H
+#ifndef PSTL_BENCH_FOR_EACH_GNU_QUADRATIC_H
+#define PSTL_BENCH_FOR_EACH_GNU_QUADRATIC_H
 
 #include <algorithm>
 #include <cmath>
@@ -13,11 +13,11 @@
 
 #include <parallel/algorithm>
 
-namespace B1
+namespace benchmark_for_each
 {
 
-	const auto b1_3_for_each_quadratic_gnu = [](auto && outerExecutionPolicy, auto && innerExecutionPolicy,
-	                                            const auto & input_data, auto && f) {
+	const auto for_each_gnu_quadratic = [](auto && outerExecutionPolicy, auto && innerExecutionPolicy,
+	                                       const auto & input_data, auto && f) {
 		__gnu_parallel::for_each(input_data.begin(), input_data.end(), [&](const auto & e1) {
 			__gnu_parallel::for_each(input_data.begin(), input_data.end(), [&](const auto & e2) { f(e1, e2); });
 		});
@@ -26,4 +26,4 @@ namespace B1
 }
 
 
-#endif //PSTL_BENCH_B1_3_FOR_EACH_QUADRATIC_GNU_H
+#endif //PSTL_BENCH_FOR_EACH_GNU_QUADRATIC_H

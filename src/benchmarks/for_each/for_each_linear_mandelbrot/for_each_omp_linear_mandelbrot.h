@@ -1,5 +1,5 @@
-#ifndef PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_OMP_H
-#define PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_OMP_H
+#ifndef PSTL_BENCH_FOR_EACH_OMP_LINEAR_MANDELBROT_H
+#define PSTL_BENCH_FOR_EACH_OMP_LINEAR_MANDELBROT_H
 
 #include <algorithm>
 #include <cmath>
@@ -11,11 +11,10 @@
 
 #include <omp_helpers.h>
 
-namespace B1
+namespace benchmark_for_each
 {
 
-	const auto b1_2_for_each_linear_mandelbrot_omp = [](auto && policy, const auto & pixel_x,
-	                                                    auto && mandelbrot_kernel) {
+	const auto for_each_omp_linear_mandelbrot = [](auto && policy, const auto & pixel_x, auto && mandelbrot_kernel) {
 		// calculating the 17 row of mandelbrot with an adjustable limit.
 		// adjusted from https://github.com/dario-marvin/Mandelbrot/blob/master/Mandelbrot.cc
 
@@ -29,4 +28,4 @@ namespace B1
 
 }
 
-#endif //PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_OMP_H
+#endif //PSTL_BENCH_FOR_EACH_OMP_LINEAR_MANDELBROT_H

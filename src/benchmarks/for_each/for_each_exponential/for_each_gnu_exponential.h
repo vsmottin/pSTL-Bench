@@ -1,5 +1,5 @@
-#ifndef PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_OMP_H
-#define PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_OMP_H
+#ifndef PSTL_BENCH_FOR_EACH_GNU_EXPONENTIAL_H
+#define PSTL_BENCH_FOR_EACH_GNU_EXPONENTIAL_H
 
 #include <algorithm>
 #include <cmath>
@@ -7,24 +7,22 @@
 #include <ranges>
 #include <vector>
 
-#include <omp.h>
-
-#include <omp_helpers.h>
+#include <parallel/algorithm>
 
 #include <benchmark/benchmark.h>
 #include <benchmark_utils.h>
 
-namespace B1
+namespace benchmark_for_each
 {
 
 	template<class ExecutionPolicy>
-	struct FIB_omp
+	struct FIB_gnu
 	{
 		typedef suite::base_type<ExecutionPolicy> BASE_POLICY;
 
 		ExecutionPolicy m_policy;
 
-		explicit FIB_omp(ExecutionPolicy & policy) : m_policy(policy) {}
+		explicit FIB_gnu(ExecutionPolicy & policy) : m_policy(policy) {}
 
 		void operator()(const int & index)
 		{
@@ -37,17 +35,17 @@ namespace B1
 			auto next = suite::get_vec<BASE_POLICY>(2);
 			next      = { index - 1, index - 2 };
 
-			omp::for_each(m_policy, next.begin(), next.end(), FIB_omp{ m_policy });
+			__gnu_parallel::for_each(next.begin(), next.end(), FIB_gnu{ m_policy });
 		}
 	};
 
-	const auto b1_5_for_each_exponential_omp = [](auto && policy, const auto & input_data) {
+	const auto for_each_gnu_exponential = [](auto && policy, const auto & input_data) {
 		// enable nested parallelism
 		omp_set_nested(1);
 
-		omp::for_each(policy, input_data.begin(), input_data.end(), FIB_omp{ policy });
+		__gnu_parallel::for_each(input_data.begin(), input_data.end(), FIB_gnu{ policy });
 	};
 
-} // namespace B1
+} // namespace benchmark_for_each
 
-#endif //PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_OMP_H
+#endif //PSTL_BENCH_FOR_EACH_GNU_EXPONENTIAL_H

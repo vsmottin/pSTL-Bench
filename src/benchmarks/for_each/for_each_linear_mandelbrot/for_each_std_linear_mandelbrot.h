@@ -1,5 +1,5 @@
-#ifndef PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_H
-#define PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_H
+#ifndef PSTL_BENCH_FOR_EACH_STD_LINEAR_MANDELBROT_H
+#define PSTL_BENCH_FOR_EACH_STD_LINEAR_MANDELBROT_H
 
 
 #include <algorithm>
@@ -9,10 +9,10 @@
 
 #include <benchmark_utils.h>
 
-namespace B1
+namespace benchmark_for_each
 {
 
-	const auto b1_2_for_each_linear_mandelbrot = [](auto && policy, const auto & pixel_x, auto && mandelbrot) {
+	const auto for_each_std_linear_mandelbrot = [](auto && policy, const auto & pixel_x, auto && mandelbrot) {
 		const auto dx = (1.0 - -2.0) / (pixel_x.size() - 1);
 
 		std::for_each(policy, pixel_x.begin(), pixel_x.end(), [&, dx](const auto & entry) {
@@ -23,6 +23,6 @@ namespace B1
 		});
 	};
 
-} // namespace B1
+} // namespace benchmark_for_each
 
-#endif //PSTL_BENCH_B1_2_FOR_EACH_LINEAR_MANDELBROT_H
+#endif //PSTL_BENCH_FOR_EACH_STD_LINEAR_MANDELBROT_H

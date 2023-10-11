@@ -1,5 +1,5 @@
-#ifndef PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_H
-#define PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_H
+#ifndef PSTL_BENCH_FOR_EACH_STD_EXPONENTIAL_H
+#define PSTL_BENCH_FOR_EACH_STD_EXPONENTIAL_H
 
 #include <algorithm>
 #include <benchmark/benchmark.h>
@@ -9,7 +9,7 @@
 #include <ranges>
 #include <vector>
 
-namespace B1
+namespace benchmark_for_each
 {
 
 	template<class ExecutionPolicy>
@@ -36,10 +36,10 @@ namespace B1
 		}
 	};
 
-	const auto b1_5_for_each_exponential = [](auto && policy, const auto & input_data) {
+	const auto for_each_std_exponential = [](auto && policy, const auto & input_data) {
 		std::for_each(policy, input_data.begin(), input_data.end(), FIB{ policy });
 	};
 
 } // namespace B1
 
-#endif //PSTL_BENCH_B1_5_FOR_EACH_EXPONENTIAL_H
+#endif //PSTL_BENCH_FOR_EACH_STD_EXPONENTIAL_H

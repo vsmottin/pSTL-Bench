@@ -1,6 +1,6 @@
 
-#ifndef PSTL_BENCH_B1_UTILS_H
-#define PSTL_BENCH_B1_UTILS_H
+#ifndef PSTL_BENCH_FOR_EACH_UTILS_H
+#define PSTL_BENCH_FOR_EACH_UTILS_H
 
 #include <cmath>
 
@@ -9,7 +9,7 @@
 #include <benchmark/benchmark.h>
 #include <benchmark_utils.h>
 
-namespace B1
+namespace benchmark_for_each
 {
 	const auto linear_kernel = [](const auto & input) {
 		auto value = std::min(std::sin(input), std::tan(input));
@@ -144,6 +144,6 @@ namespace B1
 			WRAP_TIMING(f(execution_policy, data);)
 		}
 	}
-} // namespace B1
+} // namespace benchmark_for_each
 
-#endif //PSTL_BENCH_B1_UTILS_H
+#endif //PSTL_BENCH_FOR_EACH_UTILS_H

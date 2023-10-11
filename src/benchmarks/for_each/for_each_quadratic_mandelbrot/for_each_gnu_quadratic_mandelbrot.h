@@ -1,6 +1,6 @@
 
-#ifndef PSTL_BENCH_B1_4_FOR_EACH_QUADRATIC_MANDELBROT_H
-#define PSTL_BENCH_B1_4_FOR_EACH_QUADRATIC_MANDELBROT_H
+#ifndef PSTL_BENCH_FOR_EACH_GNU_QUADRATIC_MANDELBROT_H
+#define PSTL_BENCH_FOR_EACH_GNU_QUADRATIC_MANDELBROT_H
 
 #include <algorithm>
 #include <benchmark/benchmark.h>
@@ -9,11 +9,17 @@
 
 #include <benchmark_utils.h>
 
-namespace B1
+#include <omp.h>
+
+#include <parallel/algorithm>
+
+namespace benchmark_for_each
 {
 
-	const auto b1_4_for_each_quadratic_mandelbrot = [](auto && outerExecutionPolicy, auto && innerExecutionPolicy,
-	                                                   const auto & input_data, auto && quadratic_mandelbrot_kernel) {
+	const auto for_each_gnu_quadratic_mandelbrot = [](auto && outerExecutionPolicy, auto && innerExecutionPolicy,
+	                                                  const auto & input_data, auto && quadratic_mandelbrot_kernel) {
+		omp_set_nested(1);
+
 		const auto width  = input_data.size();
 		const auto heigth = input_data.size();
 
@@ -27,9 +33,9 @@ namespace B1
 
 		// quite straight forward std::for_each. The body of the lambda has no intention behind it, the goal was just
 		// to have a big enough computation that takes some amount of time.
-		std::for_each(outerExecutionPolicy, input_data.begin(), input_data.end(), [&](const auto & i) {
+		__gnu_parallel::for_each(input_data.begin(), input_data.end(), [&](const auto & i) {
 			// nested parallel loop with same strategy
-			std::for_each(innerExecutionPolicy, input_data.begin(), input_data.end(), [&](const auto & j) {
+			__gnu_parallel::for_each(input_data.begin(), input_data.end(), [&](const auto & j) {
 				const auto x = x_start + j * dx; // current real value
 				const auto y = y_fin - i * dy;   // current imaginary value
 
@@ -42,4 +48,4 @@ namespace B1
 
 }
 
-#endif //PSTL_BENCH_B1_4_FOR_EACH_QUADRATIC_MANDELBROT_H
+#endif //PSTL_BENCH_FOR_EACH_GNU_QUADRATIC_MANDELBROT_H
