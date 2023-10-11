@@ -6,6 +6,7 @@
 
 #endif
 
+#include "benchmarks/find/group.h"
 #include "benchmarks/count_if/group.h"
 #include "benchmarks/index_based_iterations/b9_group.h"
 #include "benchmarks/nested_parallelism/b1_group.h"
@@ -17,6 +18,7 @@
 #include <benchmark/benchmark.h>
 
 COUNT_IF_GROUP
+FIND_GROUP
 REDUCE_GROUP
 NESTED_PARALLELISM_GROUP
 SEQUENTIAL_FALLBACK_GROUP

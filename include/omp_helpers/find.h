@@ -1,6 +1,6 @@
 
-#ifndef PSTL_BENCH_FIND_H
-#define PSTL_BENCH_FIND_H
+#ifndef PSTL_BENCH_OMP_FIND_H
+#define PSTL_BENCH_OMP_FIND_H
 
 #include <algorithm>
 #include <execution>
@@ -88,4 +88,4 @@ namespace omp
 	ForwardIt find_if_not(ExecutionPolicy && policy, ForwardIt first, ForwardIt last, UnaryPredicate q);
 } // namespace omp
 
-#endif //PSTL_BENCH_FIND_H
+#endif //PSTL_BENCH_OMP_FIND_H
