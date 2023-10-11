@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <atomic>
+#include <chrono>
 #include <ctime>
 #include <execution>
 #include <iostream>
