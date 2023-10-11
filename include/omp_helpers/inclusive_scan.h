@@ -16,13 +16,13 @@ namespace omp
 		if (first == last) { return d_first; }
 
 		// if policy is std::execution::parallel_unsequenced_policy -> parallelization + vectorization
-		if constexpr (std::is_same_v<decltype(policy), std::execution::parallel_unsequenced_policy>)
+		if constexpr (std::is_convertible_v<decltype(policy), std::execution::parallel_unsequenced_policy>)
 		{
 			*d_first++ = init;
 
 			const auto dist = std::distance(first, last);
 
-#pragma omp parallel for simd default(none) shared(first, last, d_first, init, binary_op)
+#pragma omp parallel for simd default(none) shared(first, last, d_first, init, binary_op) firstprivate(dist)
 			// for (; __first != __last; ++__first)
 			for (std::size_t i = 0; i < dist; ++i)
 			{
@@ -31,13 +31,13 @@ namespace omp
 			}
 		}
 		// if policy is std::execution::parallel_policy -> parallelization
-		else if constexpr (std::is_same_v<decltype(policy), std::execution::parallel_policy>)
+		else if constexpr (std::is_convertible_v<decltype(policy), std::execution::parallel_policy>)
 		{
 			*d_first++ = init;
 
 			const auto dist = std::distance(first, last);
 
-#pragma omp parallel for default(none) shared(first, last, d_first, init, binary_op)
+#pragma omp parallel for default(none) shared(first, last, d_first, init, binary_op) firstprivate(dist)
 			for (std::size_t i = 0; i < dist; ++i)
 			{
 				init       = binary_op(init, *first++);
@@ -45,7 +45,7 @@ namespace omp
 			}
 		}
 		// if policy is std::execution::unsequenced_policy -> vectorization
-		else if constexpr (std::is_same_v<decltype(policy), std::execution::unsequenced_policy>)
+		else if constexpr (std::is_convertible_v<decltype(policy), std::execution::unsequenced_policy>)
 		{
 			*d_first++ = init;
 

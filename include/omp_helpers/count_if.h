@@ -11,13 +11,13 @@ namespace omp
 	                                                                   ForwardIt last, UnaryPredicate p)
 	{
 		// if policy is std::execution::parallel_unsequenced_policy -> parallelization + vectorization
-		if constexpr (std::is_same_v<decltype(policy), std::execution::parallel_unsequenced_policy>)
+		if constexpr (std::is_convertible_v<decltype(policy), std::execution::parallel_unsequenced_policy>)
 		{
 			typename std::iterator_traits<ForwardIt>::difference_type count = 0;
 
 			const auto dist = std::distance(first, last);
 
-#pragma omp parallel for simd default(none) shared(first, last, p) reduction(+ : count)
+#pragma omp parallel for simd default(none) shared(first, last, p) firstprivate(dist) reduction(+ : count)
 			for (std::size_t i = 0; i < dist; ++i)
 			{
 				if (p(*(first + i))) { ++count; }
@@ -26,13 +26,13 @@ namespace omp
 			return count;
 		}
 		// if policy is std::execution::parallel_policy -> parallelization
-		else if constexpr (std::is_same_v<decltype(policy), std::execution::parallel_policy>)
+		else if constexpr (std::is_convertible_v<decltype(policy), std::execution::parallel_policy>)
 		{
 			typename std::iterator_traits<ForwardIt>::difference_type count = 0;
 
 			const auto dist = std::distance(first, last);
 
-#pragma omp parallel for default(none) shared(first, last, p) reduction(+ : count)
+#pragma omp parallel for default(none) shared(first, last, p) firstprivate(dist) reduction(+ : count)
 			for (std::size_t i = 0; i < dist; ++i)
 			{
 				if (p(*(first + i))) { ++count; }
@@ -41,7 +41,7 @@ namespace omp
 			return count;
 		}
 		// if policy is std::execution::unsequenced_policy -> vectorization
-		else if constexpr (std::is_same_v<decltype(policy), std::execution::unsequenced_policy>)
+		else if constexpr (std::is_convertible_v<decltype(policy), std::execution::unsequenced_policy>)
 		{
 			typename std::iterator_traits<ForwardIt>::difference_type count = 0;
 

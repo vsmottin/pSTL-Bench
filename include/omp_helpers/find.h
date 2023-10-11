@@ -10,69 +10,63 @@
 
 namespace omp
 {
-	template<class ExecutionPolicy, class ForwardIt, class T, class Function>
-	auto find_template(ExecutionPolicy && policy, ForwardIt first, ForwardIt last, const T & value,
-	                   Function && local_find)
+	template<class ForwardIt, class T, class Function>
+	auto find_template(ForwardIt first, ForwardIt last, const T & value, Function && local_find)
 	{
-		ForwardIt result = last;
+		std::vector<ForwardIt> local_results;
 
-#pragma omp parallel default(none) shared(first, last, value, result, local_find)
+#pragma omp parallel default(none) shared(first, last, value, local_find, local_results)
 		{
-			int num_threads = 0;
+			const auto num_threads = omp_get_num_threads();
 
 #pragma omp single
-			num_threads = omp_get_num_threads();
+			local_results.resize(num_threads, last);
 
 			const auto tid = omp_get_thread_num();
 
-			std::vector<ForwardIt> results(num_threads, last);
+			const auto size = std::distance(first, last);
 
-#pragma omp for
-			for (std::size_t i = 0; i < num_threads; ++i)
+			// Divide the range into chunks
+			const auto chunk_size = size % num_threads == 0 ? size / num_threads : size / num_threads + 1;
+
+			// Calculate the range for the current thread
+			const auto range_begin = std::min(last, first + tid * chunk_size);
+			const auto range_end   = std::min(last, range_begin + chunk_size);
+
+			if (range_begin < range_end)
 			{
-				const auto local_first = first + i * std::distance(first, last) / num_threads;
-				const auto local_last  = std::min(first + (i + 1) * std::distance(first, last) / num_threads, last);
-
-				auto local_result = local_find(policy, local_first, local_last, value);
-
-				if (local_result not_eq local_last) { results[tid] = local_result; }
-			}
-
-#pragma omp single
-			for (const auto & p_result : results)
-			{
-				if (p_result not_eq last)
-				{
-					result = p_result;
-					break;
-				}
+				const auto p_result = local_find(range_begin, range_end, value);
+				local_results[tid]  = p_result == range_end ? last : p_result;
 			}
 		}
 
-		return result;
+		for (const auto & p_result : local_results)
+		{
+			if (p_result != last) { return p_result; }
+		}
+
+		return last;
 	}
 
 	template<class ExecutionPolicy, class ForwardIt, class T>
 	ForwardIt find(ExecutionPolicy && policy, ForwardIt first, ForwardIt last, const T & value)
 	{
 		// if policy is std::execution::parallel_unsequenced_policy -> parallelization + vectorization
-		if constexpr (std::is_same_v<decltype(policy), std::execution::parallel_unsequenced_policy>)
+		if constexpr (std::is_convertible_v<decltype(policy), std::execution::parallel_unsequenced_policy>)
 		{
-			find_template(std::execution::unseq, first, last, value,
-			              [](auto && policy, auto && first, auto && last, auto && value) {
-				              return std::find(policy, first, last, value);
-			              });
+			return find_template(first, last, value, [=](auto && first, auto && last, auto && value) {
+				return std::find(std::execution::unseq, first, last, value);
+			});
 		}
 		// if policy is std::execution::parallel_policy -> parallelization
-		else if constexpr (std::is_same_v<decltype(policy), std::execution::parallel_policy>)
+		else if constexpr (std::is_convertible_v<decltype(policy), std::execution::parallel_policy>)
 		{
-			find_template(std::execution::seq, first, last, value,
-			              [](auto && policy, auto && first, auto && last, auto && value) {
-				              return std::find(policy, first, last, value);
-			              });
+			return find_template(first, last, value, [=](auto && first, auto && last, auto && value) {
+				return std::find(std::execution::seq, first, last, value);
+			});
 		}
 		// if policy is std::execution::unsequenced_policy -> vectorization
-		else if constexpr (std::is_same_v<decltype(policy), std::execution::unsequenced_policy>)
+		else if constexpr (std::is_convertible_v<decltype(policy), std::execution::unsequenced_policy>)
 		{
 			// TODO: implement
 			return std::find(policy, first, last, value);

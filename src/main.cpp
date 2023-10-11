@@ -10,6 +10,7 @@
 #include "benchmarks/find/group.h"
 #include "benchmarks/for_each/group.h"
 #include "benchmarks/reduce/group.h"
+#include "benchmarks/sort/group.h"
 
 #include "benchmarks/index_based_iterations/b9_group.h"
 #include "benchmarks/optimization_scans/b6_group.h"
@@ -23,6 +24,7 @@ COUNT_IF_GROUP
 FIND_GROUP
 REDUCE_GROUP
 FOR_EACH_GROUP
+SORT_GROUP
 
 SEQUENTIAL_FALLBACK_GROUP
 SPECIALIZED_TECHNIQUES_GROUP
