@@ -15,7 +15,7 @@
 
 #include "sort_gnu.h"
 
-#endif //USE_GNU
+#endif //USE_GNU_PSTL
 
 //region sort_std
 template<class Policy>

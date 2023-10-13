@@ -1,11 +1,3 @@
-#ifdef USE_TBB
-// we have the case that we use gcc. this means tbb will be used for parallel stl
-// potential thread limits have to be configured
-
-#include <tbb_thread_control.h>
-
-#endif
-
 #include "benchmarks/count_if/group.h"
 #include "benchmarks/find/group.h"
 #include "benchmarks/for_each/group.h"
@@ -18,7 +10,17 @@
 #include "benchmarks/specialized_techniques/b5_group.h"
 #include "benchmarks/specific_versus_custom/b7_group.h"
 
+#include <thread>
+
 #include <benchmark/benchmark.h>
+
+#ifdef USE_TBB
+// we have the case that we use gcc. this means tbb will be used for parallel stl
+// potential thread limits have to be configured
+
+#include <tbb_thread_control.h>
+
+#endif
 
 COUNT_IF_GROUP
 FIND_GROUP
@@ -46,8 +48,22 @@ int main(int argc, char ** argv)
 		argc = 1;
 		argv = &args_default;
 	}
+
+	benchmark::AddCustomContext("std::thread::hardware_concurrency()",
+	                            std::to_string(std::thread::hardware_concurrency()));
+
+#ifdef USE_TBB
+	benchmark::AddCustomContext("tbb #threads", std::to_string(tbb::global_control::active_value(
+	                                                tbb::global_control::max_allowed_parallelism)));
+#endif
+
+
+#if defined(USE_OMP) or defined(USE_GNU_PSTL)
+	benchmark::AddCustomContext("omp_get_max_threads()", std::to_string(omp_get_max_threads()));
+#endif
+
 	benchmark::Initialize(&argc, argv);
-	if (benchmark::ReportUnrecognizedArguments(argc, argv)) return 1;
+	if (benchmark::ReportUnrecognizedArguments(argc, argv)) { return 1; }
 	benchmark::RunSpecifiedBenchmarks();
 	benchmark::Shutdown();
 

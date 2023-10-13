@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 project(pSTL-Bench)
 
 set(CMAKE_CXX_STANDARD 20)
-set(BENCHMARK_DOWNLOAD_DEPENDENCIES ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # region options
 option(ONLY_GPU "Only enable GPU benchmarks" OFF)
@@ -12,13 +12,14 @@ option(USE_OMP "Use custom OpenMP parallel implementation in benchmarks" OFF)
 option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" ON)
 
 set(BACKEND GCC_TBB CACHE STRING "Select the backend to use")
-set_property(CACHE BACKEND PROPERTY STRINGS GCC_TBB GCC_OMP NVC_OMP NVC_CUDA)
+set_property(CACHE BACKEND PROPERTY STRINGS GCC_TBB ICC_TBB GCC_OMP NVC_OMP NVC_CUDA)
 # endregion options
 
 # region register backends
 include(cmake/register_backend.cmake)
 
 register_backend(GCC_TBB)
+register_backend(ICC_TBB)
 register_backend(NVC_OMP)
 register_backend(NVC_CUDA)
 

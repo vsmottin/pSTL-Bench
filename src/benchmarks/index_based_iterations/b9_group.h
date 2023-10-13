@@ -51,6 +51,7 @@ static void b9_1_transform_baseline_wrapper(benchmark::State & state)
 //endregion b9_1_transform_baseline
 
 //region b9_1_transform_baseline
+#ifdef USE_GNU_PSTL
 template<class Policy>
 static void b9_1_gnu_transform_wrapper(benchmark::State & state)
 {
@@ -69,6 +70,9 @@ static void b9_1_gnu_transform_wrapper(benchmark::State & state)
 	    ->Name(BENCHMARK_NAME("b9_1_gnu_transform_par"))                              \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);
+#else
+#define B9_1_GNU_TRANSFORM_WRAPPER
+#endif
 //endregion b9_1_transform_baseline
 
 //region b9_2_transform_old_iota
@@ -108,7 +112,7 @@ static void b9_3_transform_views_iota_wrapper(benchmark::State & state)
 //endregion b9_3_transform_views_iota
 
 //region b9_5_transform_custom_iterator
-template<class Policy>
+template<class Policy> 
 static void b9_5_transform_custom_iterator_wrapper(benchmark::State & state)
 {
 	B9::benchmark_wrapper<Policy>(state, B9::b9_5_transform_custom_iterator);
