@@ -6,6 +6,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # region options
 option(ONLY_GPU "Only enable GPU benchmarks" OFF)
+option(USE_TBB "Use TBB parallel implementation in benchmarks" OFF)
 option(USE_BOOST "Use Boost's parallel implementation in benchmarks" OFF)
 option(USE_GNU_PSTL "Use GNU's parallel implementation of STL in benchmarks" OFF)
 option(USE_OMP "Use custom OpenMP parallel implementation in benchmarks" OFF)

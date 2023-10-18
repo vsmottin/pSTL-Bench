@@ -46,7 +46,10 @@ namespace benchmark_sort
 
 		auto random_vec = suite::generate_increment<Policy>(execution_policy, size, 1);
 
-		std::random_shuffle(random_vec.begin(), random_vec.end());
+		static std::random_device rd;
+		static std::mt19937 generator(rd());
+
+		std::shuffle(random_vec.begin(), random_vec.end(), generator);
 
 		benchmark_sort_template<Policy>(state, F, random_vec);
 	}

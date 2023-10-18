@@ -1,5 +1,7 @@
 # adding tbb compile definition
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    # set USE_TBB option to ON
+    option(USE_TBB "Use TBB" ON)
     add_compile_definitions(USE_TBB)
 endif ()
 

@@ -1,6 +1,8 @@
 #ifndef PSTL_BENCH_COUNT_IF_UTILS_H
 #define PSTL_BENCH_COUNT_IF_UTILS_H
 
+#include <algorithm>
+
 #include <benchmark/benchmark.h>
 
 #include <benchmark_utils.h>
