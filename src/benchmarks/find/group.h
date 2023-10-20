@@ -43,45 +43,45 @@ static void find_non_existing_entry(benchmark::State & state)
 	benchmark_find::benchmark_find_non_existing_wrapper<Policy>(state, benchmark_find::find_std);
 }
 
-#define FIND_STD_WRAPPER                                                            \
-                                                                                    \
-	BENCHMARK_TEMPLATE1(find_random_entry, std::execution::sequenced_policy)        \
-	    ->Name(BENCHMARK_NAME("std::find_std::vector<int>_random_entry_seq"))       \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
-	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                    \
-	BENCHMARK_TEMPLATE1(find_random_entry, std::execution::parallel_policy)         \
-	    ->Name(BENCHMARK_NAME("std::find_std::vector<int>_random_entry_par"))       \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
-	    ->Range(1 << 2, MAX_INPUT_SIZE);                                            \
-                                                                                    \
-                                                                                    \
-	BENCHMARK_TEMPLATE1(find_first_entry, std::execution::sequenced_policy)         \
-	    ->Name(BENCHMARK_NAME("std::find_std::vector<int>_first_entry_seq"))        \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
-	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                    \
-	BENCHMARK_TEMPLATE1(find_first_entry, std::execution::parallel_policy)          \
-	    ->Name(BENCHMARK_NAME("std::find_std::vector<int>_first_entry_par"))        \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
-	    ->Range(1 << 2, MAX_INPUT_SIZE);                                            \
-                                                                                    \
-                                                                                    \
-	BENCHMARK_TEMPLATE1(find_last_entry, std::execution::sequenced_policy)          \
-	    ->Name(BENCHMARK_NAME("std::find_std::vector<int>_last_entry_seq"))         \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
-	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                    \
-	BENCHMARK_TEMPLATE1(find_last_entry, std::execution::parallel_policy)           \
-	    ->Name(BENCHMARK_NAME("std::find_std::vector<int>_last_entry_par"))         \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
-	    ->Range(1 << 2, MAX_INPUT_SIZE);                                            \
-                                                                                    \
-                                                                                    \
-	BENCHMARK_TEMPLATE1(find_non_existing_entry, std::execution::sequenced_policy)  \
-	    ->Name(BENCHMARK_NAME("std::find_std::vector<int>_non_existing_entry_seq")) \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
-	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                    \
-	BENCHMARK_TEMPLATE1(find_non_existing_entry, std::execution::parallel_policy)   \
-	    ->Name(BENCHMARK_NAME("std::find_std::vector<int>_non_existing_entry_par")) \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
+#define FIND_STD_WRAPPER                                                           \
+                                                                                   \
+	BENCHMARK_TEMPLATE1(find_random_entry, std::execution::sequenced_policy)       \
+	    ->Name(BENCHMARK_NAME("std::find_random_entry_seq"))                       \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
+	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                   \
+	BENCHMARK_TEMPLATE1(find_random_entry, std::execution::parallel_policy)        \
+	    ->Name(BENCHMARK_NAME("std::find_random_entry_par"))                       \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
+	    ->Range(1 << 2, MAX_INPUT_SIZE);                                           \
+                                                                                   \
+                                                                                   \
+	BENCHMARK_TEMPLATE1(find_first_entry, std::execution::sequenced_policy)        \
+	    ->Name(BENCHMARK_NAME("std::find_first_entry_seq"))                        \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
+	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                   \
+	BENCHMARK_TEMPLATE1(find_first_entry, std::execution::parallel_policy)         \
+	    ->Name(BENCHMARK_NAME("std::find_first_entry_par"))                        \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
+	    ->Range(1 << 2, MAX_INPUT_SIZE);                                           \
+                                                                                   \
+                                                                                   \
+	BENCHMARK_TEMPLATE1(find_last_entry, std::execution::sequenced_policy)         \
+	    ->Name(BENCHMARK_NAME("std::find_last_entry_seq"))                         \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
+	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                   \
+	BENCHMARK_TEMPLATE1(find_last_entry, std::execution::parallel_policy)          \
+	    ->Name(BENCHMARK_NAME("std::find_last_entry_par"))                         \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
+	    ->Range(1 << 2, MAX_INPUT_SIZE);                                           \
+                                                                                   \
+                                                                                   \
+	BENCHMARK_TEMPLATE1(find_non_existing_entry, std::execution::sequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::find_non_existing_entry_seq"))                 \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
+	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                   \
+	BENCHMARK_TEMPLATE1(find_non_existing_entry, std::execution::parallel_policy)  \
+	    ->Name(BENCHMARK_NAME("std::find_non_existing_entry_par"))                 \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);
 
 //endregion find
@@ -116,41 +116,41 @@ static void find_omp_non_existing_entry(benchmark::State & state)
 #define FIND_OMP_WRAPPER                                                              \
                                                                                       \
 	BENCHMARK_TEMPLATE1(find_omp_random_entry, std::execution::sequenced_policy)      \
-	    ->Name(BENCHMARK_NAME("omp::find_std::vector<int>_random_entry_seq"))         \
+	    ->Name(BENCHMARK_NAME("omp::find_random_entry_seq"))                          \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                      \
 	BENCHMARK_TEMPLATE1(find_omp_random_entry, std::execution::parallel_policy)       \
-	    ->Name(BENCHMARK_NAME("omp::find_std::vector<int>_random_entry_par"))         \
+	    ->Name(BENCHMARK_NAME("omp::find_random_entry_par"))                          \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);                                              \
                                                                                       \
                                                                                       \
 	BENCHMARK_TEMPLATE1(find_omp_first_entry, std::execution::sequenced_policy)       \
-	    ->Name(BENCHMARK_NAME("omp::find_std::vector<int>_first_entry_seq"))          \
+	    ->Name(BENCHMARK_NAME("omp::find_first_entry_seq"))                           \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                      \
 	BENCHMARK_TEMPLATE1(find_omp_first_entry, std::execution::parallel_policy)        \
-	    ->Name(BENCHMARK_NAME("omp::find_std::vector<int>_first_entry_par"))          \
+	    ->Name(BENCHMARK_NAME("omp::find_first_entry_par"))                           \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);                                              \
                                                                                       \
                                                                                       \
 	BENCHMARK_TEMPLATE1(find_omp_last_entry, std::execution::sequenced_policy)        \
-	    ->Name(BENCHMARK_NAME("omp::find_std::vector<int>_last_entry_seq"))           \
+	    ->Name(BENCHMARK_NAME("omp::find_last_entry_seq"))                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                      \
 	BENCHMARK_TEMPLATE1(find_omp_last_entry, std::execution::parallel_policy)         \
-	    ->Name(BENCHMARK_NAME("omp::find_std::vector<int>_last_entry_par"))           \
+	    ->Name(BENCHMARK_NAME("omp::find_last_entry_par"))                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);                                              \
                                                                                       \
                                                                                       \
 	BENCHMARK_TEMPLATE1(find_non_existing_entry, std::execution::sequenced_policy)    \
-	    ->Name(BENCHMARK_NAME("omp::find_std::vector<int>_non_existing_entry_seq"))   \
+	    ->Name(BENCHMARK_NAME("omp::find_non_existing_entry_seq"))                    \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                      \
 	BENCHMARK_TEMPLATE1(find_omp_non_existing_entry, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("omp::find_std::vector<int>_non_existing_entry_par"))   \
+	    ->Name(BENCHMARK_NAME("omp::find_non_existing_entry_par"))                    \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);
 #else
@@ -187,40 +187,40 @@ static void find_gnu_non_existing_entry(benchmark::State & state)
 #define FIND_GNU_WRAPPER                                                              \
                                                                                       \
 	BENCHMARK_TEMPLATE1(find_gnu_random_entry, std::execution::sequenced_policy)      \
-	    ->Name(BENCHMARK_NAME("gnu::find_std::vector<int>_random_entry_seq"))         \
+	    ->Name(BENCHMARK_NAME("gnu::find_random_entry_seq"))                          \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                      \
 	BENCHMARK_TEMPLATE1(find_gnu_random_entry, std::execution::parallel_policy)       \
-	    ->Name(BENCHMARK_NAME("gnu::find_std::vector<int>_random_entry_par"))         \
+	    ->Name(BENCHMARK_NAME("gnu::find_random_entry_par"))                          \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);                                              \
                                                                                       \
 	BENCHMARK_TEMPLATE1(find_gnu_first_entry, std::execution::sequenced_policy)       \
-	    ->Name(BENCHMARK_NAME("gnu::find_std::vector<int>_first_entry_seq"))          \
+	    ->Name(BENCHMARK_NAME("gnu::find_first_entry_seq"))                           \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                      \
 	BENCHMARK_TEMPLATE1(find_gnu_first_entry, std::execution::parallel_policy)        \
-	    ->Name(BENCHMARK_NAME("gnu::find_std::vector<int>_first_entry_par"))          \
+	    ->Name(BENCHMARK_NAME("gnu::find_first_entry_par"))                           \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);                                              \
                                                                                       \
                                                                                       \
 	BENCHMARK_TEMPLATE1(find_gnu_last_entry, std::execution::sequenced_policy)        \
-	    ->Name(BENCHMARK_NAME("gnu::find_std::vector<int>_last_entry_seq"))           \
+	    ->Name(BENCHMARK_NAME("gnu::find_last_entry_seq"))                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                      \
 	BENCHMARK_TEMPLATE1(find_gnu_last_entry, std::execution::parallel_policy)         \
-	    ->Name(BENCHMARK_NAME("gnu::find_std::vector<int>_last_entry_par"))           \
+	    ->Name(BENCHMARK_NAME("gnu::find_last_entry_par"))                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);                                              \
                                                                                       \
                                                                                       \
 	BENCHMARK_TEMPLATE1(find_non_existing_entry, std::execution::sequenced_policy)    \
-	    ->Name(BENCHMARK_NAME("gnu::find_std::vector<int>_non_existing_entry_seq"))   \
+	    ->Name(BENCHMARK_NAME("gnu::find_non_existing_entry_seq"))                    \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(MAX_INPUT_SIZE, MAX_INPUT_SIZE);                                      \
 	BENCHMARK_TEMPLATE1(find_gnu_non_existing_entry, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::find_std::vector<int>_non_existing_entry_par"))   \
+	    ->Name(BENCHMARK_NAME("gnu::find_non_existing_entry_par"))                    \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
 	    ->Range(1 << 2, MAX_INPUT_SIZE);
 #else
