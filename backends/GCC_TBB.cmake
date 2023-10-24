@@ -1,15 +1,15 @@
-# adding tbb compile definition
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    # set USE_TBB option to ON
-    option(USE_TBB "Use TBB" ON)
-    add_compile_definitions(USE_TBB)
+if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    message(WARNING "Make sure you use a GCC compiler. Your compiler ID: ${CMAKE_CXX_COMPILER_ID}")
 endif ()
 
-# require tbb
-if (CMAKE_COMPILER_IS_GNUCXX)
-    find_package(TBB REQUIRED) # for gcc only
+option(USE_TBB "Use TBB" ON)
+add_compile_definitions(USE_TBB)
+add_compile_definitions(USE_PSTL)
+
+# Find package TBB
+find_package(TBB REQUIRED)
+if (NOT TARGET TBB::tbb)
+    message(FATAL_ERROR "TBB not found")
+else ()
     list(APPEND BACKEND_LINK_LIBRARIES "TBB::tbb")
 endif ()
-
-
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")

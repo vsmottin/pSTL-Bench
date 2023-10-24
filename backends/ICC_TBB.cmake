@@ -1,19 +1,15 @@
-# adding tbb compile definition for icc
-if (CMAKE_CXX_COMPILER_ID STREQUAL "Intel" OR CMAKE_CXX_COMPILER_ID STREQUAL "IntelLLVM")
-    # set USE_TBB option to ON
-    option(USE_TBB "Use Intel TBB" ON)
-    add_compile_definitions(USE_TBB)
-else ()
-    message(WARNING "Compiler ID does NOT match Intel compiler: ${CMAKE_CXX_COMPILER_ID}")
+if (NOT (CMAKE_CXX_COMPILER_ID STREQUAL "Intel" OR CMAKE_CXX_COMPILER_ID STREQUAL "IntelLLVM"))
+    message(WARNING "Make sure you use an Intel compiler. Your compiler ID: ${CMAKE_CXX_COMPILER_ID}")
 endif ()
 
-# require tbb
+option(USE_TBB "Use TBB" ON)
+add_compile_definitions(USE_TBB)
+add_compile_definitions(USE_PSTL)
+
+# Find package TBB
 find_package(TBB REQUIRED)
-
-if (NOT TBB_FOUND)
+if (NOT TARGET TBB::tbb)
     message(FATAL_ERROR "TBB not found")
+else ()
+    list(APPEND BACKEND_LINK_LIBRARIES "TBB::tbb")
 endif ()
-
-list(APPEND BACKEND_LINK_LIBRARIES "TBB::tbb")
-
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")

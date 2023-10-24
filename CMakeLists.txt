@@ -5,21 +5,19 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # region options
-option(ONLY_GPU "Only enable GPU benchmarks" OFF)
-option(USE_TBB "Use TBB parallel implementation in benchmarks" OFF)
-option(USE_BOOST "Use Boost's parallel implementation in benchmarks" OFF)
-option(USE_GNU_PSTL "Use GNU's parallel implementation of STL in benchmarks" OFF)
-option(USE_OMP "Use custom OpenMP parallel implementation in benchmarks" OFF)
+option(USE_PSTL "Use (compiler's default) parallel STL implementation in benchmarks" ON)
+option(USE_GNU "Use GNU's parallel implementation (with OpenMP) of STL in benchmarks" OFF)
 option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" ON)
 
 set(BACKEND GCC_TBB CACHE STRING "Select the backend to use")
-set_property(CACHE BACKEND PROPERTY STRINGS GCC_TBB ICC_TBB GCC_OMP NVC_OMP NVC_CUDA)
+set_property(CACHE BACKEND PROPERTY STRINGS GCC_TBB GCC_GNU ICC_TBB NVC_OMP NVC_CUDA)
 # endregion options
 
 # region register backends
 include(cmake/register_backend.cmake)
 
 register_backend(GCC_TBB)
+register_backend(GCC_GNU)
 register_backend(ICC_TBB)
 register_backend(NVC_OMP)
 register_backend(NVC_CUDA)
@@ -52,6 +50,8 @@ add_compile_definitions(BENCHMARK_PREFIX=${BENCHMARK_PREFIX})
 if (USE_PARALLEL_ALLOCATOR)
     message(STATUS "Using parallel allocator")
     add_compile_definitions(USE_PARALLEL_ALLOCATOR)
+    find_package(TBB REQUIRED)
+    target_link_libraries(${PROJECT_NAME} PRIVATE TBB::tbb)
 else ()
     message(STATUS "Using no allocator")
 endif ()
@@ -78,56 +78,17 @@ include(cmake/get_cpm.cmake)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CPM_SOURCE_CACHE};${CMAKE_MODULE_PATH}")
 # endregion Setup CPM (for dependencies)
 
-# region use boost option
-if (USE_BOOST)
-    message(STATUS "Using boost in benchmarks")
-    add_compile_definitions(USE_BOOST)
-
-    CPMAddPackage(
-            NAME Boost
-            GITHUB_REPOSITORY "boostorg/boost"
-            VERSION 1.74.0
-            GIT_TAG "boost-1.74.0"
-            OPTIONS
-            "Boost_USE_STATIC_LIBS ON"
-            "BOOST_USE_RELEASE_LIBS ON"
-            "Boost_USE_MULTITHREADED ON"
-            "Boost_USE_STATIC_RUNTIME OFF"
-    )
-
-    target_link_libraries(${PROJECT_NAME} PRIVATE Boost::boost)
-endif ()
-# endregion use boost option
-
-# region use OpenMP option
-if (USE_OMP)
-    message(STATUS "Using OpenMP in benchmarks")
-    add_compile_definitions(USE_OMP)
-    find_package(OpenMP REQUIRED)
-    target_link_libraries(${PROJECT_NAME} PRIVATE OpenMP::OpenMP_CXX)
-endif ()
-# endregion use OpenMP option
-
-# region use GNU PSTL option
-if (USE_GNU_PSTL)
-    message(STATIUS "Using GNU PSTL in benchmarks")
-    add_compile_definitions(USE_GNU_PSTL)
-    find_package(OpenMP REQUIRED)
-    target_link_libraries(${PROJECT_NAME} PRIVATE OpenMP::OpenMP_CXX)
-endif ()
-
-# region only GPU benchmarks
-if (ONLY_GPU)
-    message(STATUS "Using ONLY_GPU")
-    add_compile_definitions(ONLY_GPU)
-endif ()
-# endregion only GPU benchmarks
-
 # region input size
-if (NOT DEFINED ${MAX_INPUT_SIZE})
-    set(MAX_INPUT_SIZE 67108864) # default is 2^26
+if (NOT DEFINED ${MIN_INPUT_SIZE})
+    set(MIN_INPUT_SIZE 4)
 endif ()
 
+if (NOT DEFINED ${MAX_INPUT_SIZE})
+    set(MAX_INPUT_SIZE 1073741824) # default is 2^30 elements -> 2^30 * 4 bytes = 4 GB of data
+    #    set(MAX_INPUT_SIZE 2147483648) # default is 2^31 elements -> 2^31 * 4 bytes = 8 GB of data
+endif ()
+
+add_compile_definitions(MIN_INPUT_SIZE=${MIN_INPUT_SIZE})
 add_compile_definitions(MAX_INPUT_SIZE=${MAX_INPUT_SIZE})
 # endregion input size
 

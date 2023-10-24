@@ -1,3 +1,7 @@
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdpar")
+if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "PGI" AND
+        NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "NVIDIA" AND
+        NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "NVHPC")
+    message(WARNING "Make sure you use a NVIDIA compiler. Your compiler ID: ${CMAKE_CXX_COMPILER_ID}")
+endif ()
 
-set(ONLY_GPU ON)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdpar")

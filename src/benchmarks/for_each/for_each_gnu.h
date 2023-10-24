@@ -1,6 +1,6 @@
 
-#ifndef PSTL_BENCH_FOR_EACH_GNU_LINEAR_H
-#define PSTL_BENCH_FOR_EACH_GNU_LINEAR_H
+#ifndef PSTL_BENCH_FOR_EACH_GNU_H
+#define PSTL_BENCH_FOR_EACH_GNU_H
 
 #include <vector>
 
@@ -13,10 +13,10 @@
 namespace benchmark_for_each
 {
 
-	const auto for_each_gnu_linear = [](auto && policy, const auto & input_data, auto && f) {
+	const auto for_each_gnu = [](auto && policy, const auto & input_data, auto && f) {
 		__gnu_parallel::for_each(input_data.begin(), input_data.end(), f);
 	};
 
 }
 
-#endif //PSTL_BENCH_FOR_EACH_GNU_LINEAR_H
+#endif //PSTL_BENCH_FOR_EACH_GNU_H

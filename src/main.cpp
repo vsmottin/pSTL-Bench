@@ -4,12 +4,6 @@
 #include "benchmarks/reduce/group.h"
 #include "benchmarks/sort/group.h"
 
-// #include "benchmarks/index_based_iterations/b9_group.h"
-#include "benchmarks/optimization_scans/b6_group.h"
-#include "benchmarks/sequential_fallback/b4_group.h"
-#include "benchmarks/specialized_techniques/b5_group.h"
-#include "benchmarks/specific_versus_custom/b7_group.h"
-
 #include <thread>
 
 #include <benchmark/benchmark.h>
@@ -36,22 +30,6 @@ FOR_EACH_GROUP
 #endif
 #ifdef SORT_GROUP
 SORT_GROUP
-#endif
-
-#ifdef SEQUENTIAL_FALLBACK_GROUP
-SEQUENTIAL_FALLBACK_GROUP
-#endif
-#ifdef SPECIALIZED_TECHNIQUES_GROUP
-SPECIALIZED_TECHNIQUES_GROUP
-#endif
-#ifdef OPTIMIZED_SCAN_GROUP
-OPTIMIZED_SCAN_GROUP
-#endif
-#ifdef SPECIFIC_VS_CUSTOM_GROUP
-SPECIFIC_VS_CUSTOM_GROUP
-#endif
-#ifdef INDEX_BASED_ITERATIONS_GROUP
-INDEX_BASED_ITERATIONS_GROUP
 #endif
 
 // Run the benchmark
