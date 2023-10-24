@@ -78,13 +78,18 @@ namespace benchmark_for_each
 	{
 		constexpr auto execution_policy = Policy{};
 
-		auto x = suite::get_vec<Policy, suite::double_vec<Policy>>(state.range(0));
-		suite::fill_init<Policy>(x, 1.0);
+		auto data = suite::get_vec<Policy, suite::double_vec<Policy>>(state.range(0));
+		suite::fill_init<Policy>(data, 1.0);
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(f(execution_policy, x, linear_kernel);)
+			WRAP_TIMING(f(execution_policy, data, linear_kernel);)
 		}
+
+		// https://ccfd.github.io/courses/hpc_lab01.html
+		const int64_t actual_size_in_bytes = sizeof(int) * (int64_t(data.size()));
+
+		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 	}
 
 	template<class Policy, class Function>
@@ -92,13 +97,18 @@ namespace benchmark_for_each
 	{
 		constexpr auto execution_policy = Policy{};
 
-		auto x = suite::get_vec<Policy, suite::double_vec<Policy>>(state.range(0));
-		suite::fill_init<Policy>(x, 1.0);
+		auto data = suite::get_vec<Policy, suite::double_vec<Policy>>(state.range(0));
+		suite::fill_init<Policy>(data, 1.0);
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(f(execution_policy, x, mandelbrot_kernel);)
+			WRAP_TIMING(f(execution_policy, data, mandelbrot_kernel);)
 		}
+
+		// https://ccfd.github.io/courses/hpc_lab01.html
+		const int64_t actual_size_in_bytes = sizeof(int) * (int64_t(data.size()));
+
+		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 	}
 
 	template<class OuterPolicy, class InnerPolicy, class Function>
@@ -107,13 +117,18 @@ namespace benchmark_for_each
 		constexpr auto outer_execution_policy = OuterPolicy{};
 		constexpr auto inner_execution_policy = InnerPolicy{};
 
-		const auto size       = state.range(0);
-		const auto input_data = suite::generate_increment<InnerPolicy>(inner_execution_policy, size, 1);
+		const auto size = state.range(0);
+		const auto data = suite::generate_increment<InnerPolicy>(inner_execution_policy, size, 1);
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(f(outer_execution_policy, inner_execution_policy, input_data, quadratic_kernel);)
+			WRAP_TIMING(f(outer_execution_policy, inner_execution_policy, data, quadratic_kernel);)
 		}
+
+		// https://ccfd.github.io/courses/hpc_lab01.html
+		const int64_t actual_size_in_bytes = sizeof(int) * (int64_t(data.size()));
+
+		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 	}
 
 	template<class OuterPolicy, class InnerPolicy, class Function>
@@ -122,13 +137,18 @@ namespace benchmark_for_each
 		constexpr auto outer_execution_policy = OuterPolicy{};
 		constexpr auto inner_execution_policy = InnerPolicy{};
 
-		const auto size       = state.range(0);
-		const auto input_data = suite::generate_increment<InnerPolicy>(inner_execution_policy, size, 1);
+		const auto size = state.range(0);
+		const auto data = suite::generate_increment<InnerPolicy>(inner_execution_policy, size, 1);
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(f(outer_execution_policy, inner_execution_policy, input_data, quadratic_mandelbrot_kernel);)
+			WRAP_TIMING(f(outer_execution_policy, inner_execution_policy, data, quadratic_mandelbrot_kernel);)
 		}
+
+		// https://ccfd.github.io/courses/hpc_lab01.html
+		const int64_t actual_size_in_bytes = sizeof(int) * (int64_t(data.size()));
+
+		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 	}
 
 	template<class Policy, class Function>
@@ -143,6 +163,11 @@ namespace benchmark_for_each
 		{
 			WRAP_TIMING(f(execution_policy, data);)
 		}
+
+		// https://ccfd.github.io/courses/hpc_lab01.html
+		const int64_t actual_size_in_bytes = sizeof(int) * (int64_t(data.size()));
+
+		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 	}
 } // namespace benchmark_for_each
 

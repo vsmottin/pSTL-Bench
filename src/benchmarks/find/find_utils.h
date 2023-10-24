@@ -45,8 +45,8 @@ namespace benchmark_find
 			static std::random_device rd;
 
 			// Choose a random number between 1 and size
-			static std::minstd_rand                      engine{ rd() };
-			static std::uniform_int_distribution<size_t> gen(0, vec.size() - 1);
+			static std::minstd_rand               engine{ rd() };
+			std::uniform_int_distribution<size_t> gen(0, vec.size() - 1);
 
 			const auto index = gen(engine);
 
