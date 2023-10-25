@@ -16,7 +16,7 @@ macro(use_backend NAME)
             message(FATAL_ERROR "${BACKEND_FILE} not found!")
         endif ()
 
-        message("Using the '${NAME_UPPER}' backend")
+        message(STATUS "Using the '${NAME_UPPER}' backend")
         include(${BACKEND_FILE})
     else ()
         message(FATAL_ERROR "Unsupported BACKEND: ${NAME}")

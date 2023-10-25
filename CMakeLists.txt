@@ -5,25 +5,28 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # region options
-option(USE_PSTL "Use (compiler's default) parallel STL implementation in benchmarks" ON)
-option(USE_GNU "Use GNU's parallel implementation (with OpenMP) of STL in benchmarks" OFF)
-option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" ON)
+option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" OFF)
 
-set(BACKEND GCC_TBB CACHE STRING "Select the backend to use")
-set_property(CACHE BACKEND PROPERTY STRINGS GCC_TBB GCC_GNU ICC_TBB NVC_OMP NVC_CUDA)
+set(BACKEND CACHE STRING "Select the backend to use for std:: algorithms")
+set_property(CACHE BACKEND PROPERTY STRINGS TBB GNU HPX NVHPC_OMP NVHPC_CUDA)
 # endregion options
 
 # region register backends
 include(cmake/register_backend.cmake)
 
-register_backend(GCC_TBB)
-register_backend(GCC_GNU)
-register_backend(ICC_TBB)
-register_backend(NVC_OMP)
-register_backend(NVC_CUDA)
+register_backend(TBB)
+register_backend(HPX)
+register_backend(GNU)
+register_backend(NVHPC_CUDA)
+register_backend(NVHPC_OMP)
+
+# Define the BENCHMARK_COMPILER macro to ${CMAKE_CXX_COMPILER_ID}
+add_compile_definitions(BENCHMARK_COMPILER="${CMAKE_CXX_COMPILER_ID}")
 
 # load backend specific stuff
-use_backend(${BACKEND})
+if (DEFINED BACKEND)
+    use_backend(${BACKEND})
+endif ()
 # endregion register backends
 
 # region set default build type to release
@@ -51,7 +54,7 @@ if (USE_PARALLEL_ALLOCATOR)
     message(STATUS "Using parallel allocator")
     add_compile_definitions(USE_PARALLEL_ALLOCATOR)
     find_package(TBB REQUIRED)
-    target_link_libraries(${PROJECT_NAME} PRIVATE TBB::tbb)
+    list(APPEND LINK_LIBRARIES TBB::tbb)
 else ()
     message(STATUS "Using no allocator")
 endif ()
@@ -106,17 +109,19 @@ CPMAddPackage(
 if (benchmark_ADDED)
     # enable the C++ standard to avoid errors
     set_target_properties(benchmark PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
-    target_link_libraries(${PROJECT_NAME} PRIVATE benchmark::benchmark)
+    list(APPEND LINK_LIBRARIES benchmark::benchmark)
 else ()
     message(FATAL_ERROR "Failed to add google benchmark")
 endif ()
 # endregion google benchmark stuff
 
-target_link_libraries(${PROJECT_NAME} PRIVATE ${BACKEND_LINK_LIBRARIES})
+# link libraries
+foreach (LIB ${LINK_LIBRARIES})
+    message(STATUS "Linking ${LIB}...")
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${LIB})
+endforeach ()
 
-target_include_directories(${PROJECT_NAME}
-        PRIVATE include/
-)
+target_include_directories(${PROJECT_NAME} PRIVATE include/)
 
 # we need cassert even in release builds to make sure certain vars are not optimised away
 string(REPLACE "-DNDEBUG" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")

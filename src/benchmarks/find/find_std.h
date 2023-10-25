@@ -1,6 +1,6 @@
 
-#ifndef PSTL_BENCH_FIND_H
-#define PSTL_BENCH_FIND_H
+#ifndef PSTL_BENCH_FIND_STD_H
+#define PSTL_BENCH_FIND_STD_H
 
 #include <algorithm>
 #include <benchmark_utils.h>
@@ -15,4 +15,4 @@ namespace benchmark_find
 
 }
 
-#endif //PSTL_BENCH_FIND_H
+#endif //PSTL_BENCH_FIND_STD_H

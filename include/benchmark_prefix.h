@@ -1,20 +1,26 @@
 #ifndef PSTL_BENCH_BENCHMARK_PREFIX_H
 #define PSTL_BENCH_BENCHMARK_PREFIX_H
 
-#define __bench_xstr(s) __bench_str(s)
-#define __bench_str(s)  #s
+// #define XSTRINGIFY(s) STRINGIFY(s)
+// #define STRINGIFY(s)  #s
 
-#define DO_EXPAND(VAL)  VAL##1
-#define EXPAND(VAL)     DO_EXPAND(VAL)
+#ifndef BENCHMARK_BACKEND
+#define BENCHMARK_BACKEND unknown
+#endif
 
-// IS PREFIX SET AND NOT EMPTY
-#if (defined(BENCHMARK_PREFIX) && (EXPAND(BENCHMARK_PREFIX) != 1))
-#define PREFIX_DELIMITER _
-#else // its empty or not set
-#define BENCHMARK_PREFIX
-#define PREFIX_DELIMITER
-#endif // BENCHMARK_PREFIX
+#ifndef BENCHMARK_COMPILER
+#define BENCHMARK_COMPILER unknown
+#endif
 
-#define BENCHMARK_NAME(name) __bench_xstr(BENCHMARK_PREFIX) __bench_xstr(PREFIX_DELIMITER) name
+// Macros to concatenate compiler name, threading backend and benchmark name to form a benchmark name
+// args:
+// - only the benchmark name, the backend and the compiler name are automatically added
+// - the threading backend and the benchmark name, the compiler name is automatically added
+#define BENCHMARK_NAME(benchmark) BENCHMARK_NAME_WITH_BACKEND(BENCHMARK_BACKEND, benchmark)
+
+#define BENCHMARK_NAME_WITH_BACKEND(backend, benchmark) \
+	BENCHMARK_NAME_WITH_BACKEND_AND_COMPILER(BENCHMARK_COMPILER, backend, benchmark)
+
+#define BENCHMARK_NAME_WITH_BACKEND_AND_COMPILER(compiler, backend, benchmark) compiler "_" backend "_" benchmark
 
 #endif //PSTL_BENCH_BENCHMARK_PREFIX_H

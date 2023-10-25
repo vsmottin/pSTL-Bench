@@ -13,7 +13,9 @@
 #include <random>
 #include <vector>
 
+#ifdef USE_PARALLEL_ALLOCATOR
 #include <parallel_allocator.h>
+#endif
 
 #define CUSTOM_STATISTICS                                                               \
 	ComputeStatistics("max",                                                            \

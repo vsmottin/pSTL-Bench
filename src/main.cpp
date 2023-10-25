@@ -1,3 +1,7 @@
+#ifdef USE_HPX
+#include <hpx/hpx_main.hpp>
+#endif
+
 #include "benchmarks/count_if/group.h"
 #include "benchmarks/find/group.h"
 #include "benchmarks/for_each/group.h"
@@ -9,11 +13,7 @@
 #include <benchmark/benchmark.h>
 
 #ifdef USE_TBB
-// we have the case that we use gcc. this means tbb will be used for parallel stl
-// potential thread limits have to be configured
-
 #include <tbb_thread_control.h>
-
 #endif
 
 #ifdef COUNT_IF_GROUP
