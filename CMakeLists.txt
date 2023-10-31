@@ -24,7 +24,7 @@ register_backend(NVHPC_OMP)
 add_compile_definitions(BENCHMARK_COMPILER="${CMAKE_CXX_COMPILER_ID}")
 
 # load backend specific stuff
-if (DEFINED BACKEND)
+if (NOT BACKEND STREQUAL "")
     use_backend(${BACKEND})
 endif ()
 # endregion register backends
@@ -83,7 +83,7 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CPM_SOURCE_CACHE};${CMAKE_M
 
 # region input size
 if (NOT DEFINED ${MIN_INPUT_SIZE})
-    set(MIN_INPUT_SIZE 4)
+    set(MIN_INPUT_SIZE 8)
 endif ()
 
 if (NOT DEFINED ${MAX_INPUT_SIZE})

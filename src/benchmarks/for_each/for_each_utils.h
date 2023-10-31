@@ -4,8 +4,6 @@
 
 #include <cmath>
 
-#include <ranges>
-
 #include <benchmark/benchmark.h>
 #include <benchmark_utils.h>
 

@@ -5,6 +5,7 @@
 #include "benchmarks/count_if/group.h"
 #include "benchmarks/find/group.h"
 #include "benchmarks/for_each/group.h"
+#include "benchmarks/inclusive_scan/group.h"
 #include "benchmarks/reduce/group.h"
 #include "benchmarks/sort/group.h"
 
@@ -27,6 +28,9 @@ REDUCE_GROUP
 #endif
 #ifdef FOR_EACH_GROUP
 FOR_EACH_GROUP
+#endif
+#ifdef INCLUSIVE_SCAN_GROUP
+INCLUSIVE_SCAN_GROUP
 #endif
 #ifdef SORT_GROUP
 SORT_GROUP
