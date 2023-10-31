@@ -1,5 +1,5 @@
-#ifndef PSTL_BENCH_INCLUSIVE_SCAN_UTILS_H
-#define PSTL_BENCH_INCLUSIVE_SCAN_UTILS_H
+#ifndef PSTL_BENCH_EXCLUSIVE_SCAN_UTILS_H
+#define PSTL_BENCH_EXCLUSIVE_SCAN_UTILS_H
 
 #include <numeric>
 
@@ -7,7 +7,7 @@
 
 #include <benchmark_utils.h>
 
-namespace benchmark_inclusive_scan
+namespace benchmark_exclusive_scan
 {
 	template<class Policy, class Function>
 	static void benchmark_wrapper(benchmark::State & state, Function && F)
@@ -21,7 +21,7 @@ namespace benchmark_inclusive_scan
 		auto output = input_data;
 		std::fill(output.begin(), output.end(), 0);
 
-		std::inclusive_scan(std::execution::seq, input_data.begin(), input_data.end(), output.begin());
+		std::exclusive_scan(std::execution::seq, input_data.begin(), input_data.end(), output.begin(), 0);
 
 		const auto solution = output.back();
 
@@ -37,6 +37,6 @@ namespace benchmark_inclusive_scan
 
 		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
 	}
-} // namespace benchmark_inclusive_scan
+} // namespace benchmark_exclusive_scan
 
-#endif //PSTL_BENCH_INCLUSIVE_SCAN_UTILS_H
+#endif //PSTL_BENCH_EXCLUSIVE_SCAN_UTILS_H

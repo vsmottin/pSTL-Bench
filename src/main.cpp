@@ -3,6 +3,7 @@
 #endif
 
 #include "benchmarks/count_if/group.h"
+#include "benchmarks/exclusive_scan/group.h"
 #include "benchmarks/find/group.h"
 #include "benchmarks/for_each/group.h"
 #include "benchmarks/inclusive_scan/group.h"
@@ -17,24 +18,13 @@
 #include <tbb_thread_control.h>
 #endif
 
-#ifdef COUNT_IF_GROUP
 COUNT_IF_GROUP
-#endif
-#ifdef FIND_GROUP
 FIND_GROUP
-#endif
-#ifdef REDUCE_GROUP
 REDUCE_GROUP
-#endif
-#ifdef FOR_EACH_GROUP
 FOR_EACH_GROUP
-#endif
-#ifdef INCLUSIVE_SCAN_GROUP
 INCLUSIVE_SCAN_GROUP
-#endif
-#ifdef SORT_GROUP
+EXCLUSIVE_SCAN_GROUP
 SORT_GROUP
-#endif
 
 // Run the benchmark
 int main(int argc, char ** argv)
