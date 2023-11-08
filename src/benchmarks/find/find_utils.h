@@ -22,7 +22,7 @@ namespace benchmark_find
 
 		for (auto _ : state)
 		{
-			// random index in [0,size)
+			// random value in [0,size)
 			const auto value = get_value(vec1);
 
 			WRAP_TIMING(auto find_location = F(execution_policy, vec1, value);)

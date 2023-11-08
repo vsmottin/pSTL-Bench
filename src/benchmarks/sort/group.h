@@ -30,11 +30,11 @@ static void sort_std_random_wrapper(benchmark::State & state)
 
 #define SORT_SEQ_WRAPPER                                                                   \
 	BENCHMARK_TEMPLATE1(sort_std_already_sorted_wrapper, std::execution::sequenced_policy) \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::sort_already_sorted_seq "))        \
+	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::sort_already_sorted"))             \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);                                           \
 	BENCHMARK_TEMPLATE1(sort_std_random_wrapper, std::execution::sequenced_policy)         \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::sort_random_seq"))                 \
+	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::sort_random"))                     \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
