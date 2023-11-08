@@ -4,11 +4,14 @@
 
 #include "benchmarks/adjacent_difference/group.h"
 #include "benchmarks/adjacent_find/group.h"
+#include "benchmarks/all_of/group.h"
+#include "benchmarks/any_of/group.h"
 #include "benchmarks/count_if/group.h"
 #include "benchmarks/exclusive_scan/group.h"
 #include "benchmarks/find/group.h"
 #include "benchmarks/for_each/group.h"
 #include "benchmarks/inclusive_scan/group.h"
+#include "benchmarks/none_of/group.h"
 #include "benchmarks/reduce/group.h"
 #include "benchmarks/sort/group.h"
 
@@ -22,6 +25,9 @@
 
 ADJACENT_DIFFERENCE_GROUP
 ADJACENT_FIND_GROUP
+ANY_OF_GROUP
+ALL_OF_GROUP
+NONE_OF_GROUP
 COUNT_IF_GROUP
 FIND_GROUP
 REDUCE_GROUP

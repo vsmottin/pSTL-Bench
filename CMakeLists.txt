@@ -110,6 +110,8 @@ if (benchmark_ADDED)
     # enable the C++ standard to avoid errors
     set_target_properties(benchmark PROPERTIES CXX_STANDARD ${CMAKE_CXX_STANDARD})
     list(APPEND LINK_LIBRARIES benchmark::benchmark)
+elseif (TARGET benchmark::benchmark)
+    list(APPEND LINK_LIBRARIES benchmark::benchmark)
 else ()
     message(FATAL_ERROR "Failed to add google benchmark")
 endif ()
