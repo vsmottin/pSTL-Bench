@@ -2,6 +2,8 @@
 #include <hpx/hpx_main.hpp>
 #endif
 
+#include "benchmarks/adjacent_difference/group.h"
+#include "benchmarks/adjacent_find/group.h"
 #include "benchmarks/count_if/group.h"
 #include "benchmarks/exclusive_scan/group.h"
 #include "benchmarks/find/group.h"
@@ -18,6 +20,8 @@
 #include <tbb_thread_control.h>
 #endif
 
+ADJACENT_DIFFERENCE_GROUP
+ADJACENT_FIND_GROUP
 COUNT_IF_GROUP
 FIND_GROUP
 REDUCE_GROUP
