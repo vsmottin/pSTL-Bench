@@ -17,7 +17,9 @@
 #include "benchmarks/find/group.h"
 #include "benchmarks/for_each/group.h"
 #include "benchmarks/generate/group.h"
+#include "benchmarks/includes/group.h"
 #include "benchmarks/inclusive_scan/group.h"
+#include "benchmarks/inplace_merge/group.h"
 #include "benchmarks/none_of/group.h"
 #include "benchmarks/reduce/group.h"
 #include "benchmarks/sort/group.h"
@@ -46,6 +48,8 @@ FILL_GROUP
 FIND_GROUP
 FOR_EACH_GROUP
 GENERATE_GROUP
+INCLUDES_GROUP
+INPLACE_MERGE_GROUP
 INCLUSIVE_SCAN_GROUP
 REDUCE_GROUP
 SORT_GROUP
