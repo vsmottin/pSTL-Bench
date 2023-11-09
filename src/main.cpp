@@ -22,6 +22,8 @@
 #include "benchmarks/inplace_merge/group.h"
 #include "benchmarks/is_sorted/group.h"
 #include "benchmarks/lexicographical_compare/group.h"
+#include "benchmarks/merge/group.h"
+#include "benchmarks/min_element/group.h"
 #include "benchmarks/none_of/group.h"
 #include "benchmarks/reduce/group.h"
 #include "benchmarks/sort/group.h"
@@ -55,6 +57,8 @@ INPLACE_MERGE_GROUP
 INCLUSIVE_SCAN_GROUP
 IS_SORTED_GROUP
 LEXICOGRAPHICAL_COMPARE_GROUP
+MERGE_GROUP
+MIN_ELEMENT_GROUP
 REDUCE_GROUP
 SORT_GROUP
 
