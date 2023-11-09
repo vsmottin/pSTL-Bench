@@ -9,10 +9,14 @@
 #include "benchmarks/copy/group.h"
 #include "benchmarks/copy_if/group.h"
 #include "benchmarks/copy_n/group.h"
+#include "benchmarks/count/group.h"
 #include "benchmarks/count_if/group.h"
+#include "benchmarks/equal/group.h"
 #include "benchmarks/exclusive_scan/group.h"
+#include "benchmarks/fill/group.h"
 #include "benchmarks/find/group.h"
 #include "benchmarks/for_each/group.h"
+#include "benchmarks/generate/group.h"
 #include "benchmarks/inclusive_scan/group.h"
 #include "benchmarks/none_of/group.h"
 #include "benchmarks/reduce/group.h"
@@ -34,12 +38,16 @@ NONE_OF_GROUP
 COPY_GROUP
 COPY_IF_GROUP
 COPY_N_GROUP
+COUNT_GROUP
 COUNT_IF_GROUP
-FIND_GROUP
-REDUCE_GROUP
-FOR_EACH_GROUP
-INCLUSIVE_SCAN_GROUP
+EQUAL_GROUP
 EXCLUSIVE_SCAN_GROUP
+FILL_GROUP
+FIND_GROUP
+FOR_EACH_GROUP
+GENERATE_GROUP
+INCLUSIVE_SCAN_GROUP
+REDUCE_GROUP
 SORT_GROUP
 
 // Run the benchmark
