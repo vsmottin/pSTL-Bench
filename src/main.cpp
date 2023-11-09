@@ -27,8 +27,11 @@
 #include "benchmarks/mismatch/group.h"
 #include "benchmarks/none_of/group.h"
 #include "benchmarks/partial_sort/group.h"
+#include "benchmarks/partition/group.h"
 #include "benchmarks/reduce/group.h"
+#include "benchmarks/search/group.h"
 #include "benchmarks/sort/group.h"
+#include "benchmarks/transform/group.h"
 
 #include <thread>
 
@@ -63,8 +66,11 @@ MIN_ELEMENT_GROUP
 MISMATCH_GROUP
 NONE_OF_GROUP
 PARTIAL_SORT_GROUP
+PARTITION_GROUP
 REDUCE_GROUP
+SEARCH_GROUP
 SORT_GROUP
+TRANSFORM_GROUP
 
 // Run the benchmark
 int main(int argc, char ** argv)
