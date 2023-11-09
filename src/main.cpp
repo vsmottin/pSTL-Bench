@@ -24,7 +24,9 @@
 #include "benchmarks/lexicographical_compare/group.h"
 #include "benchmarks/merge/group.h"
 #include "benchmarks/min_element/group.h"
+#include "benchmarks/mismatch/group.h"
 #include "benchmarks/none_of/group.h"
+#include "benchmarks/partial_sort/group.h"
 #include "benchmarks/reduce/group.h"
 #include "benchmarks/sort/group.h"
 
@@ -40,7 +42,6 @@ ADJACENT_DIFFERENCE_GROUP
 ADJACENT_FIND_GROUP
 ANY_OF_GROUP
 ALL_OF_GROUP
-NONE_OF_GROUP
 COPY_GROUP
 COPY_IF_GROUP
 COPY_N_GROUP
@@ -59,6 +60,9 @@ IS_SORTED_GROUP
 LEXICOGRAPHICAL_COMPARE_GROUP
 MERGE_GROUP
 MIN_ELEMENT_GROUP
+MISMATCH_GROUP
+NONE_OF_GROUP
+PARTIAL_SORT_GROUP
 REDUCE_GROUP
 SORT_GROUP
 
