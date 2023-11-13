@@ -11,6 +11,27 @@ set(BACKEND CACHE STRING "Select the backend to use for std:: algorithms")
 set_property(CACHE BACKEND PROPERTY STRINGS TBB GNU HPX NVHPC_OMP NVHPC_CUDA)
 # endregion options
 
+# region Setup CPM (for dependencies)
+set(CPM_USE_LOCAL_PACKAGES ON)
+set(CPM_USE_NAMED_CACHE_DIRECTORIES ON)
+
+# check if the cache is not defined (also as an environment variable)
+if (NOT DEFINED ENV{CPM_SOURCE_CACHE} AND NOT DEFINED CPM_SOURCE_CACHE)
+    set(CPM_SOURCE_CACHE "${CMAKE_BINARY_DIR}/deps_cache/" CACHE PATH "CPM source cache" FORCE)
+    message(STATUS "CPM_SOURCE_CACHE not defined, using ${CPM_SOURCE_CACHE}")
+else ()
+    if (DEFINED ENV{CPM_SOURCE_CACHE})
+        message(STATUS "CPM_SOURCE_CACHE (env) defined, using $ENV{CPM_SOURCE_CACHE}")
+    else ()
+        message(STATUS "CPM_SOURCE_CACHE defined, using ${CPM_SOURCE_CACHE}")
+    endif ()
+endif ()
+
+include(cmake/get_cpm.cmake)
+
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CPM_SOURCE_CACHE};${CMAKE_MODULE_PATH}")
+# endregion Setup CPM (for dependencies)
+
 # region register backends
 include(cmake/register_backend.cmake)
 
@@ -59,27 +80,6 @@ else ()
     message(STATUS "Using no allocator")
 endif ()
 # endregion parallel allocator
-
-# region Setup CPM (for dependencies)
-set(CPM_USE_LOCAL_PACKAGES ON)
-set(CPM_USE_NAMED_CACHE_DIRECTORIES ON)
-
-# check if the cache is not defined (also as an environment variable)
-if (NOT DEFINED ENV{CPM_SOURCE_CACHE} AND NOT DEFINED CPM_SOURCE_CACHE)
-    set(CPM_SOURCE_CACHE "${CMAKE_BINARY_DIR}/deps_cache/" CACHE PATH "CPM source cache" FORCE)
-    message(STATUS "CPM_SOURCE_CACHE not defined, using ${CPM_SOURCE_CACHE}")
-else ()
-    if (DEFINED ENV{CPM_SOURCE_CACHE})
-        message(STATUS "CPM_SOURCE_CACHE (env) defined, using $ENV{CPM_SOURCE_CACHE}")
-    else ()
-        message(STATUS "CPM_SOURCE_CACHE defined, using ${CPM_SOURCE_CACHE}")
-    endif ()
-endif ()
-
-include(cmake/get_cpm.cmake)
-
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CPM_SOURCE_CACHE};${CMAKE_MODULE_PATH}")
-# endregion Setup CPM (for dependencies)
 
 # region input size
 if (NOT DEFINED ${MIN_INPUT_SIZE})
