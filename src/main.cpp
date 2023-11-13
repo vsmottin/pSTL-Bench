@@ -22,6 +22,7 @@
 #include "benchmarks/inplace_merge/group.h"
 #include "benchmarks/is_sorted/group.h"
 #include "benchmarks/lexicographical_compare/group.h"
+#include "benchmarks/max_element/group.h"
 #include "benchmarks/merge/group.h"
 #include "benchmarks/min_element/group.h"
 #include "benchmarks/mismatch/group.h"
@@ -61,6 +62,7 @@ INPLACE_MERGE_GROUP
 INCLUSIVE_SCAN_GROUP
 IS_SORTED_GROUP
 LEXICOGRAPHICAL_COMPARE_GROUP
+MAX_ELEMENT_GROUP
 MERGE_GROUP
 MIN_ELEMENT_GROUP
 MISMATCH_GROUP
