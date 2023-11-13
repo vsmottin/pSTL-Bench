@@ -22,10 +22,10 @@ namespace benchmark_mismatch
 		static auto rng = std::mt19937{ rd() };
 		auto        gen = std::uniform_int_distribution<int64_t>{ 0, size - 1 };
 
+		auto data2 = data1;
+
 		for (auto _ : state)
 		{
-			auto data2 = data1;
-
 			const auto idx = gen(rng);
 			data2[idx]     = data1[idx] + 1;
 
@@ -36,10 +36,7 @@ namespace benchmark_mismatch
 			assert((solution.first - data1.begin()) == (output.first - data1.begin()));
 		}
 
-		// https://ccfd.github.io/courses/hpc_lab01.html
-		const int64_t actual_size_in_bytes = sizeof(int) * (2 * int64_t(data1.size()));
-
-		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
+		state.SetBytesProcessed(suite::computed_bytes(state, data1, data2));
 	}
 } // namespace benchmark_mismatch
 

@@ -77,6 +77,7 @@ static void adjacent_find_hpx_wrapper(benchmark::State & state)
 #define ADJACENT_FIND_GROUP   \
 	ADJACENT_FIND_SEQ_WRAPPER \
 	ADJACENT_FIND_STD_WRAPPER \
+	ADJACENT_FIND_GNU_WRAPPER \
 	ADJACENT_FIND_HPX_WRAPPER
 
 #endif //PSTL_BENCH_ADJACENT_FIND_GROUP_H

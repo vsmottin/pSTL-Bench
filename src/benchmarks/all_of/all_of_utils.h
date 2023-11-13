@@ -18,7 +18,9 @@ namespace benchmark_all_of
 
 		auto input_data = suite::generate_increment(execution_policy, size, 1);
 
-		const auto condition = [](const auto & val) { return val > 0; };
+		const auto condition = [](const auto & val) {
+			return val > 0;
+		};
 
 		const auto solution = std::all_of(input_data.begin(), input_data.end(), condition);
 
@@ -29,10 +31,7 @@ namespace benchmark_all_of
 			assert((output == solution));
 		}
 
-		// https://ccfd.github.io/courses/hpc_lab01.html
-		const int64_t actual_size_in_bytes = sizeof(int) * (2 * int64_t(input_data.size()));
-
-		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
+		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_all_of
 

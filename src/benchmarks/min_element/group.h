@@ -77,6 +77,7 @@ static void min_element_hpx_wrapper(benchmark::State & state)
 #define MIN_ELEMENT_GROUP   \
 	MIN_ELEMENT_SEQ_WRAPPER \
 	MIN_ELEMENT_STD_WRAPPER \
+	MIN_ELEMENT_GNU_WRAPPER \
 	MIN_ELEMENT_HPX_WRAPPER
 
 #endif //PSTL_BENCH_MIN_ELEMENT_GROUP_H

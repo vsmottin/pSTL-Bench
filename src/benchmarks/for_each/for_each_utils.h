@@ -28,10 +28,7 @@ namespace benchmark_for_each
 			WRAP_TIMING(f(execution_policy, data, kernel);)
 		}
 
-		// https://ccfd.github.io/courses/hpc_lab01.html
-		const int64_t actual_size_in_bytes = sizeof(int) * (int64_t(data.size()));
-
-		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
+		state.SetBytesProcessed(suite::computed_bytes(state, data));
 	}
 } // namespace benchmark_for_each
 

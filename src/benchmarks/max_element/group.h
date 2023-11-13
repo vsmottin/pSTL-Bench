@@ -77,6 +77,7 @@ static void max_element_hpx_wrapper(benchmark::State & state)
 #define MAX_ELEMENT_GROUP   \
 	MAX_ELEMENT_SEQ_WRAPPER \
 	MAX_ELEMENT_STD_WRAPPER \
+	MAX_ELEMENT_GNU_WRAPPER \
 	MAX_ELEMENT_HPX_WRAPPER
 
 #endif //PSTL_BENCH_MAX_ELEMENT_GROUP_H

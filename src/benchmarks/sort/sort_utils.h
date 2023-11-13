@@ -14,24 +14,21 @@ namespace benchmark_sort
 
 		const auto & size = state.range(0);
 
-		auto input = suite::generate_increment<Policy>(execution_policy, size, 1);
+		auto input_data = suite::generate_increment<Policy>(execution_policy, size, 1);
 
 		static std::random_device rd;
 		static std::mt19937       generator(rd());
 
 		for (auto _ : state)
 		{
-			std::shuffle(input.begin(), input.end(), generator);
+			std::shuffle(input_data.begin(), input_data.end(), generator);
 
-			WRAP_TIMING(f(execution_policy, input))
+			WRAP_TIMING(f(execution_policy, input_data))
 
-			assert(std::is_sorted(input.begin(), input.end()));
+			assert(std::is_sorted(input_data.begin(), input_data.end()));
 		}
 
-		// https://ccfd.github.io/courses/hpc_lab01.html
-		const int64_t actual_size_in_bytes = sizeof(int) * (int64_t(input.size()));
-
-		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
+		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_sort
 

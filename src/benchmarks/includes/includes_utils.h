@@ -24,15 +24,14 @@ namespace benchmark_includes
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(const auto output = F(execution_policy, input_data, subset);)
+			WRAP_TIMING(auto output = F(execution_policy, input_data, subset);)
+
+			benchmark::DoNotOptimize(output);
 
 			assert((output == solution));
 		}
 
-		// https://ccfd.github.io/courses/hpc_lab01.html
-		const int64_t actual_size_in_bytes = sizeof(int) * (2 * int64_t(input_data.size()));
-
-		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
+		state.SetBytesProcessed(suite::computed_bytes(state, input_data, subset));
 	}
 } // namespace benchmark_includes
 

@@ -21,14 +21,14 @@ static void none_of_std_wrapper(benchmark::State & state)
 #define NONE_OF_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(none_of_std_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::none_of"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
 #define NONE_OF_STD_WRAPPER                                                   \
 	BENCHMARK_TEMPLATE1(none_of_std_wrapper, std::execution::parallel_policy) \
 	    ->Name(BENCHMARK_NAME("std::none_of"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define NONE_OF_STD_WRAPPER
@@ -46,7 +46,7 @@ static void none_of_hpx_wrapper(benchmark::State & state)
 #define NONE_OF_HPX_WRAPPER                                                   \
 	BENCHMARK_TEMPLATE1(none_of_hpx_wrapper, std::execution::parallel_policy) \
 	    ->Name(BENCHMARK_NAME("hpx::none_of"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define NONE_OF_HPX_WRAPPER

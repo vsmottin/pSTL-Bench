@@ -21,14 +21,14 @@ static void copy_n_std_wrapper(benchmark::State & state)
 #define COPY_N_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(copy_n_std_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::copy_n"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                             \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
 #define COPY_N_STD_WRAPPER                                                   \
 	BENCHMARK_TEMPLATE1(copy_n_std_wrapper, std::execution::parallel_policy) \
 	    ->Name(BENCHMARK_NAME("std::copy_n"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define COPY_N_STD_WRAPPER
@@ -46,7 +46,7 @@ static void copy_n_hpx_wrapper(benchmark::State & state)
 #define COPY_N_HPX_WRAPPER                                                   \
 	BENCHMARK_TEMPLATE1(copy_n_hpx_wrapper, std::execution::parallel_policy) \
 	    ->Name(BENCHMARK_NAME("hpx::copy_n"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define COPY_N_HPX_WRAPPER

@@ -20,17 +20,14 @@ namespace benchmark_transform
 
 		const auto & size = state.range(0);
 
-		auto data = suite::generate_increment<Policy>(execution_policy, size, 1);
+		auto input_data = suite::generate_increment<Policy>(execution_policy, size, 1);
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(f(execution_policy, data, kernel);)
+			WRAP_TIMING(f(execution_policy, input_data, kernel);)
 		}
 
-		// https://ccfd.github.io/courses/hpc_lab01.html
-		const int64_t actual_size_in_bytes = sizeof(int) * (int64_t(data.size()));
-
-		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
+		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_transform
 

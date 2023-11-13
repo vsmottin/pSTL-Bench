@@ -16,22 +16,19 @@ namespace benchmark_lexicographical_compare
 
 		const auto & size = state.range(0);
 
-		const auto data_a = suite::generate_increment(execution_policy, size, 1);
-		const auto data_b = suite::generate_increment(execution_policy, size, 1);
+		const auto data1 = suite::generate_increment(execution_policy, size, 1);
+		const auto data2 = suite::generate_increment(execution_policy, size, 1);
 
-		const auto result = std::lexicographical_compare(data_a.begin(), data_a.end(), data_b.begin(), data_b.end());
+		const auto result = std::lexicographical_compare(data1.begin(), data1.end(), data2.begin(), data2.end());
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(const auto output = F(execution_policy, data_a, data_b);)
+			WRAP_TIMING(const auto output = F(execution_policy, data1, data2);)
 
 			assert((result == output));
 		}
 
-		// https://ccfd.github.io/courses/hpc_lab01.html
-		const int64_t actual_size_in_bytes = sizeof(int) * (2 * int64_t(data_a.size()));
-
-		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
+		state.SetBytesProcessed(suite::computed_bytes(state, data1, data2));
 	}
 } // namespace benchmark_lexicographical_compare
 

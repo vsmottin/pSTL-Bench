@@ -77,6 +77,7 @@ static void merge_hpx_wrapper(benchmark::State & state)
 #define MERGE_GROUP   \
 	MERGE_SEQ_WRAPPER \
 	MERGE_STD_WRAPPER \
+	MERGE_GNU_WRAPPER \
 	MERGE_HPX_WRAPPER
 
 #endif //PSTL_BENCH_MERGE_GROUP_H

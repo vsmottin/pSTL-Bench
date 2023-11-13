@@ -29,10 +29,7 @@ namespace benchmark_search
 			assert((result == output));
 		}
 
-		// https://ccfd.github.io/courses/hpc_lab01.html
-		const int64_t actual_size_in_bytes = sizeof(int) * (int64_t(data1.size()) + int64_t(data2.size()));
-
-		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
+		state.SetBytesProcessed(suite::computed_bytes(state, data1, data2));
 	}
 } // namespace benchmark_search
 

@@ -16,19 +16,16 @@ namespace benchmark_equal
 
 		const auto & size = state.range(0);
 
-		const auto input_data = suite::generate_increment(execution_policy, size, 1);
+		const auto data1 = suite::generate_increment(execution_policy, size, 1);
 
-		auto output = input_data;
+		auto data2 = data1;
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(F(execution_policy, input_data, output);)
+			WRAP_TIMING(F(execution_policy, data1, data2);)
 		}
 
-		// https://ccfd.github.io/courses/hpc_lab01.html
-		const int64_t actual_size_in_bytes = sizeof(int) * (2 * int64_t(input_data.size()));
-
-		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
+		state.SetBytesProcessed(suite::computed_bytes(state, data1, data2));
 	}
 } // namespace benchmark_equal
 

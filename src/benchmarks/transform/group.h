@@ -27,14 +27,14 @@ static void transform_std_wrapper(benchmark::State & state)
 #define TRANSFORM_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(transform_std_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::transform"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                  \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
 #define TRANSFORM_STD_WRAPPER                                                   \
 	BENCHMARK_TEMPLATE1(transform_std_wrapper, std::execution::parallel_policy) \
 	    ->Name(BENCHMARK_NAME("std::transform"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define TRANSFORM_STD_WRAPPER
@@ -49,10 +49,10 @@ static void transform_gnu_wrapper(benchmark::State & state)
 	benchmark_transform::benchmark_transform_wrapper<Policy>(state, benchmark_transform::transform_gnu);
 }
 
-#define TRANSFORM_GNU_WRAPPER                                                        \
-	BENCHMARK_TEMPLATE1(transform_gnu_wrapper, std::execution::parallel_policy)      \
-	    ->Name(BENCHMARK_NAME("gnu::transform")) \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
+#define TRANSFORM_GNU_WRAPPER                                                   \
+	BENCHMARK_TEMPLATE1(transform_gnu_wrapper, std::execution::parallel_policy) \
+	    ->Name(BENCHMARK_NAME("gnu::transform"))                                \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define TRANSFORM_GNU_WRAPPER
@@ -67,10 +67,10 @@ static void transform_hpx_wrapper(benchmark::State & state)
 	benchmark_transform::benchmark_transform_wrapper<Policy>(state, benchmark_transform::transform_hpx);
 }
 
-#define TRANSFORM_HPX_WRAPPER                                                        \
-	BENCHMARK_TEMPLATE1(transform_hpx_wrapper, std::execution::parallel_policy)      \
-	    ->Name(BENCHMARK_NAME("hpx::transform")) \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
+#define TRANSFORM_HPX_WRAPPER                                                   \
+	BENCHMARK_TEMPLATE1(transform_hpx_wrapper, std::execution::parallel_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::transform"))                                \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define TRANSFORM_HPX_WRAPPER

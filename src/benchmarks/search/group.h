@@ -19,21 +19,20 @@
 template<class Policy>
 static void search_std_wrapper(benchmark::State & state)
 {
-	benchmark_search::benchmark_wrapper<Policy>(
-	    state, benchmark_search::search_std);
+	benchmark_search::benchmark_wrapper<Policy>(state, benchmark_search::search_std);
 }
 
 #define SEARCH_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(search_std_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::search"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
 #define SEARCH_STD_WRAPPER                                                   \
 	BENCHMARK_TEMPLATE1(search_std_wrapper, std::execution::parallel_policy) \
 	    ->Name(BENCHMARK_NAME("std::search"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                               \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define SEARCH_STD_WRAPPER
@@ -45,14 +44,13 @@ static void search_std_wrapper(benchmark::State & state)
 template<class Policy>
 static void search_gnu_wrapper(benchmark::State & state)
 {
-	benchmark_search::benchmark_wrapper<Policy>(
-	    state, benchmark_search::search_gnu);
+	benchmark_search::benchmark_wrapper<Policy>(state, benchmark_search::search_gnu);
 }
 
 #define SEARCH_GNU_WRAPPER                                                   \
 	BENCHMARK_TEMPLATE1(search_gnu_wrapper, std::execution::parallel_policy) \
 	    ->Name(BENCHMARK_NAME("gnu::search"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                               \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define SEARCH_GNU_WRAPPER
@@ -64,14 +62,13 @@ static void search_gnu_wrapper(benchmark::State & state)
 template<class Policy>
 static void search_hpx_wrapper(benchmark::State & state)
 {
-	benchmark_search::benchmark_wrapper<Policy>(
-	    state, benchmark_search::search_hpx);
+	benchmark_search::benchmark_wrapper<Policy>(state, benchmark_search::search_hpx);
 }
 
 #define SEARCH_HPX_WRAPPER                                                   \
 	BENCHMARK_TEMPLATE1(search_hpx_wrapper, std::execution::parallel_policy) \
 	    ->Name(BENCHMARK_NAME("hpx::search"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                               \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define SEARCH_HPX_WRAPPER

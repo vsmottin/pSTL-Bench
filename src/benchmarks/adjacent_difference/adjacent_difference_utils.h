@@ -21,7 +21,7 @@ namespace benchmark_adjacent_difference
 		auto output = input_data;
 		std::fill(output.begin(), output.end(), 0);
 
-		std::adjacent_difference(std::execution::seq, input_data.begin(), input_data.end(), output.begin());
+		std::adjacent_difference(input_data.begin(), input_data.end(), output.begin());
 
 		const auto solution = output.back();
 
@@ -29,13 +29,10 @@ namespace benchmark_adjacent_difference
 		{
 			WRAP_TIMING(F(execution_policy, input_data, output);)
 
-			assert((output.back() == solution));
+			assert(output.back() == solution);
 		}
 
-		// https://ccfd.github.io/courses/hpc_lab01.html
-		const int64_t actual_size_in_bytes = sizeof(int) * (2 * int64_t(input_data.size()));
-
-		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
+		state.SetBytesProcessed(suite::computed_bytes(state, input_data, output));
 	}
 } // namespace benchmark_adjacent_difference
 

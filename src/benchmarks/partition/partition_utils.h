@@ -31,10 +31,7 @@ namespace benchmark_partition
 			assert(std::is_partitioned(input_data.begin(), input_data.end(), condition));
 		}
 
-		// https://ccfd.github.io/courses/hpc_lab01.html
-		const int64_t actual_size_in_bytes = sizeof(int) * (2 * int64_t(input_data.size()));
-
-		state.SetBytesProcessed(int64_t(state.iterations()) * actual_size_in_bytes);
+		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_partition
 
