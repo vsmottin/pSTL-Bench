@@ -10,7 +10,7 @@ endmacro()
 macro(use_backend NAME)
     if ("${NAME}" IN_LIST REGISTERED_BACKENDS)
         string(TOUPPER ${NAME} NAME_UPPER)
-        set(BACKEND_FILE ${CMAKE_CURRENT_SOURCE_DIR}/backends/${NAME_UPPER}.cmake)
+        set(BACKEND_FILE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/backends/${NAME_UPPER}.cmake)
 
         if (NOT EXISTS ${BACKEND_FILE})
             message(FATAL_ERROR "${BACKEND_FILE} not found!")
