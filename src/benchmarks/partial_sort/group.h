@@ -29,10 +29,10 @@ static void partial_sort_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define PARTIAL_SORT_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(partial_sort_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::partial_sort"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
+#define PARTIAL_SORT_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(partial_sort_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::partial_sort"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define PARTIAL_SORT_STD_WRAPPER
@@ -47,10 +47,10 @@ static void partial_sort_gnu_wrapper(benchmark::State & state)
 	benchmark_partial_sort::benchmark_wrapper<Policy>(state, benchmark_partial_sort::partial_sort_gnu);
 }
 
-#define PARTIAL_SORT_GNU_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(partial_sort_gnu_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::partial_sort"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
+#define PARTIAL_SORT_GNU_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(partial_sort_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("gnu::partial_sort"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define PARTIAL_SORT_GNU_WRAPPER
@@ -65,10 +65,10 @@ static void partial_sort_hpx_wrapper(benchmark::State & state)
 	benchmark_partial_sort::benchmark_wrapper<Policy>(state, benchmark_partial_sort::partial_sort_hpx);
 }
 
-#define PARTIAL_SORT_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(partial_sort_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::partial_sort"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
+#define PARTIAL_SORT_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(partial_sort_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::partial_sort"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define PARTIAL_SORT_HPX_WRAPPER

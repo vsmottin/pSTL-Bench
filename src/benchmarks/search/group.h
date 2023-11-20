@@ -29,10 +29,10 @@ static void search_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define SEARCH_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(search_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::search"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
+#define SEARCH_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(search_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::search"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                          \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define SEARCH_STD_WRAPPER
@@ -47,10 +47,10 @@ static void search_gnu_wrapper(benchmark::State & state)
 	benchmark_search::benchmark_wrapper<Policy>(state, benchmark_search::search_gnu);
 }
 
-#define SEARCH_GNU_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(search_gnu_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::search"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
+#define SEARCH_GNU_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(search_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("gnu::search"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                          \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define SEARCH_GNU_WRAPPER
@@ -65,10 +65,10 @@ static void search_hpx_wrapper(benchmark::State & state)
 	benchmark_search::benchmark_wrapper<Policy>(state, benchmark_search::search_hpx);
 }
 
-#define SEARCH_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(search_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::search"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
+#define SEARCH_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(search_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::search"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                          \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define SEARCH_HPX_WRAPPER

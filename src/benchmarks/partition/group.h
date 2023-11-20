@@ -29,10 +29,10 @@ static void partition_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define PARTITION_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(partition_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::partition"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
+#define PARTITION_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(partition_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::partition"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                             \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define PARTITION_STD_WRAPPER
@@ -47,10 +47,10 @@ static void partition_gnu_wrapper(benchmark::State & state)
 	benchmark_partition::benchmark_wrapper<Policy>(state, benchmark_partition::partition_gnu);
 }
 
-#define PARTITION_GNU_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(partition_gnu_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::partition"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
+#define PARTITION_GNU_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(partition_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("gnu::partition"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                             \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define PARTITION_GNU_WRAPPER
@@ -64,10 +64,10 @@ static void partition_hpx_wrapper(benchmark::State & state)
 	benchmark_partition::benchmark_wrapper<Policy>(state, benchmark_partition::partition_hpx);
 }
 
-#define PARTITION_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(partition_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::partition"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
+#define PARTITION_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(partition_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::partition"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                             \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define PARTITION_HPX_WRAPPER

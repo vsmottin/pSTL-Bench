@@ -29,10 +29,10 @@ static void generate_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define GENERATE_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(generate_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::generate"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                \
+#define GENERATE_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(generate_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::generate"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define GENERATE_STD_WRAPPER
@@ -47,10 +47,10 @@ static void generate_gnu_wrapper(benchmark::State & state)
 	benchmark_generate::benchmark_wrapper<Policy>(state, benchmark_generate::generate_gnu);
 }
 
-#define GENERATE_GNU_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(generate_gnu_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::generate"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                \
+#define GENERATE_GNU_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(generate_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("gnu::generate"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define GENERATE_GNU_WRAPPER
@@ -65,10 +65,10 @@ static void generate_hpx_wrapper(benchmark::State & state)
 	benchmark_generate::benchmark_wrapper<Policy>(state, benchmark_generate::generate_hpx);
 }
 
-#define GENERATE_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(generate_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::generate"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                \
+#define GENERATE_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(generate_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::generate"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define GENERATE_HPX_WRAPPER

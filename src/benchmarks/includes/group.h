@@ -25,10 +25,10 @@ static void includes_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define INCLUDES_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(includes_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::includes"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                \
+#define INCLUDES_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(includes_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::includes"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define INCLUDES_STD_WRAPPER
@@ -43,10 +43,10 @@ static void includes_hpx_wrapper(benchmark::State & state)
 	benchmark_includes::benchmark_wrapper<Policy>(state, benchmark_includes::includes_hpx);
 }
 
-#define INCLUDES_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(includes_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::includes"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                \
+#define INCLUDES_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(includes_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::includes"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define INCLUDES_HPX_WRAPPER

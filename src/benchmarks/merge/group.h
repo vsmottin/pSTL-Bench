@@ -29,10 +29,10 @@ static void merge_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define MERGE_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(merge_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::merge"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                             \
+#define MERGE_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(merge_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::merge"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define MERGE_STD_WRAPPER
@@ -47,10 +47,10 @@ static void merge_gnu_wrapper(benchmark::State & state)
 	benchmark_merge::benchmark_wrapper<Policy>(state, benchmark_merge::merge_gnu);
 }
 
-#define MERGE_GNU_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(merge_gnu_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::merge"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                             \
+#define MERGE_GNU_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(merge_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("gnu::merge"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define MERGE_GNU_WRAPPER
@@ -65,10 +65,10 @@ static void merge_hpx_wrapper(benchmark::State & state)
 	benchmark_merge::benchmark_wrapper<Policy>(state, benchmark_merge::merge_hpx);
 }
 
-#define MERGE_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(merge_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::merge"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                             \
+#define MERGE_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(merge_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::merge"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define MERGE_HPX_WRAPPER

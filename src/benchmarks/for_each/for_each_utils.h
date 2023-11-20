@@ -11,7 +11,9 @@ namespace benchmark_for_each
 {
 	const auto kernel = [](const auto & input) {
 		auto value = std::min(std::sin(input), std::tan(input));
+#ifndef USE_GPU
 		benchmark::DoNotOptimize(value);
+#endif
 	};
 
 	template<class Policy, class Function>

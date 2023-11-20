@@ -21,6 +21,6 @@
 #define BENCHMARK_NAME_WITH_BACKEND(backend, benchmark) \
 	BENCHMARK_NAME_WITH_BACKEND_AND_COMPILER(BENCHMARK_COMPILER, backend, benchmark)
 
-#define BENCHMARK_NAME_WITH_BACKEND_AND_COMPILER(compiler, backend, benchmark) compiler "_" backend "_" benchmark
+#define BENCHMARK_NAME_WITH_BACKEND_AND_COMPILER(compiler, backend, benchmark) compiler "-" backend "/" benchmark
 
 #endif //PSTL_BENCH_BENCHMARK_PREFIX_H

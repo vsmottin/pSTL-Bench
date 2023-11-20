@@ -29,10 +29,10 @@ static void adjacent_find_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define ADJACENT_FIND_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(adjacent_find_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::adjacent_find"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
+#define ADJACENT_FIND_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(adjacent_find_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::adjacent_find"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                 \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define ADJACENT_FIND_STD_WRAPPER
@@ -47,10 +47,10 @@ static void adjacent_find_gnu_wrapper(benchmark::State & state)
 	benchmark_adjacent_find::benchmark_wrapper<Policy>(state, benchmark_adjacent_find::adjacent_find_gnu);
 }
 
-#define ADJACENT_FIND_GNU_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(adjacent_find_gnu_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::adjacent_find"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
+#define ADJACENT_FIND_GNU_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(adjacent_find_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("gnu::adjacent_find"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                 \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define ADJACENT_FIND_GNU_WRAPPER
@@ -65,10 +65,10 @@ static void adjacent_find_hpx_wrapper(benchmark::State & state)
 	benchmark_adjacent_find::benchmark_wrapper<Policy>(state, benchmark_adjacent_find::adjacent_find_hpx);
 }
 
-#define ADJACENT_FIND_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(adjacent_find_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::adjacent_find"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                     \
+#define ADJACENT_FIND_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(adjacent_find_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::adjacent_find"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                 \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define ADJACENT_FIND_HPX_WRAPPER

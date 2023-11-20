@@ -25,10 +25,10 @@ static void all_of_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define ALL_OF_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(all_of_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::all_of"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
+#define ALL_OF_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(all_of_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::all_of"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                          \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define ALL_OF_STD_WRAPPER
@@ -43,10 +43,10 @@ static void all_of_hpx_wrapper(benchmark::State & state)
 	benchmark_all_of::benchmark_wrapper<Policy>(state, benchmark_all_of::all_of_hpx);
 }
 
-#define ALL_OF_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(all_of_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::all_of"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
+#define ALL_OF_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(all_of_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::all_of"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                          \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define ALL_OF_HPX_WRAPPER

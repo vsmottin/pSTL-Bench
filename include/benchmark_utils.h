@@ -221,11 +221,11 @@ namespace suite
 	 * @param containers the containers used by the benchmark
 	 * @return the amount of bytes computed by the benchmark
 	 */
-	static auto computed_bytes(const ::benchmark::State & state, const auto & ... containers)
+	static auto computed_bytes(const ::benchmark::State & state, const auto &... containers)
 	{
 		std::size_t bytes = 0;
 
-		for (auto container : {containers...})
+		for (auto container : { containers... })
 		{
 			using type = base_type<decltype(container)>;
 

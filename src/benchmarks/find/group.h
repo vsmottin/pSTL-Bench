@@ -30,10 +30,10 @@ static void find_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define FIND_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(find_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::find"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                            \
+#define FIND_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(find_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::find"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                        \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define FIND_STD_WRAPPER
@@ -48,10 +48,10 @@ static void find_gnu_wrapper(benchmark::State & state)
 	benchmark_find::benchmark_wrapper<Policy>(state, benchmark_find::find_gnu);
 }
 
-#define FIND_GNU_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(find_gnu_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::find"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                            \
+#define FIND_GNU_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(find_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("gnu::find"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                        \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define FIND_GNU_WRAPPER
@@ -66,10 +66,10 @@ static void find_hpx_wrapper(benchmark::State & state)
 	benchmark_find::benchmark_wrapper<Policy>(state, benchmark_find::find_hpx);
 }
 
-#define FIND_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(find_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::find"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                            \
+#define FIND_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(find_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::find"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                        \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define FIND_HPX_WRAPPER

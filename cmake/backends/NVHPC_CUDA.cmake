@@ -5,6 +5,7 @@ if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "PGI" AND
 endif ()
 
 add_compile_definitions(USE_PSTL)
+add_compile_definitions(USE_GPU)
 
 add_compile_definitions(BENCHMARK_BACKEND="CUDA")
 

@@ -25,10 +25,10 @@ static void is_sorted_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define IS_SORTED_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(is_sorted_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::is_sorted"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
+#define IS_SORTED_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(is_sorted_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::is_sorted"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                             \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define IS_SORTED_STD_WRAPPER
@@ -43,10 +43,10 @@ static void is_sorted_hpx_wrapper(benchmark::State & state)
 	benchmark_is_sorted::benchmark_wrapper<Policy>(state, benchmark_is_sorted::is_sorted_hpx);
 }
 
-#define IS_SORTED_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(is_sorted_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::is_sorted"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
+#define IS_SORTED_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(is_sorted_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::is_sorted"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                             \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define IS_SORTED_HPX_WRAPPER

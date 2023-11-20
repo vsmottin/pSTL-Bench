@@ -29,10 +29,10 @@ static void sort_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define SORT_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(sort_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::sort"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                            \
+#define SORT_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(sort_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::sort"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                        \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define SORT_STD_WRAPPER
@@ -47,10 +47,10 @@ static void sort_gnu_wrapper(benchmark::State & state)
 	benchmark_sort::benchmark_wrapper<Policy>(state, benchmark_sort::sort_gnu);
 }
 
-#define SORT_GNU_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(sort_gnu_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::sort"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                            \
+#define SORT_GNU_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(sort_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("gnu::sort"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                        \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define SORT_GNU_WRAPPER
@@ -65,10 +65,10 @@ static void sort_hpx_wrapper(benchmark::State & state)
 	benchmark_sort::benchmark_wrapper<Policy>(state, benchmark_sort::sort_hpx);
 }
 
-#define SORT_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(sort_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::sort"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                            \
+#define SORT_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(sort_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::sort"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                        \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define SORT_HPX_WRAPPER

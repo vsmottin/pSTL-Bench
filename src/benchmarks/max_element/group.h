@@ -29,10 +29,10 @@ static void max_element_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define MAX_ELEMENT_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(max_element_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::max_element"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                   \
+#define MAX_ELEMENT_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(max_element_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::max_element"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                               \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define MAX_ELEMENT_STD_WRAPPER
@@ -47,10 +47,10 @@ static void max_element_gnu_wrapper(benchmark::State & state)
 	benchmark_max_element::benchmark_wrapper<Policy>(state, benchmark_max_element::max_element_gnu);
 }
 
-#define MAX_ELEMENT_GNU_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(max_element_gnu_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::max_element"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                   \
+#define MAX_ELEMENT_GNU_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(max_element_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("gnu::max_element"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                               \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define MAX_ELEMENT_GNU_WRAPPER
@@ -65,10 +65,10 @@ static void max_element_hpx_wrapper(benchmark::State & state)
 	benchmark_max_element::benchmark_wrapper<Policy>(state, benchmark_max_element::max_element_hpx);
 }
 
-#define MAX_ELEMENT_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(max_element_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::max_element"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                   \
+#define MAX_ELEMENT_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(max_element_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::max_element"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                               \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define MAX_ELEMENT_HPX_WRAPPER

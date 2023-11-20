@@ -25,10 +25,10 @@ static void copy_if_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define COPY_IF_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(copy_if_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::copy_if"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
+#define COPY_IF_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(copy_if_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::copy_if"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                           \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define COPY_IF_STD_WRAPPER
@@ -43,10 +43,10 @@ static void copy_if_hpx_wrapper(benchmark::State & state)
 	benchmark_copy_if::benchmark_wrapper<Policy>(state, benchmark_copy_if::copy_if_hpx);
 }
 
-#define COPY_IF_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(copy_if_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::copy_if"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
+#define COPY_IF_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(copy_if_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::copy_if"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                           \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define COPY_IF_HPX_WRAPPER

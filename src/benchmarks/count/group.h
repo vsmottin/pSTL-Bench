@@ -29,10 +29,10 @@ static void count_std_wrapper(benchmark::State & state)
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 
 #ifdef USE_PSTL
-#define COUNT_STD_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(count_std_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("std::count"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                             \
+#define COUNT_STD_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(count_std_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("std::count"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define COUNT_STD_WRAPPER
@@ -47,10 +47,10 @@ static void count_gnu_wrapper(benchmark::State & state)
 	benchmark_count::benchmark_wrapper<Policy>(state, benchmark_count::count_gnu);
 }
 
-#define COUNT_GNU_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(count_gnu_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::count"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                             \
+#define COUNT_GNU_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(count_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("gnu::count"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define COUNT_GNU_WRAPPER
@@ -64,10 +64,10 @@ static void count_hpx_wrapper(benchmark::State & state)
 	benchmark_count::benchmark_wrapper<Policy>(state, benchmark_count::count_hpx);
 }
 
-#define COUNT_HPX_WRAPPER                                                   \
-	BENCHMARK_TEMPLATE1(count_hpx_wrapper, std::execution::parallel_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::count"))                                \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                             \
+#define COUNT_HPX_WRAPPER                                                               \
+	BENCHMARK_TEMPLATE1(count_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	    ->Name(BENCHMARK_NAME("hpx::count"))                                            \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
 	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
 #else
 #define COUNT_HPX_WRAPPER
