@@ -17,7 +17,8 @@ namespace benchmark_search
 		const auto & size = state.range(0);
 
 		const auto data1 = suite::generate_increment(execution_policy, size, 1);
-		const auto data2 = suite::generate_increment(execution_policy, size / 2, size / 4);
+		const auto data2 = suite::generate_increment(execution_policy, size / 2,
+		                                             static_cast<decltype(data1)::value_type>(size / 4), 1);
 
 		const auto result = std::search(data1.begin(), data1.end(), data2.begin(), data2.end());
 
