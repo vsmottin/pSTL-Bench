@@ -13,7 +13,7 @@ namespace benchmark_sort
 	const auto sort_std = [](auto && executionPolicy, auto & input_data) {
 #if defined(USE_TBB)
 	// Show compiler message if TBB is used
-#warning "Using tbb::parallel_sort since std::sort(parallel_policy) has memory leaks"
+#warning "Using tbb::parallel_sort since std::sort(parallel_policy) has performance issues"
 		tbb::parallel_sort(input_data.begin(), input_data.end());
 #else
 		std::sort(executionPolicy, input_data.begin(), input_data.end());
