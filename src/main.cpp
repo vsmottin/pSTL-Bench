@@ -2,39 +2,6 @@
 #include <hpx/hpx_main.hpp>
 #endif
 
-#include "benchmarks/adjacent_difference/group.h"
-#include "benchmarks/adjacent_find/group.h"
-#include "benchmarks/all_of/group.h"
-#include "benchmarks/any_of/group.h"
-#include "benchmarks/copy/group.h"
-#include "benchmarks/copy_if/group.h"
-#include "benchmarks/copy_n/group.h"
-#include "benchmarks/count/group.h"
-#include "benchmarks/count_if/group.h"
-#include "benchmarks/equal/group.h"
-#include "benchmarks/exclusive_scan/group.h"
-#include "benchmarks/fill/group.h"
-#include "benchmarks/find/group.h"
-#include "benchmarks/for_each/group.h"
-#include "benchmarks/generate/group.h"
-#include "benchmarks/includes/group.h"
-#include "benchmarks/inclusive_scan/group.h"
-#include "benchmarks/inplace_merge/group.h"
-#include "benchmarks/is_sorted/group.h"
-#include "benchmarks/lexicographical_compare/group.h"
-#include "benchmarks/max_element/group.h"
-#include "benchmarks/merge/group.h"
-#include "benchmarks/min_element/group.h"
-#include "benchmarks/mismatch/group.h"
-#include "benchmarks/none_of/group.h"
-#include "benchmarks/partial_sort/group.h"
-#include "benchmarks/partition/group.h"
-#include "benchmarks/reduce/group.h"
-#include "benchmarks/search/group.h"
-#include "benchmarks/sort/group.h"
-#include "benchmarks/transform/group.h"
-#include "benchmarks/transform_reduce/group.h"
-
 #include <thread>
 
 #include <benchmark/benchmark.h>
@@ -43,38 +10,7 @@
 #include <tbb_thread_control.h>
 #endif
 
-ADJACENT_DIFFERENCE_GROUP
-ADJACENT_FIND_GROUP
-ANY_OF_GROUP
-ALL_OF_GROUP
-COPY_GROUP
-COPY_IF_GROUP
-COPY_N_GROUP
-COUNT_GROUP
-COUNT_IF_GROUP
-EQUAL_GROUP
-EXCLUSIVE_SCAN_GROUP
-FILL_GROUP
-FIND_GROUP
-FOR_EACH_GROUP
-GENERATE_GROUP
-INCLUDES_GROUP
-INPLACE_MERGE_GROUP
-INCLUSIVE_SCAN_GROUP
-IS_SORTED_GROUP
-LEXICOGRAPHICAL_COMPARE_GROUP
-MAX_ELEMENT_GROUP
-MERGE_GROUP
-MIN_ELEMENT_GROUP
-MISMATCH_GROUP
-NONE_OF_GROUP
-PARTIAL_SORT_GROUP
-PARTITION_GROUP
-REDUCE_GROUP
-SEARCH_GROUP
-SORT_GROUP
-TRANSFORM_GROUP
-TRANSFORM_REDUCE_GROUP
+#include "benchmarks/pstl-benchmarks.h"
 
 // Run the benchmark
 int main(int argc, char ** argv)
