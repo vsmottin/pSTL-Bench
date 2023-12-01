@@ -33,6 +33,7 @@
 #include "benchmarks/search/group.h"
 #include "benchmarks/sort/group.h"
 #include "benchmarks/transform/group.h"
+#include "benchmarks/transform_reduce/group.h"
 
 #include <thread>
 
@@ -73,6 +74,7 @@ REDUCE_GROUP
 SEARCH_GROUP
 SORT_GROUP
 TRANSFORM_GROUP
+TRANSFORM_REDUCE_GROUP
 
 // Run the benchmark
 int main(int argc, char ** argv)
