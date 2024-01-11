@@ -6,7 +6,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_any_of
 {
@@ -17,7 +17,7 @@ namespace benchmark_any_of
 
 		const auto & size = state.range(0);
 
-		auto input_data = suite::generate_increment(execution_policy, size, 1);
+		auto input_data = pstl::generate_increment(execution_policy, size);
 
 		static auto rd = std::random_device{};
 
@@ -33,10 +33,10 @@ namespace benchmark_any_of
 			WRAP_TIMING(const auto output =
 			                F(execution_policy, input_data, [=](const auto & val) { return val == value; });)
 
-			assert((output == true));
+			assert(pstl::are_equivalent(output, true));
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 
 } // namespace benchmark_any_of

@@ -5,7 +5,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_mismatch
 {
@@ -16,7 +16,7 @@ namespace benchmark_mismatch
 
 		const auto & size = state.range(0);
 
-		auto data1 = suite::generate_increment(execution_policy, size, 1);
+		auto data1 = pstl::generate_increment(execution_policy, size);
 
 		static auto rd  = std::random_device{};
 		static auto rng = std::mt19937{ rd() };
@@ -36,7 +36,7 @@ namespace benchmark_mismatch
 			assert((solution.first - data1.begin()) == (output.first - data1.begin()));
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, data1, data2));
+		state.SetBytesProcessed(pstl::computed_bytes(state, data1, data2));
 	}
 } // namespace benchmark_mismatch
 

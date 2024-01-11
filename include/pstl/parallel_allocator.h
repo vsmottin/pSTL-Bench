@@ -25,7 +25,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-namespace suite
+namespace pstl
 {
 	///////////////////////////////////////////////////////////////////////////
 	template<typename T, typename Policy>
@@ -105,6 +105,6 @@ namespace suite
 
 		Policy const & execution_policy;
 	};
-} // namespace suite
+} // namespace pstl
 
 #endif //MASTER_BENCHMARKS_PARALLEL_ALLOCATOR_H

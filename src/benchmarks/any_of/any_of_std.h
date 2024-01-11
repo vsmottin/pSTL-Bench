@@ -2,8 +2,8 @@
 #ifndef PSTL_BENCH_ANY_OF_STD_H
 #define PSTL_BENCH_ANY_OF_STD_H
 
+#include "pstl/utils.h"
 #include <algorithm>
-#include <benchmark_utils.h>
 #include <vector>
 
 namespace benchmark_any_of

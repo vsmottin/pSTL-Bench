@@ -2,9 +2,9 @@
 #define PSTL_BENCH_TRANSFORM_INCLUSIVE_SCAN_STD_H
 
 
+#include "pstl/utils.h"
 #include <algorithm>
 #include <benchmark/benchmark.h>
-#include <benchmark_utils.h>
 #include <cmath>
 #include <vector>
 

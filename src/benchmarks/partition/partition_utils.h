@@ -5,12 +5,14 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_partition
 {
 	const auto condition = [](const auto & i) {
-		return i % 2 == 0;
+		// Check if the number is even
+		if constexpr (std::is_integral_v<decltype(i)>) { return i % 2 == 0; }
+		else { return static_cast<int>(i) % 2 == 0; }
 	};
 
 	template<class Policy, class Function>
@@ -20,7 +22,7 @@ namespace benchmark_partition
 
 		const auto & size = state.range(0);
 
-		auto input_data = suite::generate_increment(execution_policy, size, 1);
+		auto input_data = pstl::generate_increment(execution_policy, size);
 
 		for (auto _ : state)
 		{
@@ -31,7 +33,7 @@ namespace benchmark_partition
 			assert(std::is_partitioned(input_data.begin(), input_data.end(), condition));
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_partition
 

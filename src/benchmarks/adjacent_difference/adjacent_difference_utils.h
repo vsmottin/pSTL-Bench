@@ -5,7 +5,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_adjacent_difference
 {
@@ -16,7 +16,7 @@ namespace benchmark_adjacent_difference
 
 		const auto & size = state.range(0);
 
-		const auto input_data = suite::generate_increment(execution_policy, size, 1);
+		const auto input_data = pstl::generate_increment(execution_policy, size);
 
 		auto output = input_data;
 		std::fill(output.begin(), output.end(), 0);
@@ -32,7 +32,7 @@ namespace benchmark_adjacent_difference
 			assert(output.back() == solution);
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data, output));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data, output));
 	}
 } // namespace benchmark_adjacent_difference
 

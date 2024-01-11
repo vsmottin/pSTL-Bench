@@ -6,7 +6,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 #include <parallel/algorithm>
 

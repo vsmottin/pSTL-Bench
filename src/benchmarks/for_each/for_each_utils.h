@@ -4,8 +4,8 @@
 
 #include <cmath>
 
+#include "pstl/utils.h"
 #include <benchmark/benchmark.h>
-#include <benchmark_utils.h>
 
 namespace benchmark_for_each
 {
@@ -23,14 +23,14 @@ namespace benchmark_for_each
 
 		const auto & size = state.range(0);
 
-		auto data = suite::generate_increment<Policy>(execution_policy, size, 1);
+		auto data = pstl::generate_increment(execution_policy, size);
 
 		for (auto _ : state)
 		{
 			WRAP_TIMING(f(execution_policy, data, kernel);)
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, data));
 	}
 } // namespace benchmark_for_each
 

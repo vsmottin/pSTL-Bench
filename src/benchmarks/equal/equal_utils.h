@@ -5,7 +5,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_equal
 {
@@ -16,7 +16,7 @@ namespace benchmark_equal
 
 		const auto & size = state.range(0);
 
-		const auto data1 = suite::generate_increment(execution_policy, size, 1);
+		const auto data1 = pstl::generate_increment(execution_policy, size);
 
 		auto data2 = data1;
 
@@ -25,7 +25,7 @@ namespace benchmark_equal
 			WRAP_TIMING(F(execution_policy, data1, data2);)
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, data1, data2));
+		state.SetBytesProcessed(pstl::computed_bytes(state, data1, data2));
 	}
 } // namespace benchmark_equal
 

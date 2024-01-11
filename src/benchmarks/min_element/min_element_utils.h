@@ -5,7 +5,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_min_element
 {
@@ -16,7 +16,7 @@ namespace benchmark_min_element
 
 		const auto & size = state.range(0);
 
-		auto input_data = suite::generate_increment(execution_policy, size, 1);
+		auto input_data = pstl::generate_increment(execution_policy, size);
 		std::shuffle(input_data.begin(), input_data.end(), std::mt19937{ std::random_device{}() });
 
 		const auto solution = std::min_element(input_data.begin(), input_data.end());
@@ -25,10 +25,10 @@ namespace benchmark_min_element
 		{
 			WRAP_TIMING(const auto output = F(execution_policy, input_data);)
 
-			assert((solution == output));
+			assert(pstl::are_equivalent(solution, output));
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_min_element
 

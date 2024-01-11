@@ -1,10 +1,11 @@
 
-#ifndef PSTL_BENCH_BENCHMARK_UTILS_H
-#define PSTL_BENCH_BENCHMARK_UTILS_H
+#ifndef PSTL_BENCH_UTILS_H
+#define PSTL_BENCH_UTILS_H
 
 #include <algorithm>
 #include <atomic>
 #include <chrono>
+#include <concepts>
 #include <ctime>
 #include <execution>
 #include <iostream>
@@ -13,9 +14,13 @@
 #include <random>
 #include <vector>
 
+#include <benchmark/benchmark.h>
+
 #ifdef USE_PARALLEL_ALLOCATOR
-#include <parallel_allocator.h>
+#include "parallel_allocator.h"
 #endif
+
+#include "elem_t.h"
 
 #define CUSTOM_STATISTICS                                                               \
 	ComputeStatistics("max",                                                            \
@@ -37,7 +42,7 @@
 	state.SetIterationTime(elapsed_seconds.count());
 
 
-namespace suite
+namespace pstl
 {
 
 	template<typename T>
@@ -47,24 +52,12 @@ namespace suite
 
 	template<typename VALUE_TYPE, typename ExecutionPolicy,
 	         class = typename std::enable_if<std::is_execution_policy<ExecutionPolicy>::value>::type>
-	using vec = std::vector<VALUE_TYPE, suite::numa_allocator<VALUE_TYPE, ExecutionPolicy>>;
-
-	template<typename ExecutionPolicy>
-	using int_vec = suite::vec<int, ExecutionPolicy>;
-
-	template<typename ExecutionPolicy>
-	using double_vec = suite::vec<double, ExecutionPolicy>;
+	using vec = std::vector<VALUE_TYPE, pstl::numa_allocator<VALUE_TYPE, ExecutionPolicy>>;
 
 #else
 
 	template<typename VALUE_TYPE, typename ExecutionPolicy>
 	using vec = std::vector<VALUE_TYPE>;
-
-	template<typename ExecutionPolicy>
-	using int_vec = suite::vec<int, ExecutionPolicy>;
-
-	template<typename ExecutionPolicy>
-	using double_vec = suite::vec<double, ExecutionPolicy>;
 
 #endif
 
@@ -72,20 +65,21 @@ namespace suite
      * Allows to create a vector using the allocation strategy configured
      * @tparam ExecutionPolicy the execution policy to use. Only considered when using the flag `USE_PARALLEL_ALLOCATOR`
      * @tparam Container the container type to create
-     * @tparam Value_Type the value type of the container
+     * @tparam ValueType the value type of the container
      * @tparam Size_type the size type of the container
      * @param size the actual size of the container we want to create
      * @return  the newly created container
      */
-	template<typename ExecutionPolicy, typename Container = suite::int_vec<ExecutionPolicy>,
-	         typename Value_Type = typename Container::value_type, typename Size_type = typename Container::size_type>
+	template<typename ExecutionPolicy, typename ValueType = pstl::elem_t,
+	         typename Container = pstl::vec<ValueType, ExecutionPolicy>,
+	         typename Size_type = typename Container::size_type>
 	Container get_vec(const Size_type size)
 	{
 #ifdef USE_PARALLEL_ALLOCATOR
 		constexpr auto execution_policy = ExecutionPolicy{};
 
-		const suite::numa_allocator<Value_Type, ExecutionPolicy> allocator(execution_policy);
-		Container                                                vec(size, allocator);
+		const pstl::numa_allocator<ValueType, ExecutionPolicy> allocator(execution_policy);
+		Container                                              vec(size, allocator);
 #else
 		Container vec(size);
 #endif
@@ -96,20 +90,21 @@ namespace suite
      * Allows to create an empty vector using the allocation strategy configured
      * @tparam ExecutionPolicy the execution policy to use. Only considered when using the flag `USE_PARALLEL_ALLOCATOR`
      * @tparam Container the container type to create
-     * @tparam Value_Type the value type of the container
+     * @tparam ValueType the value type of the container
      * @tparam Size_type the size type of the container
      * @param size the actual size of the container we want to create
      * @return  the newly created container
      */
-	template<typename ExecutionPolicy, typename Container = suite::int_vec<ExecutionPolicy>,
-	         typename Value_Type = typename Container::value_type, typename Size_type = typename Container::size_type>
+	template<typename ExecutionPolicy, typename ValueType = pstl::elem_t,
+	         typename Container = pstl::vec<ValueType, ExecutionPolicy>,
+	         typename Size_type = typename Container::size_type>
 	Container get_emtpy_vec()
 	{
 #ifdef USE_PARALLEL_ALLOCATOR
 		constexpr auto execution_policy = ExecutionPolicy{};
 
-		const suite::numa_allocator<Value_Type, ExecutionPolicy> allocator(execution_policy);
-		Container                                                vec(allocator);
+		const pstl::numa_allocator<ValueType, ExecutionPolicy> allocator(execution_policy);
+		Container                                              vec(allocator);
 #else
 		Container vec;
 #endif
@@ -119,14 +114,14 @@ namespace suite
 	/**
      * Fills the given container with the provided value
      * @tparam ExecutionPolicy the execution policy to use for filling
-     * @tparam Container  the container type to fill by default its suit::int_vec
-     * @tparam Value_Type  the value type of the given container
+     * @tparam Container  the container type to fill
+     * @tparam ValueType  the value type of the given container
      * @param container the container to fill
      * @param value the value that should be filled in
      */
-	template<typename ExecutionPolicy, typename Container = suite::int_vec<ExecutionPolicy>,
-	         typename Value_Type = typename Container::value_type>
-	void fill_init(Container & container, const Value_Type value)
+	template<typename ExecutionPolicy, typename ValueType = pstl::elem_t,
+	         typename Container = pstl::vec<ValueType, ExecutionPolicy>>
+	void fill_init(Container & container, const ValueType value)
 	{
 		constexpr auto execution_policy = ExecutionPolicy{};
 		std::fill(execution_policy, container.begin(), container.end(), value);
@@ -144,7 +139,7 @@ namespace suite
 		std::mt19937                     mt_engine(std::time(nullptr));
 		std::uniform_real_distribution<> dist(lower_bound, upper_bound);
 
-		auto dist_vec = suite::get_vec<ExecutionPolicy, suite::vec<T, ExecutionPolicy>>(size);
+		auto dist_vec = pstl::get_vec<ExecutionPolicy, pstl::vec<T, ExecutionPolicy>>(size);
 
 		std::generate(execution_policy, dist_vec.begin(), dist_vec.end(), [&]() { return (T) dist(mt_engine); });
 
@@ -162,12 +157,13 @@ namespace suite
      * @param start_val the start val
      * @param decrement the value to use to decrement
      */
-	template<typename ExecutionPolicy, typename Container = suite::int_vec<ExecutionPolicy>,
-	         typename T = typename Container::value_type, typename Size_type = typename Container::size_type>
-	Container generate_decrement(const ExecutionPolicy execution_policy, const Size_type & size, const T start_val,
-	                             const T decrement = 1)
+	template<typename ExecutionPolicy, typename ValueType = pstl::elem_t,
+	         typename Container = pstl::vec<ValueType, ExecutionPolicy>,
+	         typename Size_type = typename Container::size_type>
+	Container generate_decrement(const ExecutionPolicy execution_policy, const Size_type & size,
+	                             const ValueType start_val, const ValueType decrement = 1)
 	{
-		auto generatedVec = suite::get_vec<ExecutionPolicy, Container>(size);
+		auto generatedVec = pstl::get_vec<ExecutionPolicy, ValueType, Container>(size);
 
 		// this vector of indices does not need to be parallel allocated since it is not performance critical
 		for (Size_type index = 0; index < size; ++index)
@@ -190,12 +186,13 @@ namespace suite
      * @param size the number of elements
      * @param increment the increment to use
      */
-	template<typename ExecutionPolicy, typename Container = suite::int_vec<ExecutionPolicy>,
-	         typename T = typename Container::value_type, typename Size_type = typename Container::size_type>
-	Container generate_increment(const ExecutionPolicy execution_policy, const Size_type & size, const T start,
-	                             const T increment)
+	template<typename ExecutionPolicy, typename ValueType = pstl::elem_t,
+	         typename Container = pstl::vec<ValueType, ExecutionPolicy>,
+	         typename Size_type = typename Container::size_type>
+	Container generate_increment(const ExecutionPolicy execution_policy, const Size_type & size, const ValueType start,
+	                             const ValueType increment)
 	{
-		return suite::generate_decrement<ExecutionPolicy, Container>(execution_policy, size, start, -increment);
+		return pstl::generate_decrement(execution_policy, size, start, -increment);
 	}
 
 	/**
@@ -206,12 +203,39 @@ namespace suite
      * @param size the number of elements
      * @param increment the increment to use
      */
-	template<typename ExecutionPolicy, typename Container = suite::int_vec<ExecutionPolicy>,
-	         typename T = typename Container::value_type, typename Size_type = typename Container::size_type>
-	Container generate_increment(const ExecutionPolicy execution_policy, const Size_type size, const T increment)
+	template<typename ExecutionPolicy, typename ValueType = pstl::elem_t,
+	         typename Container = pstl::vec<ValueType, ExecutionPolicy>,
+	         typename Size_type = typename Container::size_type>
+	Container generate_increment(const ExecutionPolicy execution_policy, const Size_type size,
+	                             const ValueType increment)
 	{
-		return suite::generate_increment<ExecutionPolicy, Container>(execution_policy, size, static_cast<T>(0),
-		                                                             increment);
+		return pstl::generate_increment(execution_policy, size, {}, increment);
+	}
+
+	/**
+     * Generates a vector of type T that contains size elements where the first element is 0
+     * and then every next element is incremented by increment
+     *
+     * @tparam T the type of the vector
+     * @param size the number of elements
+     * @param increment the increment to use
+     */
+	template<typename ExecutionPolicy, typename ValueType = pstl::elem_t,
+	         typename Container = pstl::vec<ValueType, ExecutionPolicy>,
+	         typename Size_type = typename Container::size_type>
+	Container generate_increment(const ExecutionPolicy execution_policy, const Size_type size)
+	{
+		return pstl::generate_increment(execution_policy, size, ValueType{ 1 }, ValueType{ 1 });
+	}
+
+	/**
+	 * Computes (an estimation) the amount of bytes used by a container
+	 * @param container the container to compute the size for
+	 * @return the amount of (estimated) bytes used by the container
+	 */
+	static auto container_size(const auto & container)
+	{
+		return sizeof(base_type<decltype(container)>) * container.size() + sizeof(container);
 	}
 
 	/**
@@ -225,15 +249,78 @@ namespace suite
 	{
 		std::size_t bytes = 0;
 
-		for (auto container : { containers... })
-		{
-			using type = base_type<decltype(container)>;
+		const auto accumulate_bytes = [&bytes](const auto & container) {
+			bytes += pstl::container_size(container);
+		};
 
-			bytes += sizeof(type) * container.size();
-		}
+		// Use fold expression to iterate over all containers even when they have different types
+		(accumulate_bytes(containers), ...);
 
 		return bytes * state.iterations();
 	}
 
-} // namespace suite
-#endif //PSTL_BENCH_BENCHMARK_UTILS_H
+
+	template<typename T>
+	concept printable = requires(T t) {
+		{
+			std::cout << t
+		} -> std::same_as<std::ostream &>;
+	};
+
+	/**
+	 * Check if two values are equivalent, i.e. if they are equal or if they are within a certain tolerance
+	 * @param v1 First value
+	 * @param v2 Second value
+	 * @return
+	 */
+	static bool are_equivalent(const auto & v1, const auto & v2)
+	{
+		return v1 == v2;
+	}
+
+	/**
+	 * Check if two values are equivalent, i.e. if they are equal or if they are within a certain tolerance
+	 * @param v1 First value
+	 * @param v2 Second value
+	 * @return
+	 */
+	static bool are_equivalent(const std::integral auto & v1, const std::integral auto & v2)
+	{
+		const auto are_eq = v1 == v2;
+
+		if (not are_eq) { std::cerr << "Values are not equivalent: " << v1 << " != " << v2 << std::endl; }
+
+		return are_eq;
+	}
+
+	/**
+	 * Check if two values are equivalent, i.e. if they are equal or if they are within a certain tolerance
+	 * @param v1 First value
+	 * @param v2 Second value
+	 * @return
+	 */
+	static bool are_equivalent(const std::floating_point auto & v1, const std::floating_point auto & v2)
+	{
+		using fp_t = std::decay_t<decltype(v1)>;
+
+		static constexpr auto ABSOLUTE_TOLERANCE = std::numeric_limits<fp_t>::epsilon();
+		static constexpr auto RELATIVE_TOLERANCE = 0.01; // 1% tolerance
+
+		const auto abs_error = std::abs(v1 - v2);
+		const auto rel_error = abs_error / std::max(std::abs(v1), std::abs(v2));
+
+		const auto are_eq = abs_error <= ABSOLUTE_TOLERANCE or rel_error <= RELATIVE_TOLERANCE;
+
+		if (not are_eq)
+		{
+			std::cerr << "Values are not equivalent: " << v1 << " != " << v2 << ". Abs. error: " << abs_error
+			          << ", rel. error: " << rel_error << ". Abs. tol.: " << ABSOLUTE_TOLERANCE
+			          << ", rel. tol.: " << RELATIVE_TOLERANCE << std::endl;
+		}
+
+		return are_eq;
+	}
+
+} // namespace pstl
+
+#endif //PSTL_BENCH_UTILS_H

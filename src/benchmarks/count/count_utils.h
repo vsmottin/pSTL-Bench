@@ -5,7 +5,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_count
 {
@@ -16,7 +16,7 @@ namespace benchmark_count
 
 		const auto & size = state.range(0);
 
-		const auto input_data = suite::generate_increment(execution_policy, size, 1);
+		const auto input_data = pstl::generate_increment(execution_policy, size);
 
 		static auto rd = std::random_device{};
 
@@ -29,10 +29,12 @@ namespace benchmark_count
 
 			WRAP_TIMING(const auto res = F(execution_policy, input_data, value);)
 
-			assert((res == 1));
+			const auto solution = std::count(input_data.begin(), input_data.end(), value);
+
+			assert(pstl::are_equivalent(res, solution));
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_count
 

@@ -5,7 +5,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_adjacent_find
 {
@@ -16,7 +16,7 @@ namespace benchmark_adjacent_find
 
 		const auto & size = state.range(0);
 
-		auto input_data = suite::generate_increment(execution_policy, size, 1);
+		auto input_data = pstl::generate_increment(execution_policy, size);
 
 		static auto rd = std::random_device{};
 
@@ -33,12 +33,12 @@ namespace benchmark_adjacent_find
 
 			const auto solution = input_data.begin() + index;
 
-			assert((output == solution));
+			assert(pstl::are_equivalent(output, solution));
 
 			input_data[index] = input_data[index + 1] - 1;
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_adjacent_find
 

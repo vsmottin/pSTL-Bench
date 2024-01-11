@@ -4,8 +4,8 @@
 
 #include <cmath>
 
+#include "pstl/utils.h"
 #include <benchmark/benchmark.h>
-#include <benchmark_utils.h>
 
 namespace benchmark_transform_reduce
 {
@@ -20,24 +20,21 @@ namespace benchmark_transform_reduce
 
 		const auto & size = state.range(0);
 
-		auto input_data = suite::generate_increment<Policy>(execution_policy, size, 1);
+		auto input_data = pstl::generate_increment(execution_policy, size);
 
 		using T = decltype(input_data)::value_type;
 
-		const auto solution =
-		    std::transform_reduce(input_data.begin(), input_data.end(), T{}, std::plus<>(), transform_kernel);
+		const auto solution = std::transform_reduce(std::execution::seq, input_data.cbegin(), input_data.cend(), T{},
+		                                            std::plus<>(), transform_kernel);
 
 		for (auto _ : state)
 		{
 			WRAP_TIMING(const auto output = f(execution_policy, input_data, transform_kernel);)
-			if (solution != output)
-			{
-				std::cerr << "ERROR: solution != output (" << solution << " != " << output << ")" << std::endl;
-			}
-			assert(solution == output);
+
+			assert(pstl::are_equivalent(solution, output));
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_transform_reduce
 

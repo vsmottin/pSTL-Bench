@@ -4,8 +4,8 @@
 
 #include <cmath>
 
+#include "pstl/utils.h"
 #include <benchmark/benchmark.h>
-#include <benchmark_utils.h>
 
 namespace benchmark_transform_inclusive_scan
 {
@@ -20,7 +20,7 @@ namespace benchmark_transform_inclusive_scan
 
 		const auto & size = state.range(0);
 
-		auto input_data = suite::generate_increment<Policy>(execution_policy, size, 1);
+		auto input_data = pstl::generate_increment(execution_policy, size);
 
 		auto output = input_data;
 		std::fill(output.begin(), output.end(), 0);
@@ -34,7 +34,7 @@ namespace benchmark_transform_inclusive_scan
 			assert(result == solution);
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_transform_inclusive_scan
 

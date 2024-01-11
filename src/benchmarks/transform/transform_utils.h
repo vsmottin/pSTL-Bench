@@ -4,8 +4,8 @@
 
 #include <cmath>
 
+#include "pstl/utils.h"
 #include <benchmark/benchmark.h>
-#include <benchmark_utils.h>
 
 namespace benchmark_transform
 {
@@ -20,14 +20,14 @@ namespace benchmark_transform
 
 		const auto & size = state.range(0);
 
-		auto input_data = suite::generate_increment<Policy>(execution_policy, size, 1);
+		auto input_data = pstl::generate_increment(execution_policy, size);
 
 		for (auto _ : state)
 		{
 			WRAP_TIMING(f(execution_policy, input_data, kernel);)
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_transform
 

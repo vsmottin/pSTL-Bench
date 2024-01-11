@@ -2,7 +2,7 @@
 #ifndef PSTL_BENCH_NONE_OF_HPX_H
 #define PSTL_BENCH_NONE_OF_HPX_H
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 #include <vector>
 
 #include <hpx/algorithm.hpp>

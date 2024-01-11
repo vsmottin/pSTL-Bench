@@ -5,7 +5,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_includes
 {
@@ -16,9 +16,10 @@ namespace benchmark_includes
 
 		const auto & size = state.range(0);
 
-		const auto input_data = suite::generate_increment(execution_policy, size, 1);
+		const auto input_data = pstl::generate_increment(execution_policy, size);
 
-		const auto subset = suite::generate_increment(execution_policy, size / 2, size / 2);
+		const auto subset = pstl::generate_increment(execution_policy, size / 2,
+		                                              static_cast<decltype(input_data)::value_type>(size / 2));
 
 		const auto solution = std::includes(input_data.begin(), input_data.end(), subset.begin(), subset.end());
 
@@ -28,10 +29,10 @@ namespace benchmark_includes
 
 			benchmark::DoNotOptimize(output);
 
-			assert((output == solution));
+			assert(pstl::are_equivalent(output, solution));
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data, subset));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data, subset));
 	}
 } // namespace benchmark_includes
 

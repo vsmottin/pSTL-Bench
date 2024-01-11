@@ -5,10 +5,16 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_copy_if
 {
+	const auto condition = [](const auto & value) {
+		// Check if the value is even
+		if constexpr (std::is_integral_v<decltype(value)>) { return value % 2 == 0; }
+		else { return static_cast<int>(value) % 2 == 0; }
+	};
+
 	template<class Policy, class Function>
 	static void benchmark_wrapper(benchmark::State & state, Function && F)
 	{
@@ -16,20 +22,16 @@ namespace benchmark_copy_if
 
 		const auto & size = state.range(0);
 
-		const auto input_data = suite::generate_increment(execution_policy, size, 1);
+		const auto input_data = pstl::generate_increment(execution_policy, size);
 
 		auto output = input_data;
-
-		const auto condition = [](const auto & value) {
-			return value % 2 == 0;
-		};
 
 		for (auto _ : state)
 		{
 			WRAP_TIMING(F(execution_policy, input_data, output, condition);)
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data, output));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data, output));
 	}
 } // namespace benchmark_copy_if
 

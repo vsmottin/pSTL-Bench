@@ -5,7 +5,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_exclusive_scan
 {
@@ -16,12 +16,13 @@ namespace benchmark_exclusive_scan
 
 		const auto & size = state.range(0);
 
-		const auto input_data = suite::generate_increment(execution_policy, size, 1);
+		const auto input_data = pstl::generate_increment(execution_policy, size);
 
 		auto output = input_data;
 		std::fill(output.begin(), output.end(), 0);
 
-		std::exclusive_scan(std::execution::seq, input_data.begin(), input_data.end(), output.begin(), 0);
+		std::exclusive_scan(std::execution::seq, input_data.begin(), input_data.end(), output.begin(),
+		                    typename std::iterator_traits<decltype(input_data.begin())>::value_type{});
 
 		const auto solution = output.back();
 
@@ -29,10 +30,10 @@ namespace benchmark_exclusive_scan
 		{
 			WRAP_TIMING(F(execution_policy, input_data, output);)
 
-			assert((output.back() == solution));
+			assert(pstl::are_equivalent(output.back(), solution));
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data, output));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data, output));
 	}
 } // namespace benchmark_exclusive_scan
 

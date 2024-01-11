@@ -5,7 +5,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_inplace_merge
 {
@@ -16,7 +16,7 @@ namespace benchmark_inplace_merge
 
 		const auto & size = state.range(0);
 
-		auto input_data = suite::generate_increment(execution_policy, size, 1);
+		auto input_data = pstl::generate_increment(execution_policy, size);
 
 		for (auto _ : state)
 		{
@@ -32,7 +32,7 @@ namespace benchmark_inplace_merge
 			assert((std::is_sorted(input_data.begin(), input_data.end())));
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_inplace_merge
 

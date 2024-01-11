@@ -6,7 +6,7 @@
 
 #include <benchmark/benchmark.h>
 
-#include <benchmark_utils.h>
+#include "pstl/utils.h"
 
 namespace benchmark_find
 {
@@ -18,7 +18,7 @@ namespace benchmark_find
 		const auto & size = state.range(0);
 
 		// vector with values [0,size)
-		const auto input_data = suite::generate_increment<Policy>(execution_policy, size, 1);
+		const auto input_data = pstl::generate_increment(execution_policy, size);
 
 		const auto get_value = [](const auto & vec) {
 			// Seed with a real random value, if available
@@ -43,7 +43,7 @@ namespace benchmark_find
 			assert(find_location == std::find(input_data.begin(), input_data.end(), value));
 		}
 
-		state.SetBytesProcessed(suite::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_find
 
