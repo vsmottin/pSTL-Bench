@@ -32,6 +32,8 @@
 #include "search/group.h"
 #include "sort/group.h"
 #include "transform/group.h"
+#include "transform_exclusive_scan/group.h"
+#include "transform_inclusive_scan/group.h"
 #include "transform_reduce/group.h"
 
 ADJACENT_DIFFERENCE_GROUP
@@ -65,6 +67,8 @@ REDUCE_GROUP
 SEARCH_GROUP
 SORT_GROUP
 TRANSFORM_GROUP
+TRANSFORM_EXCLUSIVE_SCAN_GROUP
+TRANSFORM_INCLUSIVE_SCAN_GROUP
 TRANSFORM_REDUCE_GROUP
 
 #endif //PSTL_BENCH_PSTL_BENCHMARKS_H
