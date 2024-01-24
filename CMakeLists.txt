@@ -9,6 +9,16 @@ option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch b
 
 set(BACKEND CACHE STRING "Select the backend to use for std:: algorithms")
 set_property(CACHE BACKEND PROPERTY STRINGS TBB GNU HPX NVHPC_OMP NVHPC_CUDA)
+set(DATA_TYPE CACHE STRING "Select the data type to use for the benchmarks")
+set_property(CACHE DATA_TYPE PROPERTY STRINGS int float double)
+
+message(STATUS "Using ${BACKEND} backend...")
+message(STATUS "Using ${DATA_TYPE} data type...")
+
+# add compile definition if PSTL_ELEM_T is not empty
+if (NOT DATA_TYPE STREQUAL "")
+    add_compile_definitions(PSTL_ELEM_T=${DATA_TYPE})
+endif ()
 # endregion options
 
 # region Setup CPM (for dependencies)
