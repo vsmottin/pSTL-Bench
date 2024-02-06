@@ -93,12 +93,11 @@ endif ()
 
 # region input size
 if (NOT DEFINED ${MIN_INPUT_SIZE})
-    set(MIN_INPUT_SIZE 8)
+    set(MIN_INPUT_SIZE 8 CACHE STRING "Minimum input size (#elements) for the benchmarks")
 endif ()
 
 if (NOT DEFINED ${MAX_INPUT_SIZE})
-    set(MAX_INPUT_SIZE 1073741824) # default is 2^30 elements -> 2^30 * 4 bytes = 4 GB of data
-    #    set(MAX_INPUT_SIZE 2147483648) # default is 2^31 elements -> 2^31 * 4 bytes = 8 GB of data
+    set(MAX_INPUT_SIZE 1073741824 CACHE STRING "Maximum input size (#elements) for the benchmarks")
 endif ()
 
 add_compile_definitions(MIN_INPUT_SIZE=${MIN_INPUT_SIZE})
