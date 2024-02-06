@@ -16,8 +16,8 @@ namespace benchmark_set_difference
 
 		const auto & size = state.range(0);
 
-		const auto data1 = pstl::generate_increment(execution_policy, size);
-		const auto data2 =
+		auto data1 = pstl::generate_increment(execution_policy, size);
+		auto data2 =
 		    pstl::generate_increment(execution_policy, size / 2, static_cast<decltype(data1)::value_type>(size / 4),
 		                             static_cast<decltype(data1)::value_type>(1));
 
