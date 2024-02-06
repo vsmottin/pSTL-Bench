@@ -18,7 +18,8 @@ namespace benchmark_search
 
 		const auto data1 = pstl::generate_increment(execution_policy, size);
 		const auto data2 =
-		    pstl::generate_increment(execution_policy, size / 2, static_cast<decltype(data1)::value_type>(size / 4));
+		    pstl::generate_increment(execution_policy, size / 2, static_cast<decltype(data1)::value_type>(size / 4),
+		                             static_cast<decltype(data1)::value_type>(1));
 
 		const auto result = std::search(data1.begin(), data1.end(), data2.begin(), data2.end());
 

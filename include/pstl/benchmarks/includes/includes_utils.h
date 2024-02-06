@@ -19,7 +19,8 @@ namespace benchmark_includes
 		const auto input_data = pstl::generate_increment(execution_policy, size);
 
 		const auto subset = pstl::generate_increment(execution_policy, size / 2,
-		                                              static_cast<decltype(input_data)::value_type>(size / 2));
+		                                             static_cast<decltype(input_data)::value_type>(size / 4),
+		                                             static_cast<decltype(input_data)::value_type>(1));
 
 		const auto solution = std::includes(input_data.begin(), input_data.end(), subset.begin(), subset.end());
 

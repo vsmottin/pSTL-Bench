@@ -30,6 +30,7 @@
 #include "partition/group.h"
 #include "reduce/group.h"
 #include "search/group.h"
+#include "set_difference/group.h"
 #include "sort/group.h"
 #include "transform/group.h"
 #include "transform_exclusive_scan/group.h"
@@ -65,6 +66,7 @@ PARTIAL_SORT_GROUP
 PARTITION_GROUP
 REDUCE_GROUP
 SEARCH_GROUP
+SET_DIFFERENCE_GROUP
 SORT_GROUP
 TRANSFORM_GROUP
 TRANSFORM_EXCLUSIVE_SCAN_GROUP
