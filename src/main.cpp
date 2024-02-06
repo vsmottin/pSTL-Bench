@@ -10,7 +10,7 @@
 #include <tbb_thread_control.h>
 #endif
 
-#include "benchmarks/pstl-benchmarks.h"
+#include "pstl/benchmarks/pstl-benchmarks.h"
 
 // Run the benchmark
 int main(int argc, char ** argv)
@@ -21,7 +21,7 @@ int main(int argc, char ** argv)
 
 	char   arg0_default[] = "benchmark";
 	char * args_default   = arg0_default;
-	if (!argv)
+	if (std::cmp_equal(argc, 0))
 	{
 		argc = 1;
 		argv = &args_default;
