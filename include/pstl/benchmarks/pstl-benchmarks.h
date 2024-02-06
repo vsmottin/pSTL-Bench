@@ -31,6 +31,7 @@
 #include "reduce/group.h"
 #include "search/group.h"
 #include "set_difference/group.h"
+#include "set_intersection/group.h"
 #include "sort/group.h"
 #include "transform/group.h"
 #include "transform_exclusive_scan/group.h"
@@ -67,6 +68,7 @@ PARTITION_GROUP
 REDUCE_GROUP
 SEARCH_GROUP
 SET_DIFFERENCE_GROUP
+SET_INTERSECTION_GROUP
 SORT_GROUP
 TRANSFORM_GROUP
 TRANSFORM_EXCLUSIVE_SCAN_GROUP
