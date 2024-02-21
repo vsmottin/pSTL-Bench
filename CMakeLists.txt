@@ -12,6 +12,11 @@ set_property(CACHE BACKEND PROPERTY STRINGS TBB GNU HPX NVHPC_OMP NVHPC_CUDA)
 set(DATA_TYPE CACHE STRING "Select the data type to use for the benchmarks")
 set_property(CACHE DATA_TYPE PROPERTY STRINGS int float double)
 
+if (DATA_TYPE STREQUAL "")
+    message(STATUS "No data type selected, using default (double)")
+    set(DATA_TYPE "double")
+endif ()
+
 message(STATUS "Using ${BACKEND} backend...")
 message(STATUS "Using ${DATA_TYPE} data type...")
 
