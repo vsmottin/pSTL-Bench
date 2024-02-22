@@ -21,7 +21,7 @@ int main(int argc, char ** argv)
 
 	char   arg0_default[] = "benchmark";
 	char * args_default   = arg0_default;
-	if (std::cmp_equal(argc, 0))
+	if (argc == 0)
 	{
 		argc = 1;
 		argv = &args_default;

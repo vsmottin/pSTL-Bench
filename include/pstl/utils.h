@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <atomic>
 #include <chrono>
-#include <concepts>
 #include <ctime>
 #include <execution>
 #include <iostream>
@@ -259,32 +258,14 @@ namespace pstl
 		return bytes * state.iterations();
 	}
 
-
-	template<typename T>
-	concept printable = requires(T t) {
-		{
-			std::cout << t
-		} -> std::same_as<std::ostream &>;
-	};
-
 	/**
 	 * Check if two values are equivalent, i.e. if they are equal or if they are within a certain tolerance
 	 * @param v1 First value
 	 * @param v2 Second value
 	 * @return
 	 */
-	static bool are_equivalent(const auto & v1, const auto & v2)
-	{
-		return v1 == v2;
-	}
-
-	/**
-	 * Check if two values are equivalent, i.e. if they are equal or if they are within a certain tolerance
-	 * @param v1 First value
-	 * @param v2 Second value
-	 * @return
-	 */
-	static bool are_equivalent(const std::integral auto & v1, const std::integral auto & v2)
+	template<typename T, typename U, std::enable_if_t<std::is_integral_v<T> and std::is_integral_v<U>, bool> = true>
+	static bool are_equivalent(const T & v1, const U & v2)
 	{
 		const auto are_eq = v1 == v2;
 
@@ -299,7 +280,9 @@ namespace pstl
 	 * @param v2 Second value
 	 * @return
 	 */
-	static bool are_equivalent(const std::floating_point auto & v1, const std::floating_point auto & v2)
+	template<typename T, typename U,
+	         std::enable_if_t<std::is_floating_point_v<T> and std::is_floating_point_v<U>, bool> = true>
+	static bool are_equivalent(const T & v1, const U & v2)
 	{
 		using fp_t = std::decay_t<decltype(v1)>;
 
@@ -321,6 +304,18 @@ namespace pstl
 		return are_eq;
 	}
 
+	/**
+	 * Check if two values are equivalent, i.e. if they are equal or if they are within a certain tolerance
+	 * @param v1 First value
+	 * @param v2 Second value
+	 * @return
+	 */
+	template<typename T, typename U,
+	         std::enable_if_t<not std::is_arithmetic_v<T> or not std::is_arithmetic_v<U>, bool> = true>
+	static bool are_equivalent(const T & v1, const U & v2)
+	{
+		return v1 == v2;
+	}
 } // namespace pstl
 
 #endif //PSTL_BENCH_UTILS_H

@@ -25,8 +25,8 @@ namespace benchmark_transform_inclusive_scan
 		auto output = input_data;
 		std::fill(output.begin(), output.end(), 0);
 
-		const auto solution =
-		    std::transform_inclusive_scan(input_data.begin(), input_data.end(), output.begin(), std::plus<>(), kernel);
+		const auto solution = std::transform_inclusive_scan(std::execution::seq, input_data.begin(), input_data.end(),
+		                                                    output.begin(), std::plus<>(), kernel);
 
 		for (auto _ : state)
 		{
