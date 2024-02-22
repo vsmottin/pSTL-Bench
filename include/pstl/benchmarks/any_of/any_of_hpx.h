@@ -14,6 +14,6 @@ namespace benchmark_any_of
 		return hpx::any_of(policy, container.begin(), container.end(), condition);
 	};
 
-}
+} // namespace benchmark_any_of
 
 #endif //PSTL_BENCH_ANY_OF_HPX_H

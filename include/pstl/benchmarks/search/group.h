@@ -26,14 +26,16 @@ static void search_std_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(search_std_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::search"))             \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                               \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                               \
+	    ->UseManualTime();
 
 #ifdef USE_PSTL
 #define SEARCH_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(search_std_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("std::search"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                          \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                          \
+	    ->UseManualTime();
 #else
 #define SEARCH_STD_WRAPPER
 #endif
@@ -51,7 +53,8 @@ static void search_gnu_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(search_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("gnu::search"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                          \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                          \
+	    ->UseManualTime();
 #else
 #define SEARCH_GNU_WRAPPER
 #endif
@@ -69,7 +72,8 @@ static void search_hpx_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(search_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("hpx::search"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                          \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                          \
+	    ->UseManualTime();
 #else
 #define SEARCH_HPX_WRAPPER
 #endif

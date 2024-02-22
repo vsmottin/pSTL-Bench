@@ -9,8 +9,8 @@
 namespace benchmark_reduce
 {
 	const auto reduce_std = [](auto && policy, const auto & container) {
-		return std::reduce(policy, container.begin(), container.end(), 0);
+		return std::reduce(policy, container.begin(), container.end(), pstl::elem_t{});
 	};
-}
+} // namespace benchmark_reduce
 
 #endif //PSTL_BENCH_REDUCE_STD_H

@@ -26,14 +26,16 @@ static void count_std_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(count_std_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::count"))             \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                              \
+	    ->UseManualTime();
 
 #ifdef USE_PSTL
 #define COUNT_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(count_std_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("std::count"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                         \
+	    ->UseManualTime();
 #else
 #define COUNT_STD_WRAPPER
 #endif
@@ -51,7 +53,8 @@ static void count_gnu_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(count_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("gnu::count"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                         \
+	    ->UseManualTime();
 #else
 #define COUNT_GNU_WRAPPER
 #endif
@@ -68,7 +71,8 @@ static void count_hpx_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(count_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("hpx::count"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                         \
+	    ->UseManualTime();
 #else
 #define COUNT_HPX_WRAPPER
 #endif

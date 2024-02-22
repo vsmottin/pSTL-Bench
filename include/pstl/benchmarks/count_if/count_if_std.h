@@ -11,6 +11,6 @@ namespace benchmark_count_if
 	const auto count_if_std = [](auto && policy, const auto & container, auto & condition) {
 		return std::count_if(policy, container.begin(), container.end(), condition);
 	};
-}
+} // namespace benchmark_count_if
 
 #endif //PSTL_BENCH_COUNT_IF_STD_H

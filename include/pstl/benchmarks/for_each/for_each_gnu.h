@@ -17,6 +17,6 @@ namespace benchmark_for_each
 		__gnu_parallel::for_each(input_data.begin(), input_data.end(), f);
 	};
 
-}
+} // namespace benchmark_for_each
 
 #endif //PSTL_BENCH_FOR_EACH_GNU_H

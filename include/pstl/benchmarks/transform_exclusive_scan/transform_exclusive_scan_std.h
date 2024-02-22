@@ -16,6 +16,6 @@ namespace benchmark_transform_exclusive_scan
 		                                     std::plus<>(), f);
 	};
 
-}
+} // namespace benchmark_transform_exclusive_scan
 
 #endif //PSTL_BENCH_TRANSFORM_EXCLUSIVE_SCAN_STD_H

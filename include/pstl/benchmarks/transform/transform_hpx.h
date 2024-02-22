@@ -10,6 +10,6 @@ namespace benchmark_transform
 		hpx::transform(policy, input_data.begin(), input_data.end(), input_data.begin(), f);
 	};
 
-}
+} // namespace benchmark_transform
 
 #endif //PSTL_BENCH_TRANSFORM_HPX_H

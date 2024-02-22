@@ -29,7 +29,7 @@ namespace benchmark_inclusive_scan
 		{
 			WRAP_TIMING(F(execution_policy, input_data, output);)
 
-			assert((output.back() == solution));
+			assert(pstl::are_equivalent(output.back(), solution));
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));

@@ -26,14 +26,16 @@ static void max_element_std_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(max_element_std_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::max_element"))             \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                    \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                    \
+	    ->UseManualTime();
 
 #ifdef USE_PSTL
 #define MAX_ELEMENT_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(max_element_std_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("std::max_element"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                               \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                               \
+	    ->UseManualTime();
 #else
 #define MAX_ELEMENT_STD_WRAPPER
 #endif
@@ -51,7 +53,8 @@ static void max_element_gnu_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(max_element_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("gnu::max_element"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                               \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                               \
+	    ->UseManualTime();
 #else
 #define MAX_ELEMENT_GNU_WRAPPER
 #endif
@@ -69,7 +72,8 @@ static void max_element_hpx_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(max_element_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("hpx::max_element"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                               \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                               \
+	    ->UseManualTime();
 #else
 #define MAX_ELEMENT_HPX_WRAPPER
 #endif

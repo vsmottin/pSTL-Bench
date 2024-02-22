@@ -11,6 +11,6 @@ namespace benchmark_count
 	const auto count_hpx = [](auto && policy, const auto & container, const auto & value) {
 		return hpx::count(policy, container.begin(), container.end(), value);
 	};
-}
+} // namespace benchmark_count
 
 #endif //PSTL_BENCH_COUNT_HPX_H

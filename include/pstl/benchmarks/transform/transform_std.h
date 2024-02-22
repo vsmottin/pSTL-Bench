@@ -15,6 +15,6 @@ namespace benchmark_transform
 		std::transform(policy, input_data.begin(), input_data.end(), input_data.begin(), f);
 	};
 
-}
+} // namespace benchmark_transform
 
 #endif //PSTL_BENCH_TRANSFORM_STD_H

@@ -13,6 +13,6 @@ namespace benchmark_none_of
 		return std::none_of(policy, container.begin(), container.end(), condition);
 	};
 
-}
+} // namespace benchmark_none_of
 
 #endif //PSTL_BENCH_NONE_OF_STD_H

@@ -25,8 +25,8 @@ namespace benchmark_transform_exclusive_scan
 		auto output = input_data;
 		std::fill(output.begin(), output.end(), 0);
 
-		const auto solution = std::transform_exclusive_scan(input_data.begin(), input_data.end(),
-		                                                    output.begin(), 0, std::plus<>(), kernel);
+		const auto solution = std::transform_exclusive_scan(input_data.begin(), input_data.end(), output.begin(), 0,
+		                                                    std::plus<>(), kernel);
 
 		for (auto _ : state)
 		{

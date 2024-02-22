@@ -16,7 +16,7 @@ namespace benchmark_reduce
 
 		const auto input_data = pstl::generate_increment(execution_policy, size);
 
-		const auto solution = std::accumulate(input_data.begin(), input_data.end(), 0);
+		const auto solution = std::reduce(input_data.begin(), input_data.end(), pstl::elem_t{});
 
 		for (auto _ : state)
 		{

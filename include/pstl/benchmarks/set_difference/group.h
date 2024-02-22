@@ -27,14 +27,16 @@ static void set_difference_std_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(set_difference_std_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::set_difference"))             \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                       \
+	    ->UseManualTime();
 
 #ifdef USE_PSTL
 #define SET_DIFFERENCE_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(set_difference_std_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("std::set_difference"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                  \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                  \
+	    ->UseManualTime();
 #else
 #define SET_DIFFERENCE_STD_WRAPPER
 #endif
@@ -52,7 +54,8 @@ static void set_difference_gnu_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(set_difference_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("gnu::set_difference"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                  \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                  \
+	    ->UseManualTime();
 #else
 #define SET_DIFFERENCE_GNU_WRAPPER
 #endif
@@ -70,7 +73,8 @@ static void set_difference_hpx_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(set_difference_hpx_wrapper, hpx::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("hpx::set_difference"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                  \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                  \
+	    ->UseManualTime();
 #else
 #define SET_DIFFERENCE_HPX_WRAPPER
 #endif

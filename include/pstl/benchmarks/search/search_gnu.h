@@ -9,6 +9,6 @@ namespace benchmark_search
 	                           const auto & first2, const auto & last2) {
 		return __gnu_parallel::search(first1, last1, first2, last2);
 	};
-}
+} // namespace benchmark_search
 
 #endif //PSTL_BENCH_SEARCH_GNU_H

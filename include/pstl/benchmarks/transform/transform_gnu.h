@@ -17,6 +17,6 @@ namespace benchmark_transform
 		__gnu_parallel::transform(input_data.begin(), input_data.end(), input_data.begin(), f);
 	};
 
-}
+} // namespace benchmark_transform
 
 #endif //PSTL_BENCH_TRANSFORM_GNU_H

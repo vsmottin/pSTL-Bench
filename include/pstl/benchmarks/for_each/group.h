@@ -28,14 +28,16 @@ static void for_each_std_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(for_each_std_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::for_each"))             \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                 \
+	    ->UseManualTime();
 
 #ifdef USE_PSTL
 #define FOR_EACH_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(for_each_std_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("std::for_each"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
+	    ->UseManualTime();
 #else
 #define FOR_EACH_STD_WRAPPER
 #endif
@@ -53,7 +55,8 @@ static void for_each_gnu_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(for_each_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("gnu::for_each"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
+	    ->UseManualTime();
 #else
 #define FOR_EACH_GNU_WRAPPER
 #endif
@@ -71,7 +74,8 @@ static void for_each_hpx_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(for_each_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("hpx::for_each"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
+	    ->UseManualTime();
 #else
 #define FOR_EACH_HPX_WRAPPER
 #endif

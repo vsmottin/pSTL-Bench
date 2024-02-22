@@ -13,6 +13,6 @@ namespace benchmark_any_of
 		return std::any_of(policy, container.begin(), container.end(), condition);
 	};
 
-}
+} // namespace benchmark_any_of
 
 #endif //PSTL_BENCH_ANY_OF_STD_H

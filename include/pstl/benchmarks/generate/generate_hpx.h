@@ -11,6 +11,6 @@ namespace benchmark_generate
 	const auto generate_hpx = [](auto && policy, auto & container, auto && generator) {
 		return hpx::generate(policy, container.begin(), container.end(), generator);
 	};
-}
+} // namespace benchmark_generate
 
 #endif //PSTL_BENCH_GENERATE_HPX_H

@@ -26,14 +26,16 @@ static void equal_std_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(equal_std_wrapper, std::execution::sequenced_policy) \
 	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::equal"))             \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                              \
+	    ->UseManualTime();
 
 #ifdef USE_PSTL
 #define EQUAL_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(equal_std_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("std::equal"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                         \
+	    ->UseManualTime();
 #else
 #define EQUAL_STD_WRAPPER
 #endif
@@ -51,7 +53,8 @@ static void equal_gnu_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(equal_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("gnu::equal"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                         \
+	    ->UseManualTime();
 #else
 #define EQUAL_GNU_WRAPPER
 #endif
@@ -68,7 +71,8 @@ static void equal_hpx_wrapper(benchmark::State & state)
 	BENCHMARK_TEMPLATE1(equal_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
 	    ->Name(BENCHMARK_NAME("hpx::equal"))                                            \
 	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE);
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                         \
+	    ->UseManualTime();
 #else
 #define EQUAL_HPX_WRAPPER
 #endif

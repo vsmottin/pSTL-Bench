@@ -13,6 +13,6 @@ namespace benchmark_count_if
 	const auto count_if_gnu = [](auto && policy, const auto & container, auto & condition) {
 		return __gnu_parallel::count_if(container.begin(), container.end(), condition);
 	};
-}
+} // namespace benchmark_count_if
 
 #endif //PSTL_BENCH_COUNT_IF_GNU_H

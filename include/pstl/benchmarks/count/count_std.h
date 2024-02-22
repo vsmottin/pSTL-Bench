@@ -11,6 +11,6 @@ namespace benchmark_count
 	const auto count_std = [](auto && policy, const auto & container, const auto & value) {
 		return std::count(policy, container.begin(), container.end(), value);
 	};
-}
+} // namespace benchmark_count
 
 #endif //PSTL_BENCH_COUNT_STD_H

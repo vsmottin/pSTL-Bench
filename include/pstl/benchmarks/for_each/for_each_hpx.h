@@ -10,6 +10,6 @@ namespace benchmark_for_each
 		hpx::for_each(policy, input_data.begin(), input_data.end(), f);
 	};
 
-}
+} // namespace benchmark_for_each
 
 #endif //PSTL_BENCH_FOR_EACH_HPX_H

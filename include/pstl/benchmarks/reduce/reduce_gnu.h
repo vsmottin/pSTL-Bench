@@ -11,8 +11,8 @@
 namespace benchmark_reduce
 {
 	const auto reduce_gnu = [](auto && policy, const auto & container) {
-		return __gnu_parallel::accumulate(container.begin(), container.end(), 0);
+		return __gnu_parallel::accumulate(container.begin(), container.end(), pstl::elem_t{});
 	};
-}
+} // namespace benchmark_reduce
 
 #endif //PSTL_BENCH_REDUCE_GNU_H

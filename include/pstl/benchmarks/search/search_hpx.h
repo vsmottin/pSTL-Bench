@@ -9,6 +9,6 @@ namespace benchmark_search
 	                           const auto & last2) {
 		return hpx::search(policy, first1, last1, first2, last2);
 	};
-}
+} // namespace benchmark_search
 
 #endif //PSTL_BENCH_SEARCH_HPX_H
