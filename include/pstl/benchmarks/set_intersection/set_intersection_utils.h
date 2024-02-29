@@ -17,14 +17,12 @@ namespace benchmark_set_intersection
 		const auto & size = state.range(0);
 
 		auto data1 = pstl::generate_increment(execution_policy, size);
-		auto data2 =
-		    pstl::generate_increment(execution_policy, size / 2, static_cast<decltype(data1)::value_type>(size / 4),
-		                             static_cast<decltype(data1)::value_type>(1));
+		auto data2 = pstl::generate_increment(execution_policy, size / 2, static_cast<pstl::elem_t>(size / 4),
+		                                      static_cast<pstl::elem_t>(1));
 
 		const auto max_size = std::min(data1.size(), data2.size());
 
-		auto result = std::vector<typename decltype(data1)::value_type>(
-		    max_size, std::numeric_limits<typename decltype(data1)::value_type>::quiet_NaN());
+		auto result = std::vector<pstl::elem_t>(max_size, std::numeric_limits<pstl::elem_t>::quiet_NaN());
 		auto output = result;
 
 		std::ignore = std::set_intersection(data1.begin(), data1.end(), data2.begin(), data2.end(), result.begin());
@@ -39,8 +37,7 @@ namespace benchmark_set_intersection
 
 			assert(std::equal(result.begin(), result.end(), output.begin(), output.end()));
 
-			std::fill(output.begin(), output.end(),
-			          std::numeric_limits<typename decltype(data1)::value_type>::quiet_NaN());
+			std::fill(output.begin(), output.end(), std::numeric_limits<pstl::elem_t>::quiet_NaN());
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, data1, data2));

@@ -21,8 +21,7 @@ namespace benchmark_exclusive_scan
 		auto output = input_data;
 		std::fill(output.begin(), output.end(), 0);
 
-		std::exclusive_scan(std::execution::seq, input_data.begin(), input_data.end(), output.begin(),
-		                    typename std::iterator_traits<decltype(input_data.begin())>::value_type{});
+		std::exclusive_scan(std::execution::seq, input_data.begin(), input_data.end(), output.begin(), pstl::elem_t{});
 
 		const auto solution = output.back();
 
