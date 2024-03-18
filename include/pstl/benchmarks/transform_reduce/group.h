@@ -17,8 +17,7 @@
 template<class Policy>
 static void transform_reduce_std_wrapper(benchmark::State & state)
 {
-	benchmark_transform_reduce::benchmark_transform_reduce_wrapper<Policy>(
-	    state, benchmark_transform_reduce::transform_reduce_std);
+	benchmark_transform_reduce::benchmark_wrapper<Policy>(state, benchmark_transform_reduce::transform_reduce_std);
 }
 
 #define TRANSFORM_REDUCE_SEQ_WRAPPER                                                    \
@@ -45,8 +44,7 @@ static void transform_reduce_std_wrapper(benchmark::State & state)
 template<class Policy>
 static void transform_reduce_hpx_wrapper(benchmark::State & state)
 {
-	benchmark_transform_reduce::benchmark_transform_reduce_wrapper<Policy>(
-	    state, benchmark_transform_reduce::transform_reduce_hpx);
+	benchmark_transform_reduce::benchmark_wrapper<Policy>(state, benchmark_transform_reduce::transform_reduce_hpx);
 }
 
 #define TRANSFORM_REDUCE_HPX_WRAPPER                                                               \

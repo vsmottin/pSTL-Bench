@@ -21,7 +21,7 @@
 template<class Policy>
 static void transform_std_wrapper(benchmark::State & state)
 {
-	benchmark_transform::benchmark_transform_wrapper<Policy>(state, benchmark_transform::transform_std);
+	benchmark_transform::benchmark_wrapper<Policy>(state, benchmark_transform::transform_std);
 }
 
 #define TRANSFORM_SEQ_WRAPPER                                                    \
@@ -48,7 +48,7 @@ static void transform_std_wrapper(benchmark::State & state)
 template<class Policy>
 static void transform_gnu_wrapper(benchmark::State & state)
 {
-	benchmark_transform::benchmark_transform_wrapper<Policy>(state, benchmark_transform::transform_gnu);
+	benchmark_transform::benchmark_wrapper<Policy>(state, benchmark_transform::transform_gnu);
 }
 
 #define TRANSFORM_GNU_WRAPPER                                                               \
@@ -67,7 +67,7 @@ static void transform_gnu_wrapper(benchmark::State & state)
 template<class Policy>
 static void transform_hpx_wrapper(benchmark::State & state)
 {
-	benchmark_transform::benchmark_transform_wrapper<Policy>(state, benchmark_transform::transform_hpx);
+	benchmark_transform::benchmark_wrapper<Policy>(state, benchmark_transform::transform_hpx);
 }
 
 #define TRANSFORM_HPX_WRAPPER                                                               \

@@ -14,7 +14,7 @@ namespace benchmark_transform_exclusive_scan
 	};
 
 	template<class Policy, class Function>
-	static void benchmark_transform_exclusive_scan_wrapper(benchmark::State & state, Function && f)
+	static void benchmark_wrapper(benchmark::State & state, Function && f)
 	{
 		constexpr auto execution_policy = Policy{};
 

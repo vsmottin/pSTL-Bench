@@ -7,6 +7,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # region options
 option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" OFF)
 
+option(USE_PAPI "Use PAPI for performance counters" OFF)
+option(USE_LIKWID "Use LIKWID for performance counters" OFF)
+
 set(BACKEND CACHE STRING "Select the backend to use for std:: algorithms")
 set_property(CACHE BACKEND PROPERTY STRINGS TBB GNU HPX NVHPC_OMP NVHPC_CUDA)
 set(DATA_TYPE CACHE STRING "Select the data type to use for the benchmarks")
@@ -130,6 +133,40 @@ else ()
     message(FATAL_ERROR "Failed to add google benchmark")
 endif ()
 # endregion google benchmark stuff
+
+# region PAPI
+if (USE_PAPI)
+    add_compile_definitions(USE_PAPI)
+    find_package(PAPI REQUIRED)
+    if (PAPI_FOUND)
+        message(STATUS "PAPI found")
+        message(STATUS "PAPI include dirs: ${PAPI_INCLUDE_DIRS}")
+        message(STATUS "PAPI libraries: ${PAPI_LIBRARIES}")
+    else ()
+        message(FATAL_ERROR "PAPI not found")
+    endif ()
+    list(APPEND LINK_LIBRARIES ${PAPI_LIBRARIES})
+    target_include_directories(${PROJECT_NAME} PRIVATE ${PAPI_INCLUDE_DIRS})
+endif ()
+# endregion PAPI
+
+# region LIKWID
+if (USE_LIKWID)
+    add_compile_definitions(USE_LIKWID)
+    find_package(likwid REQUIRED)
+    if (LIKWID_FOUND)
+        message(STATUS "LIKWID found")
+        message(STATUS "LIKWID include dirs: ${LIKWID_INCLUDE_DIRS}")
+        message(STATUS "LIKWID libraries: ${LIKWID_LIBRARIES}")
+        # Add -DLIKWID_PERFMON to the compile options
+        target_compile_definitions(${PROJECT_NAME} PRIVATE LIKWID_PERFMON)
+    else ()
+        message(FATAL_ERROR "LIKWID not found")
+    endif ()
+    list(APPEND LINK_LIBRARIES ${LIKWID_LIBRARIES})
+    target_include_directories(${PROJECT_NAME} PRIVATE ${LIKWID_INCLUDE_DIRS})
+endif ()
+# endregion LIKWID
 
 # link libraries
 foreach (LIB ${LINK_LIBRARIES})

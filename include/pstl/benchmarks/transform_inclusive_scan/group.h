@@ -17,7 +17,7 @@
 template<class Policy>
 static void transform_inclusive_scan_std_wrapper(benchmark::State & state)
 {
-	benchmark_transform_inclusive_scan::benchmark_transform_inclusive_scan_wrapper<Policy>(
+	benchmark_transform_inclusive_scan::benchmark_wrapper<Policy>(
 	    state, benchmark_transform_inclusive_scan::transform_inclusive_scan_std);
 }
 
@@ -45,7 +45,7 @@ static void transform_inclusive_scan_std_wrapper(benchmark::State & state)
 template<class Policy>
 static void transform_inclusive_scan_hpx_wrapper(benchmark::State & state)
 {
-	benchmark_transform_inclusive_scan::benchmark_transform_inclusive_scan_wrapper<Policy>(
+	benchmark_transform_inclusive_scan::benchmark_wrapper<Policy>(
 	    state, benchmark_transform_inclusive_scan::transform_inclusive_scan_hpx);
 }
 

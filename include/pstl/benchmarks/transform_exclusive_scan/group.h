@@ -17,7 +17,7 @@
 template<class Policy>
 static void transform_exclusive_scan_std_wrapper(benchmark::State & state)
 {
-	benchmark_transform_exclusive_scan::benchmark_transform_exclusive_scan_wrapper<Policy>(
+	benchmark_transform_exclusive_scan::benchmark_wrapper<Policy>(
 	    state, benchmark_transform_exclusive_scan::transform_exclusive_scan_std);
 }
 
@@ -45,7 +45,7 @@ static void transform_exclusive_scan_std_wrapper(benchmark::State & state)
 template<class Policy>
 static void transform_exclusive_scan_hpx_wrapper(benchmark::State & state)
 {
-	benchmark_transform_exclusive_scan::benchmark_transform_exclusive_scan_wrapper<Policy>(
+	benchmark_transform_exclusive_scan::benchmark_wrapper<Policy>(
 	    state, benchmark_transform_exclusive_scan::transform_exclusive_scan_hpx);
 }
 

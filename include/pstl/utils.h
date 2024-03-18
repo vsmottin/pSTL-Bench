@@ -21,6 +21,14 @@
 
 #include "elem_t.h"
 
+#ifdef USE_PAPI
+#include <papi.h>
+#endif
+
+#ifdef USE_LIKWID
+#include <likwid-marker.h>
+#endif
+
 #define CUSTOM_STATISTICS                                                               \
 	ComputeStatistics("max",                                                            \
 	                  [](const std::vector<double> & v) -> double {                     \
@@ -32,13 +40,45 @@
 	                        })                                                          \
 	    ->UseManualTime()
 
+#define MEASURE_TIME(code)                                           \
+	const auto _start = std::chrono::high_resolution_clock::now();   \
+	code;                                                            \
+	const auto _end     = std::chrono::high_resolution_clock::now(); \
+	const auto _seconds = std::chrono::duration_cast<std::chrono::duration<double>>(_end - _start);
 
-#define WRAP_TIMING(code)                                                                          \
-	auto start = std::chrono::high_resolution_clock::now();                                        \
-	code;                                                                                          \
-	auto end             = std::chrono::high_resolution_clock::now();                              \
-	auto elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end - start); \
-	state.SetIterationTime(elapsed_seconds.count());
+
+#ifdef USE_PAPI
+
+#define PRINT_PAPI_ERROR(retval, zone_name)                         \
+	{                                                               \
+		fprintf(stderr, "Error %d at %s\n", (retval), (zone_name)); \
+	}
+#define WRAP_TIMING(code)                                                        \
+	const auto _zone_name = state.name() + "/" + std::to_string(state.range(0)); \
+	int        _papi_retval;                                                     \
+	_papi_retval = PAPI_hl_region_begin(_zone_name.c_str());                     \
+	if (_papi_retval) { PRINT_PAPI_ERROR(_papi_retval, _zone_name.c_str()); }    \
+	MEASURE_TIME(code);                                                          \
+	_papi_retval = PAPI_hl_region_end(_zone_name.c_str());                       \
+	if (_papi_retval) { PRINT_PAPI_ERROR(_papi_retval, _zone_name.c_str()); }    \
+	state.SetIterationTime(_seconds.count());
+
+#elif defined(USE_LIKWID)
+
+#define WRAP_TIMING(code)                                                        \
+	const auto _zone_name = state.name() + "/" + std::to_string(state.range(0)); \
+	LIKWID_MARKER_START(_zone_name.c_str());                                     \
+	MEASURE_TIME(code);                                                          \
+	LIKWID_MARKER_STOP(_zone_name.c_str());                                      \
+	state.SetIterationTime(_seconds.count());
+
+#else
+
+#define WRAP_TIMING(code) \
+	MEASURE_TIME(code);   \
+	state.SetIterationTime(_seconds.count());
+
+#endif
 
 
 namespace pstl
@@ -135,7 +175,7 @@ namespace pstl
 		constexpr auto execution_policy = ExecutionPolicy{};
 #endif
 
-		std::mt19937                     mt_engine(std::time(nullptr));
+		std::mt19937                     mt_engine(std::random_device{}());
 		std::uniform_real_distribution<> dist(lower_bound, upper_bound);
 
 		auto dist_vec = pstl::get_vec<ExecutionPolicy, pstl::vec<T, ExecutionPolicy>>(size);
