@@ -10,6 +10,10 @@
 #include <tbb_thread_control.h>
 #endif
 
+#ifdef USE_LIKWID
+#include <likwid-marker.h>
+#endif
+
 #include "pstl/benchmarks/pstl-benchmarks.h"
 
 // Run the benchmark
@@ -40,6 +44,15 @@ int main(int argc, char ** argv)
 	benchmark::AddCustomContext("omp_get_max_threads()", std::to_string(omp_get_max_threads()));
 #endif
 
+#ifdef USE_PAPI
+	benchmark::AddCustomContext("PAPI", "enabled");
+#endif
+
+#ifdef USE_LIKWID
+	benchmark::AddCustomContext("LIKWID", "enabled");
+	LIKWID_MARKER_INIT;
+#endif
+
 	benchmark::Initialize(&argc, argv);
 	if (benchmark::ReportUnrecognizedArguments(argc, argv)) { return 1; }
 	benchmark::RunSpecifiedBenchmarks();
@@ -47,6 +60,10 @@ int main(int argc, char ** argv)
 
 #ifdef USE_TBB
 	tbbThreadControl = nullptr;
+#endif
+
+#ifdef USE_LIKWID
+	LIKWID_MARKER_CLOSE;
 #endif
 
 	return 0;
