@@ -49,27 +49,57 @@
 
 #ifdef USE_PAPI
 
-#define PRINT_PAPI_ERROR(retval, zone_name)                         \
-	{                                                               \
-		fprintf(stderr, "Error %d at %s\n", (retval), (zone_name)); \
+#define PRINT_PAPI_ERROR(retval, zone_name)                                                                          \
+	{                                                                                                                \
+		std::cerr << "Error " << retval << " for zone " << zone_name << " : " << PAPI_strerror(retval) << std::endl; \
 	}
+
+void parallel_PAPI_hl_region_begin(const char * zone_name)
+{
+#pragma omp parallel default(shared) firstprivate(zone_name)
+	{
+		int retval = PAPI_hl_region_begin(zone_name);
+		if (retval) { PRINT_PAPI_ERROR(retval, zone_name); }
+	}
+}
+
+void parallel_PAPI_hl_region_end(const char * zone_name)
+{
+#pragma omp parallel default(shared) firstprivate(zone_name)
+	{
+		int retval = PAPI_hl_region_end(zone_name);
+		if (retval) { PRINT_PAPI_ERROR(retval, zone_name); }
+	}
+}
+
 #define WRAP_TIMING(code)                                                        \
 	const auto _zone_name = state.name() + "/" + std::to_string(state.range(0)); \
-	int        _papi_retval;                                                     \
-	_papi_retval = PAPI_hl_region_begin(_zone_name.c_str());                     \
-	if (_papi_retval) { PRINT_PAPI_ERROR(_papi_retval, _zone_name.c_str()); }    \
+	parallel_PAPI_hl_region_begin(_zone_name.c_str());                           \
 	MEASURE_TIME(code);                                                          \
-	_papi_retval = PAPI_hl_region_end(_zone_name.c_str());                       \
-	if (_papi_retval) { PRINT_PAPI_ERROR(_papi_retval, _zone_name.c_str()); }    \
+	parallel_PAPI_hl_region_end(_zone_name.c_str());                             \
 	state.SetIterationTime(_seconds.count());
 
 #elif defined(USE_LIKWID)
 
+const auto parallel_likwid_marker_start = [](const char * zone_name) {
+#pragma omp parallel default(none) firstprivate(zone_name)
+	{
+		LIKWID_MARKER_START(zone_name);
+	}
+};
+
+const auto parallel_likwid_marker_stop = [](const char * zone_name) {
+#pragma omp parallel default(none) firstprivate(zone_name)
+	{
+		LIKWID_MARKER_STOP(zone_name);
+	}
+};
+
 #define WRAP_TIMING(code)                                                        \
 	const auto _zone_name = state.name() + "/" + std::to_string(state.range(0)); \
-	LIKWID_MARKER_START(_zone_name.c_str());                                     \
+	parallel_likwid_marker_start(_zone_name.c_str());                            \
 	MEASURE_TIME(code);                                                          \
-	LIKWID_MARKER_STOP(_zone_name.c_str());                                      \
+	parallel_likwid_marker_stop(_zone_name.c_str());                             \
 	state.SetIterationTime(_seconds.count());
 
 #else
