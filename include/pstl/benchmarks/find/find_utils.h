@@ -20,22 +20,24 @@ namespace benchmark_find
 		// vector with values [0,size)
 		const auto input_data = pstl::generate_increment(execution_policy, size);
 
-		const auto get_value = [](const auto & vec) {
-			// Seed with a real random value, if available
-			static std::random_device             rd;
-			// Choose a random number between 1 and size
-			static std::minstd_rand               engine{ rd() };
-			std::uniform_int_distribution<size_t> gen(0, vec.size() - 1);
+		// Seed with a fixed value for reproducibility
+		const auto seed = 42;
 
+		// Choose a random number between 1 and size
+		std::minstd_rand engine(seed);
+
+		// Random number generator
+		std::uniform_int_distribution<size_t> gen(0, size - 1);
+
+		const auto get_value = [&]() {
 			const auto index = gen(engine);
-
-			return vec[index];
+			return input_data[index];
 		};
 
 		for (auto _ : state)
 		{
 			// random value in [0,size)
-			const auto value = get_value(input_data);
+			const auto value = get_value();
 
 			WRAP_TIMING(auto find_location = F(execution_policy, input_data, value);)
 
