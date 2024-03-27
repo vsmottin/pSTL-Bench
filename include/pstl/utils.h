@@ -23,6 +23,11 @@
 
 #ifdef USE_PAPI
 #include <papi.h>
+
+#define PRINT_PAPI_ERROR(retval, zone_name)                                                                          \
+	{                                                                                                                \
+		std::cerr << "Error " << retval << " for zone " << zone_name << " : " << PAPI_strerror(retval) << std::endl; \
+	}
 #endif
 
 #ifdef USE_LIKWID
@@ -46,69 +51,46 @@
 	const auto _end     = std::chrono::high_resolution_clock::now(); \
 	const auto _seconds = std::chrono::duration_cast<std::chrono::duration<double>>(_end - _start);
 
-
-#ifdef USE_PAPI
-
-#define PRINT_PAPI_ERROR(retval, zone_name)                                                                          \
-	{                                                                                                                \
-		std::cerr << "Error " << retval << " for zone " << zone_name << " : " << PAPI_strerror(retval) << std::endl; \
-	}
-
-void parallel_PAPI_hl_region_begin(const char * zone_name)
+namespace pstl
 {
-#pragma omp parallel default(shared) firstprivate(zone_name)
+	void hw_counters_begin(const benchmark::State & state)
 	{
-		int retval = PAPI_hl_region_begin(zone_name);
-		if (retval) { PRINT_PAPI_ERROR(retval, zone_name); }
-	}
-}
-
-void parallel_PAPI_hl_region_end(const char * zone_name)
-{
-#pragma omp parallel default(shared) firstprivate(zone_name)
-	{
-		int retval = PAPI_hl_region_end(zone_name);
-		if (retval) { PRINT_PAPI_ERROR(retval, zone_name); }
-	}
-}
-
-#define WRAP_TIMING(code)                                                        \
-	const auto _zone_name = state.name() + "/" + std::to_string(state.range(0)); \
-	parallel_PAPI_hl_region_begin(_zone_name.c_str());                           \
-	MEASURE_TIME(code);                                                          \
-	parallel_PAPI_hl_region_end(_zone_name.c_str());                             \
-	state.SetIterationTime(_seconds.count());
-
+#if defined(USE_PAPI) or defined(USE_LIKWID)
+		const auto region = state.name() + "/" + std::to_string(state.range(0));
+#pragma omp parallel default(none) firstprivate(region) shared(std::cerr)
+		{
+#if defined(USE_PAPI)
+			int retval = PAPI_hl_region_begin(region.c_str());
+			if (retval) { PRINT_PAPI_ERROR(retval, region.c_str()); }
 #elif defined(USE_LIKWID)
-
-const auto parallel_likwid_marker_start = [](const char * zone_name) {
-#pragma omp parallel default(none) firstprivate(zone_name)
-	{
-		LIKWID_MARKER_START(zone_name);
-	}
-};
-
-const auto parallel_likwid_marker_stop = [](const char * zone_name) {
-#pragma omp parallel default(none) firstprivate(zone_name)
-	{
-		LIKWID_MARKER_STOP(zone_name);
-	}
-};
-
-#define WRAP_TIMING(code)                                                        \
-	const auto _zone_name = state.name() + "/" + std::to_string(state.range(0)); \
-	parallel_likwid_marker_start(_zone_name.c_str());                            \
-	MEASURE_TIME(code);                                                          \
-	parallel_likwid_marker_stop(_zone_name.c_str());                             \
-	state.SetIterationTime(_seconds.count());
-
-#else
-
-#define WRAP_TIMING(code) \
-	MEASURE_TIME(code);   \
-	state.SetIterationTime(_seconds.count());
-
+			LIKWID_MARKER_START(region.c_str());
 #endif
+		}
+#endif
+	}
+
+	void hw_counters_end(const benchmark::State & state)
+	{
+#if defined(USE_PAPI) or defined(USE_LIKWID)
+		const auto region = state.name() + "/" + std::to_string(state.range(0));
+#pragma omp parallel default(none) firstprivate(region) shared(std::cerr)
+		{
+#if defined(USE_PAPI)
+			int retval = PAPI_hl_region_end(region.c_str());
+			if (retval) { PRINT_PAPI_ERROR(retval, region.c_str()); }
+#elif defined(USE_LIKWID)
+			LIKWID_MARKER_STOP(region.c_str());
+#endif
+		}
+#endif
+	}
+} // namespace pstl
+
+#define WRAP_TIMING(code)           \
+	pstl::hw_counters_begin(state); \
+	MEASURE_TIME(code);             \
+	pstl::hw_counters_end(state);   \
+	state.SetIterationTime(_seconds.count());
 
 
 namespace pstl
