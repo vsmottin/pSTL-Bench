@@ -19,24 +19,63 @@
 
 //region for_each
 template<class Policy>
-static void for_each_std_wrapper(benchmark::State & state)
+static void for_each_std_wrapper_empty(benchmark::State & state)
 {
-	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_std);
+	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_std,
+	                                                       benchmark_for_each::empty_kernel);
 }
 
-#define FOR_EACH_SEQ_WRAPPER                                                    \
-	BENCHMARK_TEMPLATE1(for_each_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::for_each"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                 \
+template<class Policy>
+static void for_each_std_wrapper_active_wait(benchmark::State & state)
+{
+	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_std,
+	                                                       benchmark_for_each::active_wait_kernel);
+}
+
+template<class Policy>
+static void for_each_std_wrapper_inv_sqrt(benchmark::State & state)
+{
+	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_std,
+	                                                       benchmark_for_each::inv_sqrt_kernel);
+}
+
+#define FOR_EACH_SEQ_WRAPPER                                                      \
+	BENCHMARK(for_each_std_wrapper_empty<std::execution::sequenced_policy>)       \
+	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::for_each::empty"))        \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                   \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                   \
+	    ->UseManualTime();                                                        \
+                                                                                  \
+	BENCHMARK(for_each_std_wrapper_active_wait<std::execution::sequenced_policy>) \
+	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::for_each::active_wait"))  \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                   \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                   \
+	    ->UseManualTime();                                                        \
+                                                                                  \
+	BENCHMARK(for_each_std_wrapper_inv_sqrt<std::execution::sequenced_policy>)    \
+	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::for_each::inv_sqrt"))     \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                   \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                   \
 	    ->UseManualTime();
 
 #ifdef USE_PSTL
-#define FOR_EACH_STD_WRAPPER                                                               \
-	BENCHMARK_TEMPLATE1(for_each_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("std::for_each"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
+#define FOR_EACH_STD_WRAPPER                                                                 \
+	BENCHMARK(for_each_std_wrapper_empty<std::execution::parallel_unsequenced_policy>)       \
+	    ->Name(BENCHMARK_NAME("std::for_each::empty"))                                       \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                              \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                              \
+	    ->UseManualTime();                                                                   \
+                                                                                             \
+	BENCHMARK(for_each_std_wrapper_active_wait<std::execution::parallel_unsequenced_policy>) \
+	    ->Name(BENCHMARK_NAME("std::for_each::active_wait"))                                 \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                              \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                              \
+	    ->UseManualTime();                                                                   \
+                                                                                             \
+	BENCHMARK(for_each_std_wrapper_inv_sqrt<std::execution::parallel_policy>)                \
+	    ->Name(BENCHMARK_NAME("std::for_each::inv_sqrt"))                                    \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                              \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                              \
 	    ->UseManualTime();
 #else
 #define FOR_EACH_STD_WRAPPER
@@ -46,16 +85,43 @@ static void for_each_std_wrapper(benchmark::State & state)
 //region for_each_gnu
 #ifdef USE_GNU
 template<class Policy>
-static void for_each_gnu_wrapper(benchmark::State & state)
+static void for_each_gnu_wrapper_empty(benchmark::State & state)
 {
-	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_gnu);
+	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_gnu,
+	                                                       benchmark_for_each::empty_kernel);
 }
 
-#define FOR_EACH_GNU_WRAPPER                                                               \
-	BENCHMARK_TEMPLATE1(for_each_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::for_each"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
+template<class Policy>
+static void for_each_gnu_wrapper_active_wait(benchmark::State & state)
+{
+	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_gnu,
+	                                                       benchmark_for_each::active_wait_kernel);
+}
+
+template<class Policy>
+static void for_each_gnu_wrapper_inv_sqrt(benchmark::State & state)
+{
+	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_gnu,
+	                                                       benchmark_for_each::inv_sqrt_kernel);
+}
+
+#define FOR_EACH_GNU_WRAPPER                                                                 \
+	BENCHMARK(for_each_gnu_wrapper_empty<std::execution::parallel_unsequenced_policy>)       \
+	    ->Name(BENCHMARK_NAME("gnu::for_each::empty"))                                       \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                              \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                              \
+	    ->UseManualTime();                                                                   \
+                                                                                             \
+	BENCHMARK(for_each_gnu_wrapper_active_wait<std::execution::parallel_unsequenced_policy>) \
+	    ->Name(BENCHMARK_NAME("gnu::for_each::active_wait"))                                 \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                              \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                              \
+	    ->UseManualTime();                                                                   \
+                                                                                             \
+	BENCHMARK(for_each_gnu_wrapper_inv_sqrt<std::execution::parallel_policy>)                \
+	    ->Name(BENCHMARK_NAME("gnu::for_each::inv_sqrt"))                                    \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                              \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                              \
 	    ->UseManualTime();
 #else
 #define FOR_EACH_GNU_WRAPPER
@@ -65,16 +131,42 @@ static void for_each_gnu_wrapper(benchmark::State & state)
 //region for_each_hpx
 #ifdef USE_HPX
 template<class Policy>
-static void for_each_hpx_wrapper(benchmark::State & state)
+static void for_each_hpx_wrapper_empty(benchmark::State & state)
 {
-	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_hpx);
+	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_hpx,
+	                                                       benchmark_for_each::empty_kernel);
+}
+template<class Policy>
+static void for_each_hpx_wrapper_active_wait(benchmark::State & state)
+{
+	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_hpx,
+	                                                       benchmark_for_each::active_wait_kernel);
 }
 
-#define FOR_EACH_HPX_WRAPPER                                                               \
-	BENCHMARK_TEMPLATE1(for_each_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::for_each"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
+template<class Policy>
+static void for_each_hpx_wrapper_inv_sqrt(benchmark::State & state)
+{
+	benchmark_for_each::benchmark_for_each_wrapper<Policy>(state, benchmark_for_each::for_each_hpx,
+	                                                       benchmark_for_each::inv_sqrt_kernel);
+}
+
+#define FOR_EACH_HPX_WRAPPER                                                                 \
+	BENCHMARK(for_each_hpx_wrapper_empty<std::execution::parallel_unsequenced_policy>)       \
+	    ->Name(BENCHMARK_NAME("hpx::for_each::empty"))                                       \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                              \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                              \
+	    ->UseManualTime();                                                                   \
+                                                                                             \
+	BENCHMARK(for_each_hpx_wrapper_active_wait<std::execution::parallel_unsequenced_policy>) \
+	    ->Name(BENCHMARK_NAME("hpx::for_each::active_wait"))                                 \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                              \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                              \
+	    ->UseManualTime();                                                                   \
+                                                                                             \
+	BENCHMARK(for_each_hpx_wrapper_inv_sqrt<std::execution::parallel_policy>)                \
+	    ->Name(BENCHMARK_NAME("hpx::for_each::inv_sqrt"))                                    \
+	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                              \
+	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                              \
 	    ->UseManualTime();
 #else
 #define FOR_EACH_HPX_WRAPPER

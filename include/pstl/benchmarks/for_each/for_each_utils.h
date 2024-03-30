@@ -9,15 +9,49 @@
 
 namespace benchmark_for_each
 {
-	const auto kernel = [](const auto & input) {
-		auto value = std::min(std::sin(input), std::tan(input));
-#ifndef USE_GPU
-		benchmark::DoNotOptimize(value);
-#endif
+	const auto empty_kernel = [](auto & input) {
+		benchmark::DoNotOptimize(input);
 	};
 
-	template<class Policy, class Function>
-	static void benchmark_for_each_wrapper(benchmark::State & state, Function && f)
+	const auto active_wait_kernel = [](auto & input) {
+		benchmark::DoNotOptimize(input);
+
+		using namespace std::chrono_literals;
+
+		std::chrono::nanoseconds ns(0);
+
+		const auto start  = std::chrono::high_resolution_clock::now();
+		const auto target = start + 1ns;
+
+		// Active wait
+		while (std::chrono::high_resolution_clock::now() < target)
+		{
+			benchmark::DoNotOptimize(input);
+		}
+	};
+
+	const auto inv_sqrt_kernel = [](auto & input) {
+		// Fast inverse square root from Quake III Arena
+		// Modern C++ version
+		// https://en.wikipedia.org/wiki/Fast_inverse_square_root
+
+		const float number = input;
+
+		union
+		{
+			float    f;
+			uint32_t i;
+		} conv = { .f = number };
+		conv.i = 0x5f3759df - (conv.i >> 1);
+		conv.f *= 1.5F - (number * 0.5F * conv.f * conv.f);
+
+		input = conv.f;
+
+		benchmark::DoNotOptimize(input);
+	};
+
+	template<class Policy, class Function, class Kernel>
+	static void benchmark_for_each_wrapper(benchmark::State & state, Function && f, Kernel && kernel)
 	{
 		constexpr auto execution_policy = Policy{};
 

@@ -34,6 +34,11 @@
 #include <likwid-marker.h>
 #endif
 
+#ifdef USE_HPX
+#include <hpx/algorithm.hpp>
+#include <hpx/execution.hpp>
+#endif
+
 #define CUSTOM_STATISTICS                                                               \
 	ComputeStatistics("max",                                                            \
 	                  [](const std::vector<double> & v) -> double {                     \
@@ -198,34 +203,6 @@ namespace pstl
 	}
 
 	/**
-     * Generates a container of type Container that contains size elements where the first element is start_val
-     * and then every next element is decremented by decrement
-     *
-     * @tparam ExecutionPolicy the executionpolicy to use for the creation
-     * @tparam T the value type of the container
-     * @tparam Container the container type
-     * @param size the number of elements
-     * @param start_val the start val
-     * @param decrement the value to use to decrement
-     */
-	template<typename ExecutionPolicy, typename ValueType = pstl::elem_t,
-	         typename Container = pstl::vec<ValueType, ExecutionPolicy>,
-	         typename Size_type = typename Container::size_type>
-	Container generate_decrement(const ExecutionPolicy execution_policy, const Size_type & size,
-	                             const ValueType start_val, const ValueType decrement = 1)
-	{
-		auto generatedVec = pstl::get_vec<ExecutionPolicy, ValueType, Container>(size);
-
-		// this vector of indices does not need to be parallel allocated since it is not performance critical
-		for (Size_type index = 0; index < size; ++index)
-		{
-			generatedVec[index] = start_val - (index * decrement);
-		}
-
-		return generatedVec;
-	}
-
-	/**
      * Generates a Container of type Container that contains size elements where the first element is start
      * and then every next element is incremented by increment
      *
@@ -243,7 +220,42 @@ namespace pstl
 	Container generate_increment(const ExecutionPolicy execution_policy, const Size_type & size, const ValueType start,
 	                             const ValueType increment)
 	{
-		return pstl::generate_decrement(execution_policy, size, start, -increment);
+		auto generatedVec = pstl::get_vec<ExecutionPolicy, ValueType, Container>(size);
+
+		auto begin_ptr = generatedVec.data();
+
+		auto body = [=](auto & val) {
+			const auto i = &val - begin_ptr;
+			val          = start + i * increment;
+		};
+
+#ifdef USE_HPX
+		hpx::for_each(execution_policy, generatedVec.begin(), generatedVec.end(), body);
+#else
+		std::for_each(execution_policy, generatedVec.begin(), generatedVec.end(), body);
+#endif
+
+		return generatedVec;
+	}
+
+	/**
+     * Generates a container of type Container that contains size elements where the first element is start_val
+     * and then every next element is decremented by decrement
+     *
+     * @tparam ExecutionPolicy the executionpolicy to use for the creation
+     * @tparam T the value type of the container
+     * @tparam Container the container type
+     * @param size the number of elements
+     * @param start_val the start val
+     * @param decrement the value to use to decrement
+     */
+	template<typename ExecutionPolicy, typename ValueType = pstl::elem_t,
+	         typename Container = pstl::vec<ValueType, ExecutionPolicy>,
+	         typename Size_type = typename Container::size_type>
+	Container generate_decrement(const ExecutionPolicy execution_policy, const Size_type & size,
+	                             const ValueType start_val, const ValueType decrement = 1)
+	{
+		return generate_increment(execution_policy, size, start_val, -decrement);
 	}
 
 	/**
