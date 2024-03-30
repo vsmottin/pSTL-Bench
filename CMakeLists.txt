@@ -147,10 +147,6 @@ if (USE_PAPI)
     endif ()
     list(APPEND LINK_LIBRARIES ${PAPI_LIBRARIES})
     target_include_directories(${PROJECT_NAME} PRIVATE ${PAPI_INCLUDE_DIRS})
-
-    # add OpenMP for PAPI
-    find_package(OpenMP REQUIRED)
-    list(APPEND LINK_LIBRARIES OpenMP::OpenMP_CXX)
 endif ()
 # endregion PAPI
 
@@ -169,12 +165,11 @@ if (USE_LIKWID)
     endif ()
     list(APPEND LINK_LIBRARIES ${LIKWID_LIBRARIES})
     target_include_directories(${PROJECT_NAME} PRIVATE ${LIKWID_INCLUDE_DIRS})
-
-    # add OpenMP for LIKWID
-    find_package(OpenMP REQUIRED)
-    list(APPEND LINK_LIBRARIES OpenMP::OpenMP_CXX)
 endif ()
 # endregion LIKWID
+
+# Add numa library
+list(APPEND LINK_LIBRARIES numa)
 
 # link libraries
 foreach (LIB ${LINK_LIBRARIES})

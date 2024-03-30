@@ -13,6 +13,8 @@
 #include <random>
 #include <vector>
 
+#include <numa.h>
+
 #include <benchmark/benchmark.h>
 
 #ifdef USE_PARALLEL_ALLOCATOR
@@ -58,19 +60,51 @@
 
 namespace pstl
 {
+	template<typename Function>
+	void for_each_core(Function && f)
+	{
+		// 0. Get the default bitmask
+		cpu_set_t default_cpuset;
+		CPU_ZERO(&default_cpuset);
+		sched_getaffinity(0, sizeof(default_cpuset), &default_cpuset);
+
+		// 1. Iterate over all cores in the system
+		for (int i = 0; i < numa_num_configured_cpus(); i++)
+		{
+			// 1.1 If the core is not online, skip it
+			if (!numa_bitmask_isbitset(numa_all_cpus_ptr, i)) { continue; }
+
+			// 1.2 Set the affinity to the core
+			cpu_set_t cpuset;
+			CPU_ZERO(&cpuset);
+			CPU_SET(i, &cpuset);
+			sched_setaffinity(0, sizeof(cpuset), &cpuset);
+
+			// 1.3 Call the function
+			f();
+		}
+
+		// 2. Reset the affinity to the default bitmask
+		sched_setaffinity(0, sizeof(default_cpuset), &default_cpuset);
+	}
+
 	void hw_counters_begin(const benchmark::State & state)
 	{
 #if defined(USE_PAPI) or defined(USE_LIKWID)
 		const auto region = state.name() + "/" + std::to_string(state.range(0));
-#pragma omp parallel default(none) firstprivate(region) shared(std::cerr)
-		{
 #if defined(USE_PAPI)
+		auto marker_start_f = [&]() {
 			int retval = PAPI_hl_region_begin(region.c_str());
 			if (retval) { PRINT_PAPI_ERROR(retval, region.c_str()); }
+		};
 #elif defined(USE_LIKWID)
+		auto marker_start_f = [&]() {
 			LIKWID_MARKER_START(region.c_str());
+		};
+		LIKWID_MARKER_REGISTER(region.c_str());
 #endif
-		}
+
+		for_each_core(marker_start_f);
 #endif
 	}
 
@@ -78,15 +112,17 @@ namespace pstl
 	{
 #if defined(USE_PAPI) or defined(USE_LIKWID)
 		const auto region = state.name() + "/" + std::to_string(state.range(0));
-#pragma omp parallel default(none) firstprivate(region) shared(std::cerr)
-		{
 #if defined(USE_PAPI)
+		auto marker_stop_f = [&]() {
 			int retval = PAPI_hl_region_end(region.c_str());
 			if (retval) { PRINT_PAPI_ERROR(retval, region.c_str()); }
+		};
 #elif defined(USE_LIKWID)
+		auto marker_stop_f = [&]() {
 			LIKWID_MARKER_STOP(region.c_str());
+		};
 #endif
-		}
+		for_each_core(marker_stop_f);
 #endif
 	}
 } // namespace pstl
