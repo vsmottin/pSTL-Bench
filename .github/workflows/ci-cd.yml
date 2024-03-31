@@ -27,6 +27,11 @@ jobs:
           c++ --version
           echo "c++ version: $(c++ --version)"
 
+      - name: Set up libnuma
+        run: |
+          sudo apt install -y libnuma-dev
+          echo "libnuma version: $(dpkg -s libnuma-dev | grep Version)"
+
       - name: Set up libPFM
         run: |
           sudo apt install -y libpfm4-dev
