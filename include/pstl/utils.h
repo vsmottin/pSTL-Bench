@@ -41,6 +41,10 @@
 #include <hpx/execution.hpp>
 #endif
 
+#ifdef USE_GNU
+#include <parallel/algorithm>
+#endif
+
 #define CUSTOM_STATISTICS                                                               \
 	ComputeStatistics("max",                                                            \
 	                  [](const std::vector<double> & v) -> double {                     \
@@ -265,10 +269,16 @@ namespace pstl
 			val          = start + i * increment;
 		};
 
-#ifdef USE_HPX
+#ifdef USE_PARALLEL_ALLOCATOR
+#if defined(USE_HPX)
 		hpx::for_each(execution_policy, generatedVec.begin(), generatedVec.end(), body);
+#elif defined(USE_GNU)
+		__gnu_parallel::for_each(generatedVec.begin(), generatedVec.end(), body);
 #else
 		std::for_each(execution_policy, generatedVec.begin(), generatedVec.end(), body);
+#endif
+#else
+		std::for_each(generatedVec.begin(), generatedVec.end(), body);
 #endif
 
 		return generatedVec;
