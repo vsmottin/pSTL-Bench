@@ -10,19 +10,16 @@
 namespace benchmark_for_each
 {
 	const auto kernel = [](auto & input) {
-		benchmark::DoNotOptimize(input);
+		volatile size_t I = 1;
 
-		using namespace std::chrono_literals;
+		pstl::elem_t a{};
 
-		std::chrono::nanoseconds ns(0);
+		for (auto i = 0; i < I; ++i)
+		{
+			a++;
+		}
 
-		const auto start  = std::chrono::high_resolution_clock::now();
-		const auto target = start + 1ns;
-
-		// Active wait
-		while (std::chrono::high_resolution_clock::now() < target) {}
-
-		benchmark::DoNotOptimize(input);
+		input = a;
 	};
 
 	template<class Policy, class Function>
