@@ -16,8 +16,8 @@ set(DATA_TYPE CACHE STRING "Select the data type to use for the benchmarks")
 set_property(CACHE DATA_TYPE PROPERTY STRINGS int float double)
 
 if (DATA_TYPE STREQUAL "")
-    message(STATUS "No data type selected, using default (double)")
     set(DATA_TYPE "double")
+    message(STATUS "No data type selected, using default (${DATA_TYPE})")
 endif ()
 
 message(STATUS "Using ${BACKEND} backend...")
@@ -111,6 +111,14 @@ endif ()
 add_compile_definitions(MIN_INPUT_SIZE=${MIN_INPUT_SIZE})
 add_compile_definitions(MAX_INPUT_SIZE=${MAX_INPUT_SIZE})
 # endregion input size
+
+# region for_each kernel iterations
+if (NOT DEFINED ${DEFAULT_FOR_EACH_KERNEL_ITS})
+    set(DEFAULT_FOR_EACH_KERNEL_ITS 1 CACHE STRING "Number of iterations for the for_each kernel (can be changed with environment variable PSTL_FOR_EACH_KERNEL_ITS)")
+endif ()
+
+add_compile_definitions(DEFAULT_FOR_EACH_KERNEL_ITS=${DEFAULT_FOR_EACH_KERNEL_ITS})
+# endregion for_each kernel iterations
 
 # region google benchmark stuff
 CPMAddPackage(
