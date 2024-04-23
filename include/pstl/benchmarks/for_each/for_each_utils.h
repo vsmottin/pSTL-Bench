@@ -43,7 +43,15 @@ namespace benchmark_for_each
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(f(execution_policy, data, [=](auto & elem) { kernel(elem, its); }));
+			WRAP_TIMING([&]() {
+				// Call the function
+				f(execution_policy, data, [=](auto & elem) { kernel(elem, its); });
+#ifdef USE_GPU
+				// Reset the data to enforce the data to be moved back to the host
+				// We're assuming that the bottleneck is the data movement and not the elem={} operation
+				std::for_each(data.begin(), data.end(), [](auto & elem) { elem = {}; });
+#endif
+			}())
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, data));

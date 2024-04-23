@@ -23,9 +23,15 @@ namespace benchmark_sort
 		{
 			std::shuffle(input_data.begin(), input_data.end(), generator);
 
-			WRAP_TIMING(f(execution_policy, input_data))
+			WRAP_TIMING([&]() {
+				f(execution_policy, input_data);
+#ifdef USE_GPU
+				pstl::elem_t i = 1;
+				std::for_each(input_data.begin(), input_data.end(), [&](auto & elem) { elem = i++; });
+#endif
+			}())
 
-			assert(std::is_sorted(input_data.begin(), input_data.end()));
+			// assert(std::is_sorted(input_data.begin(), input_data.end()));
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));

@@ -14,13 +14,20 @@ namespace benchmark_reduce
 
 		const auto & size = state.range(0);
 
-		const auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input_data = pstl::generate_increment(execution_policy, size);
 
 		const auto solution = std::accumulate(input_data.begin(), input_data.end(), pstl::elem_t{});
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(const auto res = F(execution_policy, input_data);)
+			WRAP_TIMING(auto res = [&]() {
+				auto output = F(execution_policy, input_data);
+#ifdef USE_GPU
+				pstl::elem_t i = 1;
+				std::for_each(input_data.begin(), input_data.end(), [&](auto & elem) { elem = i++; });
+#endif
+				return output;
+			}())
 
 			assert(pstl::are_equivalent(res, solution));
 		}

@@ -18,7 +18,7 @@ namespace benchmark_find
 		const auto & size = state.range(0);
 
 		// vector with values [0,size)
-		const auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input_data = pstl::generate_increment(execution_policy, size);
 
 		// Seed with a fixed value for reproducibility
 		const auto seed = 42;
@@ -39,7 +39,14 @@ namespace benchmark_find
 			// random value in [0,size)
 			const auto value = get_value();
 
-			WRAP_TIMING(auto find_location = F(execution_policy, input_data, value);)
+			WRAP_TIMING(auto find_location = [&]() {
+				auto output = F(execution_policy, input_data, value);
+#ifdef USE_GPU
+				pstl::elem_t i = 1;
+				std::for_each(input_data.begin(), input_data.end(), [&](auto & elem) { elem = i++; });
+#endif
+				return output;
+			}())
 
 			// make sure the val is really found
 			assert(find_location == std::find(input_data.begin(), input_data.end(), value));

@@ -16,7 +16,7 @@ namespace benchmark_inclusive_scan
 
 		const auto & size = state.range(0);
 
-		const auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input_data = pstl::generate_increment(execution_policy, size);
 
 		auto output = input_data;
 		std::fill(output.begin(), output.end(), 0);
@@ -27,7 +27,13 @@ namespace benchmark_inclusive_scan
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(F(execution_policy, input_data, output);)
+			WRAP_TIMING([&]() {
+				F(execution_policy, input_data, output);
+#ifdef USE_GPU
+				pstl::elem_t i = 1;
+				std::for_each(input_data.begin(), input_data.end(), [&](auto & elem) { elem = i++; });
+#endif
+			}())
 
 			assert(pstl::are_equivalent(output.back(), solution));
 		}
