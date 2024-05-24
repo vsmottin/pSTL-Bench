@@ -32,32 +32,34 @@ To run pSTL-Bench, follow these steps:
 
 1. Clone the repository:
 
+[//]: # (TODO: Update the path to the repository)
+
 ```shell
-git clone https://github.com/diegokrupitza/pSTL-Bench.git
+git clone https://github.com/diegokrupitza/pSTL-Bench.git 
 ```
 
 2. Build the project with the desired parallel STL Backend
 
 ```shell
-cmake -DBACKEND=TBB -DCMAKE_CXX_COMPILER=g++ -S . -B ./cmake-build-gcc
+cmake -DPSTL_BENCH_BACKEND=TBB -DCMAKE_CXX_COMPILER=g++ -S . -B ./cmake-build-gcc
 cmake --build cmake-build-gcc/ --target pSTL-Bench
 ```
 
 One must define which backend to be used and which compiler.
-You can define the backend with `-DBACKEND=...` and the compiler with `-DCMAKE_CXX_COMPILER=...`.
+You can define the backend with `-DPSTL_BENCH_BACKEND=...` and the compiler with `-DCMAKE_CXX_COMPILER=...`.
 In the example above we will use g++ with TBB.
 A list of supported backends can be seen in `./cmake/`.
 
 Other options are:
 
-* `-DDATA_TYPE=...` to define the data type (`int`, `float`, `double`...).
-* `-DMIN_INPUT_SIZE=...` and `-DMAX_INPUT_SIZE=...` to define the range of input sizes.
-* `-DUSE_PARALLEL_ALLOCATOR=ON|OFF` to use a parallel allocator designed for NUMA systems.
-* `-DUSE_LIKWID=ON|OFF` and `-DUSE_PAPI=ON|OFF` to use performance counters
+* `-DPSTL_BENCH_DATA_TYPE=...` to define the data type (`int`, `float`, `double`...).
+* `-DPSTL_BENCH_MIN_INPUT_SIZE=...` and `-DPSTL_BENCH_MAX_INPUT_SIZE=...` to define the range of input sizes.
+* `-DPSTL_BENCH_USE_PAR_ALLOC=ON|OFF` to use a parallel allocator designed for NUMA systems.
+* `-DPSTL_BENCH_USE_LIKWID=ON|OFF` and `-DPSTL_BENCH_USE_PAPI=ON|OFF` to use performance counters
   with [LIKWID](https://github.com/RRZE-HPC/likwid) or [PAPI](https://github.com/icl-utk-edu/papi).
-* `-DGPU_CONTINUOUS_TRANSFERS=ON|OFF` to enable continuous transfers between the CPU and GPU so will be transferred
-  between host and device before and after each kernel. When OFF, data will be transferred only once before the first
-  call.
+* `-DPSTL_BENCH_GPU_CONTINUOUS_TRANSFERS=ON|OFF` to enable continuous transfers between the CPU and GPU so will be
+  transferred between host and device before and after each kernel. When OFF, data will be transferred only once before
+  the first call.
 
 _Note_: we recommend to use `ccmake` to see all the possible flags and options.
 
@@ -81,8 +83,8 @@ However, for [HPX](https://github.com/STEllAR-GROUP/hpx) argument `--hpx:threads
 
 Other environment variables that can be used are:
 
-* `PSTL_ABS_TOL` and `PSTL_REL_TOL` to define the absolute and relative tolerance when asserting the results of floating
-  point operations.
+* `PSTL_BENCH_ABS_TOL` and `PSTL_BENCH_REL_TOL` to define the absolute and relative tolerance when asserting the results
+  of floating point operations.
 
 ## Citation
 
@@ -107,3 +109,4 @@ Some parallel STL backends have dependencies:
   their [website](https://www.intel.com/content/www/us/en/developer/tools/oneapi/onetbb.html).
 - HPX can be found on their [GitHub](https://github.com/STEllAR-GROUP/hpx) or
   their [website](https://hpx.stellar-group.org/).
+- NVHPC can be found on their [website](https://developer.nvidia.com/hpc-sdk).
