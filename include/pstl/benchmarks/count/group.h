@@ -6,11 +6,11 @@
 
 #include "count_std.h"
 
-#ifdef USE_GNU
+#ifdef PSTL_BENCH_USE_GNU
 #include "count_gnu.h"
 #endif
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 #include "count_hpx.h"
 #endif
 
@@ -23,25 +23,21 @@ static void count_std_wrapper(benchmark::State & state)
 
 #define COUNT_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(count_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::count"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                              \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                              \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::count"))             \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
-#ifdef USE_PSTL
+#ifdef PSTL_BENCH_USE_PSTL
 #define COUNT_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(count_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("std::count"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                         \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::count"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define COUNT_STD_WRAPPER
 #endif
 //endregion count_std
 
 //region count_gnu
-#ifdef USE_GNU
+#ifdef PSTL_BENCH_USE_GNU
 template<class Policy>
 static void count_gnu_wrapper(benchmark::State & state)
 {
@@ -50,16 +46,14 @@ static void count_gnu_wrapper(benchmark::State & state)
 
 #define COUNT_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(count_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::count"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                         \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::count"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define COUNT_GNU_WRAPPER
 #endif
 //endregion count_gnu
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 template<class Policy>
 static void count_hpx_wrapper(benchmark::State & state)
 {
@@ -68,10 +62,8 @@ static void count_hpx_wrapper(benchmark::State & state)
 
 #define COUNT_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(count_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::count"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                         \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::count"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define COUNT_HPX_WRAPPER
 #endif

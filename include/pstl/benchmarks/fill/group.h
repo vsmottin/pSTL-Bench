@@ -6,7 +6,7 @@
 
 #include "fill_std.h"
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 #include "fill_hpx.h"
 #endif
 
@@ -19,24 +19,20 @@ static void fill_std_wrapper(benchmark::State & state)
 
 #define FILL_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(fill_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::fill"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                             \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                             \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::fill"))             \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
-#ifdef USE_PSTL
+#ifdef PSTL_BENCH_USE_PSTL
 #define FILL_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(fill_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("std::fill"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                        \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                        \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::fill"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define FILL_STD_WRAPPER
 #endif
 //endregion fill_std
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 template<class Policy>
 static void fill_hpx_wrapper(benchmark::State & state)
 {
@@ -45,10 +41,8 @@ static void fill_hpx_wrapper(benchmark::State & state)
 
 #define FILL_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(fill_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::fill"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                        \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                        \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::fill"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define FILL_HPX_WRAPPER
 #endif

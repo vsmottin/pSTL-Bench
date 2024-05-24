@@ -6,11 +6,11 @@
 
 #include "mismatch_std.h"
 
-#ifdef USE_GNU
+#ifdef PSTL_BENCH_USE_GNU
 #include "mismatch_gnu.h"
 #endif
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 #include "mismatch_hpx.h"
 #endif
 
@@ -23,25 +23,21 @@ static void mismatch_std_wrapper(benchmark::State & state)
 
 #define MISMATCH_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(mismatch_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::mismatch"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                 \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::mismatch"))             \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
-#ifdef USE_PSTL
+#ifdef PSTL_BENCH_USE_PSTL
 #define MISMATCH_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(mismatch_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("std::mismatch"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::mismatch"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define MISMATCH_STD_WRAPPER
 #endif
 //endregion mismatch_std
 
 //region mismatch_gnu
-#ifdef USE_GNU
+#ifdef PSTL_BENCH_USE_GNU
 template<class Policy>
 static void mismatch_gnu_wrapper(benchmark::State & state)
 {
@@ -50,17 +46,15 @@ static void mismatch_gnu_wrapper(benchmark::State & state)
 
 #define MISMATCH_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(mismatch_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::mismatch"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::mismatch"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define MISMATCH_GNU_WRAPPER
 #endif
 //endregion mismatch_gnu
 
 //region mismatch_hpx
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 template<class Policy>
 static void mismatch_hpx_wrapper(benchmark::State & state)
 {
@@ -69,10 +63,8 @@ static void mismatch_hpx_wrapper(benchmark::State & state)
 
 #define MISMATCH_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(mismatch_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::mismatch"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::mismatch"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define MISMATCH_HPX_WRAPPER
 #endif

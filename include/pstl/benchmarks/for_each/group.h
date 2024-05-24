@@ -8,11 +8,11 @@
 
 #include "for_each_std.h"
 
-#ifdef USE_GNU
+#ifdef PSTL_BENCH_USE_GNU
 #include "for_each_gnu.h"
 #endif
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 #include "for_each_hpx.h"
 #endif
 
@@ -25,25 +25,21 @@ static void for_each_std_wrapper(benchmark::State & state)
 
 #define FOR_EACH_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(for_each_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::for_each"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                 \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                 \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::for_each"))             \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
-#ifdef USE_PSTL
+#ifdef PSTL_BENCH_USE_PSTL
 #define FOR_EACH_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(for_each_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("std::for_each"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::for_each"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define FOR_EACH_STD_WRAPPER
 #endif
 //endregion for_each
 
 //region for_each_gnu
-#ifdef USE_GNU
+#ifdef PSTL_BENCH_USE_GNU
 template<class Policy>
 static void for_each_gnu_wrapper(benchmark::State & state)
 {
@@ -52,17 +48,15 @@ static void for_each_gnu_wrapper(benchmark::State & state)
 
 #define FOR_EACH_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(for_each_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::for_each"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::for_each"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define FOR_EACH_GNU_WRAPPER
 #endif
 //endregion for_each_gnu
 
 //region for_each_hpx
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 template<class Policy>
 static void for_each_hpx_wrapper(benchmark::State & state)
 {
@@ -71,10 +65,8 @@ static void for_each_hpx_wrapper(benchmark::State & state)
 
 #define FOR_EACH_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(for_each_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::for_each"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                            \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                            \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::for_each"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define FOR_EACH_HPX_WRAPPER
 #endif

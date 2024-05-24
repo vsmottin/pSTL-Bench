@@ -6,15 +6,15 @@
 
 #include "pstl/utils/elem_t.h"
 
-#ifdef USE_PARALLEL_ALLOCATOR
+#ifdef PSTL_BENCH_USE_PAR_ALLOC
 #include "pstl/utils/par_alloc.h"
 #include <execution>
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 #include <hpx/algorithm.hpp>
 #endif
 
-#ifdef USE_GNU
+#ifdef PSTL_BENCH_USE_GNU
 #include <parallel/algorithm>
 #endif
 
@@ -22,7 +22,7 @@
 
 namespace pstl
 {
-#ifdef USE_PARALLEL_ALLOCATOR
+#ifdef PSTL_BENCH_USE_PAR_ALLOC
 	template<typename VALUE_TYPE, typename ExecutionPolicy,
 	         typename = std::enable_if_t<std::is_execution_policy<ExecutionPolicy>::value>>
 	using vector = std::vector<VALUE_TYPE, pstl::par_alloc<VALUE_TYPE, ExecutionPolicy>>;
@@ -33,7 +33,7 @@ namespace pstl
 
 	/**
      * Allows to create a vector using the allocation strategy configured
-     * @tparam ExecutionPolicy the execution policy to use. Only considered when using the flag `USE_PARALLEL_ALLOCATOR`
+     * @tparam ExecutionPolicy the execution policy to use. Only considered when using the flag `PSTL_BENCH_USE_PAR_ALLOC`
      * @tparam Container the container type to create
      * @tparam ValueType the value type of the container
      * @tparam Size_type the size type of the container
@@ -45,7 +45,7 @@ namespace pstl
 	         typename Size_type = typename Container::size_type>
 	Container get_vector(const Size_type size)
 	{
-#ifdef USE_PARALLEL_ALLOCATOR
+#ifdef PSTL_BENCH_USE_PAR_ALLOC
 		constexpr auto execution_policy = ExecutionPolicy{};
 
 		const pstl::par_alloc<ValueType, ExecutionPolicy> allocator(execution_policy);
@@ -118,10 +118,10 @@ namespace pstl
 			val          = start + i * increment;
 		};
 
-#ifdef USE_PARALLEL_ALLOCATOR
-#if defined(USE_HPX)
+#ifdef PSTL_BENCH_USE_PAR_ALLOC
+#if defined(PSTL_BENCH_USE_HPX)
 		hpx::for_each(execution_policy, v.begin(), v.end(), body);
-#elif defined(USE_GNU)
+#elif defined(PSTL_BENCH_USE_GNU)
 		__gnu_parallel::for_each(v.begin(), v.end(), body);
 #else
 		std::for_each(execution_policy, v.begin(), v.end(), body);

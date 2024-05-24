@@ -6,7 +6,7 @@
 
 #include "inplace_merge_std.h"
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 #include "inplace_merge_hpx.h"
 #endif
 
@@ -19,25 +19,21 @@ static void inplace_merge_std_wrapper(benchmark::State & state)
 
 #define INPLACE_MERGE_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(inplace_merge_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::inplace_merge"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                      \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                      \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::inplace_merge"))             \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
-#ifdef USE_PSTL
+#ifdef PSTL_BENCH_USE_PSTL
 #define INPLACE_MERGE_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(inplace_merge_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("std::inplace_merge"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                 \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                 \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::inplace_merge"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define INPLACE_MERGE_STD_WRAPPER
 #endif
 //endregion inplace_merge_std
 
 //region inplace_merge_hpx
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 template<class Policy>
 static void inplace_merge_hpx_wrapper(benchmark::State & state)
 {
@@ -46,10 +42,8 @@ static void inplace_merge_hpx_wrapper(benchmark::State & state)
 
 #define INPLACE_MERGE_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(inplace_merge_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::inplace_merge"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                 \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                 \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::inplace_merge"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define INPLACE_MERGE_HPX_WRAPPER
 #endif

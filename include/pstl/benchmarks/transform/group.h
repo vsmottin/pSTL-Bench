@@ -8,11 +8,11 @@
 
 #include "transform_std.h"
 
-#ifdef USE_GNU
+#ifdef PSTL_BENCH_USE_GNU
 #include "transform_gnu.h"
 #endif
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 #include "transform_hpx.h"
 #endif
 
@@ -25,25 +25,21 @@ static void transform_std_wrapper(benchmark::State & state)
 
 #define TRANSFORM_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(transform_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::transform"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                  \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                  \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::transform"))             \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
-#ifdef USE_PSTL
+#ifdef PSTL_BENCH_USE_PSTL
 #define TRANSFORM_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("std::transform"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                             \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                             \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::transform"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_STD_WRAPPER
 #endif
 //endregion transform
 
 //region transform_gnu
-#ifdef USE_GNU
+#ifdef PSTL_BENCH_USE_GNU
 template<class Policy>
 static void transform_gnu_wrapper(benchmark::State & state)
 {
@@ -52,17 +48,15 @@ static void transform_gnu_wrapper(benchmark::State & state)
 
 #define TRANSFORM_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::transform"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                             \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                             \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::transform"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_GNU_WRAPPER
 #endif
 //endregion transform_gnu
 
 //region transform_hpx
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 template<class Policy>
 static void transform_hpx_wrapper(benchmark::State & state)
 {
@@ -71,10 +65,8 @@ static void transform_hpx_wrapper(benchmark::State & state)
 
 #define TRANSFORM_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::transform"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                             \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                             \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::transform"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_HPX_WRAPPER
 #endif

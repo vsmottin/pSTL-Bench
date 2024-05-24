@@ -1,9 +1,7 @@
-add_compile_definitions(USE_TBB)
-add_compile_definitions(USE_PSTL)
+add_compile_definitions(PSTL_BENCH_USE_TBB)
+add_compile_definitions(PSTL_BENCH_USE_PSTL)
 
-add_compile_definitions(USE_PSTL)
-
-add_compile_definitions(BENCHMARK_BACKEND="TBB")
+add_compile_definitions(PSTL_BENCH_BACKEND="TBB")
 
 # Find package TBB
 find_package(TBB REQUIRED)

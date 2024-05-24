@@ -1,6 +1,6 @@
-add_compile_definitions(USE_GNU)
+add_compile_definitions(PSTL_BENCH_USE_GNU)
 
-add_compile_definitions(BENCHMARK_BACKEND="OMP")
+add_compile_definitions(PSTL_BENCH_BACKEND="OMP")
 
 # Find package OpenMP
 find_package(OpenMP REQUIRED)

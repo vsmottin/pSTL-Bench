@@ -6,7 +6,7 @@
 
 #include "exclusive_scan_std.h"
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 #include "exclusive_scan_hpx.h"
 #endif
 
@@ -19,25 +19,21 @@ static void exclusive_scan_std_wrapper(benchmark::State & state)
 
 #define EXCLUSIVE_SCAN_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(exclusive_scan_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::exclusive_scan"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                       \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                       \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::exclusive_scan"))             \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
-#ifdef USE_PSTL
+#ifdef PSTL_BENCH_USE_PSTL
 #define EXCLUSIVE_SCAN_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(exclusive_scan_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("std::exclusive_scan"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                  \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                  \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::exclusive_scan"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define EXCLUSIVE_SCAN_STD_WRAPPER
 #endif
 //endregion exclusive_scan_std
 
 //region exclusive_scan_hpx
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 template<class Policy>
 static void exclusive_scan_hpx_wrapper(benchmark::State & state)
 {
@@ -46,10 +42,8 @@ static void exclusive_scan_hpx_wrapper(benchmark::State & state)
 
 #define EXCLUSIVE_SCAN_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(exclusive_scan_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::exclusive_scan"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                  \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                  \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::exclusive_scan"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define EXCLUSIVE_SCAN_HPX_WRAPPER
 #endif

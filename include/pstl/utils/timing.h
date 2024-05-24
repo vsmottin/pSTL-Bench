@@ -6,16 +6,17 @@
 
 #include <numa.h>
 
-#ifdef USE_PAPI
+#ifdef PSTL_BENCH_USE_PAPI
 #include <papi.h>
 
-#define PRINT_PAPI_ERROR(retval, zone_name)                                                                          \
-	{                                                                                                                \
-		std::cerr << "Error " << retval << " for zone " << zone_name << " : " << PAPI_strerror(retval) << std::endl; \
+#define PRINT_PAPI_ERROR(retval, zone_name)                                                                    \
+	{                                                                                                          \
+		std::cerr << "Error " << retval << " for zone " << zone_name << " : " << PAPI_strerror(retval) << " (" \
+		          << __FILE__ << ":" << __LINE__ << ")" << std::endl;                                          \
 	}
 #endif
 
-#ifdef USE_LIKWID
+#ifdef PSTL_BENCH_USE_LIKWID
 #include <likwid.h>
 #endif
 
@@ -51,14 +52,14 @@ namespace pstl
 
 	inline void hw_counters_begin(const benchmark::State & state)
 	{
-#if defined(USE_PAPI) or defined(USE_LIKWID)
+#if defined(PSTL_BENCH_USE_PAPI) or defined(PSTL_BENCH_USE_LIKWID)
 		const auto region = state.name() + "/" + std::to_string(state.range(0));
-#if defined(USE_PAPI)
+#if defined(PSTL_BENCH_USE_PAPI)
 		auto marker_start_f = [&]() {
 			int retval = PAPI_hl_region_begin(region.c_str());
 			if (retval) { PRINT_PAPI_ERROR(retval, region.c_str()); }
 		};
-#elif defined(USE_LIKWID)
+#elif defined(PSTL_BENCH_USE_LIKWID)
 		auto marker_start_f = [&]() {
 			LIKWID_MARKER_START(region.c_str());
 		};
@@ -71,14 +72,14 @@ namespace pstl
 
 	inline void hw_counters_end(const benchmark::State & state)
 	{
-#if defined(USE_PAPI) or defined(USE_LIKWID)
+#if defined(PSTL_BENCH_USE_PAPI) or defined(PSTL_BENCH_USE_LIKWID)
 		const auto region = state.name() + "/" + std::to_string(state.range(0));
-#if defined(USE_PAPI)
+#if defined(PSTL_BENCH_USE_PAPI)
 		auto marker_stop_f = [&]() {
 			int retval = PAPI_hl_region_end(region.c_str());
 			if (retval) { PRINT_PAPI_ERROR(retval, region.c_str()); }
 		};
-#elif defined(USE_LIKWID)
+#elif defined(PSTL_BENCH_USE_LIKWID)
 		auto marker_stop_f = [&]() {
 			LIKWID_MARKER_STOP(region.c_str());
 		};
@@ -136,7 +137,7 @@ namespace pstl
 		hw_counters_begin(state);
 		const auto start = std::chrono::high_resolution_clock::now();
 		std::forward<F>(f)(std::forward<Args>(args)...);
-#if defined(USE_GPU) and defined(GPU_CONTINUOUS_TRANSFERS)
+#if defined(PSTL_BENCH_USE_GPU) and defined(PSTL_BENCH_GPU_CONTINUOUS_TRANSFERS)
 		touch_memory(args...);
 #endif
 		const auto end = std::chrono::high_resolution_clock::now();
@@ -153,7 +154,7 @@ namespace pstl
 		hw_counters_begin(state);
 		const auto start = std::chrono::high_resolution_clock::now();
 		return_t   rv    = std::forward<F>(f)(std::forward<Args>(args)...);
-#if defined(USE_GPU) and defined(GPU_CONTINUOUS_TRANSFERS)
+#if defined(PSTL_BENCH_USE_GPU) and defined(PSTL_BENCH_GPU_CONTINUOUS_TRANSFERS)
 		touch_memory(args...);
 #endif
 		const auto end = std::chrono::high_resolution_clock::now();

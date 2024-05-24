@@ -1,6 +1,6 @@
-add_compile_definitions(USE_HPX)
+add_compile_definitions(PSTL_BENCH_USE_HPX)
 
-add_compile_definitions(BENCHMARK_BACKEND="HPX")
+add_compile_definitions(PSTL_BENCH_BACKEND="HPX")
 
 # Find package HPX
 find_package(HPX REQUIRED)

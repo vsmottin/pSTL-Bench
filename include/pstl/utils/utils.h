@@ -7,18 +7,23 @@
 
 #include <benchmark/benchmark.h>
 
-#ifdef USE_PARALLEL_ALLOCATOR
+#ifdef PSTL_BENCH_USE_PAR_ALLOC
 #include "pstl/utils/par_alloc.h"
 #endif
 
 #include "pstl/utils/input_gen.h"
 #include "pstl/utils/timing.h"
 
-#define CUSTOM_STATISTICS                                                                                              \
+#define PSTL_BENCH_CUSTOM_STATISTICS                                                                                   \
 	ComputeStatistics("max", [](const auto & v) -> double { return *(std::max_element(std::begin(v), std::end(v))); }) \
 	    -> ComputeStatistics("min", [](const auto & v) -> double {                                                     \
 		    return *(std::min_element(std::begin(v), std::end(v)));                                                    \
 	    }) -> UseManualTime()
+
+#define PSTL_BENCH_BENCHMARK_PARAMETERS                               \
+	PSTL_BENCH_CUSTOM_STATISTICS->RangeMultiplier(2)                  \
+	    ->Range(PSTL_BENCH_MIN_INPUT_SIZE, PSTL_BENCH_MAX_INPUT_SIZE) \
+	    ->UseManualTime();
 
 namespace pstl
 {

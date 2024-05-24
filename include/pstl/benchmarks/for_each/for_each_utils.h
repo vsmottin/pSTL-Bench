@@ -8,8 +8,8 @@
 
 namespace benchmark_for_each
 {
-#ifndef DEFAULT_FOR_EACH_KERNEL_ITS
-#define DEFAULT_FOR_EACH_KERNEL_ITS 1
+#ifndef PSTL_BENCH_DEFAULT_FOR_EACH_KERNEL_ITS
+#define PSTL_BENCH_DEFAULT_FOR_EACH_KERNEL_ITS 1
 #endif
 
 	const auto kernel = [](auto & input, const auto Its) {
@@ -35,9 +35,9 @@ namespace benchmark_for_each
 		auto data = pstl::generate_increment(execution_policy, size);
 
 		// Read environment variable PSTL_FOR_EACH_KERNEL_ITS
-		std::size_t its = DEFAULT_FOR_EACH_KERNEL_ITS;
+		std::size_t its = PSTL_BENCH_DEFAULT_FOR_EACH_KERNEL_ITS;
 
-		const char * env_p = std::getenv("PSTL_FOR_EACH_KERNEL_ITS");
+		const char * env_p = std::getenv("PSTL_BENCH_FOR_EACH_KERNEL_ITS");
 		if (env_p) { its = std::strtoul(env_p, nullptr, 10); }
 
 		for (auto _ : state)
@@ -51,5 +51,3 @@ namespace benchmark_for_each
 		state.counters["kernel_its"] = static_cast<double>(its);
 	}
 } // namespace benchmark_for_each
-
-

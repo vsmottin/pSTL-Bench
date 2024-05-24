@@ -8,7 +8,7 @@
 
 #include "transform_reduce_std.h"
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 #include "transform_reduce_hpx.h"
 #endif
 
@@ -21,25 +21,21 @@ static void transform_reduce_std_wrapper(benchmark::State & state)
 
 #define TRANSFORM_REDUCE_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(transform_reduce_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::transform_reduce"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                         \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                         \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::transform_reduce"))             \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
-#ifdef USE_PSTL
+#ifdef PSTL_BENCH_USE_PSTL
 #define TRANSFORM_REDUCE_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_reduce_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("std::transform_reduce"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                    \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                    \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::transform_reduce"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_REDUCE_STD_WRAPPER
 #endif
 //endregion transform_reduce
 
 //region transform_reduce_hpx
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 template<class Policy>
 static void transform_reduce_hpx_wrapper(benchmark::State & state)
 {
@@ -48,10 +44,8 @@ static void transform_reduce_hpx_wrapper(benchmark::State & state)
 
 #define TRANSFORM_REDUCE_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_reduce_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::transform_reduce"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                    \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                    \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::transform_reduce"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_REDUCE_HPX_WRAPPER
 #endif

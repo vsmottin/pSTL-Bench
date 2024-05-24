@@ -2,7 +2,7 @@
 
 #include <string>
 
-#ifdef USE_TBB
+#ifdef PSTL_BENCH_USE_TBB
 #include <tbb/global_control.h>
 
 #include <memory>

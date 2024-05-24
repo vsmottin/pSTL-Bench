@@ -6,11 +6,11 @@
 
 #include "lexicographical_compare_std.h"
 
-#ifdef USE_GNU
+#ifdef PSTL_BENCH_USE_GNU
 #include "lexicographical_compare_gnu.h"
 #endif
 
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 #include "lexicographical_compare_hpx.h"
 #endif
 
@@ -24,25 +24,21 @@ static void lexicographical_compare_std_wrapper(benchmark::State & state)
 
 #define LEXICOGRAPHICAL_COMPARE_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(lexicographical_compare_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::lexicographical_compare"))             \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::lexicographical_compare"))             \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
-#ifdef USE_PSTL
+#ifdef PSTL_BENCH_USE_PSTL
 #define LEXICOGRAPHICAL_COMPARE_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(lexicographical_compare_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("std::lexicographical_compare"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                           \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                           \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::lexicographical_compare"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define LEXICOGRAPHICAL_COMPARE_STD_WRAPPER
 #endif
 //endregion lexicographical_compare_std
 
 //region lexicographical_compare_gnu
-#ifdef USE_GNU
+#ifdef PSTL_BENCH_USE_GNU
 template<class Policy>
 static void lexicographical_compare_gnu_wrapper(benchmark::State & state)
 {
@@ -52,17 +48,15 @@ static void lexicographical_compare_gnu_wrapper(benchmark::State & state)
 
 #define LEXICOGRAPHICAL_COMPARE_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(lexicographical_compare_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("gnu::lexicographical_compare"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                           \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                           \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::lexicographical_compare"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define LEXICOGRAPHICAL_COMPARE_GNU_WRAPPER
 #endif
 //endregion lexicographical_compare_gnu
 
 //region lexicographical_compare_hpx
-#ifdef USE_HPX
+#ifdef PSTL_BENCH_USE_HPX
 template<class Policy>
 static void lexicographical_compare_hpx_wrapper(benchmark::State & state)
 {
@@ -72,10 +66,8 @@ static void lexicographical_compare_hpx_wrapper(benchmark::State & state)
 
 #define LEXICOGRAPHICAL_COMPARE_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(lexicographical_compare_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(BENCHMARK_NAME("hpx::lexicographical_compare"))                                            \
-	    ->CUSTOM_STATISTICS->RangeMultiplier(2)                                                           \
-	    ->Range(MIN_INPUT_SIZE, MAX_INPUT_SIZE)                                                           \
-	    ->UseManualTime();
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::lexicographical_compare"))                                            \
+	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define LEXICOGRAPHICAL_COMPARE_HPX_WRAPPER
 #endif

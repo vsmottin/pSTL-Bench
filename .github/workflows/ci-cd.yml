@@ -52,14 +52,16 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=TBB -DUSE_PARALLEL_ALLOCATOR=ON
+          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_BACKEND=TBB -DPSTL_BENCH_USE_PAR_ALLOC=ON"
+          cmake .. ${PSTL_BUILD_OPTIONS}
           make
-          echo "Application built successfully! (-DBACKEND=TBB -DCMAKE_BUILD_TYPE=Release)"
+          echo "Application built successfully! (${PSTL_BUILD_OPTIONS})"
 
       - name: Build application with CMake (enable GNU parallel STL)
         run: |
           mkdir build-gpstl
           cd build-gpstl
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DBACKEND=GNU -DUSE_PARALLEL_ALLOCATOR=ON
+          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_BACKEND=GNU -DPSTL_BENCH_USE_PAR_ALLOC=ON"
+          cmake .. ${PSTL_BUILD_OPTIONS}
           make
-          echo "Application built successfully! (-DBACKEND=GNU -DUSE_PARALLEL_ALLOCATOR=ON)"
+          echo "Application built successfully! (${PSTL_BUILD_OPTIONS})"

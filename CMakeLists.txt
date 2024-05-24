@@ -5,27 +5,27 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # region options
-option(USE_PARALLEL_ALLOCATOR "Use the parallel allocator to avoid first-touch bottlenecks" OFF)
+option(PSTL_BENCH_USE_PAR_ALLOC "Use the parallel allocator to avoid first-touch bottlenecks" OFF)
 
-option(USE_PAPI "Use PAPI for performance counters" OFF)
-option(USE_LIKWID "Use LIKWID for performance counters" OFF)
+option(PSTL_BENCH_USE_PAPI "Use PAPI for performance counters" OFF)
+option(PSTL_BENCH_USE_LIKWID "Use LIKWID for performance counters" OFF)
 
-set(BACKEND CACHE STRING "Select the backend to use for std:: algorithms")
-set_property(CACHE BACKEND PROPERTY STRINGS TBB GNU HPX NVHPC_OMP NVHPC_CUDA)
-set(DATA_TYPE CACHE STRING "Select the data type to use for the benchmarks")
-set_property(CACHE DATA_TYPE PROPERTY STRINGS int float double)
+set(PSTL_BENCH_BACKEND CACHE STRING "Select the backend to use for std:: algorithms")
+set_property(CACHE PSTL_BENCH_BACKEND PROPERTY STRINGS TBB GNU HPX NVHPC_OMP NVHPC_CUDA)
+set(PSTL_BENCH_DATA_TYPE CACHE STRING "Select the data type to use for the benchmarks")
+set_property(CACHE PSTL_BENCH_DATA_TYPE PROPERTY STRINGS int float double)
 
-if (DATA_TYPE STREQUAL "")
-    set(DATA_TYPE "double")
-    message(STATUS "No data type selected, using default (${DATA_TYPE})")
+if (PSTL_BENCH_DATA_TYPE STREQUAL "")
+    set(PSTL_BENCH_DATA_TYPE "double")
+    message(STATUS "No data type selected, using default (${PSTL_BENCH_DATA_TYPE})")
 endif ()
 
-message(STATUS "Using ${BACKEND} backend...")
-message(STATUS "Using ${DATA_TYPE} data type...")
+message(STATUS "Using ${PSTL_BENCH_BACKEND} backend...")
+message(STATUS "Using ${PSTL_BENCH_DATA_TYPE} data type...")
 
 # add compile definition if PSTL_ELEM_T is not empty
-if (NOT DATA_TYPE STREQUAL "")
-    add_compile_definitions(PSTL_ELEM_T=${DATA_TYPE})
+if (NOT PSTL_BENCH_DATA_TYPE STREQUAL "")
+    add_compile_definitions(PSTL_ELEM_T=${PSTL_BENCH_DATA_TYPE})
 endif ()
 # endregion options
 
@@ -60,11 +60,11 @@ register_backend(NVHPC_CUDA)
 register_backend(NVHPC_OMP)
 
 # Define the BENCHMARK_COMPILER macro to ${CMAKE_CXX_COMPILER_ID}
-add_compile_definitions(BENCHMARK_COMPILER="${CMAKE_CXX_COMPILER_ID}")
+add_compile_definitions(PSTL_BENCH_COMPILER="${CMAKE_CXX_COMPILER_ID}")
 
 # load backend specific stuff
-if (NOT BACKEND STREQUAL "")
-    use_backend(${BACKEND})
+if (NOT PSTL_BENCH_BACKEND STREQUAL "")
+    use_backend(${PSTL_BENCH_BACKEND})
 endif ()
 # endregion register backends
 
@@ -84,46 +84,46 @@ add_executable(${PROJECT_NAME}
         src/main.cpp)
 
 # region benchmark prefix
-set(BENCHMARK_PREFIX ${BACKEND})
-add_compile_definitions(BENCHMARK_PREFIX=${BENCHMARK_PREFIX})
+set(PSTL_BENCH_BENCHMARK_PREFIX ${BACKEND})
+add_compile_definitions(PSTL_BENCH_BENCHMARK_PREFIX=${PSTL_BENCH_BENCHMARK_PREFIX})
 # endregion benchmark prefix
 
 # region parallel allocator
-if (USE_PARALLEL_ALLOCATOR)
-    message(STATUS "Using parallel allocator")
-    add_compile_definitions(USE_PARALLEL_ALLOCATOR)
+if (PSTL_BENCH_USE_PAR_ALLOC)
+    message(STATUS "Using custom parallel allocator")
+    add_compile_definitions(PSTL_BENCH_USE_PAR_ALLOC)
     find_package(TBB REQUIRED)
     list(APPEND LINK_LIBRARIES TBB::tbb)
 else ()
-    message(STATUS "Using no allocator")
+    message(STATUS "NOT using custom parallel allocator")
 endif ()
 # endregion parallel allocator
 
 # region input size
-if (NOT DEFINED ${MIN_INPUT_SIZE})
-    set(MIN_INPUT_SIZE 8 CACHE STRING "Minimum input size (#elements) for the benchmarks")
+if (NOT DEFINED ${PSTL_BENCH_MIN_INPUT_SIZE})
+    set(PSTL_BENCH_MIN_INPUT_SIZE 8 CACHE STRING "Minimum input size (#elements) for the benchmarks")
 endif ()
 
-if (NOT DEFINED ${MAX_INPUT_SIZE})
-    set(MAX_INPUT_SIZE 1073741824 CACHE STRING "Maximum input size (#elements) for the benchmarks")
+if (NOT DEFINED ${PSTL_BENCH_MAX_INPUT_SIZE})
+    set(PSTL_BENCH_MAX_INPUT_SIZE 1073741824 CACHE STRING "Maximum input size (#elements) for the benchmarks")
 endif ()
 
-add_compile_definitions(MIN_INPUT_SIZE=${MIN_INPUT_SIZE})
-add_compile_definitions(MAX_INPUT_SIZE=${MAX_INPUT_SIZE})
+add_compile_definitions(PSTL_BENCH_MIN_INPUT_SIZE=${PSTL_BENCH_MIN_INPUT_SIZE})
+add_compile_definitions(PSTL_BENCH_MAX_INPUT_SIZE=${PSTL_BENCH_MAX_INPUT_SIZE})
 # endregion input size
 
 # region for_each kernel iterations
-if (NOT DEFINED ${DEFAULT_FOR_EACH_KERNEL_ITS})
-    set(DEFAULT_FOR_EACH_KERNEL_ITS 1 CACHE STRING "Number of iterations for the for_each kernel (can be changed with environment variable PSTL_FOR_EACH_KERNEL_ITS)")
+if (NOT DEFINED ${PSTL_BENCH_DEFAULT_FOR_EACH_KERNEL_ITS})
+    set(PSTL_BENCH_DEFAULT_FOR_EACH_KERNEL_ITS 1 CACHE STRING "Number of iterations for the for_each kernel (can be changed with environment variable PSTL_FOR_EACH_KERNEL_ITS)")
 endif ()
 
-add_compile_definitions(DEFAULT_FOR_EACH_KERNEL_ITS=${DEFAULT_FOR_EACH_KERNEL_ITS})
+add_compile_definitions(PSTL_BENCH_DEFAULT_FOR_EACH_KERNEL_ITS=${PSTL_BENCH_DEFAULT_FOR_EACH_KERNEL_ITS})
 # endregion for_each kernel iterations
 
 # region GPU enforced transfers
-option(GPU_CONTINUOUS_TRANSFERS "Data will be transferred between host and device before and after each kernel. When OFF, data will be transferred only once." OFF)
-if (${GPU_CONTINUOUS_TRANSFERS})
-    add_compile_definitions(GPU_CONTINUOUS_TRANSFERS)
+option(PSTL_BENCH_GPU_CONTINUOUS_TRANSFERS "Data will be transferred between host and device before and after each kernel. When OFF, data will be transferred only once." OFF)
+if (${PSTL_BENCH_GPU_CONTINUOUS_TRANSFERS})
+    add_compile_definitions(PSTL_BENCH_GPU_CONTINUOUS_TRANSFERS)
     message(STATUS "Enforcing continuous transfers between host and device")
 else ()
     message(STATUS "Not enforcing continuous transfers between host and device")
@@ -153,8 +153,8 @@ endif ()
 # endregion google benchmark stuff
 
 # region PAPI
-if (USE_PAPI)
-    add_compile_definitions(USE_PAPI)
+if (PSTL_BENCH_USE_PAPI)
+    add_compile_definitions(PSTL_BENCH_USE_PAPI)
     find_package(PAPI REQUIRED)
     if (PAPI_FOUND)
         message(STATUS "PAPI found")
@@ -169,8 +169,8 @@ endif ()
 # endregion PAPI
 
 # region LIKWID
-if (USE_LIKWID)
-    add_compile_definitions(USE_LIKWID)
+if (PSTL_BENCH_USE_LIKWID)
+    add_compile_definitions(PSTL_BENCH_USE_LIKWID)
     find_package(likwid REQUIRED)
     if (LIKWID_FOUND)
         message(STATUS "LIKWID found")
