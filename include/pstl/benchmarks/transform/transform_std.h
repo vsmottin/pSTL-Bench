@@ -1,20 +1,14 @@
-#ifndef PSTL_BENCH_TRANSFORM_STD_H
-#define PSTL_BENCH_TRANSFORM_STD_H
+#pragma once
 
-
-#include "pstl/utils.h"
 #include <algorithm>
-#include <benchmark/benchmark.h>
-#include <cmath>
-#include <vector>
 
 namespace benchmark_transform
 {
 
-	const auto transform_std = [](auto && policy, auto & input_data, auto && f) {
-		std::transform(policy, input_data.begin(), input_data.end(), input_data.begin(), f);
+	const auto transform_std = [](auto && policy, auto & input, auto && f) {
+		std::transform(policy, input.begin(), input.end(), input.begin(), f);
 	};
 
 } // namespace benchmark_transform
 
-#endif //PSTL_BENCH_TRANSFORM_STD_H
+

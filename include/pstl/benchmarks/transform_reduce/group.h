@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_TRANSFORM_REDUCE_GROUP_H
-#define PSTL_BENCH_TRANSFORM_REDUCE_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include <benchmark/benchmark.h>
 
@@ -61,5 +60,3 @@ static void transform_reduce_hpx_wrapper(benchmark::State & state)
 	TRANSFORM_REDUCE_SEQ_WRAPPER \
 	TRANSFORM_REDUCE_STD_WRAPPER \
 	TRANSFORM_REDUCE_HPX_WRAPPER
-
-#endif //PSTL_BENCH_TRANSFORM_REDUCE_GROUP_H

@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_GENERATE_GROUP_H
-#define PSTL_BENCH_GENERATE_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "generate_utils.h"
 
@@ -84,4 +83,4 @@ static void generate_hpx_wrapper(benchmark::State & state)
 	GENERATE_GNU_WRAPPER \
 	GENERATE_HPX_WRAPPER
 
-#endif //PSTL_BENCH_GENERATE_GROUP_H
+

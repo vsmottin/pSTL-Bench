@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_FILL_HPX_H
-#define PSTL_BENCH_FILL_HPX_H
+#pragma once
 
 #include <hpx/algorithm.hpp>
 #include <hpx/execution.hpp>
@@ -13,4 +12,4 @@ namespace benchmark_fill
 	};
 } // namespace benchmark_fill
 
-#endif //PSTL_BENCH_FILL_HPX_H
+

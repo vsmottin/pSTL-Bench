@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_SEARCH_GROUP_H
-#define PSTL_BENCH_SEARCH_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "search_utils.h"
 
@@ -84,4 +83,4 @@ static void search_hpx_wrapper(benchmark::State & state)
 	SEARCH_GNU_WRAPPER \
 	SEARCH_HPX_WRAPPER
 
-#endif //PSTL_BENCH_SEARCH_GROUP_H
+

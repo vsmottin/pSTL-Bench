@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_COPY_N_STD_H
-#define PSTL_BENCH_COPY_N_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -13,4 +12,4 @@ namespace benchmark_copy_n
 	};
 } // namespace benchmark_copy_n
 
-#endif //PSTL_BENCH_COPY_N_STD_H
+

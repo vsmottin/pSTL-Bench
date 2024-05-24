@@ -1,6 +1,5 @@
 
-#ifndef PSTL_BENCH_FIND_HPX_H
-#define PSTL_BENCH_FIND_HPX_H
+#pragma once
 
 #include <vector>
 
@@ -13,4 +12,4 @@ namespace benchmark_find
 	};
 } // namespace benchmark_find
 
-#endif //PSTL_BENCH_FIND_HPX_H
+

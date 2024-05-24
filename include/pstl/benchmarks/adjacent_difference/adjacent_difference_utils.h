@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_ADJACENT_DIFFERENCE_UTILS_H
-#define PSTL_BENCH_ADJACENT_DIFFERENCE_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_adjacent_difference
 {
@@ -27,7 +26,7 @@ namespace benchmark_adjacent_difference
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(F(execution_policy, input_data, output);)
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, output);
 
 			assert(output.back() == solution);
 		}
@@ -36,4 +35,4 @@ namespace benchmark_adjacent_difference
 	}
 } // namespace benchmark_adjacent_difference
 
-#endif //PSTL_BENCH_ADJACENT_DIFFERENCE_UTILS_H
+

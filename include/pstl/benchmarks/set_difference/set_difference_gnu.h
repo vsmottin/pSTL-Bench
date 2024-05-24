@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_SET_DIFFERENCE_GNU_H
-#define PSTL_BENCH_SET_DIFFERENCE_GNU_H
+#pragma once
 
 #include <parallel/algorithm>
 
@@ -11,4 +10,4 @@ namespace benchmark_set_difference
 	};
 } // namespace benchmark_set_difference
 
-#endif //PSTL_BENCH_SET_DIFFERENCE_GNU_H
+

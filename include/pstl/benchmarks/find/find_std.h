@@ -1,6 +1,5 @@
 
-#ifndef PSTL_BENCH_FIND_STD_H
-#define PSTL_BENCH_FIND_STD_H
+#pragma once
 
 #include <algorithm>
 
@@ -11,4 +10,4 @@ namespace benchmark_find
 	};
 } // namespace benchmark_find
 
-#endif //PSTL_BENCH_FIND_STD_H
+

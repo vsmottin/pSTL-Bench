@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_FILL_UTILS_H
-#define PSTL_BENCH_FILL_UTILS_H
+#pragma once
 
 #include <algorithm>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_fill
 {
@@ -20,11 +19,11 @@ namespace benchmark_fill
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(F(execution_policy, input_data, 0);)
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, pstl::elem_t{});
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_fill
 
-#endif //PSTL_BENCH_FILL_UTILS_H
+

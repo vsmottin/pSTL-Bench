@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_SET_INTERSECTION_GROUP_H
-#define PSTL_BENCH_SET_INTERSECTION_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "set_intersection_utils.h"
 
@@ -85,4 +84,4 @@ static void set_intersection_hpx_wrapper(benchmark::State & state)
 	SET_INTERSECTION_GNU_WRAPPER \
 	SET_INTERSECTION_HPX_WRAPPER
 
-#endif //PSTL_BENCH_SET_INTERSECTION_GROUP_H
+

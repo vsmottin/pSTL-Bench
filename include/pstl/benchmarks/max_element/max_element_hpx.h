@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_MAX_ELEMENT_HPX_H
-#define PSTL_BENCH_MAX_ELEMENT_HPX_H
+#pragma once
 
 #include <hpx/algorithm.hpp>
 
@@ -10,4 +9,4 @@ namespace benchmark_max_element
 	};
 } // namespace benchmark_max_element
 
-#endif //PSTL_BENCH_MAX_ELEMENT_HPX_H
+

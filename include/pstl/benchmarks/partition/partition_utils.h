@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_PARTITION_UTILS_H
-#define PSTL_BENCH_PARTITION_UTILS_H
+#pragma once
 
 #include <algorithm>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_partition
 {
@@ -28,7 +27,8 @@ namespace benchmark_partition
 		{
 			std::shuffle(input_data.begin(), input_data.end(), std::mt19937(std::random_device()()));
 
-			WRAP_TIMING(F(execution_policy, input_data, condition);)
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data.begin(), input_data.end(),
+			                  condition);
 
 			assert(std::is_partitioned(input_data.begin(), input_data.end(), condition));
 		}
@@ -37,4 +37,4 @@ namespace benchmark_partition
 	}
 } // namespace benchmark_partition
 
-#endif //PSTL_BENCH_PARTITION_UTILS_H
+

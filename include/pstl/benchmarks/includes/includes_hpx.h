@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_INCLUDES_HPX_H
-#define PSTL_BENCH_INCLUDES_HPX_H
+#pragma once
 
 #include <hpx/numeric.hpp>
 
@@ -10,4 +9,4 @@ namespace benchmark_includes
 	};
 } // namespace benchmark_includes
 
-#endif //PSTL_BENCH_INCLUDES_HPX_H
+

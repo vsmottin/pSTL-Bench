@@ -1,10 +1,9 @@
 
-#ifndef PSTL_BENCH_TRANSFORM_UTILS_H
-#define PSTL_BENCH_TRANSFORM_UTILS_H
+#pragma once
 
 #include <cmath>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 #include <benchmark/benchmark.h>
 
 namespace benchmark_transform
@@ -24,11 +23,11 @@ namespace benchmark_transform
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(f(execution_policy, input_data, kernel);)
+			pstl::wrap_timing(state, std::forward<Function>(f), execution_policy, input_data, kernel);
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_transform
 
-#endif //PSTL_BENCH_TRANSFORM_UTILS_H
+

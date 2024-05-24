@@ -1,20 +1,20 @@
-#ifndef PSTL_BENCH_TRANSFORM_EXCLUSIVE_SCAN_HPX_H
-#define PSTL_BENCH_TRANSFORM_EXCLUSIVE_SCAN_HPX_H
+#pragma once
 
 #include <utility>
+#include <functional>
 
 #include <hpx/algorithm.hpp>
 
-#include "pstl/utils.h"
+#include "pstl/utils/elem_t.h"
 
 namespace benchmark_transform_exclusive_scan
 {
 
-	const auto transform_exclusive_scan_hpx = [](auto && policy, auto & input_data, auto & output, auto && f) {
-		return hpx::transform_exclusive_scan(policy, input_data.begin(), input_data.end(), output.begin(),
+	const auto transform_exclusive_scan_hpx = [](auto && policy, auto & input, auto & output, auto && f) {
+		return hpx::transform_exclusive_scan(policy, input.begin(), input.end(), output.begin(),
 		                                     pstl::elem_t{}, std::plus<>(), f);
 	};
 
 } // namespace benchmark_transform_exclusive_scan
 
-#endif //PSTL_BENCH_TRANSFORM_EXCLUSIVE_SCAN_HPX_H
+

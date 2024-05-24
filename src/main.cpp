@@ -2,12 +2,10 @@
 #include <hpx/hpx_main.hpp>
 #endif
 
-#include <thread>
-
 #include <benchmark/benchmark.h>
 
-#ifdef USE_TBB
-#include <tbb_thread_control.h>
+#if defined(USE_TBB) or defined(USE_HPX)
+#include "pstl/utils/thread_control.h"
 #endif
 
 #ifdef USE_LIKWID
@@ -39,9 +37,12 @@ int main(int argc, char ** argv)
 	                                                tbb::global_control::max_allowed_parallelism)));
 #endif
 
-
 #if defined(USE_OMP) or defined(USE_GNU_PSTL)
-	benchmark::AddCustomContext("omp_get_max_threads()", std::to_string(omp_get_max_threads()));
+	benchmark::AddCustomContext("omp #threads", std::to_string(omp_get_max_threads()));
+#endif
+
+#ifdef USE_HPX
+	benchmark::AddCustomContext("hpx #threads", std::to_string(hpx::get_num_worker_threads()));
 #endif
 
 #ifdef USE_PAPI
@@ -57,10 +58,6 @@ int main(int argc, char ** argv)
 	if (benchmark::ReportUnrecognizedArguments(argc, argv)) { return 1; }
 	benchmark::RunSpecifiedBenchmarks();
 	benchmark::Shutdown();
-
-#ifdef USE_TBB
-	tbbThreadControl = nullptr;
-#endif
 
 #ifdef USE_LIKWID
 	LIKWID_MARKER_CLOSE;

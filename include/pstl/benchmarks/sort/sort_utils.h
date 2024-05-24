@@ -1,9 +1,8 @@
-#ifndef PSTL_BENCH_SORT_UTILS_H
-#define PSTL_BENCH_SORT_UTILS_H
+#pragma once
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_sort
 {
@@ -23,19 +22,13 @@ namespace benchmark_sort
 		{
 			std::shuffle(input_data.begin(), input_data.end(), generator);
 
-			WRAP_TIMING([&]() {
-				f(execution_policy, input_data);
-#ifdef USE_GPU
-				pstl::elem_t i = 1;
-				std::for_each(input_data.begin(), input_data.end(), [&](auto & elem) { elem = i++; });
-#endif
-			}())
+			pstl::wrap_timing(state, std::forward<Function>(f), execution_policy, input_data.begin(), input_data.end());
 
-			// assert(std::is_sorted(input_data.begin(), input_data.end()));
+			assert(std::is_sorted(input_data.begin(), input_data.end()));
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_sort
 
-#endif //PSTL_BENCH_SORT_UTILS_H
+

@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_ADJACENT_FIND_UTILS_H
-#define PSTL_BENCH_ADJACENT_FIND_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_adjacent_find
 {
@@ -29,7 +28,7 @@ namespace benchmark_adjacent_find
 			const auto index  = gen(engine);
 			input_data[index] = input_data[index + 1];
 
-			WRAP_TIMING(const auto output = F(execution_policy, input_data);)
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data);
 
 			const auto solution = input_data.begin() + index;
 
@@ -42,4 +41,4 @@ namespace benchmark_adjacent_find
 	}
 } // namespace benchmark_adjacent_find
 
-#endif //PSTL_BENCH_ADJACENT_FIND_UTILS_H
+

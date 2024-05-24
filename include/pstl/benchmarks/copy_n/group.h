@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_COPY_N_GROUP_H
-#define PSTL_BENCH_COPY_N_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "copy_n_utils.h"
 
@@ -57,4 +56,4 @@ static void copy_n_hpx_wrapper(benchmark::State & state)
 
 #define COPY_N_GROUP COPY_N_SEQ_WRAPPER COPY_N_STD_WRAPPER COPY_N_HPX_WRAPPER
 
-#endif //PSTL_BENCH_COPY_N_GROUP_H
+

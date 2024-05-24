@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_COUNT_STD_H
-#define PSTL_BENCH_COUNT_STD_H
+#pragma once
 
 #include <algorithm>
 #include <execution>
@@ -13,4 +12,4 @@ namespace benchmark_count
 	};
 } // namespace benchmark_count
 
-#endif //PSTL_BENCH_COUNT_STD_H
+

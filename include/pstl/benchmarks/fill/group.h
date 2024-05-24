@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_FILL_GROUP_H
-#define PSTL_BENCH_FILL_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "fill_utils.h"
 
@@ -59,4 +58,4 @@ static void fill_hpx_wrapper(benchmark::State & state)
 	FILL_STD_WRAPPER \
 	FILL_HPX_WRAPPER
 
-#endif //PSTL_BENCH_FILL_GROUP_H
+

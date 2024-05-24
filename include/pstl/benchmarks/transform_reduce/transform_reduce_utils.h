@@ -1,10 +1,7 @@
+#pragma once
 
-#ifndef PSTL_BENCH_TRANSFORM_REDUCE_UTILS_H
-#define PSTL_BENCH_TRANSFORM_REDUCE_UTILS_H
+#include "pstl/utils/utils.h"
 
-#include <cmath>
-
-#include "pstl/utils.h"
 #include <benchmark/benchmark.h>
 
 namespace benchmark_transform_reduce
@@ -27,7 +24,8 @@ namespace benchmark_transform_reduce
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(const auto output = f(execution_policy, input_data, transform_kernel);)
+			const auto output =
+			    pstl::wrap_timing(state, std::forward<Function>(f), execution_policy, input_data, transform_kernel);
 
 			assert(pstl::are_equivalent(solution, output));
 		}
@@ -35,5 +33,3 @@ namespace benchmark_transform_reduce
 		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_transform_reduce
-
-#endif //PSTL_BENCH_TRANSFORM_REDUCE_UTILS_H

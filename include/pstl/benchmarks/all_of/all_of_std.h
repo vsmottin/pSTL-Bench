@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_ALL_OF_STD_H
-#define PSTL_BENCH_ALL_OF_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -13,4 +12,4 @@ namespace benchmark_all_of
 	};
 } // namespace benchmark_all_of
 
-#endif //PSTL_BENCH_ALL_OF_STD_H
+

@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_IS_SORTED_UTILS_H
-#define PSTL_BENCH_IS_SORTED_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_is_sorted
 {
@@ -20,11 +19,11 @@ namespace benchmark_is_sorted
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(F(execution_policy, input_data);)
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data.begin(), input_data.end());
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_is_sorted
 
-#endif //PSTL_BENCH_IS_SORTED_UTILS_H
+

@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_INCLUSIVE_SCAN_HPX_H
-#define PSTL_BENCH_INCLUSIVE_SCAN_HPX_H
+#pragma once
 
 #include <hpx/numeric.hpp>
 
@@ -10,4 +9,4 @@ namespace benchmark_inclusive_scan
 	};
 } // namespace benchmark_inclusive_scan
 
-#endif //PSTL_BENCH_INCLUSIVE_SCAN_HPX_H
+

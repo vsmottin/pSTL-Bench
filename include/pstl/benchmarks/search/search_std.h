@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_SEARCH_STD_H
-#define PSTL_BENCH_SEARCH_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -14,4 +13,4 @@ namespace benchmark_search
 	};
 } // namespace benchmark_search
 
-#endif //PSTL_BENCH_SEARCH_STD_H
+

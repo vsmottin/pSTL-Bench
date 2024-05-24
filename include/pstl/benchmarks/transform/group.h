@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_TRANSFORM_GROUP_H
-#define PSTL_BENCH_TRANSFORM_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include <benchmark/benchmark.h>
 
@@ -86,4 +85,4 @@ static void transform_hpx_wrapper(benchmark::State & state)
 	TRANSFORM_GNU_WRAPPER \
 	TRANSFORM_HPX_WRAPPER
 
-#endif //PSTL_BENCH_TRANSFORM_GROUP_H
+

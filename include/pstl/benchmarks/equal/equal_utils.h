@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_EQUAL_UTILS_H
-#define PSTL_BENCH_EQUAL_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_equal
 {
@@ -22,11 +21,11 @@ namespace benchmark_equal
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(F(execution_policy, data1, data2);)
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, data1, data2);
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, data1, data2));
 	}
 } // namespace benchmark_equal
 
-#endif //PSTL_BENCH_EQUAL_UTILS_H
+

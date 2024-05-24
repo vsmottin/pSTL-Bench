@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_MIN_ELEMENT_GNU_H
-#define PSTL_BENCH_MIN_ELEMENT_GNU_H
+#pragma once
 
 #include <parallel/algorithm>
 
@@ -10,4 +9,4 @@ namespace benchmark_min_element
 	};
 } // namespace benchmark_min_element
 
-#endif //PSTL_BENCH_MIN_ELEMENT_GNU_H
+

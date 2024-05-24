@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_EQUAL_STD_H
-#define PSTL_BENCH_EQUAL_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -13,4 +12,4 @@ namespace benchmark_equal
 	};
 } // namespace benchmark_equal
 
-#endif //PSTL_BENCH_EQUAL_STD_H
+

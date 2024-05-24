@@ -1,12 +1,6 @@
-#ifndef PSTL_BENCH_TRANSFORM_INCLUSIVE_SCAN_STD_H
-#define PSTL_BENCH_TRANSFORM_INCLUSIVE_SCAN_STD_H
+#pragma once
 
-
-#include "pstl/utils.h"
 #include <algorithm>
-#include <benchmark/benchmark.h>
-#include <cmath>
-#include <vector>
 
 namespace benchmark_transform_inclusive_scan
 {
@@ -18,4 +12,4 @@ namespace benchmark_transform_inclusive_scan
 
 } // namespace benchmark_transform_inclusive_scan
 
-#endif //PSTL_BENCH_TRANSFORM_INCLUSIVE_SCAN_STD_H
+

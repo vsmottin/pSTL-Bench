@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_MAX_ELEMENT_GNU_H
-#define PSTL_BENCH_MAX_ELEMENT_GNU_H
+#pragma once
 
 #include <parallel/algorithm>
 
@@ -10,4 +9,4 @@ namespace benchmark_max_element
 	};
 } // namespace benchmark_max_element
 
-#endif //PSTL_BENCH_MAX_ELEMENT_GNU_H
+

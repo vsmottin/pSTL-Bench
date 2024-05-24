@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_COUNT_UTILS_H
-#define PSTL_BENCH_COUNT_UTILS_H
+#pragma once
 
 #include <algorithm>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_count
 {
@@ -27,15 +26,15 @@ namespace benchmark_count
 		{
 			const auto value = gen(engine);
 
-			WRAP_TIMING(const auto res = F(execution_policy, input_data, value);)
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, value);
 
 			const auto solution = std::count(input_data.begin(), input_data.end(), value);
 
-			assert(pstl::are_equivalent(res, solution));
+			assert(pstl::are_equivalent(output, solution));
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_count
 
-#endif //PSTL_BENCH_COUNT_UTILS_H
+

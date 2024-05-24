@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_IS_SORTED_STD_H
-#define PSTL_BENCH_IS_SORTED_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -8,9 +7,9 @@
 
 namespace benchmark_is_sorted
 {
-	const auto is_sorted_std = [](auto && policy, const auto & input) {
-		return std::is_sorted(policy, input.begin(), input.end());
+	const auto is_sorted_std = [](auto && policy, const auto & begin, const auto & end) -> bool {
+		return std::is_sorted(policy, begin, end);
 	};
 } // namespace benchmark_is_sorted
 
-#endif //PSTL_BENCH_IS_SORTED_STD_H
+

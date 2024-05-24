@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_EXCLUSIVE_SCAN_UTILS_H
-#define PSTL_BENCH_EXCLUSIVE_SCAN_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_exclusive_scan
 {
@@ -27,7 +26,7 @@ namespace benchmark_exclusive_scan
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(F(execution_policy, input_data, output);)
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, output);
 
 			assert(pstl::are_equivalent(output.back(), solution));
 		}
@@ -36,4 +35,4 @@ namespace benchmark_exclusive_scan
 	}
 } // namespace benchmark_exclusive_scan
 
-#endif //PSTL_BENCH_EXCLUSIVE_SCAN_UTILS_H
+

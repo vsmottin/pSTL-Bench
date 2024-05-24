@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_MISMATCH_GROUP_H
-#define PSTL_BENCH_MISMATCH_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "mismatch_utils.h"
 
@@ -84,4 +83,4 @@ static void mismatch_hpx_wrapper(benchmark::State & state)
 	MISMATCH_GNU_WRAPPER \
 	MISMATCH_HPX_WRAPPER
 
-#endif //PSTL_BENCH_MISMATCH_GROUP_H
+

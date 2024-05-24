@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_TRANSFORM_INCLUSIVE_SCAN_INCLUSIVE_SCAN_HPX_H
-#define PSTL_BENCH_TRANSFORM_INCLUSIVE_SCAN_HPX_H
+#pragma once
 
 #include <hpx/algorithm.hpp>
 
@@ -13,4 +12,4 @@ namespace benchmark_transform_inclusive_scan
 
 } // namespace benchmark_transform_inclusive_scan
 
-#endif //PSTL_BENCH_TRANSFORM_INCLUSIVE_SCAN_HPX_H
+

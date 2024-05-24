@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_INCLUSIVE_SCAN_UTILS_H
-#define PSTL_BENCH_INCLUSIVE_SCAN_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_inclusive_scan
 {
@@ -27,13 +26,7 @@ namespace benchmark_inclusive_scan
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING([&]() {
-				F(execution_policy, input_data, output);
-#ifdef USE_GPU
-				pstl::elem_t i = 1;
-				std::for_each(input_data.begin(), input_data.end(), [&](auto & elem) { elem = i++; });
-#endif
-			}())
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, output);
 
 			assert(pstl::are_equivalent(output.back(), solution));
 		}
@@ -42,4 +35,4 @@ namespace benchmark_inclusive_scan
 	}
 } // namespace benchmark_inclusive_scan
 
-#endif //PSTL_BENCH_INCLUSIVE_SCAN_UTILS_H
+

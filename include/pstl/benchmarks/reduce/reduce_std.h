@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_REDUCE_STD_H
-#define PSTL_BENCH_REDUCE_STD_H
+#pragma once
 
 #include <algorithm>
 #include <execution>
@@ -8,9 +7,9 @@
 
 namespace benchmark_reduce
 {
-	const auto reduce_std = [](auto && policy, const auto & container) {
-		return std::reduce(policy, container.begin(), container.end(), pstl::elem_t{});
+	const auto reduce_std = [](auto && policy, const auto & begin, const auto & end) {
+		return std::reduce(policy, begin, end, pstl::elem_t{});
 	};
 } // namespace benchmark_reduce
 
-#endif //PSTL_BENCH_REDUCE_STD_H
+

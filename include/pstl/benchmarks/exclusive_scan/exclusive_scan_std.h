@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_EXCLUSIVE_SCAN_STD_H
-#define PSTL_BENCH_EXCLUSIVE_SCAN_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -13,4 +12,4 @@ namespace benchmark_exclusive_scan
 	};
 } // namespace benchmark_exclusive_scan
 
-#endif //PSTL_BENCH_EXCLUSIVE_SCAN_STD_H
+

@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_COPY_IF_GROUP_H
-#define PSTL_BENCH_COPY_IF_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "copy_if_utils.h"
 
@@ -57,4 +56,4 @@ static void copy_if_hpx_wrapper(benchmark::State & state)
 
 #define COPY_IF_GROUP COPY_IF_SEQ_WRAPPER COPY_IF_STD_WRAPPER COPY_IF_HPX_WRAPPER
 
-#endif //PSTL_BENCH_COPY_IF_GROUP_H
+

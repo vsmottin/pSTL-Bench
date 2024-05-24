@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_FOR_EACH_GROUP_H
-#define PSTL_BENCH_FOR_EACH_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include <benchmark/benchmark.h>
 
@@ -86,4 +85,3 @@ static void for_each_hpx_wrapper(benchmark::State & state)
 	FOR_EACH_GNU_WRAPPER \
 	FOR_EACH_HPX_WRAPPER
 
-#endif //PSTL_BENCH_FOR_EACH_GROUP_H

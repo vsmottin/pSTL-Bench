@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_GNU_H
-#define PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_GNU_H
+#pragma once
 
 #include <parallel/algorithm>
 
@@ -11,4 +10,4 @@ namespace benchmark_lexicographical_compare
 	};
 } // namespace benchmark_lexicographical_compare
 
-#endif //PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_GNU_H
+

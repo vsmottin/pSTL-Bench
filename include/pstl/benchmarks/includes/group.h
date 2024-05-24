@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_INCLUDES_GROUP_H
-#define PSTL_BENCH_INCLUDES_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "includes_utils.h"
 
@@ -60,4 +59,4 @@ static void includes_hpx_wrapper(benchmark::State & state)
 	INCLUDES_STD_WRAPPER \
 	INCLUDES_HPX_WRAPPER
 
-#endif //PSTL_BENCH_INCLUDES_GROUP_H
+

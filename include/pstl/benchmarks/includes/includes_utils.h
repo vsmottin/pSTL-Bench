@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_INCLUDES_UTILS_H
-#define PSTL_BENCH_INCLUDES_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_includes
 {
@@ -25,10 +24,8 @@ namespace benchmark_includes
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(auto output = F(execution_policy, input_data, subset);)
-
-			benchmark::DoNotOptimize(output);
-
+			const auto output =
+			    pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, subset);
 			assert(pstl::are_equivalent(output, solution));
 		}
 
@@ -36,4 +33,4 @@ namespace benchmark_includes
 	}
 } // namespace benchmark_includes
 
-#endif //PSTL_BENCH_INCLUDES_UTILS_H
+

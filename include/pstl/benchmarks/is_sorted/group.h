@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_IS_SORTED_GROUP_H
-#define PSTL_BENCH_IS_SORTED_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "is_sorted_utils.h"
 
@@ -60,4 +59,4 @@ static void is_sorted_hpx_wrapper(benchmark::State & state)
 	IS_SORTED_STD_WRAPPER \
 	IS_SORTED_HPX_WRAPPER
 
-#endif //PSTL_BENCH_IS_SORTED_GROUP_H
+

@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_COUNT_GROUP_H
-#define PSTL_BENCH_COUNT_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "count_utils.h"
 
@@ -83,4 +82,4 @@ static void count_hpx_wrapper(benchmark::State & state)
 	COUNT_GNU_WRAPPER \
 	COUNT_HPX_WRAPPER
 
-#endif //PSTL_BENCH_COUNT_GROUP_H
+

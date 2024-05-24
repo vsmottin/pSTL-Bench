@@ -1,16 +1,12 @@
-#ifndef PSTL_BENCH_PARTITION_STD_H
-#define PSTL_BENCH_PARTITION_STD_H
+#pragma once
 
 #include <algorithm>
-#include <execution>
-
-#include <benchmark/benchmark.h>
 
 namespace benchmark_partition
 {
-	const auto partition_std = [](auto && policy, auto & container, auto & condition) {
-		return std::partition(policy, container.begin(), container.end(), condition);
+	const auto partition_std = [](auto && policy, auto && begin, auto && end, auto && condition) {
+		return std::partition(policy, begin, end, condition);
 	};
 } // namespace benchmark_partition
 
-#endif //PSTL_BENCH_PARTITION_STD_H
+

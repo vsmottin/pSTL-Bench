@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_SEARCH_HPX_H
-#define PSTL_BENCH_SEARCH_HPX_H
+#pragma once
 
 #include <hpx/algorithm.hpp>
 
@@ -11,4 +10,4 @@ namespace benchmark_search
 	};
 } // namespace benchmark_search
 
-#endif //PSTL_BENCH_SEARCH_HPX_H
+

@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_MERGE_HPX_H
-#define PSTL_BENCH_MERGE_HPX_H
+#pragma once
 
 #include <hpx/algorithm.hpp>
 
@@ -10,4 +9,4 @@ namespace benchmark_merge
 	};
 } // namespace benchmark_merge
 
-#endif //PSTL_BENCH_MERGE_HPX_H
+

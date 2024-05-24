@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_MAX_ELEMENT_GROUP_H
-#define PSTL_BENCH_MAX_ELEMENT_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "max_element_utils.h"
 
@@ -84,4 +83,4 @@ static void max_element_hpx_wrapper(benchmark::State & state)
 	MAX_ELEMENT_GNU_WRAPPER \
 	MAX_ELEMENT_HPX_WRAPPER
 
-#endif //PSTL_BENCH_MAX_ELEMENT_GROUP_H
+

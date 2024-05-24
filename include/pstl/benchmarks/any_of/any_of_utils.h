@@ -1,12 +1,11 @@
-#ifndef PSTL_BENCH_ANY_OF_UTILS_H
-#define PSTL_BENCH_ANY_OF_UTILS_H
+#pragma once
 
 #include <cassert>
 #include <random>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_any_of
 {
@@ -30,8 +29,8 @@ namespace benchmark_any_of
 			const auto index = gen(engine);
 			const auto value = input_data[index];
 
-			WRAP_TIMING(const auto output =
-			                F(execution_policy, input_data, [=](const auto & val) { return val == value; });)
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data,
+			                                      [=](const auto & val) { return val == value; });
 
 			assert(pstl::are_equivalent(output, true));
 		}
@@ -41,4 +40,4 @@ namespace benchmark_any_of
 
 } // namespace benchmark_any_of
 
-#endif //PSTL_BENCH_ANY_OF_UTILS_H
+

@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_FILL_STD_H
-#define PSTL_BENCH_FILL_STD_H
+#pragma once
 
 #include <algorithm>
 #include <execution>
@@ -13,4 +12,4 @@ namespace benchmark_fill
 	};
 } // namespace benchmark_fill
 
-#endif //PSTL_BENCH_FILL_STD_H
+

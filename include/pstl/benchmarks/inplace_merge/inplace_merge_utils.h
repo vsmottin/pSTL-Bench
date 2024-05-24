@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_INPLACE_MERGE_UTILS_H
-#define PSTL_BENCH_INPLACE_MERGE_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_inplace_merge
 {
@@ -27,7 +26,8 @@ namespace benchmark_inplace_merge
 			std::sort(input_data.begin(), middle);
 			std::sort(middle, input_data.end());
 
-			WRAP_TIMING(F(execution_policy, input_data.begin(), middle, input_data.end());)
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data.begin(), middle,
+			                  input_data.end());
 
 			assert((std::is_sorted(input_data.begin(), input_data.end())));
 		}
@@ -36,4 +36,4 @@ namespace benchmark_inplace_merge
 	}
 } // namespace benchmark_inplace_merge
 
-#endif //PSTL_BENCH_INPLACE_MERGE_UTILS_H
+

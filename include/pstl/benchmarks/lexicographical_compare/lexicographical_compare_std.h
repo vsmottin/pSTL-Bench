@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_STD_H
-#define PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -13,4 +12,4 @@ namespace benchmark_lexicographical_compare
 	};
 } // namespace benchmark_lexicographical_compare
 
-#endif //PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_STD_H
+

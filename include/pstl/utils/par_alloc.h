@@ -1,6 +1,4 @@
-
-#ifndef MASTER_BENCHMARKS_PARALLEL_ALLOCATOR_H
-#define MASTER_BENCHMARKS_PARALLEL_ALLOCATOR_H
+#pragma once
 
 // Adapted from:
 //  https://github.com/STEllAR-GROUP/hpx/blob/fe048ee6e01abedad0a60a0fdc204116419871c3/libs/core/compute_local/include/hpx/compute_local/host/numa_allocator.hpp
@@ -17,7 +15,6 @@
 #include <cstddef>
 #include <execution>
 #include <limits>
-#include <vector>
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -29,9 +26,9 @@ namespace pstl
 {
 	///////////////////////////////////////////////////////////////////////////
 	template<typename T, typename Policy>
-	class numa_allocator
+	class par_alloc
 	{
-		using POLICY_BASE_TYPE = typename std::remove_cv<typename std::remove_reference<Policy>::type>::type;
+		using POLICY_BASE_TYPE = std::remove_cv_t<std::remove_reference_t<Policy>>;
 		using IS_SEQ           = typename std::is_same<POLICY_BASE_TYPE, std::execution::sequenced_policy>;
 
 	public:
@@ -44,23 +41,21 @@ namespace pstl
 		using size_type       = std::size_t;
 		using difference_type = std::ptrdiff_t;
 
-	public:
 		// convert an allocator<T> to allocator<U>
 		template<typename U>
 		struct rebind
 		{
-			using other = numa_allocator<U, Policy>;
+			using other = par_alloc<U, Policy>;
 		};
 
-	public:
-		explicit numa_allocator(Policy const & execution_policy) : execution_policy(execution_policy) {}
+		explicit par_alloc(Policy const & execution_policy) : execution_policy(execution_policy) {}
 
-		numa_allocator(numa_allocator const & rhs) : execution_policy(rhs.execution_policy) {}
+		par_alloc(par_alloc const & rhs) : execution_policy(rhs.execution_policy) {}
 
-		numa_allocator & operator=(numa_allocator const & rhs) = delete;
+		par_alloc & operator=(par_alloc const & rhs) = delete;
 
 		template<typename U>
-		explicit numa_allocator(numa_allocator<U, Policy> const & rhs) : execution_policy(rhs.execution_policy)
+		explicit par_alloc(par_alloc<U, Policy> const & rhs) : execution_policy(rhs.execution_policy)
 		{}
 
 		// address
@@ -88,23 +83,21 @@ namespace pstl
 			return p;
 		}
 
-		void deallocate(pointer p, size_type cnt) noexcept { ::operator delete(p); }
+		void deallocate(pointer p, [[maybe_unused]] size_type cnt) noexcept { ::operator delete(p); }
 
 		// size
 		static size_type max_size() noexcept { return (std::numeric_limits<size_type>::max)() / sizeof(T); }
 
 		static void destroy(pointer p) noexcept { p->~T(); }
 
-		friend constexpr bool operator==(numa_allocator const &, numa_allocator const &) noexcept { return true; }
+		friend constexpr bool operator==(par_alloc const &, par_alloc const &) noexcept { return true; }
 
-		friend constexpr bool operator!=(numa_allocator const & l, numa_allocator const & r) noexcept { return l != r; }
+		friend constexpr bool operator!=(par_alloc const & l, par_alloc const & r) noexcept { return l != r; }
 
 	private:
 		template<typename, typename>
-		friend class numa_allocator;
+		friend class par_alloc;
 
 		Policy const & execution_policy;
 	};
 } // namespace pstl
-
-#endif //MASTER_BENCHMARKS_PARALLEL_ALLOCATOR_H

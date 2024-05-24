@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_NONE_OF_GROUP_H
-#define PSTL_BENCH_NONE_OF_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "none_of_utils.h"
 
@@ -60,4 +59,4 @@ static void none_of_hpx_wrapper(benchmark::State & state)
 	NONE_OF_STD_WRAPPER \
 	NONE_OF_HPX_WRAPPER
 
-#endif //PSTL_BENCH_NONE_OF_GROUP_H
+

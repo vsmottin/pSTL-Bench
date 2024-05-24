@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_GENERATE_UTILS_H
-#define PSTL_BENCH_GENERATE_UTILS_H
+#pragma once
 
 #include <algorithm>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_generate
 {
@@ -19,16 +18,16 @@ namespace benchmark_generate
 		auto input_data = pstl::generate_increment(execution_policy, size);
 
 		static const auto generator = []() {
-			return 0;
+			return pstl::elem_t{};
 		};
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(F(execution_policy, input_data, generator);)
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, generator);
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
 	}
 } // namespace benchmark_generate
 
-#endif //PSTL_BENCH_GENERATE_UTILS_H
+

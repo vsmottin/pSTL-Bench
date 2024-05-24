@@ -1,8 +1,7 @@
 
-#ifndef PSTL_BENCH_ANY_OF_HPX_H
-#define PSTL_BENCH_ANY_OF_HPX_H
+#pragma once
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 #include <vector>
 
 #include <hpx/algorithm.hpp>
@@ -16,4 +15,4 @@ namespace benchmark_any_of
 
 } // namespace benchmark_any_of
 
-#endif //PSTL_BENCH_ANY_OF_HPX_H
+

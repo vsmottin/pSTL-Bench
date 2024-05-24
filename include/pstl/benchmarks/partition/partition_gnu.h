@@ -1,18 +1,12 @@
-#ifndef PSTL_BENCH_PARTITION_GNU_H
-#define PSTL_BENCH_PARTITION_GNU_H
-
-#include <algorithm>
-#include <execution>
-
-#include <benchmark/benchmark.h>
+#pragma once
 
 #include <parallel/algorithm>
 
 namespace benchmark_partition
 {
-	const auto partition_gnu = [](auto && policy, auto & container, auto & condition) {
-		return __gnu_parallel::partition(container.begin(), container.end(), condition);
+	const auto partition_gnu = []([[maybe_unused]] auto && policy, auto && begin, auto && end, auto && condition) {
+		return __gnu_parallel::partition(begin, end, condition);
 	};
 } // namespace benchmark_partition
 
-#endif //PSTL_BENCH_PARTITION_GNU_H
+

@@ -1,12 +1,6 @@
-#ifndef PSTL_BENCH_FOR_EACH_STD_H
-#define PSTL_BENCH_FOR_EACH_STD_H
+#pragma once
 
-
-#include "pstl/utils.h"
 #include <algorithm>
-#include <benchmark/benchmark.h>
-#include <cmath>
-#include <vector>
 
 namespace benchmark_for_each
 {
@@ -16,5 +10,3 @@ namespace benchmark_for_each
 	};
 
 } // namespace benchmark_for_each
-
-#endif //PSTL_BENCH_FOR_EACH_STD_H

@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_MIN_ELEMENT_UTILS_H
-#define PSTL_BENCH_MIN_ELEMENT_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_min_element
 {
@@ -23,7 +22,7 @@ namespace benchmark_min_element
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(const auto output = F(execution_policy, input_data);)
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data);
 
 			assert(pstl::are_equivalent(solution, output));
 		}
@@ -32,4 +31,4 @@ namespace benchmark_min_element
 	}
 } // namespace benchmark_min_element
 
-#endif //PSTL_BENCH_MIN_ELEMENT_UTILS_H
+

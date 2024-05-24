@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_GENERATE_GNU_H
-#define PSTL_BENCH_GENERATE_GNU_H
+#pragma once
 
 #include <parallel/algorithm>
 
@@ -10,4 +9,4 @@ namespace benchmark_generate
 	};
 } // namespace benchmark_generate
 
-#endif //PSTL_BENCH_GENERATE_GNU_H
+

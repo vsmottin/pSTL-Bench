@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_MERGE_GROUP_H
-#define PSTL_BENCH_MERGE_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "merge_utils.h"
 
@@ -84,4 +83,4 @@ static void merge_hpx_wrapper(benchmark::State & state)
 	MERGE_GNU_WRAPPER \
 	MERGE_HPX_WRAPPER
 
-#endif //PSTL_BENCH_MERGE_GROUP_H
+

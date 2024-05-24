@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_TRANSFORM_EXCLUSIVE_SCAN_GROUP_H
-#define PSTL_BENCH_TRANSFORM_EXCLUSIVE_SCAN_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include <benchmark/benchmark.h>
 
@@ -64,4 +63,4 @@ static void transform_exclusive_scan_hpx_wrapper(benchmark::State & state)
 	TRANSFORM_EXCLUSIVE_SCAN_STD_WRAPPER \
 	TRANSFORM_EXCLUSIVE_SCAN_HPX_WRAPPER
 
-#endif //PSTL_BENCH_TRANSFORM_EXCLUSIVE_SCAN_GROUP_H
+

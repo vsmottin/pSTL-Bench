@@ -1,12 +1,11 @@
-#ifndef PSTL_BENCH_NONE_OF_UTILS_H
-#define PSTL_BENCH_NONE_OF_UTILS_H
+#pragma once
 
 #include <cassert>
 #include <random>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_none_of
 {
@@ -25,7 +24,8 @@ namespace benchmark_none_of
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(const auto output = F(execution_policy, input_data, condition);)
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy,
+			                                      input_data.begin(), input_data.end(), condition);
 
 			assert(pstl::are_equivalent(output, true));
 		}
@@ -35,4 +35,4 @@ namespace benchmark_none_of
 
 } // namespace benchmark_none_of
 
-#endif //PSTL_BENCH_NONE_OF_UTILS_H
+

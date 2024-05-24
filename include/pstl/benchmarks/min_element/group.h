@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_MIN_ELEMENT_GROUP_H
-#define PSTL_BENCH_MIN_ELEMENT_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "min_element_utils.h"
 
@@ -84,4 +83,4 @@ static void min_element_hpx_wrapper(benchmark::State & state)
 	MIN_ELEMENT_GNU_WRAPPER \
 	MIN_ELEMENT_HPX_WRAPPER
 
-#endif //PSTL_BENCH_MIN_ELEMENT_GROUP_H
+

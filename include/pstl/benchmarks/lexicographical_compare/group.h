@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_GROUP_H
-#define PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "lexicographical_compare_utils.h"
 
@@ -87,4 +86,4 @@ static void lexicographical_compare_hpx_wrapper(benchmark::State & state)
 	LEXICOGRAPHICAL_COMPARE_GNU_WRAPPER \
 	LEXICOGRAPHICAL_COMPARE_HPX_WRAPPER
 
-#endif //PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_GROUP_H
+

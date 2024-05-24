@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_SET_DIFFERENCE_UTILS_H
-#define PSTL_BENCH_SET_DIFFERENCE_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_set_difference
 {
@@ -28,8 +27,8 @@ namespace benchmark_set_difference
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(std::ignore = F(execution_policy, data1.begin(), data1.end(), data2.begin(), data2.end(),
-			                            output.begin());)
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, data1.begin(), data1.end(),
+			                  data2.begin(), data2.end(), output.begin());
 
 			std::sort(output.begin(), output.end());
 
@@ -42,4 +41,4 @@ namespace benchmark_set_difference
 	}
 } // namespace benchmark_set_difference
 
-#endif //PSTL_BENCH_SET_DIFFERENCE_UTILS_H
+

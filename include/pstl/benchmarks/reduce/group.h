@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_REDUCE_GROUP_H
-#define PSTL_BENCH_REDUCE_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "reduce_utils.h"
 
@@ -84,4 +83,4 @@ static void reduce_hpx_wrapper(benchmark::State & state)
 	REDUCE_GNU_WRAPPER \
 	REDUCE_HPX_WRAPPER
 
-#endif //PSTL_BENCH_REDUCE_GROUP_H
+

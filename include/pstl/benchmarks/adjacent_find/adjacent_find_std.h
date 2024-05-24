@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_ADJACENT_FIND_STD_H
-#define PSTL_BENCH_ADJACENT_FIND_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -13,4 +12,4 @@ namespace benchmark_adjacent_find
 	};
 } // namespace benchmark_adjacent_find
 
-#endif //PSTL_BENCH_ADJACENT_FIND_STD_H
+

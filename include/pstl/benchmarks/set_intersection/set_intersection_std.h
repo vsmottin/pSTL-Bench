@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_SET_INTERSECTION_STD_H
-#define PSTL_BENCH_SET_INTERSECTION_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -14,4 +13,4 @@ namespace benchmark_set_intersection
 	};
 } // namespace benchmark_set_intersection
 
-#endif //PSTL_BENCH_SET_INTERSECTION_STD_H
+

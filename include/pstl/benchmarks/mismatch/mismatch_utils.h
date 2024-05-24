@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_MISMATCH_UTILS_H
-#define PSTL_BENCH_MISMATCH_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_mismatch
 {
@@ -29,7 +28,7 @@ namespace benchmark_mismatch
 			const auto idx = gen(rng);
 			data2[idx]     = data1[idx] + 1;
 
-			WRAP_TIMING(const auto output = F(execution_policy, data1, data2));
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, data1, data2);
 
 			const auto solution = std::mismatch(data1.begin(), data1.end(), data2.begin());
 
@@ -40,4 +39,4 @@ namespace benchmark_mismatch
 	}
 } // namespace benchmark_mismatch
 
-#endif //PSTL_BENCH_MISMATCH_UTILS_H
+

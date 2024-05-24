@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_ADJACENT_DIFFERENCE_GROUP_H
-#define PSTL_BENCH_ADJACENT_DIFFERENCE_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "adjacent_difference_utils.h"
 
@@ -87,4 +86,4 @@ static void adjacent_difference_hpx_wrapper(benchmark::State & state)
 	ADJACENT_DIFFERENCE_GNU_WRAPPER \
 	ADJACENT_DIFFERENCE_HPX_WRAPPER
 
-#endif //PSTL_BENCH_ADJACENT_DIFFERENCE_GROUP_H
+

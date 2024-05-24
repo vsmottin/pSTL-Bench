@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_MIN_ELEMENT_STD_H
-#define PSTL_BENCH_MIN_ELEMENT_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -13,4 +12,4 @@ namespace benchmark_min_element
 	};
 } // namespace benchmark_min_element
 
-#endif //PSTL_BENCH_MIN_ELEMENT_STD_H
+

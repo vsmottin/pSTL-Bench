@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_PARTITION_GROUP_H
-#define PSTL_BENCH_PARTITION_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "partition_utils.h"
 
@@ -83,4 +82,4 @@ static void partition_hpx_wrapper(benchmark::State & state)
 	PARTITION_GNU_WRAPPER \
 	PARTITION_HPX_WRAPPER
 
-#endif //PSTL_BENCH_PARTITION_GROUP_H
+

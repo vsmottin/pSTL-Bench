@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_PARTIAL_SORT_STD_H
-#define PSTL_BENCH_PARTIAL_SORT_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -13,4 +12,4 @@ namespace benchmark_partial_sort
 	};
 } // namespace benchmark_partial_sort
 
-#endif //PSTL_BENCH_PARTIAL_SORT_STD_H
+

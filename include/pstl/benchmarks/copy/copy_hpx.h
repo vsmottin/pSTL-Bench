@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_COPY_HPX_H
-#define PSTL_BENCH_COPY_HPX_H
+#pragma once
 
 #include <hpx/algorithm.hpp>
 
@@ -10,4 +9,4 @@ namespace benchmark_copy
 	};
 } // namespace benchmark_copy
 
-#endif //PSTL_BENCH_COPY_HPX_H
+

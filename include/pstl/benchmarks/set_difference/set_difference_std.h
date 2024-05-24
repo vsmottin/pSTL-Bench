@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_SET_DIFFERENCE_STD_H
-#define PSTL_BENCH_SET_DIFFERENCE_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -14,4 +13,4 @@ namespace benchmark_set_difference
 	};
 } // namespace benchmark_set_difference
 
-#endif //PSTL_BENCH_SET_DIFFERENCE_STD_H
+

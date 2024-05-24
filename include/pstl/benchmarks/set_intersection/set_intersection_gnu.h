@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_SET_INTERSECTION_GNU_H
-#define PSTL_BENCH_SET_INTERSECTION_GNU_H
+#pragma once
 
 #include <parallel/algorithm>
 
@@ -11,4 +10,4 @@ namespace benchmark_set_intersection
 	};
 } // namespace benchmark_set_intersection
 
-#endif //PSTL_BENCH_SET_INTERSECTION_GNU_H
+

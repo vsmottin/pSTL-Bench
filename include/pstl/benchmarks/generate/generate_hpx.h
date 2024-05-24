@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_GENERATE_HPX_H
-#define PSTL_BENCH_GENERATE_HPX_H
+#pragma once
 
 #include <hpx/algorithm.hpp>
 #include <hpx/execution.hpp>
@@ -13,4 +12,4 @@ namespace benchmark_generate
 	};
 } // namespace benchmark_generate
 
-#endif //PSTL_BENCH_GENERATE_HPX_H
+

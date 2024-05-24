@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_COPY_N_UTILS_H
-#define PSTL_BENCH_COPY_N_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_copy_n
 {
@@ -26,11 +25,11 @@ namespace benchmark_copy_n
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(F(execution_policy, input_data, input_data.size(), output);)
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, input_data.size(), output);
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, input_data, output));
 	}
 } // namespace benchmark_copy_n
 
-#endif //PSTL_BENCH_COPY_N_UTILS_H
+

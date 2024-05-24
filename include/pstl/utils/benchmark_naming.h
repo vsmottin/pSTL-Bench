@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_BENCHMARK_PREFIX_H
-#define PSTL_BENCH_BENCHMARK_PREFIX_H
+#pragma once
 
-#include "pstl/elem_t.h"
+#include "pstl/utils/elem_t.h"
 
 #define XSTRINGIFY(s) STRINGIFY(s)
 #define STRINGIFY(s)  #s
@@ -25,5 +24,3 @@
 
 #define BENCHMARK_NAME_WITH_BACKEND_AND_COMPILER(compiler, backend, benchmark) \
 	compiler "-" backend "/" benchmark "/" XSTRINGIFY(PSTL_ELEM_T)
-
-#endif //PSTL_BENCH_BENCHMARK_PREFIX_H

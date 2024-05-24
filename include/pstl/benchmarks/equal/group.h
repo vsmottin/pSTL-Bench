@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_EQUAL_GROUP_H
-#define PSTL_BENCH_EQUAL_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "equal_utils.h"
 
@@ -83,4 +82,4 @@ static void equal_hpx_wrapper(benchmark::State & state)
 	EQUAL_GNU_WRAPPER \
 	EQUAL_HPX_WRAPPER
 
-#endif //PSTL_BENCH_EQUAL_GROUP_H
+

@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_SET_DIFFERENCE_GROUP_H
-#define PSTL_BENCH_SET_DIFFERENCE_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "set_difference_utils.h"
 
@@ -85,4 +84,4 @@ static void set_difference_hpx_wrapper(benchmark::State & state)
 	SET_DIFFERENCE_GNU_WRAPPER \
 	SET_DIFFERENCE_HPX_WRAPPER
 
-#endif //PSTL_BENCH_SET_DIFFERENCE_GROUP_H
+

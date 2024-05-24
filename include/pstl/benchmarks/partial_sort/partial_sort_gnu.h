@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_PARTIAL_SORT_GNU_H
-#define PSTL_BENCH_PARTIAL_SORT_GNU_H
+#pragma once
 
 #include <parallel/algorithm>
 
@@ -10,4 +9,4 @@ namespace benchmark_partial_sort
 	};
 } // namespace benchmark_partial_sort
 
-#endif //PSTL_BENCH_PARTIAL_SORT_GNU_H
+

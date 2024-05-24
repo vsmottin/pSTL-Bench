@@ -1,12 +1,11 @@
 
-#ifndef PSTL_BENCH_FOR_EACH_GNU_H
-#define PSTL_BENCH_FOR_EACH_GNU_H
+#pragma once
 
 #include <vector>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 #include <parallel/algorithm>
 
@@ -19,4 +18,4 @@ namespace benchmark_for_each
 
 } // namespace benchmark_for_each
 
-#endif //PSTL_BENCH_FOR_EACH_GNU_H
+

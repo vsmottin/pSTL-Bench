@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_SEARCH_UTILS_H
-#define PSTL_BENCH_SEARCH_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_search
 {
@@ -24,9 +23,8 @@ namespace benchmark_search
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(const auto output =
-			                F(execution_policy, data1.begin(), data1.end(), data2.begin(), data2.end());)
-
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, data1.begin(),
+			                                      data1.end(), data2.begin(), data2.end());
 			assert(pstl::are_equivalent(result, output));
 		}
 
@@ -34,4 +32,4 @@ namespace benchmark_search
 	}
 } // namespace benchmark_search
 
-#endif //PSTL_BENCH_SEARCH_UTILS_H
+

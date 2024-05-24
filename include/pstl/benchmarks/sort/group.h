@@ -1,7 +1,6 @@
-#ifndef PSTL_BENCH_SORT_GROUP_H
-#define PSTL_BENCH_SORT_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "sort_utils.h"
 
@@ -84,4 +83,4 @@ static void sort_hpx_wrapper(benchmark::State & state)
 	SORT_GNU_WRAPPER \
 	SORT_HPX_WRAPPER
 
-#endif //PSTL_BENCH_SORT_GROUP_H
+

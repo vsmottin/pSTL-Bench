@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_MERGE_GNU_H
-#define PSTL_BENCH_MERGE_GNU_H
+#pragma once
 
 #include <parallel/algorithm>
 
@@ -11,4 +10,4 @@ namespace benchmark_merge
 	};
 } // namespace benchmark_merge
 
-#endif //PSTL_BENCH_MERGE_GNU_H
+

@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_GENERATE_STD_H
-#define PSTL_BENCH_GENERATE_STD_H
+#pragma once
 
 #include <algorithm>
 #include <execution>
@@ -13,4 +12,4 @@ namespace benchmark_generate
 	};
 } // namespace benchmark_generate
 
-#endif //PSTL_BENCH_GENERATE_STD_H
+

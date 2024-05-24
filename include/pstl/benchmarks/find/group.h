@@ -1,8 +1,7 @@
 
-#ifndef PSTL_BENCH_FIND_GROUP_H
-#define PSTL_BENCH_FIND_GROUP_H
+#pragma once
 
-#include "benchmark_prefix.h"
+#include "pstl/utils/benchmark_naming.h"
 
 #include "find_utils.h"
 
@@ -89,4 +88,4 @@ static void find_hpx_wrapper(benchmark::State & state)
 	FIND_HPX_WRAPPER
 
 
-#endif //PSTL_BENCH_FIND_GROUP_H
+

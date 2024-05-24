@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_ALL_OF_UTILS_H
-#define PSTL_BENCH_ALL_OF_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_all_of
 {
@@ -26,7 +25,8 @@ namespace benchmark_all_of
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(const auto output = F(execution_policy, input_data, condition);)
+			const auto output =
+			    pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, condition);
 
 			assert(pstl::are_equivalent(output, solution));
 		}
@@ -35,4 +35,4 @@ namespace benchmark_all_of
 	}
 } // namespace benchmark_all_of
 
-#endif //PSTL_BENCH_ALL_OF_UTILS_H
+

@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_MERGE_STD_H
-#define PSTL_BENCH_MERGE_STD_H
+#pragma once
 
 #include <execution>
 #include <numeric>
@@ -13,4 +12,4 @@ namespace benchmark_merge
 	};
 } // namespace benchmark_merge
 
-#endif //PSTL_BENCH_MERGE_STD_H
+

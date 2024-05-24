@@ -1,5 +1,4 @@
-#ifndef PSTL_BENCH_MISMATCH_HPX_H
-#define PSTL_BENCH_MISMATCH_HPX_H
+#pragma once
 
 #include <hpx/algorithm.hpp>
 
@@ -10,4 +9,4 @@ namespace benchmark_mismatch
 	};
 } // namespace benchmark_mismatch
 
-#endif //PSTL_BENCH_MISMATCH_HPX_H
+

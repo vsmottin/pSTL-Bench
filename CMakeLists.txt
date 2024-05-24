@@ -120,6 +120,14 @@ endif ()
 add_compile_definitions(DEFAULT_FOR_EACH_KERNEL_ITS=${DEFAULT_FOR_EACH_KERNEL_ITS})
 # endregion for_each kernel iterations
 
+# region GPU enforced transfers
+if ("${USE_GPU}" STREQUAL "ON")
+    if (NOT DEFINED ${GPU_CONTINUOUS_TRANSFERS})
+        set(GPU_CONTINUOUS_TRANSFERS "ON" CACHE STRING "Data will be transferred between host and device before and after each kernel. When OFF, data will be transferred only once.")
+    endif ()
+endif ()
+# endregion GPU enforced transfers
+
 # region google benchmark stuff
 CPMAddPackage(
         NAME benchmark

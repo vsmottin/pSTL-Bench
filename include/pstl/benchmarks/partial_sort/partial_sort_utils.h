@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_PARTIAL_SORT_UTILS_H
-#define PSTL_BENCH_PARTIAL_SORT_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_partial_sort
 {
@@ -24,7 +23,8 @@ namespace benchmark_partial_sort
 
 			auto middle = input_data.begin() + (input_data.size() / 2);
 
-			WRAP_TIMING(F(execution_policy, input_data.begin(), middle, input_data.end());)
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data.begin(), middle,
+			                  input_data.end());
 
 			assert((std::is_sorted(input_data.begin(), middle)));
 		}
@@ -33,4 +33,4 @@ namespace benchmark_partial_sort
 	}
 } // namespace benchmark_partial_sort
 
-#endif //PSTL_BENCH_PARTIAL_SORT_UTILS_H
+

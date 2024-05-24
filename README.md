@@ -49,10 +49,15 @@ In the example above we will use g++ with TBB.
 A list of supported backends can be seen in `./cmake/`.
 
 Other options are:
+
 * `-DDATA_TYPE=...` to define the data type (`int`, `float`, `double`...).
 * `-DMIN_INPUT_SIZE=...` and `-DMAX_INPUT_SIZE=...` to define the range of input sizes.
 * `-DUSE_PARALLEL_ALLOCATOR=ON|OFF` to use a parallel allocator designed for NUMA systems.
-* `-DUSE_LIKWID=ON|OFF` and `-DUSE_PAPI=ON|OFF` to use performance counters with [LIKWID](https://github.com/RRZE-HPC/likwid) or [PAPI](https://github.com/icl-utk-edu/papi).
+* `-DUSE_LIKWID=ON|OFF` and `-DUSE_PAPI=ON|OFF` to use performance counters
+  with [LIKWID](https://github.com/RRZE-HPC/likwid) or [PAPI](https://github.com/icl-utk-edu/papi).
+* `-DGPU_CONTINUOUS_TRANSFERS=ON|OFF` to enable continuous transfers between the CPU and GPU so will be transferred
+  between host and device before and after each kernel. When OFF, data will be transferred only once before the first
+  call.
 
 _Note_: we recommend to use `ccmake` to see all the possible flags and options.
 
@@ -74,6 +79,11 @@ To get the full list of benchmarks, you can use the `--benchmark_list_tests` fla
 By default, `pSTL-Bench` will capture the `OMP_NUM_THREADS` environment variable to set the number of threads.
 However, for [HPX](https://github.com/STEllAR-GROUP/hpx) argument `--hpx:threads` must be used.
 
+Other environment variables that can be used are:
+
+* `PSTL_ABS_TOL` and `PSTL_REL_TOL` to define the absolute and relative tolerance when asserting the results of floating
+  point operations.
+
 ## Citation
 
 If you use pSTL-Bench in your research, please cite the following papers:
@@ -94,6 +104,6 @@ If you use pSTL-Bench in your research, please cite the following papers:
 Some parallel STL backends have dependencies:
 
 - TBB can be found on their [GitHub](https://github.com/oneapi-src/oneTBB) or
-their [website](https://www.intel.com/content/www/us/en/developer/tools/oneapi/onetbb.html).
+  their [website](https://www.intel.com/content/www/us/en/developer/tools/oneapi/onetbb.html).
 - HPX can be found on their [GitHub](https://github.com/STEllAR-GROUP/hpx) or
-their [website](https://hpx.stellar-group.org/).
+  their [website](https://hpx.stellar-group.org/).

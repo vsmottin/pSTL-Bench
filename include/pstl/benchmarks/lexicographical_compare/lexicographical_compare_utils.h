@@ -1,11 +1,10 @@
-#ifndef PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_UTILS_H
-#define PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_UTILS_H
+#pragma once
 
 #include <numeric>
 
 #include <benchmark/benchmark.h>
 
-#include "pstl/utils.h"
+#include "pstl/utils/utils.h"
 
 namespace benchmark_lexicographical_compare
 {
@@ -23,7 +22,7 @@ namespace benchmark_lexicographical_compare
 
 		for (auto _ : state)
 		{
-			WRAP_TIMING(const auto output = F(execution_policy, data1, data2);)
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, data1, data2);
 
 			assert(pstl::are_equivalent(result, output));
 		}
@@ -32,4 +31,4 @@ namespace benchmark_lexicographical_compare
 	}
 } // namespace benchmark_lexicographical_compare
 
-#endif //PSTL_BENCH_LEXICOGRAPHICAL_COMPARE_UTILS_H
+
