@@ -90,12 +90,12 @@ namespace pstl
 		static constexpr auto DEFAULT_ABSOLUTE_TOLERANCE = std::numeric_limits<T>::epsilon();
 		static constexpr auto DEFAULT_RELATIVE_TOLERANCE = 0.01; // 1% tolerance
 
-		static const auto ABSOLUTE_TOLERANCE = std::getenv("PSTL_ABS_TOL") == nullptr ?
+		static const auto ABSOLUTE_TOLERANCE = std::getenv("PSTL_BENCH_ABS_TOL") == nullptr ?
 		                                           DEFAULT_ABSOLUTE_TOLERANCE :
-		                                           std::strtod(std::getenv("PSTL_ABS_TOL"), nullptr);
-		static const auto RELATIVE_TOLERANCE = std::getenv("PSTL_REL_TOL") == nullptr ?
+		                                           std::strtod(std::getenv("PSTL_BENCH_ABS_TOL"), nullptr);
+		static const auto RELATIVE_TOLERANCE = std::getenv("PSTL_BENCH_REL_TOL") == nullptr ?
 		                                           DEFAULT_RELATIVE_TOLERANCE :
-		                                           std::strtod(std::getenv("PSTL_REL_TOL"), nullptr);
+		                                           std::strtod(std::getenv("PSTL_BENCH_REL_TOL"), nullptr);
 
 		const auto abs_error = std::abs(v1 - v2);
 		const auto rel_error = abs_error / std::max(std::abs(v1), std::abs(v2));
