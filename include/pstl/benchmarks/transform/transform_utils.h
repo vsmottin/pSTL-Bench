@@ -19,14 +19,14 @@ namespace benchmark_transform
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
 		for (auto _ : state)
 		{
-			pstl::wrap_timing(state, std::forward<Function>(f), execution_policy, input_data, kernel);
+			pstl::wrap_timing(state, std::forward<Function>(f), execution_policy, input, kernel);
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_transform
 

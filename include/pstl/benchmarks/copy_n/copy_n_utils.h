@@ -15,9 +15,9 @@ namespace benchmark_copy_n
 
 		const auto & size = state.range(0);
 
-		const auto input_data = pstl::generate_increment(execution_policy, size);
+		const auto input = pstl::generate_increment(execution_policy, size);
 
-		auto output = input_data;
+		auto output = input;
 
 		const auto condition = [](const auto & value) {
 			return value % 2 == 0;
@@ -25,10 +25,10 @@ namespace benchmark_copy_n
 
 		for (auto _ : state)
 		{
-			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, input_data.size(), output);
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, input.size(), output);
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data, output));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input, output));
 	}
 } // namespace benchmark_copy_n
 

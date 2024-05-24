@@ -23,13 +23,10 @@ namespace benchmark_search
 
 		for (auto _ : state)
 		{
-			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, data1.begin(),
-			                                      data1.end(), data2.begin(), data2.end());
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, data1, data2);
 			assert(pstl::are_equivalent(result, output));
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, data1, data2));
 	}
 } // namespace benchmark_search
-
-

@@ -17,19 +17,19 @@ namespace benchmark_transform_reduce
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
-		const auto solution = std::transform_reduce(std::execution::seq, input_data.cbegin(), input_data.cend(),
+		const auto solution = std::transform_reduce(std::execution::seq, input.cbegin(), input.cend(),
 		                                            pstl::elem_t{}, std::plus<>(), transform_kernel);
 
 		for (auto _ : state)
 		{
 			const auto output =
-			    pstl::wrap_timing(state, std::forward<Function>(f), execution_policy, input_data, transform_kernel);
+			    pstl::wrap_timing(state, std::forward<Function>(f), execution_policy, input, transform_kernel);
 
 			assert(pstl::are_equivalent(solution, output));
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_transform_reduce

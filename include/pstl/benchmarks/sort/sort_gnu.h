@@ -4,9 +4,7 @@
 
 namespace benchmark_sort
 {
-	const auto sort_gnu = []([[maybe_unused]] auto && policy, auto && begin, auto && end) {
-		__gnu_parallel::sort(begin, end);
+	const auto sort_gnu = []([[maybe_unused]] auto && policy, auto & input) {
+		__gnu_parallel::sort(input.begin(), input.end());
 	};
 } // namespace benchmark_sort
-
-

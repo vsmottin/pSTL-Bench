@@ -15,24 +15,22 @@ namespace benchmark_adjacent_difference
 
 		const auto & size = state.range(0);
 
-		const auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
-		auto output = input_data;
+		auto output = input;
 		std::fill(output.begin(), output.end(), 0);
 
-		std::adjacent_difference(input_data.begin(), input_data.end(), output.begin());
+		std::adjacent_difference(input.begin(), input.end(), output.begin());
 
 		const auto solution = output.back();
 
 		for (auto _ : state)
 		{
-			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, output);
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, output);
 
 			assert(output.back() == solution);
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data, output));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input, output));
 	}
 } // namespace benchmark_adjacent_difference
-
-

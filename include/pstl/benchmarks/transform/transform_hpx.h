@@ -10,5 +10,3 @@ namespace benchmark_transform
 	};
 
 } // namespace benchmark_transform
-
-

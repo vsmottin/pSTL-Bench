@@ -7,8 +7,8 @@
 
 namespace benchmark_count
 {
-	const auto count_hpx = [](auto && policy, const auto & container, const auto & value) {
-		return hpx::count(policy, container.begin(), container.end(), value);
+	const auto count_hpx = [](auto && policy, const auto & input, const auto & value) {
+		return hpx::count(policy, input.begin(), input.end(), value);
 	};
 } // namespace benchmark_count
 

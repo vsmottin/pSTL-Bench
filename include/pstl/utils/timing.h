@@ -87,6 +87,47 @@ namespace pstl
 #endif
 	}
 
+	template<typename T>
+	class has_begin_end
+	{
+	private:
+		template<typename U>
+		static auto test_begin(int) -> decltype(std::begin(std::declval<U &>()), std::true_type());
+
+		template<typename U>
+		static std::false_type test_begin(...);
+
+		template<typename U>
+		static auto test_end(int) -> decltype(std::end(std::declval<U &>()), std::true_type());
+
+		template<typename U>
+		static std::false_type test_end(...);
+
+	public:
+		static constexpr bool value = decltype(test_begin<T>(0))::value && decltype(test_end<T>(0))::value;
+	};
+
+	template<typename... Args>
+	static void touch_memory(Args &... args)
+	{
+		auto touch_elem = [](auto & elem) {
+			auto &        elem_nc    = const_cast<std::decay_t<decltype(elem)> &>(elem);
+			volatile char first_byte = *reinterpret_cast<char *>(&elem_nc);
+			benchmark::DoNotOptimize(first_byte);
+			*reinterpret_cast<char *>(&elem_nc) = first_byte;
+		};
+		auto touch = [&](auto & arg) {
+			// Check if the input has std::begin and std::end
+			if constexpr (has_begin_end<decltype(arg)>::value)
+			{
+				std::for_each(std::begin(arg), std::end(arg), touch_elem);
+			}
+			else { touch_elem(arg); }
+		};
+		// Touch all the arguments
+		(touch(args), ...);
+	}
+
 	// This function is used to wrap the timing of a function call -> F(args...) returning void
 	template<typename F, typename... Args>
 	auto wrap_timing(benchmark::State & state, F && f, Args &&... args)
@@ -95,6 +136,9 @@ namespace pstl
 		hw_counters_begin(state);
 		const auto start = std::chrono::high_resolution_clock::now();
 		std::forward<F>(f)(std::forward<Args>(args)...);
+#if defined(USE_GPU) and defined(GPU_CONTINUOUS_TRANSFERS)
+		touch_memory(args...);
+#endif
 		const auto end = std::chrono::high_resolution_clock::now();
 		hw_counters_end(state);
 		state.SetIterationTime(std::chrono::duration<double>(end - start).count());
@@ -109,7 +153,10 @@ namespace pstl
 		hw_counters_begin(state);
 		const auto start = std::chrono::high_resolution_clock::now();
 		return_t   rv    = std::forward<F>(f)(std::forward<Args>(args)...);
-		const auto end   = std::chrono::high_resolution_clock::now();
+#if defined(USE_GPU) and defined(GPU_CONTINUOUS_TRANSFERS)
+		touch_memory(args...);
+#endif
+		const auto end = std::chrono::high_resolution_clock::now();
 		hw_counters_end(state);
 		state.SetIterationTime(std::chrono::duration<double>(end - start).count());
 		return rv;

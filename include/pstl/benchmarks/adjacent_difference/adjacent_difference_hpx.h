@@ -4,8 +4,8 @@
 
 namespace benchmark_adjacent_difference
 {
-	const auto adjacent_difference_hpx = [](auto & policy, const auto & container, auto & output) {
-		hpx::adjacent_difference(policy, container.begin(), container.end(), output.begin());
+	const auto adjacent_difference_hpx = [](auto & policy, const auto & input, auto & output) {
+		hpx::adjacent_difference(policy, input.begin(), input.end(), output.begin());
 	};
 } // namespace benchmark_adjacent_difference
 

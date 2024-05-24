@@ -15,19 +15,19 @@ namespace benchmark_max_element
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
-		std::shuffle(input_data.begin(), input_data.end(), std::mt19937{ std::random_device{}() });
+		auto input = pstl::generate_increment(execution_policy, size);
+		std::shuffle(input.begin(), input.end(), std::mt19937{ std::random_device{}() });
 
-		const auto solution = std::max_element(input_data.begin(), input_data.end());
+		const auto solution = std::max_element(input.begin(), input.end());
 
 		for (auto _ : state)
 		{
-			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data);
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input);
 
 			assert(pstl::are_equivalent(solution, output));
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_max_element
 

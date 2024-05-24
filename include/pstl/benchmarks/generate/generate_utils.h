@@ -15,7 +15,7 @@ namespace benchmark_generate
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
 		static const auto generator = []() {
 			return pstl::elem_t{};
@@ -23,10 +23,10 @@ namespace benchmark_generate
 
 		for (auto _ : state)
 		{
-			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, generator);
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, generator);
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_generate
 

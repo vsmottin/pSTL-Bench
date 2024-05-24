@@ -8,5 +8,3 @@ namespace benchmark_min_element
 		return __gnu_parallel::min_element(input.begin(), input.end());
 	};
 } // namespace benchmark_min_element
-
-

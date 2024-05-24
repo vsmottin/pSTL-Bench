@@ -85,5 +85,3 @@ static void adjacent_difference_hpx_wrapper(benchmark::State & state)
 	ADJACENT_DIFFERENCE_STD_WRAPPER \
 	ADJACENT_DIFFERENCE_GNU_WRAPPER \
 	ADJACENT_DIFFERENCE_HPX_WRAPPER
-
-

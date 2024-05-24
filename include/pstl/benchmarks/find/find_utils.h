@@ -17,7 +17,7 @@ namespace benchmark_find
 		const auto & size = state.range(0);
 
 		// vector with values [0,size)
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
 		// Seed with a fixed value for reproducibility
 		const auto seed = 42;
@@ -30,7 +30,7 @@ namespace benchmark_find
 
 		const auto get_value = [&]() {
 			const auto index = gen(engine);
-			return input_data[index];
+			return input[index];
 		};
 
 		for (auto _ : state)
@@ -39,13 +39,13 @@ namespace benchmark_find
 			const auto value = get_value();
 
 			const auto output =
-			    pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, value);
+			    pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, value);
 
 			// make sure the val is really found
-			assert(output == std::find(input_data.begin(), input_data.end(), value));
+			assert(output == std::find(input.begin(), input.end(), value));
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_find
 

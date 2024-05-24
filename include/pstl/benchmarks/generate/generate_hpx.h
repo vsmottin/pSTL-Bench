@@ -3,13 +3,9 @@
 #include <hpx/algorithm.hpp>
 #include <hpx/execution.hpp>
 
-#include <benchmark/benchmark.h>
-
 namespace benchmark_generate
 {
-	const auto generate_hpx = [](auto && policy, auto & container, auto && generator) {
-		return hpx::generate(policy, container.begin(), container.end(), generator);
+	const auto generate_hpx = [](auto && policy, auto & input, auto && generator) {
+		return hpx::generate(policy, input.begin(), input.end(), generator);
 	};
 } // namespace benchmark_generate
-
-

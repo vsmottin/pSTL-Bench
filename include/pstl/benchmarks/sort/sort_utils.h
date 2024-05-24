@@ -13,22 +13,20 @@ namespace benchmark_sort
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
 		static std::random_device rd;
 		static std::mt19937       generator(rd());
 
 		for (auto _ : state)
 		{
-			std::shuffle(input_data.begin(), input_data.end(), generator);
+			std::shuffle(input.begin(), input.end(), generator);
 
-			pstl::wrap_timing(state, std::forward<Function>(f), execution_policy, input_data.begin(), input_data.end());
+			pstl::wrap_timing(state, std::forward<Function>(f), execution_policy, input);
 
-			assert(std::is_sorted(input_data.begin(), input_data.end()));
+			assert(std::is_sorted(input.begin(), input.end()));
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_sort
-
-

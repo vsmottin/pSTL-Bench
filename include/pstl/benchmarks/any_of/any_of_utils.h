@@ -16,28 +16,26 @@ namespace benchmark_any_of
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
 		static auto rd = std::random_device{};
 
 		// Choose a random number between 1 and size
 		static std::minstd_rand               engine{ rd() };
-		std::uniform_int_distribution<size_t> gen(0, input_data.size() - 1);
+		std::uniform_int_distribution<size_t> gen(0, input.size() - 1);
 
 		for (auto _ : state)
 		{
 			const auto index = gen(engine);
-			const auto value = input_data[index];
+			const auto value = input[index];
 
-			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data,
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input,
 			                                      [=](const auto & val) { return val == value; });
 
 			assert(pstl::are_equivalent(output, true));
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 
 } // namespace benchmark_any_of
-
-

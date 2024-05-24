@@ -3,13 +3,9 @@
 #include <hpx/algorithm.hpp>
 #include <hpx/execution.hpp>
 
-#include <benchmark/benchmark.h>
-
 namespace benchmark_fill
 {
-	const auto fill_hpx = [](auto && policy, auto & container, const auto & value) {
-		return hpx::fill(policy, container.begin(), container.end(), value);
+	const auto fill_hpx = [](auto && policy, auto & input, const auto & value) {
+		return hpx::fill(policy, input.begin(), input.end(), value);
 	};
 } // namespace benchmark_fill
-
-

@@ -15,15 +15,13 @@ namespace benchmark_fill
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
 		for (auto _ : state)
 		{
-			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, pstl::elem_t{});
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, pstl::elem_t{});
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_fill
-
-

@@ -15,15 +15,13 @@ namespace benchmark_is_sorted
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
 		for (auto _ : state)
 		{
-			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data.begin(), input_data.end());
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input);
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_is_sorted
-
-

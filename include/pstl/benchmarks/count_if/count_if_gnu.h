@@ -9,9 +9,7 @@
 
 namespace benchmark_count_if
 {
-	const auto count_if_gnu = [](auto && policy, const auto & container, auto & condition) {
-		return __gnu_parallel::count_if(container.begin(), container.end(), condition);
+	const auto count_if_gnu = [](auto && policy, const auto & input, auto & condition) {
+		return __gnu_parallel::count_if(input.begin(), input.end(), condition);
 	};
 } // namespace benchmark_count_if
-
-

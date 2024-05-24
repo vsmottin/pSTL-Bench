@@ -15,23 +15,23 @@ namespace benchmark_all_of
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
 		const auto condition = [](const auto & val) {
 			return val > 0;
 		};
 
-		const auto solution = std::all_of(input_data.begin(), input_data.end(), condition);
+		const auto solution = std::all_of(input.begin(), input.end(), condition);
 
 		for (auto _ : state)
 		{
 			const auto output =
-			    pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, condition);
+			    pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, condition);
 
 			assert(pstl::are_equivalent(output, solution));
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_all_of
 

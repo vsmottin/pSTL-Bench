@@ -21,16 +21,16 @@ namespace benchmark_copy_if
 
 		const auto & size = state.range(0);
 
-		const auto input_data = pstl::generate_increment(execution_policy, size);
+		const auto input = pstl::generate_increment(execution_policy, size);
 
-		auto output = input_data;
+		auto output = input;
 
 		for (auto _ : state)
 		{
-			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, output, condition);
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, output, condition);
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data, output));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input, output));
 	}
 } // namespace benchmark_copy_if
 

@@ -4,9 +4,7 @@
 
 namespace benchmark_generate
 {
-	const auto generate_gnu = []([[maybe_unused]] auto && policy, auto & container, auto && generator) {
-		return __gnu_parallel::generate(container.begin(), container.end(), generator);
+	const auto generate_gnu = []([[maybe_unused]] auto && policy, auto & input, auto && generator) {
+		return __gnu_parallel::generate(input.begin(), input.end(), generator);
 	};
 } // namespace benchmark_generate
-
-

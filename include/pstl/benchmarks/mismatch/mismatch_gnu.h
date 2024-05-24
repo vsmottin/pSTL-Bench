@@ -8,5 +8,3 @@ namespace benchmark_mismatch
 		return __gnu_parallel::mismatch(data1.begin(), data1.end(), data2.begin());
 	};
 } // namespace benchmark_mismatch
-
-

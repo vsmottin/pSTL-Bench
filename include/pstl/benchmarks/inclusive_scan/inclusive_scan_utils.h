@@ -15,23 +15,23 @@ namespace benchmark_inclusive_scan
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
-		auto output = input_data;
+		auto output = input;
 		std::fill(output.begin(), output.end(), 0);
 
-		std::inclusive_scan(std::execution::seq, input_data.begin(), input_data.end(), output.begin());
+		std::inclusive_scan(std::execution::seq, input.begin(), input.end(), output.begin());
 
 		const auto solution = output.back();
 
 		for (auto _ : state)
 		{
-			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, output);
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, output);
 
 			assert(pstl::are_equivalent(output.back(), solution));
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_inclusive_scan
 

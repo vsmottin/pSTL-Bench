@@ -16,7 +16,7 @@ namespace benchmark_none_of
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
 		const auto condition = [=](const auto & val) {
 			return val > size;
@@ -24,15 +24,12 @@ namespace benchmark_none_of
 
 		for (auto _ : state)
 		{
-			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy,
-			                                      input_data.begin(), input_data.end(), condition);
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, condition);
 
 			assert(pstl::are_equivalent(output, true));
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 
 } // namespace benchmark_none_of
-
-

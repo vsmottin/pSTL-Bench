@@ -1,17 +1,12 @@
 #pragma once
 
-#include <algorithm>
-#include <execution>
-
-#include <benchmark/benchmark.h>
+#include "pstl/utils/elem_t.h"
 
 #include <parallel/numeric>
 
 namespace benchmark_reduce
 {
-	const auto reduce_gnu = []([[maybe_unused]] auto && policy, const auto & begin, const auto & end) {
-		return __gnu_parallel::accumulate(begin, end, pstl::elem_t{});
+	const auto reduce_gnu = []([[maybe_unused]] auto && policy, const auto & input) {
+		return __gnu_parallel::accumulate(input.begin(), input.end(), pstl::elem_t{});
 	};
 } // namespace benchmark_reduce
-
-

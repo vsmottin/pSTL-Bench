@@ -121,10 +121,12 @@ add_compile_definitions(DEFAULT_FOR_EACH_KERNEL_ITS=${DEFAULT_FOR_EACH_KERNEL_IT
 # endregion for_each kernel iterations
 
 # region GPU enforced transfers
-if ("${USE_GPU}" STREQUAL "ON")
-    if (NOT DEFINED ${GPU_CONTINUOUS_TRANSFERS})
-        set(GPU_CONTINUOUS_TRANSFERS "ON" CACHE STRING "Data will be transferred between host and device before and after each kernel. When OFF, data will be transferred only once.")
-    endif ()
+option(GPU_CONTINUOUS_TRANSFERS "Data will be transferred between host and device before and after each kernel. When OFF, data will be transferred only once." OFF)
+if (${GPU_CONTINUOUS_TRANSFERS})
+    add_compile_definitions(GPU_CONTINUOUS_TRANSFERS)
+    message(STATUS "Enforcing continuous transfers between host and device")
+else ()
+    message(STATUS "Not enforcing continuous transfers between host and device")
 endif ()
 # endregion GPU enforced transfers
 

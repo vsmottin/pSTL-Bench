@@ -7,9 +7,7 @@
 
 namespace benchmark_count_if
 {
-	const auto count_if_std = [](auto && policy, const auto & container, auto & condition) {
-		return std::count_if(policy, container.begin(), container.end(), condition);
+	const auto count_if_std = [](auto && policy, const auto & input, auto & condition) {
+		return std::count_if(policy, input.begin(), input.end(), condition);
 	};
 } // namespace benchmark_count_if
-
-

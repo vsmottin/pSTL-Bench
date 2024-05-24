@@ -1,9 +1,7 @@
 #pragma once
 
+#include <algorithm>
 #include <execution>
-#include <numeric>
-
-#include <benchmark/benchmark.h>
 
 namespace benchmark_mismatch
 {
@@ -11,5 +9,3 @@ namespace benchmark_mismatch
 		return std::mismatch(data1.begin(), data1.end(), data2.begin());
 	};
 } // namespace benchmark_mismatch
-
-

@@ -8,14 +8,14 @@
 
 namespace benchmark_sort
 {
-	const auto sort_std = [](auto && policy, auto && begin, auto && end) {
+	const auto sort_std = [](auto && policy, auto & input) {
 #if defined(USE_TBB)
 	// Show compiler message if TBB is used
 #warning \
     "Using tbb::parallel_sort since std::sort(parallel_policy) explodes in memory usage. See: https://github.com/llvm/llvm-project/issues/78956#issue-2093630075"
 		tbb::parallel_sort(begin, end);
 #else
-		std::sort(policy, begin, end);
+		std::sort(policy, input.begin(), input.end());
 #endif //USE_TBB
 	};
 } // namespace benchmark_sort

@@ -8,5 +8,3 @@ namespace benchmark_min_element
 		return hpx::min_element(policy, input.begin(), input.end());
 	};
 } // namespace benchmark_min_element
-
-

@@ -11,5 +11,3 @@ namespace benchmark_merge
 		return std::merge(policy, first1, last1, first2, last2, d_first);
 	};
 } // namespace benchmark_merge
-
-

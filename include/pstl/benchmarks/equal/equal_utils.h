@@ -27,5 +27,3 @@ namespace benchmark_equal
 		state.SetBytesProcessed(pstl::computed_bytes(state, data1, data2));
 	}
 } // namespace benchmark_equal
-
-

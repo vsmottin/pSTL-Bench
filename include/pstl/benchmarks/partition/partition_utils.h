@@ -21,20 +21,17 @@ namespace benchmark_partition
 
 		const auto & size = state.range(0);
 
-		auto input_data = pstl::generate_increment(execution_policy, size);
+		auto input = pstl::generate_increment(execution_policy, size);
 
 		for (auto _ : state)
 		{
-			std::shuffle(input_data.begin(), input_data.end(), std::mt19937(std::random_device()()));
+			std::shuffle(input.begin(), input.end(), std::mt19937(std::random_device()()));
 
-			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data.begin(), input_data.end(),
-			                  condition);
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, condition);
 
-			assert(std::is_partitioned(input_data.begin(), input_data.end(), condition));
+			assert(std::is_partitioned(input.begin(), input.end(), condition));
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_partition
-
-

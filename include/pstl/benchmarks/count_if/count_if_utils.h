@@ -21,18 +21,18 @@ namespace benchmark_count_if
 
 		const auto & size = state.range(0);
 
-		const auto input_data = pstl::generate_increment(execution_policy, size);
+		const auto input = pstl::generate_increment(execution_policy, size);
 
-		const auto solution = std::count_if(input_data.begin(), input_data.end(), condition);
+		const auto solution = std::count_if(input.begin(), input.end(), condition);
 
 		for (auto _ : state)
 		{
-			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input_data, condition);
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, condition);
 
 			assert(pstl::are_equivalent(output, solution));
 		}
 
-		state.SetBytesProcessed(pstl::computed_bytes(state, input_data));
+		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_count_if
 

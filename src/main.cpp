@@ -2,6 +2,8 @@
 #include <hpx/hpx_main.hpp>
 #endif
 
+#include <thread>
+
 #include <benchmark/benchmark.h>
 
 #if defined(USE_TBB) or defined(USE_HPX)

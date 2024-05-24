@@ -29,8 +29,7 @@ namespace benchmark_set_intersection
 
 		for (auto _ : state)
 		{
-			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, data1.begin(), data1.end(),
-			                  data2.begin(), data2.end(), output.begin());
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, data1, data2, output);
 
 			std::sort(output.begin(), output.end());
 
@@ -42,5 +41,3 @@ namespace benchmark_set_intersection
 		state.SetBytesProcessed(pstl::computed_bytes(state, data1, data2));
 	}
 } // namespace benchmark_set_intersection
-
-

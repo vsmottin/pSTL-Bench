@@ -11,7 +11,6 @@
 #include "pstl/utils/par_alloc.h"
 #endif
 
-#include "pstl/utils/elem_t.h"
 #include "pstl/utils/input_gen.h"
 #include "pstl/utils/timing.h"
 

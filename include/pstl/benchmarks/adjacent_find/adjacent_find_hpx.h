@@ -4,8 +4,8 @@
 
 namespace benchmark_adjacent_find
 {
-	const auto adjacent_find_hpx = [](auto && policy, const auto & container) {
-		return hpx::adjacent_find(policy, container.begin(), container.end());
+	const auto adjacent_find_hpx = [](auto && policy, const auto & input) {
+		return hpx::adjacent_find(policy, input.begin(), input.end());
 	};
 } // namespace benchmark_adjacent_find
 
