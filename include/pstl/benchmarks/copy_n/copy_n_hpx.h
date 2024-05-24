@@ -8,5 +8,3 @@ namespace benchmark_copy_n
 		hpx::copy_n(policy, input.begin(), n, output.begin());
 	};
 } // namespace benchmark_copy_n
-
-

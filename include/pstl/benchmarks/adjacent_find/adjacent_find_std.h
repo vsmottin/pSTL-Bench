@@ -9,5 +9,3 @@ namespace benchmark_adjacent_find
 		return std::adjacent_find(policy, input.begin(), input.end());
 	};
 } // namespace benchmark_adjacent_find
-
-

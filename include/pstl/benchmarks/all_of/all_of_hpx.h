@@ -8,5 +8,3 @@ namespace benchmark_all_of
 		return hpx::all_of(policy, input.begin(), input.end(), condition);
 	};
 } // namespace benchmark_all_of
-
-

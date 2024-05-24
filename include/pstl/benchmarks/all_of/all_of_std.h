@@ -9,5 +9,3 @@ namespace benchmark_all_of
 		return std::all_of(policy, input.begin(), input.end(), condition);
 	};
 } // namespace benchmark_all_of
-
-

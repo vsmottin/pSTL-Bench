@@ -23,13 +23,13 @@ static void merge_std_wrapper(benchmark::State & state)
 
 #define MERGE_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(merge_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::merge"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::merge"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define MERGE_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(merge_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::merge"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::merge"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define MERGE_STD_WRAPPER
@@ -46,7 +46,7 @@ static void merge_gnu_wrapper(benchmark::State & state)
 
 #define MERGE_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(merge_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::merge"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::merge"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define MERGE_GNU_WRAPPER
@@ -63,11 +63,12 @@ static void merge_hpx_wrapper(benchmark::State & state)
 
 #define MERGE_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(merge_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::merge"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::merge"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define MERGE_HPX_WRAPPER
 #endif
+//endregion merge_hpx
 
 #define MERGE_GROUP   \
 	MERGE_SEQ_WRAPPER \
@@ -75,4 +76,4 @@ static void merge_hpx_wrapper(benchmark::State & state)
 	MERGE_GNU_WRAPPER \
 	MERGE_HPX_WRAPPER
 
-
+MERGE_GROUP

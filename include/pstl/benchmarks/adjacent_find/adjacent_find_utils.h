@@ -25,8 +25,8 @@ namespace benchmark_adjacent_find
 
 		for (auto _ : state)
 		{
-			const auto index  = gen(engine);
-			input[index] = input[index + 1];
+			const auto index = gen(engine);
+			input[index]     = input[index + 1];
 
 			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input);
 
@@ -40,5 +40,3 @@ namespace benchmark_adjacent_find
 		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_adjacent_find
-
-

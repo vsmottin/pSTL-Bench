@@ -30,5 +30,3 @@ namespace benchmark_lexicographical_compare
 		state.SetBytesProcessed(pstl::computed_bytes(state, data1, data2));
 	}
 } // namespace benchmark_lexicographical_compare
-
-

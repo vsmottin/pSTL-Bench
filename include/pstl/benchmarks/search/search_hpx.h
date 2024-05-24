@@ -8,5 +8,3 @@ namespace benchmark_search
 		return hpx::search(policy, data1.begin(), data1.end(), data2.begin(), data2.end());
 	};
 } // namespace benchmark_search
-
-

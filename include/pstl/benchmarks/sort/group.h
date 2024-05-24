@@ -23,13 +23,13 @@ static void sort_std_wrapper(benchmark::State & state)
 
 #define SORT_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(sort_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::sort"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::sort"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define SORT_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(sort_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::sort"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::sort"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define SORT_STD_WRAPPER
@@ -46,7 +46,7 @@ static void sort_gnu_wrapper(benchmark::State & state)
 
 #define SORT_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(sort_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::sort"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::sort"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define SORT_GNU_WRAPPER
@@ -63,11 +63,12 @@ static void sort_hpx_wrapper(benchmark::State & state)
 
 #define SORT_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(sort_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::sort"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::sort"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define SORT_HPX_WRAPPER
 #endif
+//endregion sort_hpx
 
 #define SORT_GROUP   \
 	SORT_SEQ_WRAPPER \
@@ -75,4 +76,4 @@ static void sort_hpx_wrapper(benchmark::State & state)
 	SORT_GNU_WRAPPER \
 	SORT_HPX_WRAPPER
 
-
+SORT_GROUP

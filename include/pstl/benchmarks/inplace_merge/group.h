@@ -19,13 +19,13 @@ static void inplace_merge_std_wrapper(benchmark::State & state)
 
 #define INPLACE_MERGE_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(inplace_merge_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::inplace_merge"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::inplace_merge"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define INPLACE_MERGE_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(inplace_merge_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::inplace_merge"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::inplace_merge"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define INPLACE_MERGE_STD_WRAPPER
@@ -42,15 +42,16 @@ static void inplace_merge_hpx_wrapper(benchmark::State & state)
 
 #define INPLACE_MERGE_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(inplace_merge_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::inplace_merge"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::inplace_merge"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define INPLACE_MERGE_HPX_WRAPPER
 #endif
+//endregion inplace_merge_hpx
 
 #define INPLACE_MERGE_GROUP   \
 	INPLACE_MERGE_SEQ_WRAPPER \
 	INPLACE_MERGE_STD_WRAPPER \
 	INPLACE_MERGE_HPX_WRAPPER
 
-
+INPLACE_MERGE_GROUP

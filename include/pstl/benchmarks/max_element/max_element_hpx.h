@@ -8,5 +8,3 @@ namespace benchmark_max_element
 		return hpx::max_element(policy, input.begin(), input.end());
 	};
 } // namespace benchmark_max_element
-
-

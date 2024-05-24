@@ -30,5 +30,3 @@ namespace benchmark_max_element
 		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_max_element
-
-

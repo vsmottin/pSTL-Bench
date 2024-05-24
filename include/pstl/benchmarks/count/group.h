@@ -23,13 +23,13 @@ static void count_std_wrapper(benchmark::State & state)
 
 #define COUNT_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(count_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::count"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::count"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define COUNT_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(count_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::count"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::count"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define COUNT_STD_WRAPPER
@@ -46,7 +46,7 @@ static void count_gnu_wrapper(benchmark::State & state)
 
 #define COUNT_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(count_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::count"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::count"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define COUNT_GNU_WRAPPER
@@ -62,11 +62,12 @@ static void count_hpx_wrapper(benchmark::State & state)
 
 #define COUNT_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(count_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::count"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::count"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define COUNT_HPX_WRAPPER
 #endif
+//endregion count_hpx
 
 #define COUNT_GROUP   \
 	COUNT_SEQ_WRAPPER \
@@ -74,4 +75,4 @@ static void count_hpx_wrapper(benchmark::State & state)
 	COUNT_GNU_WRAPPER \
 	COUNT_HPX_WRAPPER
 
-
+COUNT_GROUP

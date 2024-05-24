@@ -15,8 +15,8 @@ namespace benchmark_merge
 
 		const auto & size = state.range(0);
 
-		auto input = pstl::generate_increment(execution_policy, size);
-		auto output     = input;
+		auto input  = pstl::generate_increment(execution_policy, size);
+		auto output = input;
 
 		for (auto _ : state)
 		{
@@ -36,5 +36,3 @@ namespace benchmark_merge
 		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_merge
-
-

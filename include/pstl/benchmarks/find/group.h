@@ -24,13 +24,13 @@ static void find_std_wrapper(benchmark::State & state)
 
 #define FIND_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(find_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::find"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::find"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define FIND_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(find_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::find"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::find"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define FIND_STD_WRAPPER
@@ -47,7 +47,7 @@ static void find_gnu_wrapper(benchmark::State & state)
 
 #define FIND_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(find_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::find"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::find"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define FIND_GNU_WRAPPER
@@ -64,13 +64,12 @@ static void find_hpx_wrapper(benchmark::State & state)
 
 #define FIND_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(find_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::find"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::find"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define FIND_HPX_WRAPPER
 #endif
 //endregion find_hpx
-
 
 // Register the function as a benchmark
 #define FIND_GROUP   \
@@ -79,5 +78,4 @@ static void find_hpx_wrapper(benchmark::State & state)
 	FIND_GNU_WRAPPER \
 	FIND_HPX_WRAPPER
 
-
-
+FIND_GROUP

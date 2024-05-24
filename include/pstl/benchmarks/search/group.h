@@ -23,13 +23,13 @@ static void search_std_wrapper(benchmark::State & state)
 
 #define SEARCH_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(search_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::search"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::search"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define SEARCH_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(search_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::search"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::search"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define SEARCH_STD_WRAPPER
@@ -46,7 +46,7 @@ static void search_gnu_wrapper(benchmark::State & state)
 
 #define SEARCH_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(search_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::search"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::search"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define SEARCH_GNU_WRAPPER
@@ -63,11 +63,12 @@ static void search_hpx_wrapper(benchmark::State & state)
 
 #define SEARCH_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(search_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::search"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::search"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define SEARCH_HPX_WRAPPER
 #endif
+//endregion search_hpx
 
 #define SEARCH_GROUP   \
 	SEARCH_SEQ_WRAPPER \
@@ -75,4 +76,4 @@ static void search_hpx_wrapper(benchmark::State & state)
 	SEARCH_GNU_WRAPPER \
 	SEARCH_HPX_WRAPPER
 
-
+SEARCH_GROUP

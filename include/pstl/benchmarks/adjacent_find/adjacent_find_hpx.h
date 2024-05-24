@@ -8,5 +8,3 @@ namespace benchmark_adjacent_find
 		return hpx::adjacent_find(policy, input.begin(), input.end());
 	};
 } // namespace benchmark_adjacent_find
-
-

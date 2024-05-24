@@ -8,5 +8,3 @@ namespace benchmark_adjacent_difference
 		__gnu_parallel::adjacent_difference(input.begin(), input.end(), output.begin(), std::minus<>());
 	};
 } // namespace benchmark_adjacent_difference
-
-

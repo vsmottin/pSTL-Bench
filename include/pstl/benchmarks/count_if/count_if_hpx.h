@@ -11,5 +11,3 @@ namespace benchmark_count_if
 		return hpx::count_if(policy, input.begin(), input.end(), condition);
 	};
 } // namespace benchmark_count_if
-
-

@@ -11,5 +11,3 @@ namespace benchmark_copy_n
 		std::copy_n(policy, input.begin(), n, output.begin());
 	};
 } // namespace benchmark_copy_n
-
-

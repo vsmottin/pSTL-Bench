@@ -25,13 +25,13 @@ static void transform_std_wrapper(benchmark::State & state)
 
 #define TRANSFORM_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(transform_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::transform"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::transform"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define TRANSFORM_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::transform"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::transform"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_STD_WRAPPER
@@ -48,7 +48,7 @@ static void transform_gnu_wrapper(benchmark::State & state)
 
 #define TRANSFORM_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::transform"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::transform"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_GNU_WRAPPER
@@ -65,11 +65,12 @@ static void transform_hpx_wrapper(benchmark::State & state)
 
 #define TRANSFORM_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::transform"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::transform"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_HPX_WRAPPER
 #endif
+//endregion transform_hpx
 
 #define TRANSFORM_GROUP   \
 	TRANSFORM_SEQ_WRAPPER \
@@ -77,4 +78,4 @@ static void transform_hpx_wrapper(benchmark::State & state)
 	TRANSFORM_GNU_WRAPPER \
 	TRANSFORM_HPX_WRAPPER
 
-
+TRANSFORM_GROUP

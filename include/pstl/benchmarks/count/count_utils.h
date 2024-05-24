@@ -36,5 +36,3 @@ namespace benchmark_count
 		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_count
-
-

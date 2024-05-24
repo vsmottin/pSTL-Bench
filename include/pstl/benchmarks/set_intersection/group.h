@@ -24,13 +24,13 @@ static void set_intersection_std_wrapper(benchmark::State & state)
 
 #define SET_INTERSECTION_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(set_intersection_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::set_intersection"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::set_intersection"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define SET_INTERSECTION_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(set_intersection_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::set_intersection"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::set_intersection"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define SET_INTERSECTION_STD_WRAPPER
@@ -47,7 +47,7 @@ static void set_intersection_gnu_wrapper(benchmark::State & state)
 
 #define SET_INTERSECTION_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(set_intersection_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::set_intersection"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::set_intersection"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define SET_INTERSECTION_GNU_WRAPPER
@@ -64,11 +64,12 @@ static void set_intersection_hpx_wrapper(benchmark::State & state)
 
 #define SET_INTERSECTION_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(set_intersection_hpx_wrapper, hpx::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::set_intersection"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::set_intersection"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define SET_INTERSECTION_HPX_WRAPPER
 #endif
+//endregion set_intersection_hpx
 
 #define SET_INTERSECTION_GROUP   \
 	SET_INTERSECTION_SEQ_WRAPPER \
@@ -76,4 +77,4 @@ static void set_intersection_hpx_wrapper(benchmark::State & state)
 	SET_INTERSECTION_GNU_WRAPPER \
 	SET_INTERSECTION_HPX_WRAPPER
 
-
+SET_INTERSECTION_GROUP

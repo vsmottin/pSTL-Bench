@@ -19,8 +19,8 @@ namespace benchmark_transform_reduce
 
 		auto input = pstl::generate_increment(execution_policy, size);
 
-		const auto solution = std::transform_reduce(std::execution::seq, input.cbegin(), input.cend(),
-		                                            pstl::elem_t{}, std::plus<>(), transform_kernel);
+		const auto solution = std::transform_reduce(std::execution::seq, input.cbegin(), input.cend(), pstl::elem_t{},
+		                                            std::plus<>(), transform_kernel);
 
 		for (auto _ : state)
 		{

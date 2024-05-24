@@ -19,13 +19,13 @@ static void all_of_std_wrapper(benchmark::State & state)
 
 #define ALL_OF_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(all_of_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::all_of"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::all_of"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define ALL_OF_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(all_of_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::all_of"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::all_of"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define ALL_OF_STD_WRAPPER
@@ -42,7 +42,7 @@ static void all_of_hpx_wrapper(benchmark::State & state)
 
 #define ALL_OF_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(all_of_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::all_of"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::all_of"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define ALL_OF_HPX_WRAPPER
@@ -53,4 +53,4 @@ static void all_of_hpx_wrapper(benchmark::State & state)
 	ALL_OF_STD_WRAPPER \
 	ALL_OF_HPX_WRAPPER
 
-
+ALL_OF_GROUP

@@ -10,5 +10,3 @@ namespace benchmark_reduce
 		return hpx::reduce(policy, input.begin(), input.end(), pstl::elem_t{});
 	};
 } // namespace benchmark_reduce
-
-

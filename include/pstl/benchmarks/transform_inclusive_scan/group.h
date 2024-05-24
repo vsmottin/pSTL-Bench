@@ -22,13 +22,13 @@ static void transform_inclusive_scan_std_wrapper(benchmark::State & state)
 
 #define TRANSFORM_INCLUSIVE_SCAN_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(transform_inclusive_scan_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::transform_inclusive_scan"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::transform_inclusive_scan"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define TRANSFORM_INCLUSIVE_SCAN_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_inclusive_scan_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::transform_inclusive_scan"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::transform_inclusive_scan"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_INCLUSIVE_SCAN_STD_WRAPPER
@@ -46,15 +46,16 @@ static void transform_inclusive_scan_hpx_wrapper(benchmark::State & state)
 
 #define TRANSFORM_INCLUSIVE_SCAN_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_inclusive_scan_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::transform_inclusive_scan"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::transform_inclusive_scan"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_INCLUSIVE_SCAN_HPX_WRAPPER
 #endif
+//endregion transform_inclusive_scan_hpx
 
 #define TRANSFORM_INCLUSIVE_SCAN_GROUP   \
 	TRANSFORM_INCLUSIVE_SCAN_SEQ_WRAPPER \
 	TRANSFORM_INCLUSIVE_SCAN_STD_WRAPPER \
 	TRANSFORM_INCLUSIVE_SCAN_HPX_WRAPPER
 
-
+TRANSFORM_INCLUSIVE_SCAN_GROUP

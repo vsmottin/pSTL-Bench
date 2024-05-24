@@ -24,13 +24,10 @@ namespace benchmark_includes
 
 		for (auto _ : state)
 		{
-			const auto output =
-			    pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, subset);
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, subset);
 			assert(pstl::are_equivalent(output, solution));
 		}
 
 		state.SetBytesProcessed(pstl::computed_bytes(state, input, subset));
 	}
 } // namespace benchmark_includes
-
-

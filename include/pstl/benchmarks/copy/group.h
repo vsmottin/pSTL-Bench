@@ -19,13 +19,13 @@ static void copy_std_wrapper(benchmark::State & state)
 
 #define COPY_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(copy_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::copy"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::copy"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define COPY_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(copy_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::copy"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::copy"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define COPY_STD_WRAPPER
@@ -42,12 +42,13 @@ static void copy_hpx_wrapper(benchmark::State & state)
 
 #define COPY_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(copy_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::copy"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::copy"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define COPY_HPX_WRAPPER
 #endif
+//endregion copy_hpx
 
 #define COPY_GROUP COPY_SEQ_WRAPPER COPY_STD_WRAPPER COPY_HPX_WRAPPER
 
-
+COPY_GROUP

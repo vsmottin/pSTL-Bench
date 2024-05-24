@@ -8,5 +8,3 @@ namespace benchmark_max_element
 		return __gnu_parallel::max_element(input.begin(), input.end());
 	};
 } // namespace benchmark_max_element
-
-

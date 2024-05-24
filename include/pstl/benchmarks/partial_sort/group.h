@@ -68,6 +68,7 @@ static void partial_sort_hpx_wrapper(benchmark::State & state)
 #else
 #define PARTIAL_SORT_HPX_WRAPPER
 #endif
+//endregion partial_sort_hpx
 
 #define PARTIAL_SORT_GROUP   \
 	PARTIAL_SORT_SEQ_WRAPPER \
@@ -75,4 +76,4 @@ static void partial_sort_hpx_wrapper(benchmark::State & state)
 	PARTIAL_SORT_GNU_WRAPPER \
 	PARTIAL_SORT_HPX_WRAPPER
 
-
+PARTIAL_SORT_GROUP

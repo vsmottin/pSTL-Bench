@@ -11,5 +11,3 @@ namespace benchmark_copy_if
 		std::copy_if(policy, input.begin(), input.end(), output.begin(), condition);
 	};
 } // namespace benchmark_copy_if
-
-

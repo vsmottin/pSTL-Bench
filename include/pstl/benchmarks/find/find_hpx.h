@@ -11,5 +11,3 @@ namespace benchmark_find
 		return hpx::find(policy, input.begin(), input.end(), find_val);
 	};
 } // namespace benchmark_find
-
-

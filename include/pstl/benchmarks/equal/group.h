@@ -23,13 +23,13 @@ static void equal_std_wrapper(benchmark::State & state)
 
 #define EQUAL_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(equal_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::equal"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::equal"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define EQUAL_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(equal_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::equal"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::equal"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define EQUAL_STD_WRAPPER
@@ -46,11 +46,12 @@ static void equal_gnu_wrapper(benchmark::State & state)
 
 #define EQUAL_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(equal_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::equal"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::equal"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define EQUAL_GNU_WRAPPER
 #endif
+//endregion equal_gnu
 
 //region equal_hpx
 #ifdef PSTL_BENCH_USE_HPX
@@ -62,11 +63,12 @@ static void equal_hpx_wrapper(benchmark::State & state)
 
 #define EQUAL_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(equal_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::equal"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::equal"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define EQUAL_HPX_WRAPPER
 #endif
+//endregion equal_hpx
 
 #define EQUAL_GROUP   \
 	EQUAL_SEQ_WRAPPER \
@@ -74,4 +76,4 @@ static void equal_hpx_wrapper(benchmark::State & state)
 	EQUAL_GNU_WRAPPER \
 	EQUAL_HPX_WRAPPER
 
-
+EQUAL_GROUP

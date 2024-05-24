@@ -24,13 +24,13 @@ static void lexicographical_compare_std_wrapper(benchmark::State & state)
 
 #define LEXICOGRAPHICAL_COMPARE_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(lexicographical_compare_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::lexicographical_compare"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::lexicographical_compare"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define LEXICOGRAPHICAL_COMPARE_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(lexicographical_compare_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::lexicographical_compare"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::lexicographical_compare"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define LEXICOGRAPHICAL_COMPARE_STD_WRAPPER
@@ -48,7 +48,7 @@ static void lexicographical_compare_gnu_wrapper(benchmark::State & state)
 
 #define LEXICOGRAPHICAL_COMPARE_GNU_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(lexicographical_compare_gnu_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::lexicographical_compare"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("gnu::lexicographical_compare"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define LEXICOGRAPHICAL_COMPARE_GNU_WRAPPER
@@ -66,11 +66,12 @@ static void lexicographical_compare_hpx_wrapper(benchmark::State & state)
 
 #define LEXICOGRAPHICAL_COMPARE_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(lexicographical_compare_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::lexicographical_compare"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::lexicographical_compare"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define LEXICOGRAPHICAL_COMPARE_HPX_WRAPPER
 #endif
+//endregion lexicographical_compare_hpx
 
 #define LEXICOGRAPHICAL_COMPARE_GROUP   \
 	LEXICOGRAPHICAL_COMPARE_SEQ_WRAPPER \
@@ -78,4 +79,4 @@ static void lexicographical_compare_hpx_wrapper(benchmark::State & state)
 	LEXICOGRAPHICAL_COMPARE_GNU_WRAPPER \
 	LEXICOGRAPHICAL_COMPARE_HPX_WRAPPER
 
-
+LEXICOGRAPHICAL_COMPARE_GROUP

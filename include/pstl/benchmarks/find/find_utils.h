@@ -38,8 +38,7 @@ namespace benchmark_find
 			// random value in [0,size)
 			const auto value = get_value();
 
-			const auto output =
-			    pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, value);
+			const auto output = pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input, value);
 
 			// make sure the val is really found
 			assert(output == std::find(input.begin(), input.end(), value));
@@ -48,5 +47,3 @@ namespace benchmark_find
 		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_find
-
-

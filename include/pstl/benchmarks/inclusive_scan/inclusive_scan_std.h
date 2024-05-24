@@ -11,5 +11,3 @@ namespace benchmark_inclusive_scan
 		std::inclusive_scan(policy, input.begin(), input.end(), output.begin());
 	};
 } // namespace benchmark_inclusive_scan
-
-

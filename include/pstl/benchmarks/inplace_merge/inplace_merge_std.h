@@ -11,5 +11,3 @@ namespace benchmark_inplace_merge
 		return std::inplace_merge(policy, begin, middle, end);
 	};
 } // namespace benchmark_inplace_merge
-
-

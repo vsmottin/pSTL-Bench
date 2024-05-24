@@ -68,9 +68,12 @@ static void adjacent_find_hpx_wrapper(benchmark::State & state)
 #else
 #define ADJACENT_FIND_HPX_WRAPPER
 #endif
+//endregion adjacent_find_hpx
 
 #define ADJACENT_FIND_GROUP   \
 	ADJACENT_FIND_SEQ_WRAPPER \
 	ADJACENT_FIND_STD_WRAPPER \
 	ADJACENT_FIND_GNU_WRAPPER \
 	ADJACENT_FIND_HPX_WRAPPER
+
+ADJACENT_FIND_GROUP

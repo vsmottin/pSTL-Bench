@@ -19,13 +19,13 @@ static void copy_if_std_wrapper(benchmark::State & state)
 
 #define COPY_IF_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(copy_if_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::copy_if"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::copy_if"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define COPY_IF_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(copy_if_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::copy_if"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::copy_if"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define COPY_IF_STD_WRAPPER
@@ -42,12 +42,13 @@ static void copy_if_hpx_wrapper(benchmark::State & state)
 
 #define COPY_IF_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(copy_if_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::copy_if"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::copy_if"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define COPY_IF_HPX_WRAPPER
 #endif
+//endregion copy_if_hpx
 
 #define COPY_IF_GROUP COPY_IF_SEQ_WRAPPER COPY_IF_STD_WRAPPER COPY_IF_HPX_WRAPPER
 
-
+COPY_IF_GROUP

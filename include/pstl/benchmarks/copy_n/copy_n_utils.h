@@ -31,5 +31,3 @@ namespace benchmark_copy_n
 		state.SetBytesProcessed(pstl::computed_bytes(state, input, output));
 	}
 } // namespace benchmark_copy_n
-
-

@@ -8,5 +8,3 @@ namespace benchmark_adjacent_find
 		return __gnu_parallel::adjacent_find(input.begin(), input.end());
 	};
 } // namespace benchmark_adjacent_find
-
-

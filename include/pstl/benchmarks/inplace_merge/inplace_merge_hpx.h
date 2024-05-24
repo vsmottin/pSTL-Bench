@@ -8,5 +8,3 @@ namespace benchmark_inplace_merge
 		return hpx::inplace_merge(policy, begin, middle, end);
 	};
 } // namespace benchmark_inplace_merge
-
-

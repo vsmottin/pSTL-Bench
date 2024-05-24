@@ -34,5 +34,3 @@ namespace benchmark_inclusive_scan
 		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_inclusive_scan
-
-

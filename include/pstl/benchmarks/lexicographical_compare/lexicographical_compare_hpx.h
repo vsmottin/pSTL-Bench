@@ -8,5 +8,3 @@ namespace benchmark_lexicographical_compare
 		return hpx::lexicographical_compare(policy, data_a.begin(), data_a.end(), data_b.begin(), data_b.end());
 	};
 } // namespace benchmark_lexicographical_compare
-
-

@@ -26,8 +26,7 @@ namespace benchmark_inplace_merge
 			std::sort(input.begin(), middle);
 			std::sort(middle, input.end());
 
-			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input.begin(), middle,
-			                  input.end());
+			pstl::wrap_timing(state, std::forward<Function>(F), execution_policy, input.begin(), middle, input.end());
 
 			assert((std::is_sorted(input.begin(), input.end())));
 		}
@@ -35,5 +34,3 @@ namespace benchmark_inplace_merge
 		state.SetBytesProcessed(pstl::computed_bytes(state, input));
 	}
 } // namespace benchmark_inplace_merge
-
-

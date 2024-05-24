@@ -9,5 +9,3 @@ namespace benchmark_lexicographical_compare
 		return __gnu_parallel::lexicographical_compare(data_a.begin(), data_a.end(), data_b.begin(), data_b.end());
 	};
 } // namespace benchmark_lexicographical_compare
-
-

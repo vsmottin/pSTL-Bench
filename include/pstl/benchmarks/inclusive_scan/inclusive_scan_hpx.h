@@ -8,5 +8,3 @@ namespace benchmark_inclusive_scan
 		hpx::inclusive_scan(policy, input.begin(), input.end(), output.begin());
 	};
 } // namespace benchmark_inclusive_scan
-
-

@@ -19,13 +19,13 @@ static void includes_std_wrapper(benchmark::State & state)
 
 #define INCLUDES_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(includes_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::includes"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::includes"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define INCLUDES_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(includes_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::includes"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::includes"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define INCLUDES_STD_WRAPPER
@@ -42,15 +42,16 @@ static void includes_hpx_wrapper(benchmark::State & state)
 
 #define INCLUDES_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(includes_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::includes"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::includes"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define INCLUDES_HPX_WRAPPER
 #endif
+//endregion includes_hpx
 
 #define INCLUDES_GROUP   \
 	INCLUDES_SEQ_WRAPPER \
 	INCLUDES_STD_WRAPPER \
 	INCLUDES_HPX_WRAPPER
 
-
+INCLUDES_GROUP

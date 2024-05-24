@@ -8,5 +8,3 @@ namespace benchmark_adjacent_difference
 		hpx::adjacent_difference(policy, input.begin(), input.end(), output.begin());
 	};
 } // namespace benchmark_adjacent_difference
-
-

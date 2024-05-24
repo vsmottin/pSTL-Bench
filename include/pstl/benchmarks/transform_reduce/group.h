@@ -21,13 +21,13 @@ static void transform_reduce_std_wrapper(benchmark::State & state)
 
 #define TRANSFORM_REDUCE_SEQ_WRAPPER                                                    \
 	BENCHMARK_TEMPLATE1(transform_reduce_std_wrapper, std::execution::sequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::transform_reduce"))             \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME_WITH_BACKEND("SEQ", "std::transform_reduce"))  \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 
 #ifdef PSTL_BENCH_USE_PSTL
 #define TRANSFORM_REDUCE_STD_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_reduce_std_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::transform_reduce"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("std::transform_reduce"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_REDUCE_STD_WRAPPER
@@ -44,13 +44,16 @@ static void transform_reduce_hpx_wrapper(benchmark::State & state)
 
 #define TRANSFORM_REDUCE_HPX_WRAPPER                                                               \
 	BENCHMARK_TEMPLATE1(transform_reduce_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
-	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::transform_reduce"))                                            \
+	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::transform_reduce"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
 #define TRANSFORM_REDUCE_HPX_WRAPPER
 #endif
+//endregion transform_reduce_hpx
 
 #define TRANSFORM_REDUCE_GROUP   \
 	TRANSFORM_REDUCE_SEQ_WRAPPER \
 	TRANSFORM_REDUCE_STD_WRAPPER \
 	TRANSFORM_REDUCE_HPX_WRAPPER
+
+TRANSFORM_REDUCE_GROUP
