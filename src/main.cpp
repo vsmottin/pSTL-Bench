@@ -23,27 +23,15 @@ int main(int argc, char ** argv)
 	auto tbbThreadControl = init_tbb_thread_control();
 #endif
 
-	char   arg0_default[] = "benchmark";
-	char * args_default   = arg0_default;
-	if (argc == 0)
-	{
-		argc = 1;
-		argv = &args_default;
-	}
-
 	benchmark::AddCustomContext("std::thread::hardware_concurrency()",
 	                            std::to_string(std::thread::hardware_concurrency()));
 
-#ifdef PSTL_BENCH_USE_TBB
+#if defined(PSTL_BENCH_USE_TBB)
 	benchmark::AddCustomContext("tbb #threads", std::to_string(tbb::global_control::active_value(
 	                                                tbb::global_control::max_allowed_parallelism)));
-#endif
-
-#if defined(PSTL_BENCH_USE_OMP) or defined(PSTL_BENCH_USE_GNU_PSTL)
+#elif defined(PSTL_BENCH_USE_GNU_PSTL)
 	benchmark::AddCustomContext("omp #threads", std::to_string(omp_get_max_threads()));
-#endif
-
-#ifdef PSTL_BENCH_USE_HPX
+#elif defined(PSTL_BENCH_USE_HPX)
 	benchmark::AddCustomContext("hpx #threads", std::to_string(hpx::get_num_worker_threads()));
 #endif
 
@@ -65,5 +53,5 @@ int main(int argc, char ** argv)
 	LIKWID_MARKER_CLOSE;
 #endif
 
-	return 0;
+	return EXIT_SUCCESS;
 }
