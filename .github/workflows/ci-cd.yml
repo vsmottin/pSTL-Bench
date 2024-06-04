@@ -38,6 +38,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: pstl-bench/gcc:latest
+          options: --add-host=host.docker.internal:host-gateway
           run: |
             ls -lisah
             BUILD_FOLDER="build-gcc-seq"
