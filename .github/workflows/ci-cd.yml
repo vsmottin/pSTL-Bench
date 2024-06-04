@@ -38,7 +38,6 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: pstl-bench/gcc:latest
-          options: -it
           run: |
             BUILD_FOLDER="build-gcc-seq"
             PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_USE_PAR_ALLOC=OFF -DCMAKE_CXX_COMPILER=g++"
