@@ -39,12 +39,12 @@ jobs:
         with:
           image: pstl-bench/gcc:latest
           options: -it
-        run: |
-          BUILD_FOLDER="build-gcc-seq"
-          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_USE_PAR_ALLOC=OFF -DCMAKE_CXX_COMPILER=g++"
-          cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
-          cmake --build ${BUILD_FOLDER} -j
-          ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='/128/'
+          run: |
+            BUILD_FOLDER="build-gcc-seq"
+            PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_USE_PAR_ALLOC=OFF -DCMAKE_CXX_COMPILER=g++"
+            cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
+            cmake --build ${BUILD_FOLDER} -j
+            ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='/128/'
 
 #  builds-gcc2:
 #    runs-on: ubuntu-22.04
