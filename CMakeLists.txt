@@ -92,8 +92,6 @@ add_compile_definitions(PSTL_BENCH_BENCHMARK_PREFIX=${PSTL_BENCH_BENCHMARK_PREFI
 if (PSTL_BENCH_USE_PAR_ALLOC)
     message(STATUS "Using custom parallel allocator")
     add_compile_definitions(PSTL_BENCH_USE_PAR_ALLOC)
-    find_package(TBB REQUIRED)
-    list(APPEND LINK_LIBRARIES TBB::tbb)
 else ()
     message(STATUS "NOT using custom parallel allocator")
 endif ()
