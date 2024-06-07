@@ -33,7 +33,7 @@ To run pSTL-Bench, follow these steps:
 1. Clone the repository:
 
 ```shell
-git clone https://github.com/hunsa/pSTL-Bench.git
+git clone https://github.com/parlab-tuwien/pSTL-Bench.git
 ```
 
 2. Build the project with the desired parallel STL Backend
