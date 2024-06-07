@@ -1,3 +1,0 @@
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdpar")
-
-set(ONLY_GPU ON)

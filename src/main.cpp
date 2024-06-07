@@ -1,47 +1,57 @@
-#ifdef USE_TBB
-// we have the case that we use gcc. this means tbb will be used for parallel stl
-// potential thread limits have to be configured
-
-#include <tbb_thread_control.h>
-
+#ifdef PSTL_BENCH_USE_HPX
+#include <hpx/hpx_main.hpp>
 #endif
+
+#include <thread>
 
 #include <benchmark/benchmark.h>
-#include "benchmarks/nested_parallelism/b1_group.h"
-#include "benchmarks/sequential_fallback/b4_group.h"
-#include "benchmarks/specialized_techniques/b5_group.h"
-#include "benchmarks/optimization_scans/b6_group.h"
-#include "benchmarks/specific_versus_custom/b7_group.h"
-#include "benchmarks/index_based_iterations/b9_group.h"
 
-NESTED_PARALLELISM_GROUP
-SEQUENTIAL_FALLBACK_GROUP
-SPECIALIZED_TECHNIQUES_GROUP
-OPTIMIZED_SCAN_GROUP
-SPECIFIC_VS_CUSTOM_GROUP
-INDEX_BASED_ITERATIONS_GROUP
+#if defined(PSTL_BENCH_USE_TBB) or defined(PSTL_BENCH_USE_HPX)
+#include "pstl/utils/thread_control.h"
+#endif
+
+#ifdef PSTL_BENCH_USE_LIKWID
+#include <likwid-marker.h>
+#endif
+
+#include "pstl/benchmarks/pstl-benchmarks.h"
 
 // Run the benchmark
-int main(int argc, char **argv) {
-
-#ifdef USE_TBB
-    auto tbbThreadControl = init_tbb_thread_control();
+int main(int argc, char ** argv)
+{
+#ifdef PSTL_BENCH_USE_TBB
+	auto tbbThreadControl = init_tbb_thread_control();
 #endif
 
-    char arg0_default[] = "benchmark";
-    char *args_default = arg0_default;
-    if (!argv) {
-        argc = 1;
-        argv = &args_default;
-    }
-    benchmark::Initialize(&argc, argv);
-    if (benchmark::ReportUnrecognizedArguments(argc, argv)) return 1;
-    benchmark::RunSpecifiedBenchmarks();
-    benchmark::Shutdown();
+	benchmark::AddCustomContext("std::thread::hardware_concurrency()",
+	                            std::to_string(std::thread::hardware_concurrency()));
 
-#ifdef USE_TBB
-    tbbThreadControl = nullptr;
+#if defined(PSTL_BENCH_USE_TBB)
+	benchmark::AddCustomContext("tbb #threads", std::to_string(tbb::global_control::active_value(
+	                                                tbb::global_control::max_allowed_parallelism)));
+#elif defined(PSTL_BENCH_USE_GNU_PSTL)
+	benchmark::AddCustomContext("omp #threads", std::to_string(omp_get_max_threads()));
+#elif defined(PSTL_BENCH_USE_HPX)
+	benchmark::AddCustomContext("hpx #threads", std::to_string(hpx::get_num_worker_threads()));
 #endif
 
-    return 0;
+#ifdef PSTL_BENCH_USE_PAPI
+	benchmark::AddCustomContext("PAPI", "enabled");
+#endif
+
+#ifdef PSTL_BENCH_USE_LIKWID
+	benchmark::AddCustomContext("LIKWID", "enabled");
+	LIKWID_MARKER_INIT;
+#endif
+
+	benchmark::Initialize(&argc, argv);
+	if (benchmark::ReportUnrecognizedArguments(argc, argv)) { return 1; }
+	benchmark::RunSpecifiedBenchmarks();
+	benchmark::Shutdown();
+
+#ifdef PSTL_BENCH_USE_LIKWID
+	LIKWID_MARKER_CLOSE;
+#endif
+
+	return EXIT_SUCCESS;
 }

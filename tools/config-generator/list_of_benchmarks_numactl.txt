@@ -1,8 +1,0 @@
-# H9
-
-b7_1_copy_par/1048576
-b7_1_custom_copy_with_foreach_par/1048576
-b6_1_inclusive_scan_par/1048576
-b6_2_exclusive_scan_par/1048576
-b7_5_scalar_transform_number_par/1048576
-b7_5_scalar_for_each_par/1048576
