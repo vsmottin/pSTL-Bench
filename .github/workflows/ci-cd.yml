@@ -4,104 +4,56 @@ on:
   push: { } # Run this workflow on push events (all branches)
 
 jobs:
-  build-image:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Pull the code
-        uses: actions/checkout@v4
-
-      - name: Build and push the image
-        run: |
-          docker build -t pstl-bench/gcc:latest -f .docker/gcc.Dockerfile .
-          docker save -o /tmp/pstl-bench_gcc.tar pstl-bench/gcc:latest
-
-      - name: Upload image as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: pstl-bench_gcc
-          path: /tmp/pstl-bench_gcc.tar
-
   builds-gcc:
     runs-on: ubuntu-22.04
-    needs: [ build-image ]
+    container:
+      image: rlaso/pstl-bench_gcc_img:latest
+      options: -it
+
     steps:
-      - name: Download image artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: pstl-bench_gcc
-          path: /tmp
+      - name: Check for dockerenv file
+        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
 
-      - name: Load image
-        run: docker load -i /tmp/pstl-bench_gcc.tar
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: GCC Sequential
-        uses: addnab/docker-run-action@v3
-        with:
-          image: pstl-bench/gcc:latest
-          options: --add-host=host.docker.internal:host-gateway
-          run: |
-            ls -lisah
-            BUILD_FOLDER="build-gcc-seq"
-            PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_USE_PAR_ALLOC=OFF -DCMAKE_CXX_COMPILER=g++"
-            cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
-            cmake --build ${BUILD_FOLDER} -j
-            ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='/128/'
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-#  builds-gcc2:
-#    runs-on: ubuntu-22.04
-#    needs: [ load-image ]
-#    steps:
-#      - name: Download image artifact
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: pstl-bench_gcc
-#          path: /tmp
-#
-#      - name: Load image
-#        run: docker load -i /tmp/pstl-bench_gcc.tar
-#
-#      - name: Check for dockerenv file
-#        uses: addnab/docker-run-action@v1
-#        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
-#
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#
-#      - name: Build and run application (GCC-SEQ)
-#        run: |
-#          BUILD_FOLDER="build-gcc-seq"
-#          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_USE_PAR_ALLOC=OFF -DCMAKE_CXX_COMPILER=g++"
-#          cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
-#          cmake --build ${BUILD_FOLDER} -j
-#          ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='/128/'
-#
-#      - name: Build and run application (GCC-TBB)
-#        run: |
-#          . /opt/intel/oneapi/setvars.sh
-#          BUILD_FOLDER="build-gcc-tbb"
-#          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_BACKEND=TBB -DPSTL_BENCH_USE_PAR_ALLOC=ON -DCMAKE_CXX_COMPILER=g++"
-#          cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
-#          cmake --build ${BUILD_FOLDER} -j
-#          ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='TBB/.*/128/'
-#
-#      - name: Build and run application (GCC-GNU)
-#        run: |
-#          BUILD_FOLDER="build-gcc-gnu"
-#          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_BACKEND=GNU -DPSTL_BENCH_USE_PAR_ALLOC=ON -DCMAKE_CXX_COMPILER=g++"
-#          cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
-#          cmake --build ${BUILD_FOLDER} -j
-#          ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='OMP/.*/128/'
-#
-#      - name: Build and run application (GCC-HPX)
-#        run: |
-#          . /opt/spack/share/spack/setup-env.sh
-#          spack load hpx
-#          BUILD_FOLDER="build-gcc-hpx"
-#          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_BACKEND=HPX -DPSTL_BENCH_USE_PAR_ALLOC=OFF -DCMAKE_CXX_COMPILER=g++"
-#          cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
-#          cmake --build ${BUILD_FOLDER} -j
-#          ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='HPX/.*/128/'
-#
+      - name: Build and run application (GCC-SEQ)
+        run: |
+          BUILD_FOLDER="build-gcc-seq"
+          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_USE_PAR_ALLOC=OFF -DCMAKE_CXX_COMPILER=g++"
+          cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
+          cmake --build ${BUILD_FOLDER} -j
+          ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='/128/'
+
+      - name: Build and run application (GCC-TBB)
+        run: |
+          BUILD_FOLDER="build-gcc-tbb"
+          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_BACKEND=TBB -DPSTL_BENCH_USE_PAR_ALLOC=ON -DCMAKE_CXX_COMPILER=g++"
+          cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
+          cmake --build ${BUILD_FOLDER} -j
+          ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='TBB/.*/128/'
+
+      - name: Build and run application (GCC-GNU)
+        run: |
+          BUILD_FOLDER="build-gcc-gnu"
+          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_BACKEND=GNU -DPSTL_BENCH_USE_PAR_ALLOC=ON -DCMAKE_CXX_COMPILER=g++"
+          cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
+          cmake --build ${BUILD_FOLDER} -j
+          ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='OMP/.*/128/'
+
+      - name: Build and run application (GCC-HPX)
+        run: |
+          . /opt/spack/share/spack/setup-env.sh
+          spack load hpx
+          BUILD_FOLDER="build-gcc-hpx"
+          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_BACKEND=HPX -DPSTL_BENCH_USE_PAR_ALLOC=OFF -DCMAKE_CXX_COMPILER=g++"
+          cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
+          cmake --build ${BUILD_FOLDER} -j
+          ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='HPX/.*/128/'
+
 #  builds-icc:
 #    runs-on: ubuntu-22.04
 #    container:
@@ -155,4 +107,4 @@ jobs:
 #          PSTL_BUILD_OPTIONS="-DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_BACKEND=NVHPC_CUDA -DPSTL_BENCH_USE_PAR_ALLOC=ON -DCMAKE_CXX_COMPILER=nvc++"
 #          cmake . ${PSTL_BUILD_OPTIONS} -B ${BUILD_FOLDER}
 #          cmake --build ${BUILD_FOLDER} -j
-##          ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='CUDA/.*/128/'
+#          ./${BUILD_FOLDER}/pSTL-Bench --benchmark_min_time=1x --benchmark_filter='CUDA/.*/128/'

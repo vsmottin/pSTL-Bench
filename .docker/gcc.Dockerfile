@@ -5,15 +5,17 @@ FROM spack/ubuntu-jammy
 RUN apt-get update && apt-get upgrade -y
 RUN apt install -y build-essential cmake git wget curl
 
-# Install GCC-12
-RUN apt install -y gcc-12 g++-12
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100
+# Slow things first
+# Install HPX
+RUN spack install hpx
+
+# Install GCC-11
+RUN apt install -y gcc-11 g++-11
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 100
+RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 100
 
 # Install TBB
 RUN apt install -y libtbb-dev
-
-# Install HPX
-# RUN spack install hpx
 
 # Additional libraries
 RUN apt install -y libnuma-dev libbenchmark-dev
