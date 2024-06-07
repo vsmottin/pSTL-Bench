@@ -17,9 +17,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Build and run application (GCC-SEQ)
         run: |
           BUILD_FOLDER="build-gcc-seq"
