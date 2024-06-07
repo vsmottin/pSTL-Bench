@@ -1,6 +1,6 @@
 # pSTL-Bench
 
-pSTL-Bench is a comprehensive benchmark suite designed to assist developers in evaluating the most suitable parallel
+pSTL-Bench is a benchmark suite designed to assist developers in evaluating the most suitable parallel
 STL (Standard Template Library) backend for their needs.
 This tool allows developers to benchmark a wide variety of parallel primitives and offers the flexibility to choose the
 desired backend for execution during compile time.
@@ -32,16 +32,14 @@ To run pSTL-Bench, follow these steps:
 
 1. Clone the repository:
 
-[//]: # (TODO: Update the path to the repository)
-
 ```shell
-git clone https://github.com/diegokrupitza/pSTL-Bench.git 
+git clone https://github.com/hunsa/pSTL-Bench.git
 ```
 
 2. Build the project with the desired parallel STL Backend
 
 ```shell
-cmake -DPSTL_BENCH_BACKEND=TBB -DCMAKE_CXX_COMPILER=g++ -S . -B ./cmake-build-gcc
+cmake -DCMAKE_BUILD_TYPE=Release -DPSTL_BENCH_BACKEND=TBB -DCMAKE_CXX_COMPILER=g++ -S . -B ./cmake-build-gcc
 cmake --build cmake-build-gcc/ --target pSTL-Bench
 ```
 
@@ -91,7 +89,7 @@ Other environment variables that can be used are:
 If you use pSTL-Bench in your research, please cite the following papers:
 
 ```bibtex
-@misc{laso2024pstlbench,
+@misc{pstlbench2024,
       title={{pSTL-Bench}: A Micro-Benchmark Suite for Assessing Scalability of {C++} Parallel {STL} Implementations},
       author={Ruben Laso and Diego Krupitza and Sascha Hunold},
       year={2024},
