@@ -62,7 +62,7 @@ static void adjacent_find_hpx_wrapper(benchmark::State & state)
 }
 
 #define ADJACENT_FIND_HPX_WRAPPER                                                               \
-	BENCHMARK_TEMPLATE1(adjacent_find_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	BENCHMARK_TEMPLATE1(adjacent_find_hpx_wrapper, hpx::execution::parallel_unsequenced_policy) \
 	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::adjacent_find"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else

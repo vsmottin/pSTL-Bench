@@ -41,7 +41,7 @@ static void copy_if_hpx_wrapper(benchmark::State & state)
 }
 
 #define COPY_IF_HPX_WRAPPER                                                               \
-	BENCHMARK_TEMPLATE1(copy_if_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	BENCHMARK_TEMPLATE1(copy_if_hpx_wrapper, hpx::execution::parallel_unsequenced_policy) \
 	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::copy_if"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else

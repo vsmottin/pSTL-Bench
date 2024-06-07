@@ -65,7 +65,7 @@ static void lexicographical_compare_hpx_wrapper(benchmark::State & state)
 }
 
 #define LEXICOGRAPHICAL_COMPARE_HPX_WRAPPER                                                               \
-	BENCHMARK_TEMPLATE1(lexicographical_compare_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	BENCHMARK_TEMPLATE1(lexicographical_compare_hpx_wrapper, hpx::execution::parallel_unsequenced_policy) \
 	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::lexicographical_compare"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else

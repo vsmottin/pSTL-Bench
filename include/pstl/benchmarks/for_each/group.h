@@ -64,7 +64,7 @@ static void for_each_hpx_wrapper(benchmark::State & state)
 }
 
 #define FOR_EACH_HPX_WRAPPER                                                               \
-	BENCHMARK_TEMPLATE1(for_each_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	BENCHMARK_TEMPLATE1(for_each_hpx_wrapper, hpx::execution::parallel_unsequenced_policy) \
 	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::for_each"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else

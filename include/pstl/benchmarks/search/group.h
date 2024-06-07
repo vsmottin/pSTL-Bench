@@ -62,7 +62,7 @@ static void search_hpx_wrapper(benchmark::State & state)
 }
 
 #define SEARCH_HPX_WRAPPER                                                               \
-	BENCHMARK_TEMPLATE1(search_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	BENCHMARK_TEMPLATE1(search_hpx_wrapper, hpx::execution::parallel_unsequenced_policy) \
 	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::search"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else

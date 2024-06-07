@@ -62,7 +62,7 @@ static void min_element_hpx_wrapper(benchmark::State & state)
 }
 
 #define MIN_ELEMENT_HPX_WRAPPER                                                               \
-	BENCHMARK_TEMPLATE1(min_element_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	BENCHMARK_TEMPLATE1(min_element_hpx_wrapper, hpx::execution::parallel_unsequenced_policy) \
 	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::min_element"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else

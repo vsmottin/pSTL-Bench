@@ -16,6 +16,10 @@
 #include <execution>
 #include <limits>
 
+#if defined(PSTL_BENCH_USE_GNU)
+#include <parallel/algorithm>
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // WARNING: This class is highly experimental, it might not do what you expect
@@ -77,7 +81,12 @@ namespace pstl
 			pointer end   = begin + cnt;
 
 			// touch first byte of every object using the given strategy
+#if defined(PSTL_BENCH_USE_GNU)
+			__gnu_parallel::for_each(begin, end, [](T & val) { *reinterpret_cast<char *>(&val) = 0; });
+#else
 			std::for_each(execution_policy, begin, end, [](T & val) { *reinterpret_cast<char *>(&val) = 0; });
+#endif
+
 
 			// return the overall memory block
 			return p;

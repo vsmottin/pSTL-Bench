@@ -62,7 +62,7 @@ static void equal_hpx_wrapper(benchmark::State & state)
 }
 
 #define EQUAL_HPX_WRAPPER                                                               \
-	BENCHMARK_TEMPLATE1(equal_hpx_wrapper, std::execution::parallel_unsequenced_policy) \
+	BENCHMARK_TEMPLATE1(equal_hpx_wrapper, hpx::execution::parallel_unsequenced_policy) \
 	    ->Name(PSTL_BENCH_BENCHMARK_NAME("hpx::equal"))                                 \
 	    ->PSTL_BENCH_BENCHMARK_PARAMETERS
 #else
