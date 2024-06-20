@@ -89,13 +89,23 @@ Other environment variables that can be used are:
 If you use pSTL-Bench in your research, please cite the following papers:
 
 ```bibtex
-@misc{pstlbench2024,
-      title={{pSTL-Bench}: A Micro-Benchmark Suite for Assessing Scalability of {C++} Parallel {STL} Implementations},
-      author={Ruben Laso and Diego Krupitza and Sascha Hunold},
-      year={2024},
-      eprint={2402.06384},
-      archivePrefix={arXiv},
-      primaryClass={cs.DC}
+@inproceedings{
+  pstlbench-icpp24,
+  title={Exploring Scalability in {C++} Parallel {STL} Implementations},
+  author={Ruben Laso and Diego Krupitza and Sascha Hunold},
+  booktitle={Proceedings of the 2024 International Conference on Parallel Processing},
+  year={2024},
+  doi={10.1145/3673038.3673065}
+}
+
+@misc{
+  pstlbench2024,
+  title={{pSTL-Bench}: A Micro-Benchmark Suite for Assessing Scalability of {C++} Parallel {STL} Implementations},
+  author={Ruben Laso and Diego Krupitza and Sascha Hunold},
+  year={2024},
+  eprint={2402.06384},
+  archivePrefix={arXiv},
+  primaryClass={cs.DC}
 }
 ```
 
