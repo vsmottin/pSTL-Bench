@@ -103,7 +103,7 @@ if (NOT DEFINED ${PSTL_BENCH_MIN_INPUT_SIZE})
 endif ()
 
 if (NOT DEFINED ${PSTL_BENCH_MAX_INPUT_SIZE})
-    set(PSTL_BENCH_MAX_INPUT_SIZE 1073741824 CACHE STRING "Maximum input size (#elements) for the benchmarks")
+    set(PSTL_BENCH_MAX_INPUT_SIZE 1048576 CACHE STRING "Maximum input size (#elements) for the benchmarks")
 endif ()
 
 add_compile_definitions(PSTL_BENCH_MIN_INPUT_SIZE=${PSTL_BENCH_MIN_INPUT_SIZE})
