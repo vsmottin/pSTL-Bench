@@ -99,11 +99,11 @@ endif ()
 
 # region input size
 if (NOT DEFINED ${PSTL_BENCH_MIN_INPUT_SIZE})
-    set(PSTL_BENCH_MIN_INPUT_SIZE 8 CACHE STRING "Minimum input size (#elements) for the benchmarks")
+    set(PSTL_BENCH_MIN_INPUT_SIZE 1024 CACHE STRING "Minimum input size (#elements) for the benchmarks")
 endif ()
 
 if (NOT DEFINED ${PSTL_BENCH_MAX_INPUT_SIZE})
-    set(PSTL_BENCH_MAX_INPUT_SIZE 1048576 CACHE STRING "Maximum input size (#elements) for the benchmarks")
+    set(PSTL_BENCH_MAX_INPUT_SIZE 33554432 CACHE STRING "Maximum input size (#elements) for the benchmarks")
 endif ()
 
 add_compile_definitions(PSTL_BENCH_MIN_INPUT_SIZE=${PSTL_BENCH_MIN_INPUT_SIZE})

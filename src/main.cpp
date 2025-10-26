@@ -6,6 +6,8 @@
 
 #include <benchmark/benchmark.h>
 
+#include <execution> 
+
 #if defined(PSTL_BENCH_USE_TBB) or defined(PSTL_BENCH_USE_HPX)
 #include "pstl/utils/thread_control.h"
 #endif
